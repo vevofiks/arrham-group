@@ -3,8 +3,10 @@ import Hero from './components/Hero'
 import About from './components/About'
 import ServiceCard from './components/Services'
 import { servicesData } from './data'
+import Contact from './components/Contact'
+import Footer from './components/Footer'
 
-const page = () => {
+const Page = () => {
   return (
     <div>
       <Hero />
@@ -31,8 +33,10 @@ const page = () => {
           </div>
         </div>
       </div>
+      <Contact />
+      <Footer />
     </div>
   )
 }
 
-export default page
+export default Page
