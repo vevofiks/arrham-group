@@ -4,6 +4,12 @@ import React, { useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowRight, ChevronDown, Play } from "lucide-react";
 import Image from "next/image";
+import { Montserrat as MontserratFont } from "next/font/google";
+
+const montserrat = MontserratFont({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+});
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -29,18 +35,6 @@ const Hero = () => {
     },
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
-  };
-
   const backgroundVariants = {
     hidden: { scale: 1.1, opacity: 0 },
     visible: {
@@ -54,7 +48,10 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative h-screen flex items-center justify-center text-center px-6 md:px-24 overflow-hidden">
+    <section
+      id="hero"
+      className="relative h-screen flex items-center justify-center text-center px-6 md:px-24 overflow-hidden"
+    >
       <motion.div
         className="absolute inset-0"
         style={{ y: yBg }}
@@ -92,7 +89,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-white text-4xl md:text-6xl font-extrabold font-sans leading-tight tracking-tight"
+          className={`text-white text-4xl md:text-6xl font-extrabold font-sans leading-tight tracking-wide ${montserrat.className}`}
         >
           <span className="block">Building a Smarter Future,</span>
           <span className="block bg-gradient-to-r from-lgreen to-teal-400 text-transparent bg-clip-text">
@@ -151,7 +148,6 @@ const Hero = () => {
           </motion.a>
         </motion.div>
       </div>
-
 
       <motion.button
         onClick={(e) => handleScroll("#about", e)}

@@ -126,7 +126,6 @@ const About = ({
       id="about"
       className="relative text-white py-20 lg:py-32 overflow-hidden"
     >
-      {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute top-20 right-10 w-64 h-64 bg-lgreen/5 rounded-full blur-3xl"
@@ -181,7 +180,6 @@ const About = ({
             <div className="absolute -inset-4 bg-gradient-to-r from-lgreen/20 to-teal-500/20 rounded-3xl -z-10 opacity-50 blur-xl" />
           </motion.div>
 
-          {/* Enhanced Content Section */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -256,7 +254,7 @@ const About = ({
                 whileTap={{ scale: 0.98 }}
                 className="group inline-flex items-center gap-3 bg-gradient-to-r from-lgreen to-teal-500 text-black px-8 py-4 rounded-2xl font-semibold transition-all duration-300 hover:shadow-2xl hover:shadow-lgreen/25 focus:outline-none"
               >
-                <span>Learn More About Our Services</span>
+                <span>Learn More About Us</span>
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </motion.button>
             </motion.div>

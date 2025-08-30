@@ -1,20 +1,21 @@
 import { Eye, Target, Award, Users, Zap, Facebook, Twitter, Linkedin, Instagram, } from "lucide-react";
 
 const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About Us", href: "#about" },
+    { name: "Home", href: "#home", path: "/" },
+    { name: "About Us", href: "#about", path: "/about-us" },
     {
         name: "Services",
         href: "#services",
+        path: "/services",
         subLinks: [
-            { name: "Commercial Window", href: "#commercial" },
-            { name: "Architectural", href: "#architectural" },
-            { name: "Renewable Energy", href: "#renewable" },
-            { name: "Automotive", href: "#automotive" },
-            { name: "3M Products", href: "#3m-products" },
+            { name: "Commercial Window", href: "#commercial", path: "/services" },
+            { name: "Architectural", href: "#architectural", path: "/services" },
+            { name: "Renewable Energy", href: "#renewable", path: "/services" },
+            { name: "Automotive", href: "#automotive", path: "/services" },
+            { name: "3M Products", href: "#3m-products", path: "/services" },
         ],
     }, ,
-    { name: "Contact", href: "#contact" },
+    { name: "Contact", href: "#contact", path: "/" },
 ];
 
 const servicesData = [
