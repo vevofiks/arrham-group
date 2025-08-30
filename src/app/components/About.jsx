@@ -1,37 +1,79 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import { motion, useInView, useMotionValue, useSpring } from "motion/react";
-import Image from "next/image";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
-  Award,
-  Users,
-  Zap,
-  Target,
-  ArrowRight,
-  Play,
-  CheckCircle,
-  Sparkles,
-} from "lucide-react";
+  motion,
+  useInView,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "motion/react";
+import Image from "next/image";
+import { ArrowRight, Play, CheckCircle } from "lucide-react";
+import { stats } from "../data";
+
+const AnimatedCounter = React.memo(
+  ({ value, suffix = "", prifix = "", shouldAnimate }) => {
+    const count = useMotionValue(0);
+    const springValue = useSpring(count, { stiffness: 100, damping: 30 });
+    const rounded = useTransform(springValue, (latest) => Math.floor(latest));
+    const [hasAnimated, setHasAnimated] = useState(false);
+
+    useEffect(() => {
+      if (shouldAnimate && !hasAnimated) {
+        count.set(value);
+        setHasAnimated(true);
+      }
+    }, [shouldAnimate, value, count, hasAnimated]);
+
+    return (
+      <span className="text-3xl sm:text-4xl font-bold text-lgreen">
+        {prifix}
+        <motion.span>{rounded}</motion.span>
+        {suffix}
+      </span>
+    );
+  }
+);
+
+AnimatedCounter.displayName = "AnimatedCounter";
 
 const About = ({
   image = "/hero2.png",
   companyName = "Arrham Group",
   title = "About",
-  accentColor = "emerald",
-  stats = [
-    { number: 150, suffix: "+", label: "Projects Completed", icon: Award },
-    { number: 50, suffix: "+", label: "Happy Clients", icon: Users },
-    { number: 10, suffix: "+", label: "Years Experience", icon: Zap },
-    { number: 99, suffix: "%", label: "Success Rate", icon: Target },
-  ],
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [hoveredStat, setHoveredStat] = useState(null);
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const [shouldAnimateStats, setShouldAnimateStats] = useState(false);
 
-  // Enhanced animation variants
+  const sectionRef = useRef(null);
+  const statsRef = useRef(null);
+
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const statsInView = useInView(statsRef, {
+    once: true,
+    margin: "-50px",
+    amount: 0.3,
+  });
+
+  useEffect(() => {
+    if (statsInView && !shouldAnimateStats) {
+      const timer = setTimeout(() => {
+        setShouldAnimateStats(true);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [statsInView, shouldAnimateStats]);
+
+  const handleStatHoverStart = useCallback((index) => {
+    setHoveredStat(index);
+  }, []);
+
+  const handleStatHoverEnd = useCallback(() => {
+    setHoveredStat(null);
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -67,29 +109,6 @@ const About = ({
         ease: "easeOut",
       },
     },
-  };
-
-  // Counter animation component
-  const AnimatedCounter = ({ value, suffix = "" }) => {
-    const count = useMotionValue(0);
-    const rounded = useSpring(count, {
-      stiffness: 100,
-      damping: 30,
-      duration: 2000,
-    });
-
-    React.useEffect(() => {
-      if (isInView) {
-        count.set(value);
-      }
-    }, [count, value, isInView]);
-
-    return (
-      <motion.span className="text-3xl sm:text-4xl font-bold text-lgreen">
-        {Math.round(rounded.get())}
-        {suffix}
-      </motion.span>
-    );
   };
 
   const keyFeatures = [
@@ -129,7 +148,6 @@ const About = ({
 
       <div className="relative max-w-7xl mx-auto px-6 sm:px-12 lg:px-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Enhanced Image Section */}
           <motion.div
             variants={imageVariants}
             initial="hidden"
@@ -147,18 +165,6 @@ const About = ({
               />
 
               <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-black/60" />
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={imageLoaded ? { opacity: 1, scale: 1 } : {}}
-                transition={{ delay: 0.5, duration: 0.6 }}
-                className="absolute top-6 right-6 bg-black/80 backdrop-blur-sm border border-lgreen/30 rounded-2xl px-4 py-3"
-              >
-                <div className="flex items-center gap-2 text-lgreen">
-                  <Award className="w-5 h-5" />
-                  <span className="font-semibold text-sm">Industry Leader</span>
-                </div>
-              </motion.div>
 
               <motion.button
                 initial={{ opacity: 0, scale: 0 }}
@@ -258,6 +264,7 @@ const About = ({
         </div>
 
         <motion.div
+          ref={statsRef}
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -274,22 +281,25 @@ const About = ({
                     scale: 1.05,
                     y: -5,
                   }}
-                  onHoverStart={() => setHoveredStat(index)}
-                  onHoverEnd={() => setHoveredStat(null)}
+                  onHoverStart={() => handleStatHoverStart(index)}
+                  onHoverEnd={handleStatHoverEnd}
                   className={`text-center p-6 rounded-2xl transition-all duration-300 cursor-pointer ${
                     hoveredStat === index
                       ? "bg-lgreen/10 border border-lgreen/30"
                       : "bg-white/5 border border-white/10"
                   }`}
                 >
-                  <motion.div
-                    className="inline-flex items-center justify-center w-12 h-12 bg-lgreen/20 rounded-xl mb-4"
-                  >
+                  <motion.div className="inline-flex items-center justify-center w-12 h-12 bg-lgreen/20 rounded-xl mb-4">
                     <Icon className="w-6 h-6 text-lgreen" />
                   </motion.div>
 
                   <div className="mb-2">
-                    <AnimatedCounter value={stat.number} suffix={stat.suffix} />
+                    <AnimatedCounter
+                      value={stat.number}
+                      suffix={stat.suffix}
+                      prifix={stat.prifix}
+                      shouldAnimate={shouldAnimateStats}
+                    />
                   </div>
 
                   <p className="text-white/70 text-sm font-medium">

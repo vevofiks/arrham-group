@@ -90,18 +90,18 @@ const Navbar = () => {
       <motion.nav
         variants={navbarVariants}
         animate={isScrolled ? "solid" : "transparent"}
-        className={`fixed top-0 left-0 right-0 z-50 px-24 py-4 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 px-10 md:px-24 py-8 transition-all duration-300 ${
           isScrolled ? "shadow-lg" : ""
         }`}
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="max-w-7xl mx-auto flex items-center justify-between ">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             className="text-2xl font-bold text-white"
           >
-            <img src="/arrham.png" alt="logo" width={170} height={170} />
+            <img src="/arrham2.png" alt="logo" width={170} height={170} />
           </motion.div>
 
           <div className="hidden md:flex items-center space-x-8">
@@ -127,7 +127,6 @@ const Navbar = () => {
                     </span>
                   )}
                 </motion.button>
-
 
                 {link.subLinks && openDropdown === link.name && (
                   <div className="absolute left-0 mt-2 bg-black text-white  rounded-lg shadow-lg w-56 border border-white/20 z-50">
