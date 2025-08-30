@@ -152,7 +152,7 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      {/* Scroll Down Indicator */}
+
       <motion.button
         onClick={(e) => handleScroll("#about", e)}
         initial={{ opacity: 0, y: 20 }}
