@@ -61,14 +61,15 @@ const servicesData = [
 ];
 
 export const AboutData = [
-    { title: "Our Vision",
-      content: "To be a global leader in engineering, construction, and automotive services, recognized for our commitment to innovation, quality, and sustainability.",
-      icon: Eye
+    {
+        title: "Our Vision",
+        content: "To be a global leader in engineering, construction, and automotive services, recognized for our commitment to innovation, quality, and sustainability.",
+        icon: Eye
     },
-    { 
-      title: "Our Mission",
-      content: "To deliver exceptional engineering and automotive solutions that exceed client expectations through innovation, expertise, and a dedication to sustainability.",
-      icon: Target
+    {
+        title: "Our Mission",
+        content: "To deliver exceptional engineering and automotive solutions that exceed client expectations through innovation, expertise, and a dedication to sustainability.",
+        icon: Target
     },
 ];
 
