@@ -1,4 +1,4 @@
-import { Award, Target, Users, Zap, Facebook, Twitter, Linkedin, Instagram, } from "lucide-react";
+import { Eye, Target, Award, Users, Zap, Facebook, Twitter, Linkedin, Instagram, } from "lucide-react";
 
 const navLinks = [
     { name: "Home", href: "#home" },
@@ -56,6 +56,18 @@ const servicesData = [
             "3M DI-NOC Architectural Finish Wood Grain – Wall and Furniture Application Service",
         description:
             "Comprehensive sourcing and installation of quality materials, including:...",
+    },
+];
+
+export const AboutData = [
+    { title: "Our Vision",
+      content: "To be a global leader in engineering, construction, and automotive services, recognized for our commitment to innovation, quality, and sustainability.",
+      icon: Eye
+    },
+    { 
+      title: "Our Mission",
+      content: "To deliver exceptional engineering and automotive solutions that exceed client expectations through innovation, expertise, and a dedication to sustainability.",
+      icon: Target
     },
 ];
 
