@@ -70,13 +70,14 @@ const Navbar = () => {
 
   const handleLinkClick = (path, href) => {
     setIsMobileMenuOpen(false);
+  
     if (pathname === path) {
       const element = document.querySelector(href);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      router.push(`${path}${href}`)
+      router.push(path + href);
     }
   };
 
