@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, ChevronDown, ChevronUp } from "lucide-react";
 import { Montserrat as MontserratFont } from "next/font/google";
+import { usePathname, useRouter } from "next/navigation";
 
 const montserrat = MontserratFont({
   subsets: ["latin"],
@@ -15,10 +16,13 @@ const montserrat = MontserratFont({
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropDown] = useState(null);
+  const [openDropdown, setDropdown] = useState(null);
 
-  const toggleDropDown = (name) => {
-    setOpenDropDown((prev) => (prev === name ? null : name));
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const toggleDropdown = (name) => {
+    setDropdown((prev) => (prev === name ? null : name));
   };
 
   useEffect(() => {
@@ -64,24 +68,15 @@ const Navbar = () => {
     },
   };
 
-  const menuItemVariants = {
-    closed: {
-      opacity: 0,
-      x: -20,
-      transition: { duration: 0.2 },
-    },
-    open: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.2 },
-    },
-  };
-
-  const handleLinkClick = (href) => {
+  const handleLinkClick = (path, href) => {
     setIsMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    if (pathname === path) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      router.push(`${path}${href}`)
     }
   };
 
@@ -90,8 +85,8 @@ const Navbar = () => {
       <motion.nav
         variants={navbarVariants}
         animate={isScrolled ? "solid" : "transparent"}
-        className={`fixed top-0 left-0 right-0 z-50 px-10 md:px-24 py-8 transition-all duration-300 ${
-          isScrolled ? "shadow-lg" : ""
+        className={`fixed top-0 left-0 right-0 z-50 px-10 md:px-24 py-8 transition-all duration-300  ${
+          isScrolled ? "shadow-lg border-b-lgreen" : ""
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between ">
@@ -108,21 +103,23 @@ const Navbar = () => {
             {navLinks.map((link, index) => (
               <div key={link.name} className="relative">
                 <motion.button
-                  onClick={() => toggleDropDown(link.name)}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => handleLinkClick(link.path, link.href)}
                   className={`${montserrat.className} flex items-center gap-1 text-white hover:text-lgreen font-medium transition-colors duration-200`}
                 >
                   {link.name}
                   {link.subLinks && (
                     <span className="text-xs">
                       {openDropdown === link.name ? (
-                        <ChevronUp />
+                        <ChevronUp onClick={() => toggleDropdown(null)} />
                       ) : (
-                        <ChevronDown />
+                        <ChevronDown
+                          onClick={() => toggleDropdown(link.name)}
+                        />
                       )}
                     </span>
                   )}
@@ -134,11 +131,11 @@ const Navbar = () => {
                       <a
                         key={sub.name}
                         href={sub.href}
-                        className="block px-4 py-2 text-sm hover:bg-lgreen/20 hover:text-lgreen"
+                        className={`${montserrat.className} block px-4 py-2 text-sm hover:bg-lgreen/20 hover:text-lgreen`}
                         onClick={(e) => {
                           e.preventDefault();
-                          handleLinkClick(sub.href);
-                          setOpenDropDown(null);
+                          handleLinkClick(link.path, sub.href);
+                          setDropdown(null);
                         }}
                       >
                         {sub.name}
@@ -179,9 +176,9 @@ const Navbar = () => {
                     <button
                       onClick={() => {
                         if (link.subLinks) {
-                          toggleDropDown(link.name);
+                          toggleDropdown(link.name);
                         } else {
-                          handleLinkClick(link.href);
+                          handleLinkClick(link.path, link.href);
                           setIsMobileMenuOpen(false);
                         }
                       }}
@@ -208,7 +205,7 @@ const Navbar = () => {
                             className="block px-4 py-2 text-sm text-white hover:text-lgreen hover:bg-lgreen/10 rounded-lg"
                             onClick={(e) => {
                               e.preventDefault();
-                              handleLinkClick(sub.href);
+                              handleLinkClick(link.path, sub.href);
                               setIsMobileMenuOpen(false);
                             }}
                           >

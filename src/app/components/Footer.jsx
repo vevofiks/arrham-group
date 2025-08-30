@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
@@ -20,7 +20,7 @@ const Footer = () => {
   };
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const containerVariants = {
@@ -29,9 +29,9 @@ const Footer = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-        duration: 0.6
-      }
-    }
+        duration: 0.6,
+      },
+    },
   };
 
   const itemVariants = {
@@ -39,21 +39,24 @@ const Footer = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   return (
-    <footer className="relative  text-white overflow-hidden">
+    <footer id="footer" className="relative  text-white overflow-hidden">
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgb(255,255,255) 1px, transparent 0)`,
-          backgroundSize: '40px 40px'
-        }}></div>
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgb(255,255,255) 1px, transparent 0)`,
+            backgroundSize: "40px 40px",
+          }}
+        ></div>
       </div>
-      
+
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-lgreen via-teal-400 to-cyan-400"></div>
-      
+
       <div className="relative pt-20 pb-6 px-6 md:px-12 lg:px-20">
         <motion.div
           variants={containerVariants}
@@ -63,7 +66,6 @@ const Footer = () => {
           className="max-w-7xl mx-auto"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-            
             {/* Company Info */}
             <motion.div variants={itemVariants} className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-6">
@@ -76,12 +78,17 @@ const Footer = () => {
                   />
                 </div>
               </div>
-              
+
               <p className="text-white/80 leading-relaxed mb-6 text-sm lg:text-base max-w-md">
                 Arrham Group is a dynamic and innovative leader in{" "}
-                <span className="text-lgreen font-semibold">Engineering & Construction</span>{" "}
-                and <span className="text-teal-400 font-semibold">Automotive Services</span>, 
-                delivering exceptional quality and cutting-edge solutions.
+                <span className="text-lgreen font-semibold">
+                  Engineering & Construction
+                </span>{" "}
+                and{" "}
+                <span className="text-teal-400 font-semibold">
+                  Automotive Services
+                </span>
+                , delivering exceptional quality and cutting-edge solutions.
               </p>
 
               {/* Contact Info */}
@@ -96,9 +103,7 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center gap-3 text-white/70 hover:text-lgreen transition-colors">
                   <Mail className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-sm">info@arrhamtrading.com
-
-</span>
+                  <span className="text-sm">info@arrhamtrading.com</span>
                 </div>
               </div>
             </motion.div>
@@ -116,7 +121,7 @@ const Footer = () => {
                   { name: "Architectural", href: "/architectural" },
                   { name: "Commercial Window", href: "/commercial-window" },
                   { name: "MEP Services", href: "/mep" },
-                  { name: "About Us", href: "/about" }
+                  { name: "About Us", href: "/about" },
                 ].map((link, index) => (
                   <li key={index}>
                     <a
@@ -138,13 +143,15 @@ const Footer = () => {
                 <div className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-lgreen to-lgreen/50"></div>
               </h3>
               <p className="text-white/70 text-sm mb-6 leading-relaxed">
-                Subscribe to receive updates about our latest projects and services.
+                Subscribe to receive updates about our latest projects and
+                services.
               </p>
-              
+
               <div className="mb-6">
                 <div className="relative">
                   <input
                     type="email"
+                    required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Your email address"
@@ -153,18 +160,23 @@ const Footer = () => {
                   <button
                     onClick={handleSubscribe}
                     disabled={isSubscribed}
+                    type="submit"
                     className="absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-lgreen to-teal-500 px-4 py-2 rounded-lg text-black font-semibold hover:shadow-lg hover:shadow-lgreen/25 transition-all disabled:opacity-50 text-sm"
                   >
                     {isSubscribed ? "✓" : <Mail className="w-4 h-4" />}
                   </button>
                 </div>
                 {isSubscribed && (
-                  <p className="text-lgreen text-xs mt-2">Successfully subscribed!</p>
+                  <p className="text-lgreen text-xs mt-2">
+                    Successfully subscribed!
+                  </p>
                 )}
               </div>
 
               <div className="space-y-4">
-                <h4 className="text-sm font-semibold text-white/80">Follow Us</h4>
+                <h4 className="text-sm font-semibold text-white/80">
+                  Follow Us
+                </h4>
                 <div className="flex items-center gap-3">
                   {socialIcons.map((social, index) => (
                     <motion.a
@@ -189,14 +201,15 @@ const Footer = () => {
           >
             <div className="text-center md:text-left">
               <p className="text-white/60 text-sm">
-                © {new Date().getFullYear()} Arrham Trading and Contracting. All rights reserved.
+                © {new Date().getFullYear()} Arrham Trading and Contracting. All
+                rights reserved.
               </p>
               <p className="text-white/40 text-xs mt-1">
                 Website developed by{" "}
                 <span className="text-lgreen font-medium">Vevofliks</span>
               </p>
             </div>
-            
+
             <motion.button
               onClick={scrollToTop}
               className="p-3 bg-gradient-to-r from-lgreen to-teal-500 rounded-full text-black hover:shadow-lg hover:shadow-lgreen/25 transition-all"
