@@ -72,6 +72,7 @@ const Footer = () => {
                   src="/arrham2.png"
                   width={160}
                   height={160}
+                  alt="Arrham Group Logo"
                   />
                 </div>
               </div>
