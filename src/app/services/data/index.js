@@ -52,7 +52,7 @@ const servicesData = [
         ],
     },
     {
-        id: "3m-products",
+        id: "products-3m",
         title: "3M Products & Applications",
         description:
             "As a trusted 3M partner, we offer a wide range of innovative 3M products designed for automotive, architectural, and industrial applications.",
