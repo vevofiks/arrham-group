@@ -12,7 +12,7 @@ const navLinks = [
             { name: "Architectural", href: "#architectural", path: "/services" },
             { name: "Renewable Energy", href: "#renewable", path: "/services" },
             { name: "Automotive", href: "#automotive", path: "/services" },
-            { name: "3M Products", href: "#3m-products", path: "/services" },
+            { name: "3M Products", href: "#products-3m", path: "/services" },
         ],
     }, ,
     { name: "Contact", href: "#contact", path: "/" },

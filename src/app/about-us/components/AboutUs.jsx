@@ -13,13 +13,13 @@ export default function AboutUs() {
         title: "Engineering & Construction",
         text: "Innovative solutions for modern infrastructure",
         color: "emerald",
-        icon: <Wrench className="w-6 h-6 text-emerald-400 inline" />
+        icon: <Wrench className="text-emerald-400 inline" size={40} />
         },
         {
         title: "Automotive Services",
         text: "Comprehensive automotive care and solutions",
         color: "emerald",
-        icon: <Car className="inline w-6 h-6 text-emerald-400 " />
+        icon: <Car className="inline text-emerald-400 " size={40} />
         }
     ];
    return (
@@ -82,12 +82,11 @@ export default function AboutUs() {
                   transition={{ duration: 0.6, delay: 0.6 }}
                   viewport={{ once: true }}
                   >
-                  {CompanyName}
-                </motion.span>
-                <motion.div
-                  className="w-24 h-1.5 bg-gradient-to-r from-lgreen to-teal-400 mt-6 rounded-full"
-                />
-                            
+                    {CompanyName}
+                  </motion.span>
+                  <motion.div
+                    className="w-24 h-1.5 bg-gradient-to-r from-lgreen to-teal-400 mt-6 rounded-full"
+                  />
                 </h2>
             </motion.div>
 
@@ -155,11 +154,11 @@ export default function AboutUs() {
                 onHoverStart={() => setHoveredCard(index)}
                 onHoverEnd={() => setHoveredCard(null)}
                 transition={{ duration: 0.3 }}
-                className={`p-6 rounded-2xl transition-all duration-300 cursor-pointer 
-                    ${hoveredCard === index
-                    ? `bg-lgreen/10 border border-lgreen/30`
-                    : `bg-white/5 border border-white/10`
-                    }`}
+                className={`p-4 sm:p-6 md:p-3 rounded-2xl transition-all duration-300 cursor-pointer 
+                  ${hoveredCard === index
+                    ? "bg-lgreen/10 border border-lgreen/30"
+                    : "bg-white/5 border border-white/10"
+                  }`}
                 >
                 <h3 className={`text-${card.color}-400 font-semibold text-lg mb-2`}>
                     <span className="inline-flex items-center gap-2">
