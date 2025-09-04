@@ -23,6 +23,13 @@ const Hero = () => {
     [0, enableParallax ? -50 : 0]
   );
 
+  const handleScroll = (item) => {
+    const element = document.querySelector(item);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -71,6 +78,8 @@ const Hero = () => {
 
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/70" />
 
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-black/90 blur-2xl" />
+
         <motion.div
           className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-transparent to-teal-500/10"
           animate={{
@@ -84,16 +93,18 @@ const Hero = () => {
         />
       </motion.div>
 
-      <div className="relative z-10 max-w-4xl">
+      <div className="relative z-10 max-w-4xl pt-12">
         <motion.h1
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className={`text-white text-4xl md:text-6xl font-extrabold font-sans leading-tight tracking-wide ${montserrat.className}`}
+          className={`text-white text-2xl md:text-[48px] font-extrabold leading-tight tracking-wide ${montserrat.className}`}
         >
-          <span className="block">Building a Smarter Future,</span>
+          <span className="whitespace-normal md:whitespace-nowrap text-center">
+            Innovative Solutions in Automotive,
+          </span>
           <span className="block bg-gradient-to-r from-lgreen to-teal-400 text-transparent bg-clip-text">
-            Driving Innovation Today
+            Interiors & Mechanical Services
           </span>
         </motion.h1>
 
@@ -101,10 +112,16 @@ const Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-white/90 text-lg md:text-2xl mt-6"
+          className="text-white/90 text-md md:text-lg mt-6 "
         >
-          Engineering, Renewable Energy, and Automotive Solutions with
-          Excellence
+          At Arrham Group, we deliver high-quality, future-ready solutions in
+          <span className="font-bold bg-gradient-to-r from-lgreen to-teal-400 text-transparent bg-clip-text">
+            {" "}
+            Automotive Films, Interior Design &{" "}
+            <span className="whitespace-nowrap">Fit-Out</span>, and Mechanical
+            Services,{" "}
+          </span>
+          serving both businesses and individuals across Bahrain and beyond.
         </motion.p>
 
         <motion.div
@@ -122,7 +139,7 @@ const Hero = () => {
             whileTap={{ scale: 0.98 }}
             aria-label={`Explore Services - Learn more about our services`}
           >
-            <span className="relative z-10 flex items-center gap-2">
+            <span className="relative z-10 flex items-center gap-2 cursor-pointer">
               Explore Services
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </span>
@@ -133,7 +150,7 @@ const Hero = () => {
           </motion.a>
 
           <motion.a
-            className="group relative border-2 border-white/80 text-white px-8 py-4 rounded-2xl font-semibold backdrop-blur-sm bg-white/5 transition-all duration-300 hover:bg-white hover:text-black hover:border-white focus:outline-none focus:ring-4 focus:ring-white/50"
+            className="group relative border-2 border-white/80 cursor-pointer  text-white px-8 py-4 rounded-2xl font-semibold backdrop-blur-sm bg-white/5 transition-all duration-300 hover:bg-white hover:text-black hover:border-white focus:outline-none focus:ring-4 focus:ring-white/50"
             whileHover={{
               scale: 1.05,
               backgroundColor: "rgba(255,255,255,0.95)",
@@ -143,7 +160,7 @@ const Hero = () => {
           >
             <span className="flex items-center gap-2">
               Contact Us
-              <Play className="w-4 h-4 transition-transform group-hover:scale-110" />
+              <Play className="w-4 h-4 transition-transform group-hover:scale-110 group-hover:text-lgreen" />
             </span>
           </motion.a>
         </motion.div>
@@ -155,7 +172,7 @@ const Hero = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/70 hover:text-emerald-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 rounded-full p-2"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2  text-white/70 hover:text-emerald-400 transition-colors duration-300 focus:outline-none rounded-full p-2"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         aria-label="Scroll down to learn more"
@@ -167,12 +184,12 @@ const Hero = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="flex flex-col items-center gap-2"
+          className="flex flex-col items-center gap-1 focus:outline-none"
         >
           <span className="text-xs font-medium tracking-wider uppercase">
             Scroll
           </span>
-          <ChevronDown className="w-6 h-6" />
+          <ChevronDown className="w-6 h-6 focus:outline-none" />
         </motion.div>
       </motion.button>
     </section>

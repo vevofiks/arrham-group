@@ -5,17 +5,21 @@ import Hero from './components/Hero'
 import About from './components/About'
 import ServiceCard from './components/Services'
 import { motion } from "motion/react";
-import { servicesData } from './data'
+import { imageLogos, servicesData } from './data'
 import Contact from './components/Contact'
 import { ArrowRight } from 'lucide-react'
+import LogoLoop from '@/components/LogoLoop'
+import Clients from './components/Clients'
+import Branches from './components/GlobalBranches'
+import GlobalBranches from './components/GlobalBranches'
 
 const Page = () => {
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30, scale : 1 },
+    hidden: { opacity: 0, y: 30, scale: 1 },
     visible: {
       opacity: 1,
-      scale : 1.4,
+      scale: 1.4,
       y: 0,
       transition: {
         duration: 0.8,
@@ -25,14 +29,22 @@ const Page = () => {
   };
   return (
     <div id="home">
-      <Hero />
-      <About />
+      <div className='relative'>
+        <Hero />
+      </div>
+
+      <div className='absolute bottom-0 left-0 right-0 h-20 backdrop-blur-3xl bg-gradient-to-b from-transparent to-black' />
+
+
+      <div className=''>
+        <About />
+      </div>
       <div
         id="services"
         className="relative bg-black text-white py-20 px-6 md:px-24"
       >
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-extrabold uppercase tracking-tight">
             Our <span className="text-lgreen">Services</span>
           </h2>
           <div className="w-24 h-1 bg-lgreen mx-auto my-6"></div>
@@ -54,16 +66,20 @@ const Page = () => {
           <motion.div variants={itemVariants}>
             <motion.button
               whileTap={{ scale: 0.98 }}
-              className="group mt-24 inline-flex items-center gap-3 bg-gradient-to-r from-lgreen to-teal-500 text-black px-8 py-4 rounded-2xl font-semibold transition-all duration-300 hover:shadow-2xl hover:shadow-lgreen/25 focus:outline-none"
+              className="group mt-24 cursor-pointer inline-flex items-center gap-3 bg-gradient-to-r from-lgreen to-teal-500 text-black px-8 py-4 rounded-2xl font-semibold transition-all duration-300 hover:shadow-2xl hover:shadow-lgreen/25 focus:outline-none"
             >
               <span>Learn more about our services</span>
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </motion.button>
           </motion.div>
         </div>
-
+        <Clients />
+      </div>
+      <div>
+        <GlobalBranches />
       </div>
       <Contact />
+
     </div>
   )
 }
