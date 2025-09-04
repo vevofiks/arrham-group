@@ -150,6 +150,7 @@ const Hero = () => {
       </div>
 
       <motion.button
+      // function not defineddd..!!
         onClick={(e) => handleScroll("#about", e)}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

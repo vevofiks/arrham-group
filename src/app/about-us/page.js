@@ -11,10 +11,10 @@ function page() {
   return (
 
     <>
-      <AboutUs/>
-      <div className="grid md:grid-cols-2 lg:gap-4">
+      <AboutUs />
+      <div className="grid grid-cols-1 md:grid-cols-2 ">
         {
-          AboutData.map((about , index) => {
+          AboutData.map((about, index) => {
             const Icon = about.icon;
             return (<CompanyGoals key={index} title={about.title} content={about.content} Icon={Icon} />)
           })
@@ -29,15 +29,17 @@ function page() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
           {servicesData.map((service, index) => (
             <ServiceCard
+
               key={index}
               image={service.image}
               title={service.title}
               description={service.description}
+
             />
           ))}
         </div>
       </div>
-      <Contact/>
+      <Contact />
     </>
   )
 }
