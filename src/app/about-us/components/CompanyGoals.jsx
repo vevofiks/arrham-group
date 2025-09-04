@@ -28,15 +28,14 @@ const VisionMissionCards = ({ title , content , Icon }) => {
 
   return (
     <section >
-      <div className="">
-        <motion.div 
-          className='w-full mx-auto px-6 lg:px-8'
+     <div className="">
+        <motion.div
+          className='max-w-6xl mb-6 md:mb-0 mx-auto lg:px-8 px-6 sm:px-4'
           variants={staggerContainer}
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
         >
-          {/* Vision Card */}
           <motion.div
             variants={cardVariants}
             whileHover={{ 
@@ -78,7 +77,6 @@ const VisionMissionCards = ({ title , content , Icon }) => {
             >
                 {content}
             </motion.p>
-
             <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-emerald-400/20 to-teal-400/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-gradient-to-br from-cyan-400/10 to-emerald-400/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
           </motion.div>

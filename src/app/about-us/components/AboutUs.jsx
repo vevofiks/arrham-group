@@ -13,13 +13,13 @@ export default function AboutUs() {
         title: "Engineering & Construction",
         text: "Innovative solutions for modern infrastructure",
         color: "emerald",
-        icon: <Wrench className="text-emerald-400 inline" size={40} />
+        icon: <Wrench className="text-emerald-400 inline" size={28} />
         },
         {
         title: "Automotive Services",
         text: "Comprehensive automotive care and solutions",
         color: "emerald",
-        icon: <Car className="inline text-emerald-400 " size={40} />
+        icon: <Car className="inline text-emerald-400 " size={28} />
         }
     ];
    return (
@@ -161,10 +161,17 @@ export default function AboutUs() {
                   }`}
                 >
                 <h3 className={`text-${card.color}-400 font-semibold text-lg mb-2`}>
-                    <span className="inline-flex items-center gap-2">
+                    <span className="inline-flex items-center">
                         {card.title}
-                        {card.icon}
                     </span>
+                    <button
+                      className="px-2 inline py-1 text-xs sm:text-sm text-lgreen-400 rounded-lg transition"
+
+                    >
+                      {card.icon}
+
+
+                    </button>
                 </h3>
 
                 <p className="text-white/70 text-sm">{card.text}</p>
