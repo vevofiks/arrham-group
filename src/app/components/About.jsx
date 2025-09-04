@@ -40,7 +40,7 @@ AnimatedCounter.displayName = "AnimatedCounter";
 
 const About = ({
   image = "/hero2.png",
-  companyName = "Arrham Group",
+  companyName = "Arrham Al Arabia",
   title = "About",
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -156,7 +156,7 @@ const About = ({
             <div className="relative w-full h-96 lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl">
               <Image
                 src={image}
-                alt={`About ${companyName} - Innovation and Excellence`}
+                alt={`About ${companyName}`}
                 fill
                 className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 onLoad={() => setImageLoaded(true)}
@@ -180,6 +180,7 @@ const About = ({
             <div className="absolute -inset-4 bg-gradient-to-r from-lgreen/20 to-teal-500/20 rounded-3xl -z-10 opacity-50 blur-xl" />
           </motion.div>
 
+          {/* Company Content */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -187,48 +188,65 @@ const About = ({
             className="space-y-8"
           >
             <motion.div variants={itemVariants}>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
+              <h2 className="text-4xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight  uppercase">
                 <span className="text-white">{title} </span>
                 <span className="bg-gradient-to-r from-lgreen via-teal-400 to-cyan-400 text-transparent bg-clip-text">
                   Us
                 </span>
               </h2>
-
               <motion.div
                 variants={itemVariants}
                 className="w-24 h-1.5 bg-gradient-to-r from-lgreen to-teal-400 mt-6 rounded-full"
               />
             </motion.div>
 
-            {/* Enhanced Description */}
+            {/* Updated Description */}
             <motion.div variants={itemVariants} className="space-y-6">
               <p className="text-lg lg:text-xl text-white/90 leading-relaxed">
-                {companyName} is a dynamic and innovative leader in two major
-                industries:{" "}
-                <span className="text-lgreen font-semibold bg-lgreen/10 px-2 py-1 rounded">
-                  Engineering & Construction
-                </span>{" "}
-                and{" "}
-                <span className="text-lgreen font-semibold bg-lgreen/10 px-2 py-1 rounded">
-                  Automotive Services
+                Founded in{" "}
+                <span className="font-semibold text-lgreen">
+                  Canada in 2019
                 </span>
-                . We specialize in engineering, renewable energy, interior
-                design, and automotive services, all committed to delivering
-                exceptional quality and innovative results.
+                , {companyName} has quickly built a reputation for{" "}
+                <span className="font-semibold text-lgreen">
+                  professionalism
+                </span>
+                , <span className="font-semibold text-lgreen">precision</span>,
+                and a{" "}
+                <span className="font-semibold text-lgreen">
+                  relentless drive to exceed expectations
+                </span>
+                . Guided by our core principles of <em>dedication</em> and{" "}
+                <em>integrity</em>, we have expanded across the Middle East with
+                a strong presence in{" "}
+                <span className="text-lgreen">Bahrain</span> and{" "}
+                <span className="text-lgreen">Saudi Arabia</span>.
               </p>
 
               <p className="text-lg lg:text-xl text-white/80 leading-relaxed">
-                At {companyName}, we combine advanced technology, deep
-                expertise, and an unwavering focus on{" "}
-                <span className="text-lgreen font-semibold">
-                  customer satisfaction
-                </span>{" "}
-                to deliver outstanding outcomes. We pride ourselves on providing
-                comprehensive, reliable, and cost-effective solutions for every
-                project.
+                In just a few years, we’ve become a trusted partner in{" "}
+                <span className="font-semibold text-lgreen">
+                  turnkey contracting
+                </span>
+                , delivering impactful projects across multiple sectors. By
+                blending vision with technical expertise, our team transforms
+                ideas into practical, results-driven solutions.
+              </p>
+
+              <p className="text-lg lg:text-xl text-white/80 leading-relaxed">
+                At {companyName},{" "}
+                <span className="font-semibold text-lgreen">
+                  no project is too big or too small
+                </span>
+                . Every stage of execution reflects our{" "}
+                <span className="font-semibold text-lgreen">
+                  commitment to customer satisfaction
+                </span>
+                and our passion for delivering excellence that lasts.
               </p>
             </motion.div>
 
+            {/* Key Features */}
             <motion.div variants={itemVariants} className="space-y-4">
               <h3 className="text-xl font-bold text-lgreen mb-4">
                 Why Choose Us?
@@ -249,18 +267,21 @@ const About = ({
               </div>
             </motion.div>
 
+            {/* Call to Action */}
             <motion.div variants={itemVariants}>
-              <motion.button
+              <motion.a
                 whileTap={{ scale: 0.98 }}
+                href="/about-us"
                 className="group inline-flex items-center gap-3 bg-gradient-to-r from-lgreen to-teal-500 text-black px-8 py-4 rounded-2xl font-semibold transition-all duration-300 hover:shadow-2xl hover:shadow-lgreen/25 focus:outline-none"
               >
                 <span>Learn More About Us</span>
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </motion.button>
+              </motion.a>
             </motion.div>
           </motion.div>
         </div>
 
+        {/* Stats Section */}
         <motion.div
           ref={statsRef}
           variants={containerVariants}
@@ -268,17 +289,14 @@ const About = ({
           animate={isInView ? "visible" : "hidden"}
           className="mt-20 pt-16 border-t border-white/10"
         >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-8">
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
                 <motion.div
                   key={index}
                   variants={itemVariants}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -5,
-                  }}
+                  whileHover={{ scale: 1.05, y: -5 }}
                   onHoverStart={() => handleStatHoverStart(index)}
                   onHoverEnd={handleStatHoverEnd}
                   className={`text-center p-6 rounded-2xl transition-all duration-300 cursor-pointer ${

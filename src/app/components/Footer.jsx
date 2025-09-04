@@ -71,10 +71,10 @@ const Footer = () => {
               <div className="flex items-center gap-3 mb-6">
                 <div>
                   <Image
-                  src="/arrham2.png"
-                  width={160}
-                  height={160}
-                  alt="Arrham Group Logo"
+                    src="/arrham2.png"
+                    width={160}
+                    height={160}
+                    alt="Arrham Group Logo"
                   />
                 </div>
               </div>
@@ -197,7 +197,7 @@ const Footer = () => {
           {/* Bottom Bar */}
           <motion.div
             variants={itemVariants}
-            className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4"
+            className="mt-16 pt-8  lg:pr-12  border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4"
           >
             <div className="text-center md:text-left">
               <p className="text-white/60 text-sm">

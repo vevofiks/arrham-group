@@ -23,7 +23,7 @@ const servicesData = [
         image: "/services/auto-film-20.jpg",
         title: "3M Automotive Window Film Crystalline Series 20",
         description:
-            "Extending our expertise to interior and exterior spaces, we offer Di-Noc...",
+            "Enhance your vehicle’s look, comfort, and protection with...",
     },
     {
         image: "/services/auto-film-35.jpeg",
@@ -88,5 +88,41 @@ const socialIcons = [
     { icon: Instagram, href: "#", color: "hover:bg-pink-500/20 hover:border-pink-500", iconColor: "text-[#E4405F]" },
 ]
 
+const imageLogos = [
+    { src: "/major_client_logo_1.png", alt: "Company 1", href: "#" },
+    { src: "/major_client_logo_2.png", alt: "Company 2", href: "#" },
+    { src: "/major_client_logo_3.png", alt: "Company 3", href: "#" },
+    { src: "/major_client_logo_4.png", alt: "Company 3", href: "#" },
+]
 
-export { navLinks, servicesData, stats, socialIcons }
+
+export const branchesOverview = [
+  {
+    name: "Arrham Contracting Company (Arrham Al Arabia)",
+    location: "Al Khobar, Saudi Arabia",
+    shortDescription: "Specializes in turnkey contracting, engineering design, and fit-out works.",
+    link: "/branches/arrham-arabia"
+  },
+  {
+    name: "Arrham Trading and Contracting Company",
+    location: "Sitrah, Bahrain",
+    shortDescription: "Provides construction, fit-out, 3M films, and smart glass technology solutions.",
+    link: "/branches/arrham-bahrain"
+  },
+  {
+    name: "Arrham Groups (Canada)",
+    location: "Head Office, Canada",
+    shortDescription: "Oversees global operations and manages construction projects in Canada.",
+    link: "/branches/arrham-canada"
+  },
+  {
+    name: "Arrham Healthcare and Solutions (Hidaya Healthcare Solutions)",
+    location: "Sitrah, Bahrain",
+    shortDescription: "Focused on healthcare design, construction, and turnkey medical facilities.",
+    link: "/branches/arrham-healthcare"
+  }
+];
+
+
+
+export { navLinks, servicesData, stats, socialIcons, imageLogos }

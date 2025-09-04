@@ -70,7 +70,7 @@ const Navbar = () => {
 
   const handleLinkClick = (path, href) => {
     setIsMobileMenuOpen(false);
-  
+
     if (pathname === path) {
       const element = document.querySelector(href);
       if (element) {
@@ -91,14 +91,17 @@ const Navbar = () => {
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between ">
-          <motion.div
+          <motion.a
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-2xl font-bold text-white"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="text-2xl font-bold text-white cursor-pointer"
+            href="/"
           >
-            <img src="/arrham2.png" alt="logo" width={170} height={170} />
-          </motion.div>
+            <img src="/arrham.png" alt="logo" width={240} height={240} />
+          </motion.a>
 
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link, index) => (
@@ -110,7 +113,7 @@ const Navbar = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleLinkClick(link.path, link.href)}
-                  className={`${montserrat.className} flex items-center gap-1 text-white hover:text-lgreen font-medium transition-colors duration-200`}
+                  className={`${montserrat.className} flex items-center gap-1 cursor-pointer text-white hover:text-lgreen font-medium transition-colors duration-200`}
                 >
                   {link.name}
                   {link.subLinks && (
@@ -183,7 +186,7 @@ const Navbar = () => {
                           setIsMobileMenuOpen(false);
                         }
                       }}
-                      className={`${montserrat.className} flex justify-between items-center w-full px-4 py-3 text-white hover:text-lgreen font-medium hover:bg-lgreen/10 rounded-lg`}
+                      className={`${montserrat.className} flex justify-between cursor-pointer items-center w-full px-4 py-3 text-white hover:text-lgreen font-medium hover:bg-lgreen/10 rounded-lg`}
                     >
                       {link.name}
                       {link.subLinks && (
