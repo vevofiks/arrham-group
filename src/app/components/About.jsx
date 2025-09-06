@@ -194,10 +194,8 @@ const About = ({
                   Us
                 </span>
               </h2>
-              <motion.div
-                variants={itemVariants}
-                className="w-24 h-1.5 bg-gradient-to-r from-lgreen to-teal-400 mt-6 rounded-full"
-              />
+             
+             
             </motion.div>
 
             {/* Updated Description */}
@@ -215,7 +213,7 @@ const About = ({
                 and a{" "}
                 <span className="font-semibold text-lgreen">
                   relentless drive to exceed expectations
-                </span>
+                </span> 
                 . Guided by our core principles of <em>dedication</em> and{" "}
                 <em>integrity</em>, we have expanded across the Middle East with
                 a strong presence in{" "}
