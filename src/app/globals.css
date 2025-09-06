@@ -130,8 +130,7 @@ body, html {
   background-color: black;
 }
 
-<<<<<<< Updated upstream
-=======
+
 .custom-scrollbar::-webkit-scrollbar {
   width : 6px;
 }
@@ -180,4 +179,3 @@ body, html {
   scrollbar-width: thin;
   scrollbar-color: #10b981 transparent;
 }
->>>>>>> Stashed changes

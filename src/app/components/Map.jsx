@@ -25,6 +25,7 @@ const Map = () => {
       <div className="flex items-center gap-4 p-5 justify-evenly flex-wrap">
         {mapData.map((company) => (
           <motion.button
+          key={company.lat}
             onClick={() => setSelectedLocation(company)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
