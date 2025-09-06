@@ -29,13 +29,13 @@ const GlobalBranches = () => {
       y: -6,
       scale: 1.02,
       transition: { duration: 0.3, ease: "easeOut" },
-    },
+    }, 
   };
 
   return (
     <section
       id="branches"
-      className="relative text-white pb-18 overflow-hidden"
+      className="relative text-white pb-18 overflow-hidden mt-[200px]"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -120,7 +120,7 @@ const GlobalBranches = () => {
                   href={branch.link}
                   className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-lgreen hover:text-teal-300 transition-all"
                 >
-                  Explore Branch
+                  Explore our company
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </motion.div>
