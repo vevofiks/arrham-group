@@ -12,6 +12,7 @@ import LogoLoop from '@/components/LogoLoop'
 import Clients from './components/Clients'
 import GlobalBranches from './components/GlobalBranches'
 import { useRouter } from 'next/navigation'
+import Map from './components/Map'
 
 const Page = () => {
   const router = useRouter();
@@ -100,6 +101,7 @@ const Page = () => {
       </div>
       <Clients />
       <Contact />
+      <Map />
 
     </div>
   )

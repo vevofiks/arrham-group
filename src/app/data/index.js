@@ -103,28 +103,50 @@ export const branchesOverview = [
         name: "Arrham Contracting Company (Arrham Al Arabia)",
         location: "Al Khobar, Saudi Arabia",
         shortDescription: "Specializes in turnkey contracting, engineering design, and fit-out works.",
-        link: "/branches/arrham-arabia"
+        link: "/about-us/arrham-arabia"
     },
     {
         name: "Arrham Trading and Contracting Company",
         location: "Sitrah, Bahrain",
         shortDescription: "Provides construction, fit-out, 3M films, and smart glass technology solutions.",
-        link: "/branches/arrham-bahrain"
+        link: "/about-us/arrham-bahrain"
     },
     {
         name: "Arrham Groups (Canada)",
         location: "Head Office, Canada",
         shortDescription: "Oversees global operations and manages construction projects in Canada.",
-        link: "/branches/arrham-canada"
+        link: "/about-us/arrham-canada"
     },
     {
         name: "Arrham Healthcare and Solutions (Hidaya Healthcare Solutions)",
         location: "Sitrah, Bahrain",
         shortDescription: "Focused on healthcare design, construction, and turnkey medical facilities.",
-        link: "/branches/arrham-healthcare"
+        link: "/about-us/arrham-healthcare"
     }
 ];
 
+  const mapData = [
+    {
+      name: "Arrham Trading & Contracting",
+      lat: 26.4207,
+      lng: 50.0888, 
+    },
+    {
+      name: "Arrham Contracting Company",
+      lat: 26.2172,
+      lng: 50.1971, 
+    },
+    {
+      name: "Arrham Group",
+      lat: 24.7136,
+      lng: 46.6753, 
+    },
+    {
+      name: "Arrham Health Care Solutions",
+      lat: 26.0667,
+      lng: 50.5577, 
+    },
+  ];
 
 
-export { navLinks, servicesData, stats, socialIcons, imageLogos }
+export { navLinks, servicesData, stats, socialIcons, imageLogos, mapData }

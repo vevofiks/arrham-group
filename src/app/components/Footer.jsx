@@ -71,7 +71,7 @@ const Footer = () => {
               <div className="flex items-center gap-3 mb-6">
                 <div>
                   <Image
-                    src="/arrham2.png"
+                    src="/arrham-logo.png"
                     width={160}
                     height={160}
                     alt="Arrham Group Logo"

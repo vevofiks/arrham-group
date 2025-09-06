@@ -101,7 +101,7 @@ const Navbar = () => {
             className="text-2xl font-bold text-white cursor-pointer"
             href="/"
           >
-            <img src="/arrham.png" alt="logo" width={240} height={240} />
+            <Image src="/arrham-logo.png" alt="logo" width={240} height={240} />
           </motion.a>
 
           <div className="hidden md:flex items-center space-x-8">
