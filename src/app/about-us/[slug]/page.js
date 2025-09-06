@@ -1,10 +1,10 @@
-'use client'
 import React from 'react';
 import CompanyDetails from './CompanyDetails';
 import { branchesData } from '@/app';
-function page({params}){
+async function Page({params}){
   
-  const {slug} = React.use(params)
+  const {slug} = await params;
+  console.log(slug)
   const data = branchesData.branches.find(branch => branch.id == slug)
   return (
     <div className='mt-32'>
@@ -12,4 +12,4 @@ function page({params}){
     </div>
   )
 }
-export default page
+export default Page
