@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React , {useState} from "react";
+import React, { useState } from "react";
 import { motion } from "motion/react";
 import ProjectCard from "../components/ProjectsCard";
 import Modal from "../components/modal";
@@ -12,8 +12,8 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/hover-card"
-import { Badge } from "@/components/ui/badge"
+} from "@/components/ui/hover-card";
+import { Badge } from "@/components/ui/badge";
 
 const montserrat = MontserratFont({
   subsets: ["latin"],
@@ -21,33 +21,33 @@ const montserrat = MontserratFont({
 });
 
 function CompanyDetails({ companyData }) {
-  const [ isOpen , setIsOpen ] = useState(false);
-  const [selectedProject , setSelectedProject] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
 
-  const openModal = ( index ) => {
+  const openModal = (index) => {
     setIsOpen(true);
-    const project = companyData.projects.find(project => project.id === index)
-    console.log(project)
-    setSelectedProject(project)
-  }
+    const project = companyData.projects.find((p) => p.id === index);
+    setSelectedProject(project);
+  };
 
   return (
-    <div className="">
+    <div className="text-white">
       {/* Hero Section */}
-      <div className="relative h-96 w-full overflow-hidden">
+      <div className="relative h-[420px] w-full overflow-hidden">
         <Image
           src={companyData.companyImg}
           className="h-full w-full object-cover"
           fill
           alt={companyData.name}
+          priority
         />
 
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black/30">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black/50 backdrop-blur-sm">
           <motion.h1
             initial={{ opacity: 0, y: -40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-2xl md:text-5xl font-extrabold text-white"
+            className="text-3xl md:text-5xl font-bold"
           >
             Welcome to
           </motion.h1>
@@ -56,109 +56,121 @@ function CompanyDetails({ companyData }) {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="text-lgreen backdrop-blur-xs px-4 py-2 text-2xl md:text-6xl text-center font-extrabold rounded-lg"
+            className="bg-gradient-to-r from-lgreen via-teal-400 to-cyan-400 bg-clip-text text-transparent px-4 py-2 text-3xl md:text-6xl text-center font-extrabold"
           >
             {companyData.name}
           </motion.h1>
         </div>
       </div>
 
-     
-
       {/* About Section */}
-      <div className="p-10 text-center">
-        <motion.h1
+      <section className="px-6 py-16 text-center">
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-white mb-4 text-2xl"
+          className="mb-6 text-3xl md:text-4xl font-extrabold uppercase"
         >
-          <span className="text-white text-4xl font-extrabold uppercase" >
-
-            What 
+          <span className="text-white">What </span>
+          <span className="bg-gradient-to-r from-lgreen via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+            We Do
           </span>
-          &nbsp;
-          <span className="bg-gradient-to-r from-lgreen via-teal-400 to-cyan-400 text-transparent text-4xl font-extrabold uppercase bg-clip-text">
-            we do
-
-          </span>
-        </motion.h1>
-
+        </motion.h2>
 
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className={`text-white text-lg max-w-3xl mx-auto ${montserrat.className} `}
+          className={`mx-auto max-w-3xl text-lg leading-relaxed opacity-90 ${montserrat.className}`}
         >
           {companyData.description}
-
         </motion.p>
-      <div className="mt-3" >
 
-        <HoverCard>
-          <HoverCardTrigger>
-            <Badge className="px-4 py-1 text-sm border-2 border-lgreen text-white font-semibold">
-              Our expertise in <ExternalLink className="inline" />
-            </Badge>
-          </HoverCardTrigger>
-          <HoverCardContent className="w-80 bg-black/70 text-gray-200">
-            <p>{companyData.otherDetails?.expertise}</p>
-            {companyData.contact && (
-              <a
-                href={companyData.contact.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center mt-3 text-teal-400 underline hover:text-cyan-300"
-              >
-                Visit Site →
-              </a>
-            )}
-          </HoverCardContent>
-        </HoverCard>
-      </div>
-      </div>
+        {/* Expertise HoverCard */}
+        <div className="mt-6 flex justify-center">
+          <HoverCard>
+            <HoverCardTrigger>
+              <Badge className="px-5 py-2 text-sm border-2 border-lgreen text-white font-semibold hover:bg-lgreen/10">
+                Our Expertise <ExternalLink className="ml-2 inline h-4 w-4" />
+              </Badge>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-80 bg-gray-900/90 text-gray-200 border border-lgreen/30">
+              <p>{companyData.otherDetails?.expertise}</p>
+              {companyData.contact && (
+                <a
+                  href={companyData.contact.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center mt-3 text-teal-400 underline hover:text-cyan-300"
+                >
+                  Visit Site →
+                </a>
+              )}
+            </HoverCardContent>
+          </HoverCard>
+        </div>
+      </section>
 
-      <KeyPersonnel personnels={companyData.keyPersonnel} />
+      {/* Key Personnel */}
+      <section className="px-6 py-12">
+        <KeyPersonnel personnels={companyData.keyPersonnel} />
+      </section>
 
-      <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-content-center m-10 gap-6"
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        variants={{
-          hidden: { opacity: 0 },
-          show: {
-            opacity: 1,
-            transition: {
-              staggerChildren: 0.2, 
+      {/* Projects */}
+      <section className="px-6 py-16">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-10 text-center text-3xl md:text-4xl font-extrabold uppercase"
+        >
+          <span className="bg-gradient-to-r from-lgreen via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+            Our Projects
+          </span>
+        </motion.h2>
+
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: { staggerChildren: 0.2 },
             },
-          },
-        }}
-      >
-        {companyData.projects.map((project, projectIdx) => (
-          <motion.div
-            key={projectIdx}
-            onClick={() => openModal(projectIdx + 1)}
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              show: { opacity: 1, y: 0 },
-            }}
-            transition={{ duration: 0.6 }}
-          >
-            <ProjectCard setIsOpen={setIsOpen} project={project} index={projectIdx} />
-       
-          </motion.div>
+          }}
+        >
+          {companyData.projects.map((project, projectIdx) => (
+            <motion.div
+              key={projectIdx}
+              onClick={() => openModal(projectIdx + 1)}
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                show: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.6 }}
+            >
+              <ProjectCard
+                setIsOpen={setIsOpen}
+                project={project}
+                index={projectIdx}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
 
-        ))}
-      </motion.div>
+      {/* Contact Section */}
+      <section className="px-6 py-16">
+        <Contact contact={companyData.contact} />
+      </section>
 
-
-      <Contact contact={companyData.contact} />
-
-
+      {/* Modal */}
       <Modal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
