@@ -75,6 +75,14 @@ export const AboutData = [
     },
 ];
 
+export const CompanyAbout = [
+    {
+        id : 1,
+        aboutText: "Founded in Canada in 2019, Arrham Al Arabia has built a strong reputation for delivering high-quality projects with professionalism, precision, and a commitment to exceeding client expectations. Guided by our core principles of dedication and integrity, we have rapidly expanded our operations into the Middle East, with an active presence in the Kingdom of Bahrain and the Kingdom of Saudi Arabia.",
+
+    }
+]
+
 const stats = [
     { number: 30, suffix: "K+", label: "Projects Completed", icon: Award },
     { number: 25, suffix: "+", label: "Years Experience", icon: Zap },
