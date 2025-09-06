@@ -21,7 +21,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="relative py-20 bg-zinc-950 text-white overflow-hidden"
+      className="relative py-20 text-white overflow-hidden border-t border-lgreen"
     >
       {/* Background Glow Effects */}
       <div className="absolute top-10 left-10 w-72 h-72 bg-lgreen/20 blur-3xl rounded-full" />
