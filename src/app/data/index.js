@@ -1,25 +1,27 @@
 import { Eye, Target, Award, Users, Zap, Facebook, Twitter, Linkedin, Instagram, } from "lucide-react";
 
 const navLinks = [
-    { name: "Home", href: "#home", path: "/" },
-    { name: "About Us", href: "#about", path: "/about-us" },
-    {
-        name: "Services",
-        href: "#services",
-        path: "/services",
-        subLinks: [
-            { name: "Commercial Window", href: "#commercial", path: "/services" },
-            { name: "Architectural", href: "#architectural", path: "/services" },
-            { name: "Renewable Energy", href: "#renewable", path: "/services" },
-            { name: "Automotive", href: "#automotive", path: "/services" },
-            { name: "3M Products", href: "#products-3m", path: "/services" },
-        ],
-    }, ,
-    { name: "Contact", href: "#contact", path: "/" },
+    { name: "Home", href: "home", path: "/" },
+    { name: "About Us", href: "about", path: "/about-us" },
+    // {
+    //     name: "Services",
+    //     href: "services",
+    //     path: "/services",
+    //     subLinks: [
+    //         { name: "Commercial Window", href: "commercial", path: "/services" },
+    //         { name: "Architectural", href: "architectural", path: "/services" },
+    //         { name: "Renewable Energy", href: "renewable", path: "/services" },
+    //         { name: "Automotive", href: "automotive", path: "/services" },
+    //         { name: "3M Products", href: "products-3m", path: "/services" },
+    //     ],
+    // },
+    { name: "Contact", href: "contact", path: "/" },
 ];
+
 
 const servicesData = [
     {
+
         image: "/services/auto-film-20.jpg",
         title: "3M Automotive Window Film Crystalline Series 20",
         description:
@@ -97,30 +99,30 @@ const imageLogos = [
 
 
 export const branchesOverview = [
-  {
-    name: "Arrham Contracting Company (Arrham Al Arabia)",
-    location: "Al Khobar, Saudi Arabia",
-    shortDescription: "Specializes in turnkey contracting, engineering design, and fit-out works.",
-    link: "/branches/arrham-arabia"
-  },
-  {
-    name: "Arrham Trading and Contracting Company",
-    location: "Sitrah, Bahrain",
-    shortDescription: "Provides construction, fit-out, 3M films, and smart glass technology solutions.",
-    link: "/branches/arrham-bahrain"
-  },
-  {
-    name: "Arrham Groups (Canada)",
-    location: "Head Office, Canada",
-    shortDescription: "Oversees global operations and manages construction projects in Canada.",
-    link: "/branches/arrham-canada"
-  },
-  {
-    name: "Arrham Healthcare and Solutions (Hidaya Healthcare Solutions)",
-    location: "Sitrah, Bahrain",
-    shortDescription: "Focused on healthcare design, construction, and turnkey medical facilities.",
-    link: "/branches/arrham-healthcare"
-  }
+    {
+        name: "Arrham Contracting Company (Arrham Al Arabia)",
+        location: "Al Khobar, Saudi Arabia",
+        shortDescription: "Specializes in turnkey contracting, engineering design, and fit-out works.",
+        link: "/branches/arrham-arabia"
+    },
+    {
+        name: "Arrham Trading and Contracting Company",
+        location: "Sitrah, Bahrain",
+        shortDescription: "Provides construction, fit-out, 3M films, and smart glass technology solutions.",
+        link: "/branches/arrham-bahrain"
+    },
+    {
+        name: "Arrham Groups (Canada)",
+        location: "Head Office, Canada",
+        shortDescription: "Oversees global operations and manages construction projects in Canada.",
+        link: "/branches/arrham-canada"
+    },
+    {
+        name: "Arrham Healthcare and Solutions (Hidaya Healthcare Solutions)",
+        location: "Sitrah, Bahrain",
+        shortDescription: "Focused on healthcare design, construction, and turnkey medical facilities.",
+        link: "/branches/arrham-healthcare"
+    }
 ];
 
 

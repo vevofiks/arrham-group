@@ -7,8 +7,8 @@ import { imageLogos } from '../data'
 const Clients = () => {
   return (
     <section>
-      <div className='mt-[250px] mb-[50px]'>
-          <h2 className="text-3xl md:text-5xl uppercase text-center font-extrabold tracking-tight mb-7">
+      <div className='mt-[200px]'>
+          <h2 className="text-3xl md:text-5xl text-white uppercase text-center font-extrabold tracking-tight mb-7">
             Our <span className="text-lgreen">Clients</span>
           </h2>
           <div className="w-24 h-1 bg-lgreen mx-auto my-6 mb-12"></div>

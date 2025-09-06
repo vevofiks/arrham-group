@@ -72,12 +72,13 @@ const Navbar = () => {
     setIsMobileMenuOpen(false);
 
     if (pathname === path) {
-      const element = document.querySelector(href);
+      const element = document.getElementById(href);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      router.push(path + href);
+      sessionStorage.setItem("ScrollTarget", href)
+      router.push(path);
     }
   };
 

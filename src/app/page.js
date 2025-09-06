@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import Hero from './components/Hero'
 import About from './components/About'
 import ServiceCard from './components/Services'
@@ -10,10 +10,30 @@ import Contact from './components/Contact'
 import { ArrowRight } from 'lucide-react'
 import LogoLoop from '@/components/LogoLoop'
 import Clients from './components/Clients'
-import Branches from './components/GlobalBranches'
 import GlobalBranches from './components/GlobalBranches'
+import { useRouter } from 'next/navigation'
 
 const Page = () => {
+  const router = useRouter();
+  useEffect(() => {
+    const target = sessionStorage.getItem("scrollTarget");
+    if (target) {
+      const el = document.getElementById(target);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth" })
+        }, 300)
+      }
+      sessionStorage.removeItem("scrollTarget");
+    }
+  }, [])
+
+  const getToSection = (id) => {
+    const el = document.getElementById(id)
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" })
+    }
+  }
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30, scale: 1 },
@@ -30,7 +50,7 @@ const Page = () => {
   return (
     <div id="home">
       <div className='relative'>
-        <Hero />
+        <Hero getToSection={getToSection} />
       </div>
 
       <div className='absolute bottom-0 left-0 right-0 h-20 backdrop-blur-3xl bg-gradient-to-b from-transparent to-black' />
@@ -39,10 +59,10 @@ const Page = () => {
       <div className=''>
         <About />
       </div>
-      <div
+      {/* <div
         id="services"
         className="relative bg-black text-white py-20 px-6 md:px-24"
-      >
+        >
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl md:text-5xl font-extrabold uppercase tracking-tight">
             Our <span className="text-lgreen">Services</span>
@@ -66,6 +86,7 @@ const Page = () => {
           <motion.div variants={itemVariants}>
             <motion.button
               whileTap={{ scale: 0.98 }}
+              onClick={() => router.push("/services")}
               className="group mt-24 cursor-pointer inline-flex items-center gap-3 bg-gradient-to-r from-lgreen to-teal-500 text-black px-8 py-4 rounded-2xl font-semibold transition-all duration-300 hover:shadow-2xl hover:shadow-lgreen/25 focus:outline-none"
             >
               <span>Learn more about our services</span>
@@ -73,11 +94,11 @@ const Page = () => {
             </motion.button>
           </motion.div>
         </div>
-        <Clients />
-      </div>
+        </div> */}
       <div>
         <GlobalBranches />
       </div>
+      <Clients />
       <Contact />
 
     </div>

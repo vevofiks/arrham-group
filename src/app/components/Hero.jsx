@@ -11,7 +11,7 @@ const montserrat = MontserratFont({
   variable: "--font-montserrat",
 });
 
-const Hero = () => {
+const Hero = ({ getToSection }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const { scrollY } = useScroll();
@@ -124,14 +124,15 @@ const Hero = () => {
           serving both businesses and individuals across Bahrain and beyond.
         </motion.p>
 
-        <motion.div
+        {/* <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="mt-12 flex flex-col sm:flex-row gap-6 justify-center items-center"
         >
           <motion.a
-            className="group relative bg-gradient-to-r from-emerald-500 to-teal-500 text-black px-8 py-4 rounded-2xl font-semibold overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/25 focus:outline-none focus:ring-4 focus:ring-emerald-500/50"
+          onClick={() => getToSection("services")}
+            className="group relative cursor-pointer bg-gradient-to-r from-emerald-500 to-teal-500 text-black px-8 py-4 rounded-2xl font-semibold overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/25 focus:outline-none focus:ring-4 focus:ring-emerald-500/50"
             whileHover={{
               scale: 1.05,
               boxShadow: "0 20px 40px rgba(16,185,129,0.3)",
@@ -157,22 +158,22 @@ const Hero = () => {
             }}
             whileTap={{ scale: 0.98 }}
             aria-label={`Contact Us - Get in touch with us`}
+            onClick={() => getToSection('contact')}
           >
             <span className="flex items-center gap-2">
               Contact Us
               <Play className="w-4 h-4 transition-transform group-hover:scale-110 group-hover:text-lgreen" />
             </span>
           </motion.a>
-        </motion.div>
+        </motion.div> */}
       </div>
 
       <motion.button
-      // function not defineddd..!!
         onClick={(e) => handleScroll("#about", e)}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2  text-white/70 hover:text-emerald-400 transition-colors duration-300 focus:outline-none rounded-full p-2"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-50  text-white/70 hover:text-emerald-400 transition-colors duration-300 focus:outline-none rounded-full p-2"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         aria-label="Scroll down to learn more"
