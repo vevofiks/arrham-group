@@ -2,7 +2,8 @@ import { Eye, Target, Award, Users, Zap, Facebook, Twitter, Linkedin, Instagram,
 
 const navLinks = [
     { name: "Home", href: "home", path: "/" },
-    { name: "About Us", href: "about", path: "/about-us" },
+    { name: "About Us", href: "about", path: "/" },
+    { name: "Companies", href: "company", path: "/" },
     // {
     //     name: "Services",
     //     href: "services",
