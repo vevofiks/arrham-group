@@ -106,6 +106,7 @@ const Page = () => {
         {/* <GlobalBranches /> */}
          <motion.div
          id="company"
+
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
