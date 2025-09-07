@@ -47,7 +47,7 @@ function ProjectCard({ setIsOpen, project, index }) {
 
         <button
           className="rounded-lg border-2 border-emerald-400 bg-emerald-500/10 
-            px-3 py-1 text-xs font-semibold text-emerald-300 
+            px-3 py-1 text-xs font-semibold text-emerald-300 cursor-pointer
             hover:bg-emerald-400/20 hover:text-white hover:border-emerald-300 
             transition-colors duration-200"
           onClick={() => setIsOpen(true)}

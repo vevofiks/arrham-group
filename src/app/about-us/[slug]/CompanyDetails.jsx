@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import ProjectCard from "../components/ProjectsCard";
 import Modal from "../components/modal";
@@ -29,6 +29,47 @@ function CompanyDetails({ companyData }) {
     const project = companyData.projects.find((p) => p.id === index);
     setSelectedProject(project);
   };
+
+  function ExpertiseCard({ companyData }) {
+    const [isMobile, setIsMobile] = useState(false);
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+      const checkMobile = () => setIsMobile(window.innerWidth < 768);
+      checkMobile();
+      window.addEventListener("resize", checkMobile);
+      return () => window.removeEventListener("resize", checkMobile);
+    }, []);
+
+    return (
+      <div className="mt-6 flex justify-center">
+        <HoverCard open={isMobile ? open : undefined} onOpenChange={setOpen}>
+          <HoverCardTrigger asChild>
+            <Badge
+              onClick={() => isMobile && setOpen(!open)}
+              className="px-5 py-2 text-sm border-2 border-lgreen text-white font-semibold cursor-pointer hover:bg-lgreen/10"
+            >
+              Our Expertise <ExternalLink className="ml-2 h-4 w-4" />
+            </Badge>
+          </HoverCardTrigger>
+
+          <HoverCardContent className="w-80 bg-gray-900/90 text-gray-200 border border-lgreen/30">
+            <p>{companyData.otherDetails?.expertise}</p>
+            {companyData.contact && (
+              <a
+                href={companyData.contact.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center mt-3 text-teal-400 underline hover:text-cyan-300"
+              >
+                Visit Site →
+              </a>
+            )}
+          </HoverCardContent>
+        </HoverCard>
+      </div>
+    );
+  }
 
   return (
     <div className="text-white">
@@ -63,7 +104,7 @@ function CompanyDetails({ companyData }) {
         </div>
       </div>
 
-      {/* About Section */}
+      {/* What We Do */}
       <section className="px-6 py-16 text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -89,32 +130,11 @@ function CompanyDetails({ companyData }) {
         </motion.p>
 
         {/* Expertise HoverCard */}
-        <div className="mt-6 flex justify-center">
-          <HoverCard>
-            <HoverCardTrigger>
-              <Badge className="px-5 py-2 text-sm border-2 border-lgreen text-white font-semibold hover:bg-lgreen/10">
-                Our Expertise <ExternalLink className="ml-2 inline h-4 w-4" />
-              </Badge>
-            </HoverCardTrigger>
-            <HoverCardContent className="w-80 bg-gray-900/90 text-gray-200 border border-lgreen/30">
-              <p>{companyData.otherDetails?.expertise}</p>
-              {companyData.contact && (
-                <a
-                  href={companyData.contact.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center mt-3 text-teal-400 underline hover:text-cyan-300"
-                >
-                  Visit Site →
-                </a>
-              )}
-            </HoverCardContent>
-          </HoverCard>
-        </div>
+        <ExpertiseCard companyData={companyData} />
       </section>
 
       {/* Key Personnel */}
-      <section className="px-6 py-12">
+      <section className="flex items-center justify-center mt-5">
         <KeyPersonnel personnels={companyData.keyPersonnel} />
       </section>
 
