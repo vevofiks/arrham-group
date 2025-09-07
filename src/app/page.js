@@ -19,7 +19,7 @@ import CardFlipHero from './about-us/components/Companies'
 const Page = () => {
   const router = useRouter();
   useEffect(() => {
-    const target = sessionStorage.getItem("scrollTarget");
+    const target = sessionStorage.getItem("scroll-target");
     if (target) {
       const el = document.getElementById(target);
       if (el) {
@@ -27,7 +27,7 @@ const Page = () => {
           el.scrollIntoView({ behavior: "smooth" })
         }, 300)
       }
-      sessionStorage.removeItem("scrollTarget");
+      sessionStorage.removeItem("scroll-target");
     }
   }, [])
 
@@ -105,6 +105,7 @@ const Page = () => {
       <div>
         {/* <GlobalBranches /> */}
          <motion.div
+         id="company"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"

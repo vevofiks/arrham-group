@@ -9,7 +9,7 @@ import SectionHeader from "./components/SectionHeader";
 
 const Page = () => {
   useEffect(() => {
-    const target = sessionStorage.getItem("scrollTarget");
+    const target = sessionStorage.getItem("scroll-target");
     if (target) {
       const el = document.getElementById(target);
       if (el) {
@@ -17,7 +17,7 @@ const Page = () => {
           el.scrollIntoView({ behavior: "smooth" });
         }, 300);
       }
-      sessionStorage.removeItem("scrollTarget");
+      sessionStorage.removeItem("scroll-target");
     }
   }, []);
 

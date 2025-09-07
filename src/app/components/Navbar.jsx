@@ -76,7 +76,7 @@ const handleLinkClick = (path, href) => {
     }
     setTimeout(() => setIsMobileMenuOpen(false), 300);
   } else {
-    sessionStorage.setItem("ScrollTarget", href);
+    sessionStorage.setItem("scroll-target", href);
     router.push(path);
     setIsMobileMenuOpen(false);
   }
