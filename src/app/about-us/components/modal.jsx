@@ -28,7 +28,7 @@ function Modal({ isOpen, onClose, project }) {
           >
             {/* Close button */}
             <button
-              className="absolute top-4 right-4 text-gray-300 hover:text-white transition"
+              className="absolute top-4 right-4 text-gray-300 hover:text-white transition cursor-pointer"
               onClick={onClose}
             >
               <X size={28} />

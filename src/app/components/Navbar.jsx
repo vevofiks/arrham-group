@@ -68,28 +68,27 @@ const Navbar = () => {
     },
   };
 
-  const handleLinkClick = (path, href) => {
-    setIsMobileMenuOpen(false);
-
-    if (pathname === path) {
-      const element = document.getElementById(href);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    } else {
-      sessionStorage.setItem("ScrollTarget", href)
-      router.push(path);
+const handleLinkClick = (path, href) => {
+  if (pathname === path) {
+    const element = document.getElementById(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
-  };
+    setTimeout(() => setIsMobileMenuOpen(false), 300);
+  } else {
+    sessionStorage.setItem("ScrollTarget", href);
+    router.push(path);
+    setIsMobileMenuOpen(false);
+  }
+};
 
   return (
     <>
       <motion.nav
         variants={navbarVariants}
         animate={isScrolled ? "solid" : "transparent"}
-        className={`fixed top-0 left-0 right-0 z-50 px-10 md:px-24 py-8 transition-all duration-300  ${
-          isScrolled ? "shadow-lg border-b-lgreen" : ""
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 px-10 md:px-24 py-8 transition-all duration-300  ${isScrolled ? "shadow-lg border-b-lgreen" : ""
+          }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between ">
           <motion.a
@@ -184,7 +183,7 @@ const Navbar = () => {
                           toggleDropdown(link.name);
                         } else {
                           handleLinkClick(link.path, link.href);
-                          setIsMobileMenuOpen(false);
+                          
                         }
                       }}
                       className={`${montserrat.className} flex justify-between cursor-pointer items-center w-full px-4 py-3 text-white hover:text-lgreen font-medium hover:bg-lgreen/10 rounded-lg`}
@@ -211,7 +210,6 @@ const Navbar = () => {
                             onClick={(e) => {
                               e.preventDefault();
                               handleLinkClick(link.path, sub.href);
-                              setIsMobileMenuOpen(false);
                             }}
                           >
                             {sub.name}
