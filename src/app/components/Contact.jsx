@@ -47,11 +47,11 @@ const Contact = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-4">
               <Mail className="w-6 h-6 text-lgreen" />
-              <span>info@arrhamtrading.com</span>
+              <span>info@arrhamgroup.com</span>
             </div>
             <div className="flex items-center gap-4">
               <Phone className="w-6 h-6 text-lgreen" />
-              <span>+973 66332026</span>
+              <span>+973 1747 3535</span>
             </div>
             <div className="flex items-center gap-4">
               <MapPin className="w-10 h-10 text-lgreen" />
