@@ -4,8 +4,8 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { ArrowRight, Code2, Copy, Rocket, Zap } from "lucide-react";
 import { Montserrat as MontserratFont } from "next/font/google";
-import { useRouter } from "next/navigation";
-
+import Image from "next/image";
+import Link from "next/link";
 const montserrat = MontserratFont({
   subsets: ["latin"],
   variable: "--font-montserrat",
@@ -56,7 +56,9 @@ export default function CardFlipHero({ branch }) {
             p-6
             ${isFlipped ? "pointer-events-none" : "pointer-events-auto"}
           `}
+
           style={{ WebkitBackfaceVisibility: "hidden" }}
+
         >
           {/* Glow background */}
           <motion.div
@@ -65,14 +67,18 @@ export default function CardFlipHero({ branch }) {
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           />
 
-          {/* Center rocket icon */}
           <div className="relative z-10 flex flex-col items-center justify-center flex-1">
             <motion.div
-              className="flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-400 to-emerald-600 shadow-lg shadow-emerald-500/30"
+              className="flex items-center justify-center h-16 w-16 p-10 rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-400 to-emerald-600 shadow-lg shadow-emerald-500/30"
               animate={{ scale: [1, 1.1, 1], rotate: [0, 10, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
-              <Rocket className="w-8 h-8 text-white" />
+              <Image
+
+                src={branch.companyIcon} alt={branch.name} 
+                fill
+                className="object-contain"
+              />
             </motion.div>
           </div>
 
@@ -83,7 +89,7 @@ export default function CardFlipHero({ branch }) {
             >
               {branch.name}
             </h3>
-            <p className="text-sm text-white/70">{branch.location}</p>
+            <p className="text-sm text-white/70">{branch.country}</p>
           </div>
         </div>
 
@@ -92,6 +98,7 @@ export default function CardFlipHero({ branch }) {
           className={`
             absolute inset-0 h-full w-full
             rounded-2xl p-6
+            [backface-visibility:hidden] [transform:rotateY(180deg)]
             [transform:rotateY(180deg)]
             [backface-visibility:hidden]
             bg-gradient-to-br from-black/90 via-teal-900/90 to-emerald-950/90
@@ -100,6 +107,7 @@ export default function CardFlipHero({ branch }) {
             flex flex-col
             ${isFlipped ? "pointer-events-auto" : "pointer-events-none"}
           `}
+
           style={{ WebkitBackfaceVisibility: "hidden" }}
         >
           <div className="flex-1 overflow-y-auto pr-2 space-y-4 custom-scrollbar">
@@ -140,6 +148,20 @@ export default function CardFlipHero({ branch }) {
             </div>
           </div>
 
+          <Link href={`/about-us/${branch.id}`} >
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="mt-4 Z-10 flex items-center justify-between rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-4 py-2 cursor-pointer hover:bg-emerald-500/20 transition-colors"
+        
+            >
+                <span className="text-sm font-semibold text-emerald-400">
+                  Show More
+                </span>
+              
+              <ArrowRight className="w-4 h-4 text-emerald-400" />
+            </motion.div>
+          </Link>
+          
           <motion.div
             whileHover={{ scale: 1.05 }}
             className="mt-4 flex items-center justify-between rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-4 py-2 cursor-pointer hover:bg-emerald-500/20 transition-colors"
