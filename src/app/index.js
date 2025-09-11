@@ -196,8 +196,10 @@ export const branchesData = {
   branches: [
     {
       id: "arrham-canada",
-      name: "Arrham Groups (Canada)",
+      name: "Arrham Group Inc. (Canada)",
+      companyIcon: "/arrham3.png",
       companyImg : "/companyDummy.jpeg",
+      country:"canada",
       location: "Canada (Head Office)",
       shortDescription:
         "Head office overseeing group operations, Canada-based construction & warehousing projects.",
@@ -237,8 +239,10 @@ export const branchesData = {
 
     {
       id: "arrham-contracting-ksa",
-      name: "Arrham Contracting Company (Arrham Al Arabia)",
+      name: "Arrham Al Arabia Contracting Company (KSA)",
+      companyIcon: "/arrham3.png",
       companyImg : "/companyDummy.jpeg", 
+      country:"Saudi Arabia",
       location: "Al Khobar Al Janubiyah Dist., Kingdom of Saudi Arabia",
       shortDescription:
         "Turnkey contracting, E&I, cathodic protection, fit-out works for industrial & commercial clients.",
@@ -316,8 +320,10 @@ export const branchesData = {
 
     {
       id: "arrham-trading-bahrain",
-      name: "Arrham Trading and Contracting Company",
+      name: "Arrham Trading and Contracting W.L.L. (Kingdom of Bahrain)",
+      companyIcon: "/arrham3.png",
       companyImg : "/companyDummy.jpeg",
+      country:"Bahrain",
       location:
         "1445A, Road 4630, Block 646, Nuwaidrat, Sitrah 644, Kingdom of Bahrain",
       shortDescription:
@@ -370,8 +376,10 @@ export const branchesData = {
 
     {
       id: "arrham-healthcare-bahrain",
-      name: "Arrham Healthcare & Solutions (Hidaya Healthcare Solutions)",
+      name: "Arrham Healthcare Solutions (Hidaya Healthcare Solutions W.L.L.)",
+      companyIcon: "/arrham3.png",
       companyImg : "/companyDummy.jpeg",
+      country:"Bahrain",
       location:
         "1445G, Road 4630, Block 646, Nuwaidrat, Sitrah 644, Kingdom of Bahrain",
       shortDescription:
@@ -385,6 +393,7 @@ export const branchesData = {
         "Medical Gas Systems & Nurse Call Systems.",
         "Healthcare Interiors & Modular Systems.",
       ],
+
       keyPersonnel: [
         {
           name: "Dr. Hidaya Al-Karim",
@@ -401,6 +410,7 @@ export const branchesData = {
           value: "120,000 BHD",
         },
       ],
+
       clients: ["Private clinics", "Wellness centers", "Regional hospitals"],
       accreditations: ["Healthcare construction & compliance expertise (internal)"],
       contact: {
@@ -417,3 +427,39 @@ export const branchesData = {
     },
   ],
 };
+
+export const SupportData = {
+  "title": "Support",
+  "description": "We are here to assist you with any queries or issues. Our dedicated support teams are available to provide expert guidance and solutions.",
+  "sections": [
+    {
+      "type": "salesSupport",
+      "title": "Sales Support",
+      "description": "Get help with product inquiries, pricing, and order placement. Our sales team is committed to ensuring a seamless purchasing experience.",
+      "contact": {
+        "email": "sales@arrhamgroup.com",
+        "phone": "+966-13-123-4567",
+        "hours": "Monday - Friday, 9:00 AM - 6:00 PM (IST)",
+        "availability": "Available 24/7 for urgent inquiries"
+      }
+    },
+    {
+
+      "type": "technicalSupport",
+      "title": "Technical Support",
+      "description": "Our technical experts provide assistance with installation, troubleshooting, and maintenance of our services and products.",
+      "contact": {
+        "email": "techsupport@arrhamgroup.com",
+        "phone": "+966-13-123-4568",
+        "hours": "Monday - Friday, 8:00 AM - 5:00 PM (IST)",
+        "availability": "24/7 emergency support available"
+
+      }
+    }
+  ],
+  "meta": {
+    "title": "Arrham Group - Support",
+    "description": "Get sales and technical support from Arrham Group. Contact us for assistance with inquiries, troubleshooting, and more.",
+    "keywords": "Arrham Group support, sales support, technical support, contact us"
+  }
+}

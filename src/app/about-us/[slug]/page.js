@@ -3,7 +3,7 @@ import CompanyDetails from "./CompanyDetails";
 import { branchesData } from "@/app";
 
 async function Page({ params }) {
-  const { slug } = params;
+  const { slug } = await params;
   console.log(slug);
 
   const data = branchesData.branches.find((branch) => branch.id == slug);
