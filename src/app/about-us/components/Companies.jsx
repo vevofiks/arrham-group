@@ -49,12 +49,11 @@ export default function CardFlipHero({ branch }) {
 
           <div className="relative z-10 flex flex-col items-center justify-center flex-1">
             <motion.div
-              className="flex items-center justify-center h-16 w-16 p-10 rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-400 to-emerald-600 shadow-lg shadow-emerald-500/30"
+              className="flex items-center justify-center h-24 w-32 p-10 rounded-2xl shadow-lg "
               animate={{ scale: [1, 1.1, 1], rotate: [0, 10, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
               <Image
-
                 src={branch.companyIcon} alt={branch.name} 
                 fill
                 className="object-contain"
@@ -126,7 +125,7 @@ export default function CardFlipHero({ branch }) {
             </div>
           </div>
 
-          <Link href={`/about-us/${branch.id}`} >
+          <Link href={`/about-us/${branch.id}`}>
             <motion.div
               whileHover={{ scale: 1.05 }}
               className="mt-4 Z-10 flex items-center justify-between rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-4 py-2 cursor-pointer hover:bg-emerald-500/20 transition-colors"
