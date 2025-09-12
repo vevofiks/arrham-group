@@ -8,12 +8,8 @@ import { Montserrat as MontserratFont } from "next/font/google";
 import Contact from "../components/Contact";
 import KeyPersonnel from "../components/KeyPersonal";
 import { ExternalLink } from "lucide-react";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 const montserrat = MontserratFont({
   subsets: ["latin"],
@@ -42,31 +38,13 @@ function CompanyDetails({ companyData }) {
     }, []);
 
     return (
-      <div className="mt-6 flex justify-center">
-        <HoverCard open={isMobile ? open : undefined} onOpenChange={setOpen}>
-          <HoverCardTrigger asChild>
-            <Badge
-              onClick={() => isMobile && setOpen(!open)}
-              className="px-5 py-2 text-sm border-2 border-lgreen text-white font-semibold cursor-pointer hover:bg-lgreen/10"
-            >
-              Our Expertise <ExternalLink className="ml-2 h-4 w-4" />
-            </Badge>
-          </HoverCardTrigger>
 
-          <HoverCardContent className="w-80 bg-gray-900/90 text-gray-200 border border-lgreen/30">
-            <p>{companyData.otherDetails?.expertise}</p>
-            {companyData.contact && (
-              <a
-                href={companyData.contact.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center mt-3 text-teal-400 underline hover:text-cyan-300"
-              >
-                Visit Site →
-              </a>
-            )}
-          </HoverCardContent>
-        </HoverCard>
+      <div className="mt-6 flex justify-center">
+        <Link href={companyData.contact.website} target="_blank">
+          <Badge className="px-5 py-2 text-sm border-2 border-lgreen text-white font-semibold cursor-pointer hover:bg-lgreen/10">
+            View More <ExternalLink size={30} />
+          </Badge>
+        </Link>
       </div>
     );
   }
@@ -183,11 +161,6 @@ function CompanyDetails({ companyData }) {
             </motion.div>
           ))}
         </motion.div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="px-6 py-16">
-        <Contact contact={companyData.contact} />
       </section>
 
       {/* Modal */}
