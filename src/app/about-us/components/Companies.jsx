@@ -13,8 +13,6 @@ const montserrat = MontserratFont({
 
 export default function CardFlipHero({ branch }) {
   const [isFlipped, setIsFlipped] = useState(false);
-  const router = useRouter();
-
   const handleToggle = () => {
     // On mobile -> tap flips, on desktop hover is handled separately
     if (window.innerWidth < 768) {
@@ -69,12 +67,11 @@ export default function CardFlipHero({ branch }) {
 
           <div className="relative z-10 flex flex-col items-center justify-center flex-1">
             <motion.div
-              className="flex items-center justify-center h-16 w-16 p-10 rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-400 to-emerald-600 shadow-lg shadow-emerald-500/30"
+              className="flex items-center justify-center h-24 w-32 p-10 rounded-2xl shadow-lg "
               animate={{ scale: [1, 1.1, 1], rotate: [0, 10, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
               <Image
-
                 src={branch.companyIcon} alt={branch.name} 
                 fill
                 className="object-contain"
@@ -99,8 +96,6 @@ export default function CardFlipHero({ branch }) {
             absolute inset-0 h-full w-full
             rounded-2xl p-6
             [backface-visibility:hidden] [transform:rotateY(180deg)]
-            [transform:rotateY(180deg)]
-            [backface-visibility:hidden]
             bg-gradient-to-br from-black/90 via-teal-900/90 to-emerald-950/90
             border border-emerald-500/20
             shadow-xl shadow-emerald-900/50
@@ -148,7 +143,7 @@ export default function CardFlipHero({ branch }) {
             </div>
           </div>
 
-          <Link href={`/about-us/${branch.id}`} >
+          <Link href={`/about-us/${branch.id}`}>
             <motion.div
               whileHover={{ scale: 1.05 }}
               className="mt-4 Z-10 flex items-center justify-between rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-4 py-2 cursor-pointer hover:bg-emerald-500/20 transition-colors"
@@ -161,19 +156,7 @@ export default function CardFlipHero({ branch }) {
               <ArrowRight className="w-4 h-4 text-emerald-400" />
             </motion.div>
           </Link>
-          
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="mt-4 flex items-center justify-between rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-4 py-2 cursor-pointer hover:bg-emerald-500/20 transition-colors"
-            onClick={() => {
-              router.push(`/about-us/${branch.id}`);
-            }}
-          >
-            <span className="text-sm font-semibold text-emerald-400">
-              Show More
-            </span>
-            <ArrowRight className="w-4 h-4 text-emerald-400" />
-          </motion.div>
+
         </div>
       </motion.div>
     </motion.div>

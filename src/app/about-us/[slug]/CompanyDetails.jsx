@@ -1,15 +1,11 @@
 "use client";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "motion/react";
 import ProjectCard from "../components/ProjectsCard";
 import Modal from "../components/modal";
 import { Montserrat as MontserratFont } from "next/font/google";
-import Contact from "../components/Contact";
 import KeyPersonnel from "../components/KeyPersonal";
-import { ExternalLink } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
 
 const montserrat = MontserratFont({
   subsets: ["latin"],
@@ -25,29 +21,6 @@ function CompanyDetails({ companyData }) {
     const project = companyData.projects.find((p) => p.id === index);
     setSelectedProject(project);
   };
-
-  function ExpertiseCard({ companyData }) {
-    const [isMobile, setIsMobile] = useState(false);
-    const [open, setOpen] = useState(false);
-
-    useEffect(() => {
-      const checkMobile = () => setIsMobile(window.innerWidth < 768);
-      checkMobile();
-      window.addEventListener("resize", checkMobile);
-      return () => window.removeEventListener("resize", checkMobile);
-    }, []);
-
-    return (
-
-      <div className="mt-6 flex justify-center">
-        <Link href={companyData.contact.website} target="_blank">
-          <Badge className="px-5 py-2 text-sm border-2 border-lgreen text-white font-semibold cursor-pointer hover:bg-lgreen/10">
-            View More <ExternalLink size={30} />
-          </Badge>
-        </Link>
-      </div>
-    );
-  }
 
   return (
     <div className="text-white">
@@ -108,7 +81,6 @@ function CompanyDetails({ companyData }) {
         </motion.p>
 
         {/* Expertise HoverCard */}
-        <ExpertiseCard companyData={companyData} />
       </section>
 
       {/* Key Personnel */}
