@@ -48,7 +48,6 @@ function Support() {
 
                 <p className={`text-gray-300 mb-4 ${montserrat.className}`} >{section.description}</p>
                 <div className='flex justify-center items-center' >
-
                   <a
                       href={whatsappUrl}
                       target="_blank"

@@ -417,4 +417,3 @@ export const branchesData = {
     },
   ],
 };
-
