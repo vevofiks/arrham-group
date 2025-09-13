@@ -66,7 +66,7 @@ export default function CardFlipHero({ branch }) {
           />
 
           <div className="relative z-10 flex flex-col items-center justify-center flex-1">
-            <motion.div
+            <div
               className="flex items-center justify-center h-24 w-32 p-10 rounded-2xl shadow-lg "
               animate={{ scale: [1, 1.1, 1], rotate: [0, 10, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -76,7 +76,7 @@ export default function CardFlipHero({ branch }) {
                 fill
                 className="object-contain"
               />
-            </motion.div>
+            </div>
           </div>
 
           {/* Title & Subtitle */}

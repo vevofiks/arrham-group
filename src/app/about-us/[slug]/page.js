@@ -14,9 +14,7 @@ async function Page({ params }) {
         <ArrhamHealthcare imageSrc={"/arrham3.png"} />
       </div>
     )
-
   }
-
   return (
 
 
