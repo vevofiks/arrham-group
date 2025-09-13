@@ -143,8 +143,6 @@ const Page = () => {
       </div>
       <Clients />
       <Contact />
-      <Map />
-
     </div>
   )
 }

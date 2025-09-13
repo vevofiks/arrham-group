@@ -1,40 +1,53 @@
+"use client"
 import React from 'react';
 import { Hospital , Wrench , Sprout } from 'lucide-react';
+import Image from 'next/image';
+import {motion} from "motion/react";
 
-export default function ArrhamHealthcare() {
+function ArrhamHealthcare() {
 
   return (
     <div className="min-h-screen text-white overflow-hidden">
       {/* Hero Section */}
-      <section className="relative  h-[420px] min-h-screen flex items-center justify-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-teal-600/20 to-blue-900/30">
-        
-        </div>
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
-        
-        <div className="relative z-10 text-center px-8 max-w-6xl mx-auto">
-          
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-teal-300 via-blue-400 to-teal-300 bg-clip-text text-transparent animate-pulse">
+    <div className="relative h-[420px] w-full overflow-hidden">
+        <Image
+          src="/companyDummy.jpeg"
+          className="h-full w-full object-cover"
+          fill
+          alt="arrham health care solutions"
+          priority
+        />
+
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black/50 backdrop-blur-sm">
+          <motion.h1
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-3xl md:text-5xl font-bold"
+          >
             Welcome to
-          </h1>
-          
-          <h2 className="text-4xl md:text-6xl font-light mb-8 leading-tight">
-            <span className="text-6xl font-extrabold text-teal-400">Arrham Trading and Contracting</span>
-            <br />
-            <span className="text-6xl font-extrabold text-blue-400">W.L.L. (Kingdom of Bahrain)</span>
-          </h2>
+          </motion.h1>
+
+          <motion.h1
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="text-blue-400 bg-clip-text px-4 py-2 text-3xl md:text-6xl text-center font-extrabold"
+          >
+              Arrham Trading and Contracting
+              <br />
+              W.L.L. (Kingdom of Bahrain)
+
+          </motion.h1>
 
         </div>
-      </section>
+      </div>
 
       {/* What We Do Section */}
       <section className="py-24 px-8 relative">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-5xl font-extrabold mb-4">
-            WHAT <span className="text-teal-400 font-extrabold">WE DO</span>
+            WHAT <span className="text-blue-400 font-extrabold">WE DO</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto mb-12"></div>
           
@@ -76,7 +89,7 @@ export default function ArrhamHealthcare() {
       <section className="py-24 px-8 bg-gradient-to-r from-gray-900/50 to-gray-800/50">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-5xl font-bold mb-4">
-            KEY <span className="text-teal-400">PERSONNELS</span>
+            KEY <span className="text-blue-400">PERSONNELS</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto mb-16"></div>
           
@@ -97,7 +110,7 @@ export default function ArrhamHealthcare() {
       <section className="py-24 px-8">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl font-bold mb-16 text-center">
-            WHO <span className="text-teal-400">WE ARE</span>
+            WHO <span className="text-blue-400">WE ARE</span>
           </h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-16">
@@ -180,7 +193,7 @@ export default function ArrhamHealthcare() {
       <section className="py-24 px-8">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-5xl font-bold mb-16">
-            OUR <span className="text-teal-400">PROJECTS</span>
+            OUR <span className="text-blue-400">PROJECTS</span>
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -189,10 +202,12 @@ export default function ArrhamHealthcare() {
                 <h3 className="text-2xl font-bold text-teal-300">Nuwaidrat Retail Fit-Out</h3>
                 <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">Completed</span>
               </div>
-              <p className="text-gray-300 mb-4">Sitrah, Bahrain</p>
-              <button className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white px-6 py-2 rounded-full transition-all duration-300">
-               Show More
-              </button>
+              <div className='flex justify-between items-center mt-4' >
+                <p className="text-gray-300 mb-4">Sitrah, Bahrain</p>
+                <button className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white px-2 py-2 rounded-full transition-all duration-300">
+                Show More
+                </button>
+              </div>
             </div>
             
             <div className="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-blue-400/20 hover:border-blue-400/50 transition-all duration-300">
@@ -200,68 +215,17 @@ export default function ArrhamHealthcare() {
                 <h3 className="text-2xl font-bold text-blue-300">AutoCare Center Setup</h3>
                 <span className="bg-cyan-500/60 text-white px-3 py-1 rounded-full text-sm font-medium">In Progress</span>
               </div>
-              <p className="text-gray-300 mb-4">Sitrah, Bahrain</p>
-              <button className="bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-white px-6 py-2 rounded-full transition-all duration-300">
+                <div className='flex justify-between items-center mt-4' >
+                <p className="text-gray-300 mb-4">Sitrah, Bahrain</p>
+                <button className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white px-2 py-2 rounded-full transition-all duration-300">
                 Show More
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Partners */}
-      {/* <section className="py-24 px-8 bg-gradient-to-r from-gray-900/50 to-gray-800/50">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl font-bold mb-16 text-center">
-            OUR <span className="text-teal-400">PARTNERS</span>
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="bg-white/5 backdrop-blur-md rounded-3xl p-10 border border-teal-400/20 hover:border-teal-400/50 transition-all duration-300">
-              <div className="w-20 h-20 bg-gradient-to-br from-teal-400 to-blue-500 rounded-2xl flex items-center justify-center mb-6 text-2xl font-bold">
-                3M
+                </button>
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-teal-300">3M™ Solutions</h3>
-              <p className="text-lg text-gray-300 leading-relaxed">
-                Official distributor of 3M™ Window Films and Decorative Films, bringing globally trusted solutions for energy efficiency, UV protection, security enhancement, and privacy to both new builds and retrofit projects.
-              </p>
             </div>
-            
-            <div className="bg-white/5 backdrop-blur-md rounded-3xl p-10 border border-blue-400/20 hover:border-blue-400/50 transition-all duration-300">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-400 to-teal-500 rounded-2xl flex items-center justify-center mb-6 text-xl font-bold">
-                DGG
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-blue-300">Dream Glass Group</h3>
-              <p className="text-lg text-gray-300 leading-relaxed">
-                Partnership with DREAM GLASS GROUP (Spain) offering cutting-edge Smart Glass technology, enabling transformation of static spaces into adaptive, multi-functional environments with seamless privacy control.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-      
-     
-      {/* Call to Action */}
-      <section className="py-24 px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-5xl font-bold mb-8">
-            Ready to Build the <span className="text-teal-400">Future of Healthcare?</span>
-          </h2>
-          <p className="text-xl text-gray-300 mb-12 leading-relaxed">
-            Partner with us to create innovative, sustainable, and compliant healthcare environments that heal and inspire.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white text-xl px-12 py-4 rounded-full font-semibold transition-all duration-300 hover:transform hover:scale-105 shadow-lg">
-              Start Your Project
-            </button>
-            <button className="border-2 border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-gray-900 text-xl px-12 py-4 rounded-full font-semibold transition-all duration-300 hover:transform hover:scale-105">
-              Learn More
-            </button>
           </div>
         </div>
       </section>
     </div>
   );
 }
+export default ArrhamHealthcare

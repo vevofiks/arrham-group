@@ -6,7 +6,7 @@ import ProjectCard from "../components/ProjectsCard";
 import Modal from "../components/modal";
 import { Montserrat as MontserratFont } from "next/font/google";
 import KeyPersonnel from "../components/KeyPersonal";
-
+import Map from "@/app/components/Map";
 const montserrat = MontserratFont({
   subsets: ["latin"],
   variable: "--font-montserrat",
@@ -21,6 +21,8 @@ function CompanyDetails({ companyData }) {
     const project = companyData.projects.find((p) => p.id === index);
     setSelectedProject(project);
   };
+
+  const location = companyData.map;
 
   return (
     <div className="text-white">
@@ -48,7 +50,8 @@ function CompanyDetails({ companyData }) {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="bg-gradient-to-r from-lgreen via-teal-400 to-cyan-400 bg-clip-text text-transparent px-4 py-2 text-3xl md:text-6xl text-center font-extrabold"
+
+            className={`bg-gradient-to-r ${companyData.color[0]} ${companyData.color[1]} bg-clip-text text-transparent px-4 py-2 text-3xl md:text-6xl text-center font-extrabold`}
           >
             {companyData.name}
           </motion.h1>
@@ -65,7 +68,7 @@ function CompanyDetails({ companyData }) {
           className="mb-6 text-3xl md:text-4xl font-extrabold uppercase"
         >
           <span className="text-white">What </span>
-          <span className="bg-gradient-to-r from-lgreen via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+          <span className={`bg-gradient-to-r ${companyData.color[0]} ${companyData.color[1]} bg-clip-text text-transparent`}>
             We Do
           </span>
         </motion.h2>
@@ -80,12 +83,11 @@ function CompanyDetails({ companyData }) {
           {companyData.description}
         </motion.p>
 
-        {/* Expertise HoverCard */}
       </section>
 
       {/* Key Personnel */}
       <section className="flex items-center justify-center mt-5">
-        <KeyPersonnel personnels={companyData.keyPersonnel} />
+        <KeyPersonnel personnels={companyData.keyPersonnel} color={companyData.color} primaryColor={companyData.primaryColor}/>
       </section>
 
       {/* Projects */}
@@ -97,7 +99,7 @@ function CompanyDetails({ companyData }) {
           transition={{ duration: 0.6 }}
           className="mb-10 text-center text-3xl md:text-4xl font-extrabold uppercase"
         >
-          <span className="bg-gradient-to-r from-lgreen via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+          <span className={`bg-gradient-to-r ${companyData.color[0]} ${companyData.color[1]} bg-clip-text text-transparent`}>
             Our Projects
           </span>
         </motion.h2>
@@ -129,6 +131,7 @@ function CompanyDetails({ companyData }) {
                 setIsOpen={setIsOpen}
                 project={project}
                 index={projectIdx}
+                company={companyData}
               />
             </motion.div>
           ))}
