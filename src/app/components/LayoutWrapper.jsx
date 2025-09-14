@@ -26,11 +26,11 @@ export default function LayoutWrapper({ children }) {
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group z-50 fixed bottom-4 right-10 flex items-center justify-center 
-                   w-16 h-16 rounded-full bg-transparent shadow-lg cursor-pointer
-                   transition-all duration-500 ease-out
-                   hover:bg-gradient-to-br hover:from-green-400 hover:to-green-500 
-                   hover:scale-110 hover:shadow-[0_0_35px_12px_rgba(37,211,102,0.55)]"
+            className="group z-50 fixed bottom-4 right-10 flex items-center justify-center
+                w-16 h-16 rounded-full bg-transparent shadow-lg cursor-pointer
+                transition-all duration-500 ease-out
+                hover:bg-gradient-to-br hover:from-green-400 hover:to-green-500
+                hover:scale-110 hover:shadow-[0_0_35px_12px_rgba(37,211,102,0.55)]"
           >
             <FaWhatsapp
               size={36}
@@ -39,7 +39,7 @@ export default function LayoutWrapper({ children }) {
           </a>
           <Footer />
         </>
-    )}
+      )}
     </>
   );
 }
