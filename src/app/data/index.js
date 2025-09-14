@@ -4,7 +4,7 @@ const navLinks = [
     { name: "Home", href: "home", path: "/" },
     { name: "About Us", href: "about", path: "/" },
     { name: "Companies", href: "company", path: "/" },
-    {name:"Support", href: "support", path: "/" },
+    {name:"Support", href: "", path: "/support" },
     // {
     //     name: "Services",
     //     href: "services",

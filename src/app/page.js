@@ -12,7 +12,7 @@ import LogoLoop from '@/components/LogoLoop'
 import Clients from './components/Clients'
 import GlobalBranches from './components/GlobalBranches'
 import { useRouter } from 'next/navigation'
-import Map from './components/Map'
+// import Map from './components/Map'
 import { branchesData } from '.'
 import CardFlipHero from './about-us/components/Companies'
 
@@ -38,7 +38,7 @@ const Page = () => {
     }
   }
 
-    const containerVariants = {
+  const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -104,8 +104,8 @@ const Page = () => {
         </div> */}
       <div>
         {/* <GlobalBranches /> */}
-         <motion.div
-         id="company"
+        <motion.div
+          id="company"
 
           variants={containerVariants}
           initial="hidden"
@@ -135,7 +135,7 @@ const Page = () => {
           </motion.p>
         </motion.div>
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 space-y-5 justify-items-center mt-20 px-5">
-          
+
           {branchesData.branches.map((branch) => (
             <CardFlipHero key={branch.id} branch={branch} />
           ))}
