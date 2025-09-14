@@ -6,6 +6,7 @@ const navLinks = [
     { name: "Companies", href: "company", path: "/" },
     { name: "News", href: "", path: "/news" },
     {name:"Support", href: "", path: "/support" },
+    {name:"Careers", href:"" , path:"/careers"},
     // {
     //     name: "Services",
     //     href: "services",

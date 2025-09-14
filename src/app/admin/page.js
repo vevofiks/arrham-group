@@ -1,11 +1,13 @@
 import React from 'react'
-import Careers from './components/Careers'
+import Header from './components/Header'
 
 function page() {
   return (
-    <div>
-      <Careers/>
+    < >
+    <div className='bg-gray-50' >
+
     </div>
+    </>
   )
 }
 
