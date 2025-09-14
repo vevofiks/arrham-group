@@ -3,7 +3,7 @@ import "./globals.css";
 import { FaWhatsapp } from "react-icons/fa";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
+import { Toaster } from "sonner";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -35,6 +35,7 @@ export default function RootLayout({ children }) {
       >
         <Navbar />
         {children}
+        <Toaster richColors position="top-right" />
         <a
           href={url}
           target="_blank"
