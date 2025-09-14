@@ -3,7 +3,14 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
+
+import { Montserrat as MontserratFont } from "next/font/google";
+
+const montserrat = MontserratFont({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+});
 
 export default function NewsDetailPage() {
   const { id } = useParams();
@@ -85,7 +92,7 @@ export default function NewsDetailPage() {
       transition={{ duration: 0.8 }}
       className="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900 text-white relative overflow-hidden"
     >
-      
+
 
       <div className="relative z-10 px-6 md:px-20 py-20 mt-12">
         <div className="max-w-4xl mx-auto">
@@ -121,9 +128,9 @@ export default function NewsDetailPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-4xl md:text-6xl font-extrabold leading-tight"
+                className="text-4xl md:text-5xl font-extrabold leading-tight"
               >
-                <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+                <span className={`${montserrat.className} bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent`}>
                   {news.title}
                 </span>
               </motion.h1>
