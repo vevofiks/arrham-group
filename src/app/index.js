@@ -14,8 +14,8 @@ export const branchesData = {
         shadow: "shadow-teal-900/30",
       },
       map: {
-        lat: "56.1304",
-        lon: "106.3468",
+        lat: "26.14129995053057",
+        lon: "50.583114618889056",
       },
       companyImg: "/companyDummy.jpeg",
       country: "canada",
@@ -68,8 +68,8 @@ export const branchesData = {
         shadow: "shadow-teal-900/30",
       },
       map: {
-        lat: "23.8859",
-        lon: "45.0792",
+        lat: "26.14129995053057",
+        lon: "50.583114618889056",
       },
       companyIcon: "/arrham-logo.png",
       companyImg: "/companyDummy.jpeg",
@@ -156,8 +156,8 @@ export const branchesData = {
         shadow: "shadow-teal-900/30",
       },
       map: {
-        lat: "26.0667",
-        lon: "50.5577",
+        lat: "26.14129995053057",
+        lon: "50.583114618889056",
       },
       companyIcon: "/arrham-ksa.png",
       companyImg: "/companyDummy.jpeg",
@@ -301,57 +301,6 @@ export const branchesData = {
           "Commitment to safety, quality, and timely delivery.",
         ],
       },
-
-
-      // 🔹 Interior Design & Fit-Out
-      // interiors: {
-      //   name: "Interior Design & Planning",
-      //   description:
-      //     "Arrham Trading Bahrain specializes in turnkey interior design and fit-out works with modern, functional, and aesthetic solutions.",
-      //   services: [
-      //     {
-      //       title: "Design & Planning",
-      //       description:
-      //         "Concept design, 3D visualization, space planning, and selection of themes, colors, and finishes."
-      //     },
-      //     {
-      //       title: "Fit-Out Works",
-      //       description:
-      //         "Complete turnkey fit-outs for residential, commercial, retail, and hospitality spaces with MEP integration."
-      //     },
-      //     {
-      //       title: "Custom Furniture & Joinery",
-      //       description:
-      //         "Bespoke furniture design, built-in cabinets, wardrobes, reception desks, and feature walls."
-      //     },
-      //     {
-      //       title: "Decorative & Architectural Finishes",
-      //       description:
-      //         "Wall cladding, 3M DI-NOC finishes, Fasara decorative glass films, lighting design, and smart automation."
-      //     },
-      //     {
-      //       title: "Project Management & Supervision",
-      //       description:
-      //         "Cost control, procurement, scheduling, quality assurance, and on-time delivery."
-      //     }
-      //   ],
-
-      //   industries: [
-      //     "Residential Villas & Apartments",
-      //     "Corporate Offices",
-      //     "Retail Stores & Showrooms",
-      //     "Restaurants & Cafés",
-      //     "Hotels & Resorts",
-      //     "Healthcare Facilities",
-      //   ],
-      //   keyAdvantages: [
-      //     "Turnkey solutions from concept to completion",
-      //     "Skilled workforce with technical expertise",
-      //     "Premium materials and finishes (including 3M Architectural Solutions)",
-      //     "Cost-effective, sustainable, and modern design solutions",
-      //   ],
-      // },
-
       keyPersonnel: [
         {
           name: "Shabab Karuparamban",
@@ -392,8 +341,8 @@ export const branchesData = {
         shadow: "shadow-teal-900/30",
       },
       map: {
-        lat: "26.0667",
-        lon: "50.5577",
+        lat: "26.14129995053057",
+        lon: "50.583114618889056",
       },
       location:
         "1445G, Road 4630, Block 646, Nuwaidrat, Sitrah 644, Kingdom of Bahrain",
