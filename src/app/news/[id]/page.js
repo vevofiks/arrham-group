@@ -6,6 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { motion } from "motion/react";
 
 import { Montserrat as MontserratFont } from "next/font/google";
+import Image from "next/image";
 
 const montserrat = MontserratFont({
   subsets: ["latin"],
@@ -72,7 +73,7 @@ export default function NewsDetailPage() {
           </svg>
         </motion.div>
         <h2 className="text-2xl font-bold text-white mb-4">Article Not Found</h2>
-        <p className="text-white/70 mb-8">The article you're looking for doesn't exist or has been removed.</p>
+        <p className="text-white/70 mb-8">{"The article you're looking for doesn't exist or has been removed."}</p>
         <motion.button
           onClick={() => router.back()}
           whileHover={{ scale: 1.05 }}
@@ -162,7 +163,7 @@ export default function NewsDetailPage() {
                 transition={{ duration: 0.8, delay: 0.6 }}
                 className="relative rounded-2xl overflow-hidden shadow-2xl"
               >
-                <img
+                <Image
                   src={news.image}
                   alt={news.title}
                   className="w-full h-64 md:h-96 object-cover"
