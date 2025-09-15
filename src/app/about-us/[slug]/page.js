@@ -18,7 +18,7 @@ async function Page({ params }) {
   return (
 
 
-    <div className="mt-32">
+    <div className="">
       <CompanyDetails companyData={data} />
     </div>
   );
