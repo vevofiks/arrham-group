@@ -22,7 +22,6 @@ const navLinks = [
     { name: "Contact", href: "contact", path: "/" },
 ];
 
-
 const servicesData = [
     {
 
