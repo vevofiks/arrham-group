@@ -73,7 +73,8 @@ export default function NewsDetailPage() {
           </svg>
         </motion.div>
         <h2 className="text-2xl font-bold text-white mb-4">Article Not Found</h2>
-        <p className="text-white/70 mb-8">{"The article you're looking for doesn't exist or has been removed."}</p>
+        <p className="text-white/70 mb-8">The article you&apos;re looking for doesn&apos;t exist
+          or has been removed.</p>
         <motion.button
           onClick={() => router.back()}
           whileHover={{ scale: 1.05 }}
@@ -166,6 +167,8 @@ export default function NewsDetailPage() {
                 <Image
                   src={news.image}
                   alt={news.title}
+                  width={1200}
+                  height={600}
                   className="w-full h-64 md:h-96 object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
