@@ -197,6 +197,7 @@ const About = ({
 
 
             </motion.div>
+            <div className="w-24 h-1 bg-lgreen my-6 mb-12"></div>
 
             {/* Updated Description */}
             <motion.div variants={itemVariants} className="space-y-6">
