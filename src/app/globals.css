@@ -113,6 +113,30 @@
 }
 
 @layer base {
+  :root {
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+  }
+
+  .dark {
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.439 0 0);
+  }
+}
+
+@layer base {
   * {
     @apply border-border outline-ring/50;
   }
@@ -125,11 +149,9 @@
   --color-lgreen : #2ec9a2;
 }
 
-
-body, html {
+/* body, html {
   background-color: black;
-}
-
+} */
 
 .custom-scrollbar::-webkit-scrollbar {
   width : 6px;
@@ -138,7 +160,6 @@ body, html {
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
-
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: linear-gradient(to bottom, #10b981, #14b8a6); /* emerald → teal */
@@ -155,7 +176,6 @@ body, html {
   scrollbar-color: #10b981 transparent;
 }
 
-
 #modal-scroll::-webkit-scrollbar {
   width : 6px;
 }
@@ -163,7 +183,6 @@ body, html {
 #modal-scroll::-webkit-scrollbar-track {
   background: transparent;
 }
-
 
 #modal-scroll::-webkit-scrollbar-thumb {
   background: linear-gradient(to bottom, #10b981, #14b8a6); /* emerald → teal */

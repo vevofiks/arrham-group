@@ -197,14 +197,14 @@ export const branchesData = {
     {
       id: "arrham-canada",
       name: "Arrham Group Inc. (Canada)",
-      companyIcon: "/arrham3.png",
-      color: ["from-cyan-400" , "to-blue-800"],
+      companyIcon: "/arrham-canada.png",
+      color: ["from-lgreen/70" , "to-teal-400"],
       primaryColor: {
-        border: "border-cyan-400",
-        text: "text-cyan-400",
-        hoverBorder: "hover:border-cyan-400",
-        hoverText: "hover:text-cyan-300",
-        shadow: "shadow-cyan-900/30",
+        border: "border-teal-400",
+        text: "text-white",
+        hoverBorder: "hover:border-teal-400",
+        hoverText: "hover:text-teal-300",
+        shadow: "shadow-teal-900/30",
       },
       map : {
         lat : '56.1304',
@@ -252,20 +252,20 @@ export const branchesData = {
     {
       id: "arrham-contracting-ksa",
       name: "Arrham Al Arabia Contracting Company (KSA)",
-      color: ["from-cyan-400" , "to-blue-800"],
+      color: ["from-lgreen/40" , "to-teal-400"],
       primaryColor: {
-        border: "border-cyan-400",
-        text: "text-cyan-400",
-        hoverBorder: "hover:border-cyan-400",
-        hoverText: "hover:text-cyan-300",
-        shadow: "shadow-cyan-900/30",
+        border: "border-teal-400",
+        text: "text-white",
+        hoverBorder: "hover:border-teal-400",
+        hoverText: "hover:text-teal-300",
+        shadow: "shadow-teal-900/30",
       },
       map : {
         lat : '23.8859',
         lon: '45.0792'
       },
 
-      companyIcon: "/arrhamarabia.png",
+      companyIcon: "/arrham-logo.png",
       companyImg : "/companyDummy.jpeg", 
       country:"Saudi Arabia",
       location: "Al Khobar Al Janubiyah Dist., Kingdom of Saudi Arabia",
@@ -346,19 +346,19 @@ export const branchesData = {
     {
       id: "arrham-trading-bahrain",
       name: "Arrham Trading and Contracting W.L.L. (Kingdom of Bahrain)",
-      color: ["from-cyan-400" , "to-blue-800"],
+      color: ["from-lgreen/40" , "to-teal-400"],
       primaryColor: {
-        border: "border-cyan-400",
-        text: "text-cyan-400",
-        hoverBorder: "hover:border-cyan-400",
-        hoverText: "hover:text-cyan-300",
-        shadow: "shadow-cyan-900/30",
+        border: "border-teal-400",
+        text: "text-white",
+        hoverBorder: "hover:border-teal-400",
+        hoverText: "hover:text-teal-300",
+        shadow: "shadow-teal-900/30",
       },
       map : {
         lat : '26.0667',
         lon: '50.5577'
       },
-      companyIcon: "/arrham3.png",
+      companyIcon: "/arrham-ksa.png",
       companyImg : "/companyDummy.jpeg",
       country:"Bahrain",
       location:
@@ -414,13 +414,13 @@ export const branchesData = {
     {
       id: "arrham-healthcare-bahrain",
       name: "Arrham Healthcare Solutions (Hidaya Healthcare Solutions W.L.L.)",
-      companyIcon: "/arrhamhelthcare.png",
+      companyIcon: "/arrham-healthcare.png",
       primaryColor: {
-        border: "border-cyan-400",
-        text: "text-cyan-400",
-        hoverBorder: "hover:border-cyan-400",
-        hoverText: "hover:text-cyan-300",
-        shadow: "shadow-cyan-900/30",
+        border: "border-teal-400",
+        text: "text-white",
+        hoverBorder: "hover:border-teal-400",
+        hoverText: "hover:text-teal-300",
+        shadow: "shadow-teal-900/30",
       },
       map : {
         lat : '26.0667',
@@ -428,8 +428,14 @@ export const branchesData = {
       },
       companyImg : "/companyDummy.jpeg",
       country:"Bahrain",
-      color: ["from-cyan-400" , "to-blue-800"],
-      primaryColor: ['cyan-400'],
+      color: ["from-lgreen/40" , "to-teal-400"],
+      primaryColor: {
+        border: "border-teal-400",
+        text: "text-white",
+        hoverBorder: "hover:border-teal-400",
+        hoverText: "hover:text-teal-300",
+        shadow: "shadow-teal-900/30",
+      },
       location:
         "1445G, Road 4630, Block 646, Nuwaidrat, Sitrah 644, Kingdom of Bahrain",
       shortDescription:

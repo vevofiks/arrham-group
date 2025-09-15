@@ -1,6 +1,4 @@
-import Header from "./components/Header";
-import "../globals.css"
-
+import Sidebar from "./component/Sidebar";
 
 export const metadata = {
   title: "Admin Dashboard",
@@ -8,12 +6,12 @@ export const metadata = {
 
 export default function Layout({ children }) {
   return (
-    <html lang="en">
-      <body>
-        <Header />
+    <body className="flex h-screen overflow-hidden">
+      {/* Sidebar */}
+      {/* <Sidebar /> */}
 
-        <main className="flex-1 p-6">{children}</main>
-      </body>
-    </html>
+      {/* Main Content */}
+        <main className="">{children}</main>
+    </body>
   );
 }

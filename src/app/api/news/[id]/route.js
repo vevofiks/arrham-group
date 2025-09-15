@@ -36,17 +36,16 @@ export const PUT = async (req, { params }) => {
 
 export const DELETE = async (req, { params }) => {
     try {
-
         await connectDB();
-        const { id } = await params;
-
+        const { id } = params;
         const deletedNews = await News.findByIdAndDelete(id);
-        if (!deletedNews) {
-            return new Response("Not found", { status: 404 });
-        }
-        return new Response("Deleted", { status: 204 })
-    } catch (error) {
-        return new Response("Error deleting news", { status: 500 });
 
+        if (!deletedNews) {
+            return new Response(JSON.stringify({ error: "News not found" }), { status: 404 });
+        }
+
+        return new Response(JSON.stringify({ message: "Deleted successfully" }), { status: 200 });
+    } catch (error) {
+        return new Response(JSON.stringify({ error: "Error deleting news" }), { status: 500 });
     }
-}
+};

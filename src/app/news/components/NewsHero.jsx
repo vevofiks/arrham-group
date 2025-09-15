@@ -10,20 +10,7 @@ const montserrat = MontserratFont({
 
 const NewsHero = () => {
   return (
-    <section className="relative h-[80vh] flex items-center justify-center text-center overflow-hidden">
-    
-      <motion.div
-        className="absolute bottom-20 right-20 w-16 h-16 bg-teal-400/20 rotate-45"
-        animate={{ 
-          rotate: [45, 225, 45],
-          y: [0, -20, 0]
-        }}
-        transition={{ 
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
+    <section className="relative h-[100vh] flex items-center justify-center text-center overflow-hidden">
 
       <div className="relative z-10 max-w-4xl mx-auto px-6">
         <motion.div

@@ -100,7 +100,7 @@ const handleLinkClick = (path, href) => {
             className="text-2xl font-bold text-white cursor-pointer"
             href="/"
           >
-            <Image src="/arrham-logo.png" alt="logo" width={240} height={240} />
+            <Image src="/logo.png" alt="logo" width={100} height={100} />
           </motion.a>
 
           <div className="hidden md:flex items-center space-x-8">

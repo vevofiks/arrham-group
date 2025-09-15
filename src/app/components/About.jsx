@@ -194,8 +194,8 @@ const About = ({
                   Us
                 </span>
               </h2>
-             
-             
+
+
             </motion.div>
 
             {/* Updated Description */}
@@ -212,10 +212,10 @@ const About = ({
                 , <span className="font-semibold text-lgreen">precision</span>,
                 and a{" "}
                 <span className="font-semibold text-lgreen">
-                  relentless drive to exceed expectations
-                </span> 
-                . Guided by our core principles of <em>dedication</em> and{" "}
-                <em>integrity</em>, we have expanded across the Middle East with
+                  relentless drive to exceed
+                </span>
+                . Guided by our core principles of dedication and{" "}
+                integrity, we have expanded across the Middle East with
                 a strong presence in{" "}
                 <span className="text-lgreen">Bahrain</span> and{" "}
                 <span className="text-lgreen">Saudi Arabia</span>.
@@ -297,11 +297,10 @@ const About = ({
                   whileHover={{ scale: 1.05, y: -5 }}
                   onHoverStart={() => handleStatHoverStart(index)}
                   onHoverEnd={handleStatHoverEnd}
-                  className={`text-center p-6 rounded-2xl transition-all duration-300 cursor-pointer ${
-                    hoveredStat === index
+                  className={`text-center p-6 rounded-2xl transition-all duration-300 cursor-pointer ${hoveredStat === index
                       ? "bg-lgreen/10 border border-lgreen/30"
                       : "bg-white/5 border border-white/10"
-                  }`}
+                    }`}
                 >
                   <motion.div className="inline-flex items-center justify-center w-12 h-12 bg-lgreen/20 rounded-xl mb-4">
                     <Icon className="w-6 h-6 text-lgreen" />

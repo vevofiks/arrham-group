@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 
 function Modal({ isOpen, onClose, project }) {
   return (

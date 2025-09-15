@@ -1,24 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Mail, ArrowUp, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
-import { socialIcons } from "../data";
+import Map from "./Map";
 
 const Footer = () => {
-  const [email, setEmail] = useState("");
-  const [isSubscribed, setIsSubscribed] = useState(false);
-
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    if (email) {
-      setIsSubscribed(true);
-      setEmail("");
-      setTimeout(() => setIsSubscribed(false), 3000);
-    }
-  };
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -27,10 +15,7 @@ const Footer = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        duration: 0.6,
-      },
+      transition: { staggerChildren: 0.1, duration: 0.6 },
     },
   };
 
@@ -44,7 +29,11 @@ const Footer = () => {
   };
 
   return (
-    <footer id="footer" className="relative  text-white overflow-hidden">
+    <footer
+      id="footer"
+      className="relative bg-black text-white overflow-hidden"
+    >
+      {/* Background Grid Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
           className="absolute inset-0"
@@ -52,12 +41,13 @@ const Footer = () => {
             backgroundImage: `radial-gradient(circle at 1px 1px, rgb(255,255,255) 1px, transparent 0)`,
             backgroundSize: "40px 40px",
           }}
-        ></div>
+        />
       </div>
 
+      {/* Top Border Accent */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-lgreen via-teal-400 to-cyan-400"></div>
 
-      <div className="relative pt-20 pb-6 px-6 md:px-12 lg:px-20">
+      <div className="relative pt-16 pb-8 px-6 md:px-12 lg:px-20">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -65,51 +55,40 @@ const Footer = () => {
           viewport={{ once: true, margin: "-100px" }}
           className="max-w-7xl mx-auto"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+          {/* Main Grid */}
+          <div className="flex flex-col justify-center md:flex-row items-start md:justify-between gap-20">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"> */}
             {/* Company Info */}
-            <motion.div variants={itemVariants} className="lg:col-span-2">
-              <div className="flex items-center gap-3 mb-6">
-                <div>
-                  <Image
-                    src="/arrham-logo.png"
-                    width={160}
-                    height={160}
-                    alt="Arrham Group Logo"
-                  />
-                </div>
+            <motion.div variants={itemVariants}>
+              <div className="mb-6">
+                <Image
+                  src="/logo.png"
+                  width={120}
+                  height={120}
+                  alt="Arrham Group Logo"
+                />
               </div>
 
-              <p className="text-white/80 leading-relaxed mb-6 text-sm lg:text-base max-w-md">
-                Arrham Group is a dynamic and innovative leader in{" "}
-                <span className="text-lgreen font-semibold">
-                  Engineering & Construction
-                </span>{" "}
-                and{" "}
-                <span className="text-teal-400 font-semibold">
-                  Automotive Services
-                </span>
-                , delivering exceptional quality and cutting-edge solutions.
-              </p>
-
-              {/* Contact Info */}
               <div className="space-y-3">
                 <div className="flex items-center gap-3 text-white/70 hover:text-lgreen transition-colors">
                   <MapPin className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-sm">Nuwaidrat, Bahrain</span>
+                  {/* <span className="text-sm">Nuwaidrat, Bahrain</span> */}
+                  <span className="text-sm max-w-2xl"> ARRHAM TRADING AND CONTRACTING W.L.L Mr. Shabab 1445A & 1445G,
+                    Road 4630, Block 646, Nuwaidrat, Sitrah 644 Bahrain</span>
                 </div>
                 <div className="flex items-center gap-3 text-white/70 hover:text-lgreen transition-colors">
                   <Phone className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-sm">+973 66332026</span>
+                  <span className="text-sm">+973 1747 3535</span>
                 </div>
                 <div className="flex items-center gap-3 text-white/70 hover:text-lgreen transition-colors">
                   <Mail className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-sm">info@arrhamtrading.com</span>
+                  <span className="text-sm">info@arrhamgroup.com</span>
                 </div>
               </div>
             </motion.div>
 
             {/* Quick Links */}
-            <motion.div variants={itemVariants}>
+            {/* <motion.div variants={itemVariants}>
               <h3 className="text-lg font-bold mb-6 relative">
                 Quick Links
                 <div className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-lgreen to-teal-400"></div>
@@ -121,7 +100,7 @@ const Footer = () => {
                   { name: "Architectural", href: "/architectural" },
                   { name: "Commercial Window", href: "/commercial-window" },
                   { name: "MEP Services", href: "/mep" },
-                  { name: "About Us", href: "/about" },
+                  { name: "About Us", href: "/about-us" },
                 ].map((link, index) => (
                   <li key={index}>
                     <a
@@ -134,70 +113,18 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </motion.div> */}
 
-            {/* Newsletter */}
+            {/* Map */}
             <motion.div variants={itemVariants}>
-              <h3 className="text-lg font-bold mb-6 relative">
-                Stay Updated
-                <div className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-lgreen to-lgreen/50"></div>
-              </h3>
-              <p className="text-white/70 text-sm mb-6 leading-relaxed">
-                Subscribe to receive updates about our latest projects and
-                services.
-              </p>
-
-              <div className="mb-6">
-                <div className="relative">
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your email address"
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-lgreen focus:bg-white/15 transition-all text-sm backdrop-blur-sm"
-                  />
-                  <button
-                    onClick={handleSubscribe}
-                    disabled={isSubscribed}
-                    type="submit"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-lgreen to-teal-500 px-4 py-2 rounded-lg text-black font-semibold hover:shadow-lg hover:shadow-lgreen/25 transition-all disabled:opacity-50 text-sm"
-                  >
-                    {isSubscribed ? "✓" : <Mail className="w-4 h-4" />}
-                  </button>
-                </div>
-                {isSubscribed && (
-                  <p className="text-lgreen text-xs mt-2">
-                    Successfully subscribed!
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-4">
-                <h4 className="text-sm font-semibold text-white/80">
-                  Follow Us
-                </h4>
-                <div className="flex items-center gap-3">
-                  {socialIcons.map((social, index) => (
-                    <motion.a
-                      key={index}
-                      href={social.href}
-                      className={`p-2.5 rounded-xl border border-white/20 backdrop-blur-sm transition-all duration-300 ${social.color} ${social.iconColor}`}
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <social.icon className="w-4 h-4" />
-                    </motion.a>
-                  ))}
-                </div>
-              </div>
+              <Map lat={"26.137565075290414"} lon={"50.58452037150072"} />
             </motion.div>
           </div>
 
           {/* Bottom Bar */}
           <motion.div
             variants={itemVariants}
-            className="mt-16 pt-8  lg:pr-12  border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4"
+            className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4"
           >
             <div className="text-center md:text-left">
               <p className="text-white/60 text-sm">

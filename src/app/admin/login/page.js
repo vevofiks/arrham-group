@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion"; // motion/react → framer-motion
+import { motion } from "motion/react"; 
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -45,6 +45,7 @@ const AdminLoginPage = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
+        credentials : "include"
       });
 
       const data = await res.json();
@@ -53,7 +54,7 @@ const AdminLoginPage = () => {
         toast.success(data.message);
         setUsername("");
         setPassword("");
-        router.push("/admin/dashboard"); // redirect after login
+        router.push("/admin/news");
       } else {
         toast.error(data.message || "Login failed");
       }
