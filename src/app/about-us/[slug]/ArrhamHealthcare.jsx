@@ -1,15 +1,52 @@
-"use client"
+"use client";
 import React from 'react';
-import { Hospital , Wrench , Sprout } from 'lucide-react';
+import { Hospital, Wrench, Sprout } from 'lucide-react';
 import Image from 'next/image';
-import {motion} from "motion/react";
+import { motion } from "motion/react";
+import { Montserrat as MontserratFont } from "next/font/google";
+
+const montserrat = MontserratFont({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+});
 
 function ArrhamHealthcare() {
+  const companyName = "Arrham Trading and Contracting W.L.L.";
+  const subName = "Kingdom of Bahrain";
+
+  // Country flag for Bahrain (inline SVG)
+  const BahrainFlag = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="48"
+      height="48"
+      viewBox="0 0 32 32"
+      className="rounded-lg shadow-lg"
+    >
+      <path
+        d="M27,4H9V28H27c2.209,0,4-1.791,4-4V8c0-2.209-1.791-4-4-4Z"
+        fill="#ea3323"
+      />
+      <path
+        d="M10,23.2l6-2.4-6-2.4,6-2.4-6-2.4,6-2.4-6-2.4,6-2.4-6-2.4H5c-2.209,0-4,1.791-4,4V24c0,2.209,1.791,4,4,4h5l6-2.4-6-2.4Z"
+        fill="#fff"
+      />
+      <path
+        d="M27,4H5c-2.209,0-4,1.791-4,4V24c0,2.209,1.791,4,4,4H27c2.209,0,4-1.791,4-4V8c0-2.209-1.791-4-4-4Zm3,20c0,1.654-1.346,3-3,3H5c-1.654,0-3-1.346-3-3V8c0-1.654,1.346-3,3-3H27c1.654,0,3,1.346,3,3V24Z"
+        opacity=".15"
+      />
+      <path
+        d="M27,5H5c-1.657,0-3,1.343-3,3v1c0-1.657,1.343-3,3-3H27c1.657,0,3,1.343,3,3v-1c0-1.657-1.343-3-3-3Z"
+        fill="#fff"
+        opacity=".2"
+      />
+    </svg>
+  );
 
   return (
     <div className="min-h-screen text-white overflow-hidden">
       {/* Hero Section */}
-    <div className="relative h-[420px] w-full overflow-hidden">
+      <div className="relative h-[420px] w-full overflow-hidden">
         <Image
           src="/companyDummy.jpeg"
           className="h-full w-full object-cover"
@@ -18,177 +55,377 @@ function ArrhamHealthcare() {
           priority
         />
 
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black/50 backdrop-blur-sm">
-          <motion.h1
-            initial={{ opacity: 0, y: -40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-3xl md:text-5xl font-bold"
+        {/* Overlay */}
+        <div className="absolute inset-0 flex items-center justify-between px-6 md:px-12 bg-black/60 backdrop-blur-sm">
+          {/* Left Content */}
+          <div className="flex flex-col gap-2 max-w-2xl">
+            <motion.h1
+              initial={{ opacity: 0, y: -40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className={`text-xl md:text-2xl lg:text-3xl font-bold text-left text-gray-100 ${montserrat.className}`}
+            >
+              Welcome to
+            </motion.h1>
+
+            {/* Main Company Name */}
+            <motion.h1
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className={`bg-gradient-to-r from-blue-400 to-teal-500 bg-clip-text text-transparent text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-left leading-tight ${montserrat.className}`}
+            >
+              {companyName}
+            </motion.h1>
+
+            {/* Sub Name */}
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.6 }}
+              className={`text-lg md:text-xl lg:text-2xl font-medium text-left text-gray-200 leading-relaxed ${montserrat.className}`}
+            >
+              {subName}
+            </motion.h2>
+          </div>
+
+          {/* Right Side - Country Flag */}
+          <motion.div 
+            className="hidden sm:flex items-center"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Welcome to
-          </motion.h1>
-
-          <motion.h1
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="text-blue-400 bg-clip-text px-4 py-2 text-3xl md:text-6xl text-center font-extrabold"
-          >
-              Arrham Trading and Contracting
-              <br />
-              W.L.L. (Kingdom of Bahrain)
-
-          </motion.h1>
-
+            <div className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20">
+              <BahrainFlag />
+            </div>
+          </motion.div>
         </div>
       </div>
 
       {/* What We Do Section */}
-      <section className="py-24 px-8 relative">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-5xl font-extrabold mb-4">
-            WHAT <span className="text-blue-400 font-extrabold">WE DO</span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto mb-12"></div>
+      <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className={`text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase mb-6 ${montserrat.className}`}
+          >
+            <span className="text-white">What </span>
+            <span className="bg-gradient-to-r from-blue-400 to-teal-500 bg-clip-text text-transparent">
+              We Do
+            </span>
+          </motion.h2>
           
-          <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-16">
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-24 h-1 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full"
+          />
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="max-w-4xl mx-auto mb-16"
+        >
+          <p className={`text-lg md:text-xl leading-relaxed text-gray-300 text-left ${montserrat.className}`}>
             Multifaceted firm offering commercial/residential/industrial fit-outs, 3M window films, 
             smart glass, automotive films, and architectural finishes. Ideal for retail, offices, and 
             automotive spaces with cutting-edge healthcare infrastructure solutions.
           </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-            <div className="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-teal-400/20 hover:border-teal-400/50 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-br from-teal-400 to-blue-500 rounded-full flex items-center justify-center mb-6 mx-auto">
-                <span className="text-2xl"><Hospital size={35} /></span>
+        </motion.div>
+        
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: { staggerChildren: 0.2 },
+            },
+          }}
+        >
+          {[
+            {
+              icon: Hospital,
+              title: "Healthcare Excellence",
+              description: "Specialized in designing and constructing state-of-the-art medical facilities with global compliance standards.",
+              color: "teal",
+              gradient: "from-teal-400 to-blue-500",
+              borderColor: "teal-400/20",
+              hoverBorder: "teal-400/50",
+              textColor: "teal-300"
+            },
+            {
+              icon: Wrench,
+              title: "Turnkey Solutions",
+              description: "Complete project execution from concept to handover, ensuring seamless integration and superior quality.",
+              color: "blue",
+              gradient: "from-blue-400 to-teal-500",
+              borderColor: "blue-400/20",
+              hoverBorder: "blue-400/50",
+              textColor: "blue-300"
+            },
+            {
+              icon: Sprout,
+              title: "Sustainable Design",
+              description: "Environmental consciousness integrated into every project with energy-efficient and eco-friendly solutions.",
+              color: "teal",
+              gradient: "from-teal-500 to-blue-400",
+              borderColor: "teal-400/20",
+              hoverBorder: "teal-400/50",
+              textColor: "teal-300"
+            }
+          ].map((service, idx) => (
+            <motion.div
+              key={idx}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                show: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.6 }}
+              className={`bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-${service.borderColor} hover:border-${service.hoverBorder} transition-all duration-300 hover:transform hover:scale-105 shadow-lg hover:shadow-xl`}
+            >
+              <div className={`w-16 h-16 bg-gradient-to-br ${service.gradient} rounded-full flex items-center justify-center mb-6 mx-auto`}>
+                <service.icon size={35} />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-teal-300">Healthcare Excellence</h3>
-              <p className="text-gray-300">Specialized in designing and constructing state-of-the-art medical facilities with global compliance standards.</p>
-            </div>
-            
-            <div className="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-blue-400/20 hover:border-blue-400/50 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-teal-500 rounded-full flex items-center justify-center mb-6 mx-auto">
-                <span className="text-2xl"><Wrench size={35} /></span>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-blue-300">Turnkey Solutions</h3>
-              <p className="text-gray-300">Complete project execution from concept to handover, ensuring seamless integration and superior quality.</p>
-            </div>
-            
-            <div className="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-teal-400/20 hover:border-teal-400/50 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-blue-400 rounded-full flex items-center justify-center mb-6 mx-auto">
-                <span className="text-2xl"><Sprout size={35} /></span>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-teal-300">Sustainable Design</h3>
-              <p className="text-gray-300">Environmental consciousness integrated into every project with energy-efficient and eco-friendly solutions.</p>
-            </div>
-          </div>
-        </div>
+              <h3 className={`text-2xl font-bold mb-4 text-${service.textColor} ${montserrat.className}`}>
+                {service.title}
+              </h3>
+              <p className={`text-gray-300 leading-relaxed ${montserrat.className}`}>
+                {service.description}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
       </section>
 
-      {/* Key Personnels Section */}
-      <section className="py-24 px-8 bg-gradient-to-r from-gray-900/50 to-gray-800/50">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-5xl font-bold mb-4">
-            KEY <span className="text-blue-400">PERSONNELS</span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto mb-16"></div>
+      {/* Key Personnel Section */}
+      <section className="px-6 md:px-12 lg:px-16 py-16 bg-gradient-to-r from-gray-900/50 to-gray-800/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-6 ${montserrat.className}`}
+            >
+              <span className="text-white">Key </span>
+              <span className="bg-gradient-to-r from-blue-400 to-teal-500 bg-clip-text text-transparent">
+                Personnel
+              </span>
+            </motion.h2>
+            
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-24 h-1 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full"
+            />
+          </div>
           
-          <div className="flex justify-center">
-            <div className="bg-white/5 backdrop-blur-md rounded-3xl p-12 border border-teal-400/30 max-w-md">
-              <div className="w-32 h-32 bg-gradient-to-br from-teal-400 to-blue-500 rounded-full flex items-center justify-center mb-8 mx-auto text-4xl font-bold">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="flex justify-center"
+          >
+            <div className="bg-white/5 backdrop-blur-md rounded-3xl p-12 border border-teal-400/30 max-w-md hover:border-teal-400/50 transition-colors duration-300 shadow-lg">
+              <div className="w-32 h-32 bg-gradient-to-br from-teal-400 to-blue-500 rounded-full flex items-center justify-center mb-8 mx-auto text-4xl font-bold shadow-lg">
                 F
               </div>
-              <h3 className="text-3xl font-bold mb-2 text-teal-300">Faisal Al Mansoor</h3>
-              <p className="text-xl text-blue-300 mb-4">Country Operations Head - Bahrain</p>
-              <p className="text-gray-300">12+ years in fit-out and retail verticals</p>
+              <h3 className={`text-3xl font-bold mb-2 text-teal-300 ${montserrat.className}`}>
+                Faisal Al Mansoor
+              </h3>
+              <p className={`text-xl text-blue-300 mb-4 ${montserrat.className}`}>
+                Country Operations Head - Bahrain
+              </p>
+              <p className={`text-gray-300 ${montserrat.className}`}>
+                12+ years in fit-out and retail verticals
+              </p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Who We Are Section */}
-      <section className="py-24 px-8">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl font-bold mb-16 text-center">
-            WHO <span className="text-blue-400">WE ARE</span>
-          </h2>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-16">
-            <div className="space-y-8">
-              <p className="text-xl text-gray-300 leading-relaxed">
-                <span className="text-teal-400 font-semibold">Arrham Trading and Contracting W.L.L.</span> is a dynamic and multifaceted firm specializing in high-quality construction, fit-out, and contracting services across Commercial, Residential, and Industrial sectors. Built on integrity, innovation, and professionalism.
-              </p>
-              
-              <p className="text-xl text-gray-300 leading-relaxed">
-                <span className="text-blue-400 font-semibold">Hidaya Healthcare W.L.L.</span> is our specialized entity focused exclusively on healthcare infrastructure development, bringing together multidisciplinary expertise in medical compliance, hygiene protocols, and patient-centric design.
-              </p>
-            </div>
+      <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-16 text-center ${montserrat.className}`}
+        >
+          <span className="text-white">Who </span>
+          <span className="bg-gradient-to-r from-blue-400 to-teal-500 bg-clip-text text-transparent">
+            We Are
+          </span>
+        </motion.h2>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="space-y-8"
+          >
+            <p className={`text-lg md:text-xl text-gray-300 leading-relaxed ${montserrat.className}`}>
+              <span className="text-teal-400 font-semibold">Arrham Trading and Contracting W.L.L.</span> is a dynamic and multifaceted firm specializing in high-quality construction, fit-out, and contracting services across Commercial, Residential, and Industrial sectors. Built on integrity, innovation, and professionalism.
+            </p>
             
-            <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-teal-400/20">
-              <h3 className="text-3xl font-bold mb-6 text-teal-300">Our Healthcare Expertise</h3>
-              <ul className="space-y-4 text-gray-300">
-                <li className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-teal-400 rounded-full mt-3 flex-shrink-0"></div>
-                  <span><strong className="text-white">Hospitals & Medical Centers:</strong> Full-scale in-patient and out-patient facilities, operating theatres, ICUs, labs, and imaging suites.</span>
-                </li>
-                <li className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full mt-3 flex-shrink-0"></div>
-                  <span><strong className="text-white">Clinics & Day Surgery Centers:</strong> Functional layouts with medical gas systems and infection control zones.</span>
-                </li>
-                <li className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-teal-400 rounded-full mt-3 flex-shrink-0"></div>
-                  <span><strong className="text-white">Diagnostic & Imaging Facilities:</strong> MRI, CT, X-Ray units with specialized radiation shielding.</span>
-                </li>
-                <li className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full mt-3 flex-shrink-0"></div>
-                  <span><strong className="text-white">Wellness & Rehabilitation:</strong> Healing environments with hydrotherapy, physio, and wellness zones.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+            <p className={`text-lg md:text-xl text-gray-300 leading-relaxed ${montserrat.className}`}>
+              <span className="text-blue-400 font-semibold">Hidaya Healthcare W.L.L.</span> is our specialized entity focused exclusively on healthcare infrastructure development, bringing together multidisciplinary expertise in medical compliance, hygiene protocols, and patient-centric design.
+            </p>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-teal-400/20 hover:border-teal-400/30 transition-colors duration-300 shadow-lg"
+          >
+            <h3 className={`text-2xl md:text-3xl font-bold mb-6 text-teal-300 ${montserrat.className}`}>
+              Our Healthcare Expertise
+            </h3>
+            <ul className="space-y-4 text-gray-300">
+              {[
+                {
+                  title: "Hospitals & Medical Centers:",
+                  description: "Full-scale in-patient and out-patient facilities, operating theatres, ICUs, labs, and imaging suites.",
+                  color: "teal-400"
+                },
+                {
+                  title: "Clinics & Day Surgery Centers:",
+                  description: "Functional layouts with medical gas systems and infection control zones.",
+                  color: "blue-400"
+                },
+                {
+                  title: "Diagnostic & Imaging Facilities:",
+                  description: "MRI, CT, X-Ray units with specialized radiation shielding.",
+                  color: "teal-400"
+                },
+                {
+                  title: "Wellness & Rehabilitation:",
+                  description: "Healing environments with hydrotherapy, physio, and wellness zones.",
+                  color: "blue-400"
+                }
+              ].map((item, idx) => (
+                <motion.li
+                  key={idx}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="flex items-start space-x-3"
+                >
+                  <div className={`w-2 h-2 bg-${item.color} rounded-full mt-3 flex-shrink-0`} />
+                  <span className={montserrat.className}>
+                    <strong className="text-white">{item.title}</strong> {item.description}
+                  </span>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
         </div>
       </section>
 
       {/* Mission, Vision, Values */}
-      <section className="py-24 px-8 bg-gradient-to-br from-gray-800/50 to-teal-900/30">
+      <section className="px-6 md:px-12 lg:px-16 py-16 bg-gradient-to-br from-gray-800/50 to-teal-900/30">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="bg-white/5 backdrop-blur-md rounded-3xl p-10 border border-teal-400/20">
-              <h2 className="text-4xl font-bold mb-6 text-teal-400">Mission</h2>
-              <p className="text-lg text-gray-300 leading-relaxed">
-                To address unique demands with precision and accountability across various sectors while upholding stringent Healthcare infrastructure standards by aligning international compliances to ensure durability, safety, and long-term value.
-              </p>
-            </div>
-            
-            <div className="bg-white/5 backdrop-blur-md rounded-3xl p-10 border border-blue-400/20">
-              <h2 className="text-4xl font-bold mb-6 text-blue-400">Vision</h2>
-              <p className="text-lg text-gray-300 leading-relaxed">
-                Envision a future where design, construction, and healthcare environments converge to uplift communities. Through innovation and specialized partnerships, we aim to be the partner of choice for quality, compliance, and long-term performance.
-              </p>
-            </div>
-            
-            <div className="bg-white/5 backdrop-blur-md rounded-3xl p-10 border border-teal-400/20">
-              <h2 className="text-4xl font-bold mb-6 text-teal-400">Values</h2>
-              <p className="text-lg text-gray-300 leading-relaxed">
-                Driven by clinical precision, patient-centered engineering, and uncompromising safety. We uphold strict regulatory compliance, embrace purposeful innovation, and foster trusted partnerships for resilient healthcare infrastructure.
-              </p>
-            </div>
-            
-            <div className="bg-white/5 backdrop-blur-md rounded-3xl p-10 border border-blue-400/20">
-              <h2 className="text-4xl font-bold mb-6 text-blue-400">Sustainability</h2>
-              <p className="text-lg text-gray-300 leading-relaxed mb-4">
-                Engineering healthcare environments that minimize environmental impact while maximizing human well-being through energy-efficient systems and smart automation.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <span className="bg-teal-400/20 text-teal-300 px-3 py-1 rounded-full text-sm">Renewable Energy</span>
-                <span className="bg-blue-400/20 text-blue-300 px-3 py-1 rounded-full text-sm">Water Efficiency</span>
-                <span className="bg-teal-400/20 text-teal-300 px-3 py-1 rounded-full text-sm">Low Emissions</span>
-              </div>
-            </div>
-          </div>
+          <motion.div
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0 },
+              show: {
+                opacity: 1,
+                transition: { staggerChildren: 0.2 },
+              },
+            }}
+          >
+            {[
+              {
+                title: "Mission",
+                content: "To address unique demands with precision and accountability across various sectors while upholding stringent Healthcare infrastructure standards by aligning international compliances to ensure durability, safety, and long-term value.",
+                color: "teal-400",
+                borderColor: "teal-400/20"
+              },
+              {
+                title: "Vision",
+                content: "Envision a future where design, construction, and healthcare environments converge to uplift communities. Through innovation and specialized partnerships, we aim to be the partner of choice for quality, compliance, and long-term performance.",
+                color: "blue-400",
+                borderColor: "blue-400/20"
+              },
+              {
+                title: "Values",
+                content: "Driven by clinical precision, patient-centered engineering, and uncompromising safety. We uphold strict regulatory compliance, embrace purposeful innovation, and foster trusted partnerships for resilient healthcare infrastructure.",
+                color: "teal-400",
+                borderColor: "teal-400/20"
+              },
+              {
+                title: "Sustainability",
+                content: "Engineering healthcare environments that minimize environmental impact while maximizing human well-being through energy-efficient systems and smart automation.",
+                color: "blue-400",
+                borderColor: "blue-400/20",
+                tags: ["Renewable Energy", "Water Efficiency", "Low Emissions"]
+              }
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  show: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.6 }}
+                className={`bg-white/5 backdrop-blur-md rounded-3xl p-8 md:p-10 border border-${item.borderColor} hover:border-${item.color}/30 transition-colors duration-300 shadow-lg`}
+              >
+                <h2 className={`text-3xl md:text-4xl font-bold mb-6 text-${item.color} ${montserrat.className}`}>
+                  {item.title}
+                </h2>
+                <p className={`text-lg text-gray-300 leading-relaxed mb-4 ${montserrat.className}`}>
+                  {item.content}
+                </p>
+                {item.tags && (
+                  <div className="flex flex-wrap gap-2 mt-6">
+                    {item.tags.map((tag, tagIdx) => (
+                      <span
+                        key={tagIdx}
+                        className={`px-3 py-1 rounded-full text-sm ${
+                          tagIdx % 2 === 0
+                            ? "bg-teal-400/20 text-teal-300"
+                            : "bg-blue-400/20 text-blue-300"
+                        } ${montserrat.className}`}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
     </div>
   );
 }
-export default ArrhamHealthcare
+
+export default ArrhamHealthcare;

@@ -48,55 +48,77 @@ function CompanyDetails({ companyData }) {
         />
 
         {/* Overlay */}
-        <div className="absolute inset-0 flex items-center justify-between px-6 md:px-12 bg-black/60 backdrop-blur-sm">
-          {/* Left Content */}
-          <div className="flex flex-col gap-2 max-w-2xl">
-            <motion.h1
-              initial={{ opacity: 0, y: -40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className={`text-xl md:text-2xl lg:text-3xl font-bold text-left text-gray-100 ${montserrat.className}`}
-            >
-              Welcome to
-            </motion.h1>
+        <div className="absolute inset-0 px-6 md:px-12 flex flex-col justify-center">
+          {/* Container with left text + right image */}
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 max-w-6xl mx-auto w-full pt-12">
 
-            {/* Main Company Name */}
-            <motion.h1
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className={`bg-gradient-to-r ${companyData.color?.[0] || 'from-blue-400'} ${companyData.color?.[1] || 'to-purple-600'} bg-clip-text text-transparent text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-bold text-left leading-tight ${montserrat.className}`}
-            >
-              {mainName}
-            </motion.h1>
-
-            {/* Sub Company Name (if exists) */}
-            {subName && (
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
+            {/* Left Content */}
+            <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-4 flex-1">
+              <motion.h1
+                initial={{ opacity: 0, y: -40 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.6 }}
-                className={`text-lg md:text-xl lg:text-2xl font-medium text-left text-gray-200 leading-relaxed ${montserrat.className}`}
+                transition={{ duration: 0.8 }}
+                className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-100 ${montserrat.className}`}
               >
-                {subName}
-              </motion.h2>
-            )}
+                Welcome to
+              </motion.h1>
+
+              {/* Main Company Name */}
+              <motion.h1
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1, delay: 0.3 }}
+                className={`bg-gradient-to-r ${companyData.color?.[0] || 'from-blue-400'} ${companyData.color?.[1] || 'to-purple-600'} bg-clip-text text-transparent text-2xl sm:text-3xl md:text-5xl lg:text-4xl xl:text-5xl font-extrabold leading-snug ${montserrat.className}`}
+              >
+                {mainName}
+              </motion.h1>
+
+              {/* Sub Company Name */}
+              {subName && (
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 0.6 }}
+                  className={`text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-medium text-gray-300 leading-relaxed max-w-xl ${montserrat.className}`}
+                >
+                  {subName}
+                </motion.h2>
+              )}
+            </div>
+
+            {/* Right Image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="flex justify-center lg:justify-end w-full lg:w-1/2"
+            >
+              <Image
+                src="/threeM-rbg.png"
+                width={400}
+                height={500}
+                className="object-contain drop-shadow-xl w-3/4 sm:w-2/3 md:w-1/2 lg:w-full"
+                alt="Company Logo"
+              />
+            </motion.div>
           </div>
 
-          {/* Right Side - Country Flag */}
+          {/* Bottom Right - Country Flag */}
           {companyData.countryFlag && (
-            <motion.div 
-              className="hidden sm:flex items-center"
+            <motion.div
+              className="absolute bottom-6 right-6"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <div className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-lg overflow-hidden shadow-lg">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-lg overflow-hidden shadow-lg ring-2 ring-white/30">
                 {companyData.countryFlag}
               </div>
             </motion.div>
           )}
         </div>
+
+
       </div>
 
       {/* What We Do Section */}
@@ -114,7 +136,7 @@ function CompanyDetails({ companyData }) {
                 What We Do
               </span>
             </motion.h2>
-            
+
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               whileInView={{ opacity: 1, scaleX: 1 }}
@@ -542,7 +564,7 @@ function CompanyDetails({ companyData }) {
             </span>
           </h2>
         </motion.div>
-        
+
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
