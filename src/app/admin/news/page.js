@@ -15,8 +15,6 @@ import {
     TrendingUp,
     Calendar,
     BookOpen,
-    Filter,
-    MoreHorizontal,
     X,
     LogOut
 } from "lucide-react";
