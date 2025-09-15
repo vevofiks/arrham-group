@@ -188,43 +188,6 @@ function ArrhamHealthcare() {
           </div>
         </div>
       </section>
-
-      {/* Our Projects */}
-      <section className="py-24 px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-5xl font-bold mb-16">
-            OUR <span className="text-blue-400">PROJECTS</span>
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-teal-400/20 hover:border-teal-400/50 transition-all duration-300">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-2xl font-bold text-teal-300">Nuwaidrat Retail Fit-Out</h3>
-                <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">Completed</span>
-              </div>
-              <div className='flex justify-between items-center mt-4' >
-                <p className="text-gray-300 mb-4">Sitrah, Bahrain</p>
-                <button className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white px-2 py-2 rounded-full transition-all duration-300">
-                Show More
-                </button>
-              </div>
-            </div>
-            
-            <div className="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-blue-400/20 hover:border-blue-400/50 transition-all duration-300">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-2xl font-bold text-blue-300">AutoCare Center Setup</h3>
-                <span className="bg-cyan-500/60 text-white px-3 py-1 rounded-full text-sm font-medium">In Progress</span>
-              </div>
-                <div className='flex justify-between items-center mt-4' >
-                <p className="text-gray-300 mb-4">Sitrah, Bahrain</p>
-                <button className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white px-2 py-2 rounded-full transition-all duration-300">
-                Show More
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

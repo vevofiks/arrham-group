@@ -12,9 +12,9 @@ function page() {
 
   return (
 
-    <>
+    <div className='mb-20'>
       <AboutUs />
-      <div className="grid grid-cols-1 md:grid-cols-2 mb-8 sm:mb-10 md:mb-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 mb-20 sm:mb-10 md:mb-5">
         {
           AboutData.map((about, index) => {
             const Icon = about.icon;
@@ -22,8 +22,7 @@ function page() {
           })
         }
       </div>
-      <Contact />
-    </>
+    </div>
   )
 }
 

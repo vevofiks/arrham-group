@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 const SectionHeader = ({ title, subtitle }) => {
   const words = title.split(" "); // split once and reuse

@@ -3,7 +3,7 @@ import { MapPin } from 'lucide-react';
 
 function ProjectCard({ setIsOpen, project, index, company }) {
   const getStatusColor = (status) => {
-    if (status.toLowerCase().includes('completed')) return 'text-emerald-400';
+    if (status.toLowerCase().includes('completed')) return 'text-emerald-300';
     if (status.toLowerCase().includes('progress')) return 'text-yellow-400';
     return company.primaryColor.text;
   };
@@ -33,7 +33,7 @@ function ProjectCard({ setIsOpen, project, index, company }) {
           {project.name}
         </h4>
         <div
-          className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide 
+          className={`px-3 py-1.5 rounded-full border border-emerald-800 text-xs font-semibold tracking-wide 
             ${getStatusBg(project.status)} ${getStatusColor(project.status)}`}
         >
           {project.status}
@@ -50,7 +50,7 @@ function ProjectCard({ setIsOpen, project, index, company }) {
         <button
           className={`rounded-lg border-2 ${company.primaryColor.border} 
             bg-white/10 px-3 py-1 text-xs font-semibold ${company.primaryColor.text} 
-            cursor-pointer hover:bg-white/20 ${company.primaryColor.hoverText} 
+            cursor-pointer hover:bg-white/20 hover:scale-105
             transition-colors duration-200`}
           onClick={() => setIsOpen(true)}
         >

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { socialIcons } from "../data";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -44,7 +45,7 @@ const Contact = () => {
           </p>
 
           {/* Contact Info */}
-          <div className="space-y-4">
+          {/* <div className="space-y-4">
             <div className="flex items-center gap-4">
               <Mail className="w-6 h-6 text-lgreen" />
               <span>info@arrhamgroup.com</span>
@@ -59,6 +60,25 @@ const Contact = () => {
                 ARRHAM TRADING AND CONTRACTING W.L.L Mr. Shabab 1445A & 1445G,
                 Road 4630, Block 646, Nuwaidrat, Sitrah 644 Bahrain
               </span>
+            </div>
+          </div> */}
+
+          <div className="space-y-4">
+            <h4 className="text-sm font-semibold text-white/80">
+              Follow Us
+            </h4>
+            <div className="flex items-center gap-3">
+              {socialIcons.map((social, index) => (
+                <motion.a
+                  key={index}
+                  href={social.href}
+                  className={`p-2.5 rounded-xl border border-white/20 backdrop-blur-sm transition-all duration-300 ${social.color} ${social.iconColor}`}
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <social.icon className="w-4 h-4" />
+                </motion.a>
+              ))}
             </div>
           </div>
         </motion.div>
