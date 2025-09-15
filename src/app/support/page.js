@@ -12,8 +12,8 @@ const montserrat = MontserratFont({
 
 function SupportPage() {
   return (
-    <div className="min-h-screen text-white m-10 p-20 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-      <div className="container mx-auto py-12 px-4 md:px-8 text-center">
+    <div className="min-h-screen text-white p-20 pt-40 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+      <div className="container mx-auto py-12 px-4 md:px-8 text-center ">
         {/* Title */}
         <motion.h1
           initial={{ opacity: 0, y: -20 }}

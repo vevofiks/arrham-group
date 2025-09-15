@@ -5,12 +5,18 @@ import { motion } from "motion/react";
 import { Mail, ArrowUp, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 import Map from "./Map";
-
+import { usePathname } from "next/navigation";
+import { branchesData } from "..";
 const Footer = () => {
+  const pathname = usePathname()
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+  const companyData = branchesData.branches.find(branch => branch.id === pathname.split('/')[2])
+  const location = companyData?.map;
 
+  // console.log(companydata)
+  console.log(pathname.split('/')[1])
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -18,6 +24,8 @@ const Footer = () => {
       transition: { staggerChildren: 0.1, duration: 0.6 },
     },
   };
+
+  console.log(pathname,'path name on footer')
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -88,7 +96,7 @@ const Footer = () => {
             </motion.div>
 
             {/* Quick Links */}
-            {/* <motion.div variants={itemVariants}>
+            <motion.div variants={itemVariants}>
               <h3 className="text-lg font-bold mb-6 relative">
                 Quick Links
                 <div className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-lgreen to-teal-400"></div>
@@ -113,12 +121,16 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
-            </motion.div> */}
+            </motion.div>
 
             {/* Map */}
+          { pathname.split('/')[1] === "about-us" && (
+
             <motion.div variants={itemVariants}>
-              <Map lat={"26.137565075290414"} lon={"50.58452037150072"} />
+              <Map lat={location?.lat} lon={location?.lon} />
             </motion.div>
+          )}
+
           </div>
 
           {/* Bottom Bar */}
@@ -133,7 +145,7 @@ const Footer = () => {
               </p>
               <p className="text-white/40 text-xs mt-1">
                 Website developed by{" "}
-                <span className="text-lgreen font-medium">Vevofliks</span>
+                <span className="text-lgreen font-medium">Vevofiks</span>
               </p>
             </div>
 
@@ -148,6 +160,7 @@ const Footer = () => {
             </motion.button>
           </motion.div>
         </motion.div>
+
       </div>
     </footer>
   );
