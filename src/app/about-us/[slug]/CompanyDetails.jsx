@@ -117,10 +117,7 @@ function CompanyDetails({ companyData }) {
             </motion.div>
           )}
         </div>
-
-
       </div>
-
       {/* What We Do Section */}
       {companyData.description && (
         <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
