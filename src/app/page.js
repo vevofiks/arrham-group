@@ -14,7 +14,7 @@ import GlobalBranches from './components/GlobalBranches'
 import { useRouter } from 'next/navigation'
 // import Map from './components/Map'
 import { branchesData } from '.'
-import CardFlipHero from './about-us/components/Companies'
+import SimpleCard from './about-us/components/Companies'
 
 const Page = () => {
   const router = useRouter();
@@ -55,63 +55,43 @@ const Page = () => {
     },
   };
   return (
-    <div id="home">
-      <div className='relative'>
+    <div id="home" className="relative">
+      
+      {/* Top Cards Section */}
+      <section className="mt-32 px-5 sm:px-10 md:px-20">
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-8 justify-items-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          {branchesData.branches.map((branch) => (
+            <SimpleCard key={branch.id} branch={branch} />
+          ))}
+        </motion.div>
+      </section>
+
+      {/* Hero Section */}
+      <div className="mt-16">
         <Hero getToSection={getToSection} />
       </div>
 
-      <div className='absolute bottom-0 left-0 right-0 h-20 backdrop-blur-3xl bg-gradient-to-b from-transparent to-black' />
+      {/* Bottom Blur / Gradient */}
+      <div className="absolute bottom-0 left-0 right-0 h-20 backdrop-blur-3xl bg-gradient-to-b from-transparent to-black" />
 
-
-      <div className=''>
+      {/* About Section */}
+      <div className="mt-32">
         <About />
       </div>
-      {/* <div
-        id="services"
-        className="relative bg-black text-white py-20 px-6 md:px-24"
-        >
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl md:text-5xl font-extrabold uppercase tracking-tight">
-            Our <span className="text-lgreen">Services</span>
-          </h2>
-          <div className="w-24 h-1 bg-lgreen mx-auto my-6"></div>
-          <p className="mt-4 text-white/70 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
-            We provide a wide range of innovative solutions designed to help your
-            business grow and adapt in a rapidly evolving digital world.
-          </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            {servicesData.map((service, index) => (
-              <ServiceCard
-                key={index}
-                image={service.image}
-                title={service.title}
-                description={service.description}
-              />
-            ))}
-          </div>
-          <motion.div variants={itemVariants}>
-            <motion.button
-              whileTap={{ scale: 0.98 }}
-              onClick={() => router.push("/services")}
-              className="group mt-24 cursor-pointer inline-flex items-center gap-3 bg-gradient-to-r from-lgreen to-teal-500 text-black px-8 py-4 rounded-2xl font-semibold transition-all duration-300 hover:shadow-2xl hover:shadow-lgreen/25 focus:outline-none"
-            >
-              <span>Learn more about our services</span>
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-            </motion.button>
-          </motion.div>
-        </div>
-        </div> */}
-      <div>
-        {/* <GlobalBranches /> */}
+      {/* Global Presence */}
+      {/* <div className="mt-32 text-center">
         <motion.div
           id="company"
-
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          className="text-center mb-16"
         >
           <motion.h2
             variants={itemVariants}
@@ -134,17 +114,14 @@ const Page = () => {
             deliver excellence with every branch.
           </motion.p>
         </motion.div>
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 space-y-5 justify-items-center mt-20 px-5">
+      </div> */}
 
-          {branchesData.branches.map((branch) => (
-            <CardFlipHero key={branch.id} branch={branch} />
-          ))}
-        </div>
-      </div>
+      {/* Clients & Contact */}
       <Clients />
       <Contact />
     </div>
-  )
+  );
 }
+
 
 export default Page

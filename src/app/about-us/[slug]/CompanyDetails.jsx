@@ -37,7 +37,6 @@ function CompanyDetails({ companyData }) {
 
   return (
     <div className="text-white">
-      {/* Hero Section */}
       <div className="relative h-[420px] w-full overflow-hidden">
         <Image
           src={companyData.companyImg}
@@ -73,26 +72,25 @@ function CompanyDetails({ companyData }) {
                 {mainName}
               </motion.h1>
 
-              {/* Sub Company Name */}
+              <div className="flex-col w-1/2 h-1/2 items-start justify-start">
               {subName && (
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 0.6 }}
-                  className={`text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-medium text-gray-300 leading-relaxed max-w-xl ${montserrat.className}`}
-                >
-                  {subName}
-                </motion.h2>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.6 }}
+                className={`text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-medium text-gray-300 leading-relaxed max-w-xl ${montserrat.className}`}
+              >
+                {subName}
+              </motion.h2>
               )}
-            </div>
 
-            {/* Right Image */}
-            <motion.div
+            {(companyData.id === "arrham-trading-bahrain" || companyData.id === "arrham-contracting-ksa") && (
+              <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.5 }}
               className="flex justify-center lg:justify-end w-full lg:w-1/2"
-            >
+              >
               <Image
                 src="/threeM-rbg.png"
                 width={400}
@@ -100,7 +98,13 @@ function CompanyDetails({ companyData }) {
                 className="object-contain drop-shadow-xl w-3/4 sm:w-2/3 md:w-1/2 lg:w-full"
                 alt="Company Logo"
               />
-            </motion.div>
+              </motion.div>
+            )}
+              </div>
+            </div>
+
+            {/* Right Image */}
+            
           </div>
 
           {/* Bottom Right - Country Flag */}
