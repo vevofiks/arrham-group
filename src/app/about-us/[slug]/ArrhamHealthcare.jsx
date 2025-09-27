@@ -11,37 +11,11 @@ const montserrat = MontserratFont({
 });
 
 function ArrhamHealthcare() {
-  const companyName = "Arrham Trading and Contracting W.L.L.";
+  const companyName = "Arrham Healthcare Solutions";
   const subName = "Kingdom of Bahrain";
 
   // Country flag for Bahrain (inline SVG)
-  const BahrainFlag = () => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="48"
-      height="48"
-      viewBox="0 0 32 32"
-      className="rounded-lg shadow-lg"
-    >
-      <path
-        d="M27,4H9V28H27c2.209,0,4-1.791,4-4V8c0-2.209-1.791-4-4-4Z"
-        fill="#ea3323"
-      />
-      <path
-        d="M10,23.2l6-2.4-6-2.4,6-2.4-6-2.4,6-2.4-6-2.4,6-2.4-6-2.4H5c-2.209,0-4,1.791-4,4V24c0,2.209,1.791,4,4,4h5l6-2.4-6-2.4Z"
-        fill="#fff"
-      />
-      <path
-        d="M27,4H5c-2.209,0-4,1.791-4,4V24c0,2.209,1.791,4,4,4H27c2.209,0,4-1.791,4-4V8c0-2.209-1.791-4-4-4Zm3,20c0,1.654-1.346,3-3,3H5c-1.654,0-3-1.346-3-3V8c0-1.654,1.346-3,3-3H27c1.654,0,3,1.346,3,3V24Z"
-        opacity=".15"
-      />
-      <path
-        d="M27,5H5c-1.657,0-3,1.343-3,3v1c0-1.657,1.343-3,3-3H27c1.657,0,3,1.343,3,3v-1c0-1.657-1.343-3-3-3Z"
-        fill="#fff"
-        opacity=".2"
-      />
-    </svg>
-  );
+
 
   return (
     <div className="min-h-screen text-white overflow-hidden">
@@ -56,9 +30,9 @@ function ArrhamHealthcare() {
         />
 
         {/* Overlay */}
-        <div className="absolute inset-0 flex items-center justify-between px-6 md:px-12 bg-black/60 backdrop-blur-sm">
+        <div className="absolute inset-0 flex items-center px-6 md:px-12 bg-black/60 backdrop-blur-sm">
           {/* Left Content */}
-          <div className="flex flex-col gap-2 max-w-2xl">
+          <div className="">
             <motion.h1
               initial={{ opacity: 0, y: -40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -73,7 +47,7 @@ function ArrhamHealthcare() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.3 }}
-              className={`bg-gradient-to-r from-blue-400 to-teal-500 bg-clip-text text-transparent text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-left leading-tight ${montserrat.className}`}
+              className={`bg-gradient-to-r from-blue-400 to-teal-500 bg-clip-text text-transparent text-2xl sm:text-3xl md:text-5xl lg:text-4xl xl:text-5xl font-extrabold leading-snug text-nowrap ${montserrat.className}`}
             >
               {companyName}
             </motion.h1>
@@ -88,18 +62,6 @@ function ArrhamHealthcare() {
               {subName}
             </motion.h2>
           </div>
-
-          {/* Right Side - Country Flag */}
-          <motion.div 
-            className="hidden sm:flex items-center"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <div className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20">
-              <BahrainFlag />
-            </div>
-          </motion.div>
         </div>
       </div>
 
@@ -113,12 +75,12 @@ function ArrhamHealthcare() {
             transition={{ duration: 0.6 }}
             className={`text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase mb-6 ${montserrat.className}`}
           >
-            <span className="text-white">What </span>
+            <span className="text-white">Who </span>
             <span className="bg-gradient-to-r from-blue-400 to-teal-500 bg-clip-text text-transparent">
-              We Do
+              We Are
             </span>
           </motion.h2>
-          
+
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
             whileInView={{ opacity: 1, scaleX: 1 }}
@@ -136,12 +98,24 @@ function ArrhamHealthcare() {
           className="max-w-4xl mx-auto mb-16"
         >
           <p className={`text-lg md:text-xl leading-relaxed text-gray-300 text-left ${montserrat.className}`}>
-            Multifaceted firm offering commercial/residential/industrial fit-outs, 3M window films, 
-            smart glass, automotive films, and architectural finishes. Ideal for retail, offices, and 
-            automotive spaces with cutting-edge healthcare infrastructure solutions.
+              Arrham Trading and Contracting W.L.L. is a dynamic and multifaceted firm
+              specializing in high-quality construction, fit-out, and contracting services across the
+              Commercial, Residential, and Industrial sectors. With a solid foundation built on
+              integrity, innovation, and professionalism, Arrham has earned a reputation for
+              delivering projects that align with international standards and exceed client
+              expectations.
+              Hidaya Healthcare W.L.L. is a specialized entity under the Arrham Group, solely
+              focused on the design, construction, and turnkey development of healthcare
+              environments. With an in-depth understanding of medical compliance, hygiene
+              protocols, and patient-centric design, Hidaya stands at the forefront of healthcare
+              infrastructure development in Bahrain and the region.
+              From large-scale hospitals to niche diagnostic clinics, Hidaya brings together a
+              multidisciplinary team of architects, engineers, healthcare planners, and project
+              managers to deliver environments that are efficient, safe, adaptable, and compliant
+              with global healthcare standards.
           </p>
         </motion.div>
-        
+
         <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-8"
           initial="hidden"
@@ -226,7 +200,7 @@ function ArrhamHealthcare() {
                 Personnel
               </span>
             </motion.h2>
-            
+
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               whileInView={{ opacity: 1, scaleX: 1 }}
@@ -235,7 +209,7 @@ function ArrhamHealthcare() {
               className="w-24 h-1 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full"
             />
           </div>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -275,7 +249,7 @@ function ArrhamHealthcare() {
             We Are
           </span>
         </motion.h2>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -285,14 +259,15 @@ function ArrhamHealthcare() {
             className="space-y-8"
           >
             <p className={`text-lg md:text-xl text-gray-300 leading-relaxed ${montserrat.className}`}>
-              <span className="text-teal-400 font-semibold">Arrham Trading and Contracting W.L.L.</span> is a dynamic and multifaceted firm specializing in high-quality construction, fit-out, and contracting services across Commercial, Residential, and Industrial sectors. Built on integrity, innovation, and professionalism.
+              <span className="text-teal-400 font-semibold">Arrham Healthcare Solutions (Hidaya Healthcare Solutions W.L.L.)
+                Bahrain</span> is a dynamic and multifaceted firm specializing in high-quality construction, fit-out, and contracting services across Commercial, Residential, and Industrial sectors. Built on integrity, innovation, and professionalism.
             </p>
-            
+
             <p className={`text-lg md:text-xl text-gray-300 leading-relaxed ${montserrat.className}`}>
               <span className="text-blue-400 font-semibold">Hidaya Healthcare W.L.L.</span> is our specialized entity focused exclusively on healthcare infrastructure development, bringing together multidisciplinary expertise in medical compliance, hygiene protocols, and patient-centric design.
             </p>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -408,11 +383,10 @@ function ArrhamHealthcare() {
                     {item.tags.map((tag, tagIdx) => (
                       <span
                         key={tagIdx}
-                        className={`px-3 py-1 rounded-full text-sm ${
-                          tagIdx % 2 === 0
-                            ? "bg-teal-400/20 text-teal-300"
-                            : "bg-blue-400/20 text-blue-300"
-                        } ${montserrat.className}`}
+                        className={`px-3 py-1 rounded-full text-sm ${tagIdx % 2 === 0
+                          ? "bg-teal-400/20 text-teal-300"
+                          : "bg-blue-400/20 text-blue-300"
+                          } ${montserrat.className}`}
                       >
                         {tag}
                       </span>
