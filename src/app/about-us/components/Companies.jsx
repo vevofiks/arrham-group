@@ -16,7 +16,7 @@ export default function SimpleCard({ branch }) {
     <motion.div
       className="
         relative w-full sm:max-w-[320px] md:max-w-[360px] lg:max-w-[400px]
-        h-[300px] sm:h-[340px] md:h-[380px]
+        min-h-[300px] sm:min-h-[340px] md:min-h-[380px]
         rounded-2xl overflow-hidden
         bg-gradient-to-br from-emerald-600/10 via-teal-700/10 to-black/90
         border border-emerald-500/20
