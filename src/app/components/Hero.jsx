@@ -76,12 +76,12 @@ const Hero = ({ getToSection }) => {
           sizes="100vw"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-b -mt-24 from-black/50 via-black/60 to-black/70" />
 
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-black/90 blur-2xl" />
+        <div className="absolute inset-x-0 bottom-0 h-60 -mt-24 bg-gradient-to-b from-transparent to-black/90 blur-2xl" />
 
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-transparent to-teal-500/10"
+          className="absolute inset-0 -mt-5 bg-gradient-to-r from-emerald-500/10 via-transparent to-teal-500/10"
           animate={{
             background: [
               "linear-gradient(45deg, rgba(16,185,129,0.1) 0%, transparent 50%, rgba(20,184,166,0.1) 100%)",
@@ -101,10 +101,10 @@ const Hero = ({ getToSection }) => {
           className={`text-white text-2xl md:text-[48px] font-extrabold leading-tight tracking-wide ${montserrat.className}`}
         >
           <span className="whitespace-normal md:whitespace-nowrap text-center">
-            Innovative Solutions in Automotive,
+            Shaping Tomorrow with ,
           </span>
           <span className="block bg-gradient-to-r from-lgreen to-teal-400 text-transparent bg-clip-text">
-            Interiors & Mechanical Services
+            Engineered Solution
           </span>
         </motion.h1>
 

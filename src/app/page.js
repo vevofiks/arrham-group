@@ -57,8 +57,8 @@ const Page = () => {
   return (
     <div id="home" className="relative">
       
-      {/* Top Cards Section */}
-      <section className="mt-32 px-5 sm:px-10 md:px-20">
+
+      <section className="flex items-center justify-center mt-12 px-5 sm:px-10 md:px-20 h-[93vh]">
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-8 justify-items-center"
           initial={{ opacity: 0, y: 20 }}

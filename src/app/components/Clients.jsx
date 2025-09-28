@@ -7,13 +7,13 @@ import { imageLogos } from '../data'
 const Clients = () => {
   return (
     <section>
-      <div className='mt-[200px]'>
+      <div className='mt-[50px]'>
           <h2 className="text-3xl md:text-5xl text-white uppercase text-center font-extrabold tracking-tight mb-7">
             Our <span className="text-lgreen">Clients</span>
           </h2>
           <div className="w-24 h-1 bg-lgreen mx-auto my-6 mb-12"></div>
 
-          <div className="relative h-[230px] max-w-4xl mx-auto overflow-hidden mt-20">
+          <div className="relative h-[230px]  mx-auto overflow-hidden mt-20">
             <LogoLoop
               logos={imageLogos}
               speed={60}
