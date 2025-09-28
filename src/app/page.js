@@ -7,7 +7,7 @@ import ServiceCard from './components/Services'
 import { motion } from "motion/react";
 import { imageLogos, servicesData } from './data'
 import Contact from './components/Contact'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, ChevronDown } from 'lucide-react'
 import LogoLoop from '@/components/LogoLoop'
 import Clients from './components/Clients'
 import GlobalBranches from './components/GlobalBranches'
@@ -30,6 +30,13 @@ const Page = () => {
       sessionStorage.removeItem("scroll-target");
     }
   }, [])
+
+    const handleScroll = (item) => {
+    const element = document.querySelector(item);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const getToSection = (id) => {
     const el = document.getElementById(id)
@@ -58,21 +65,50 @@ const Page = () => {
     <div id="home" className="relative">
       
 
-      <section className="flex items-center justify-center mt-12 px-5 sm:px-10 md:px-20 h-[93vh]">
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-8 justify-items-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          {branchesData.branches.map((branch) => (
-            <SimpleCard key={branch.id} branch={branch} />
-          ))}
-        </motion.div>
-      </section>
+      <section className="relative flex items-center justify-center mt-12 px-5 sm:px-10 md:px-20 h-[93vh]">
+  {/* Grid content */}
+  <motion.div
+    className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-8 justify-items-center"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6 }}
+  >
+    {branchesData.branches.map((branch) => (
+      <SimpleCard key={branch.id} branch={branch} />
+    ))}
+  </motion.div>
+
+  {/* Scroll button */}
+  <motion.button
+    onClick={(e) => handleScroll("#hero", e)}
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 1.5 }}
+    className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 text-white/70 hover:text-emerald-400 transition-colors duration-300 focus:outline-none rounded-full p-2"
+    whileHover={{ scale: 1.1 }}
+    whileTap={{ scale: 0.9 }}
+    aria-label="Scroll down to learn more"
+  >
+    <motion.div
+      animate={{ y: [0, 10, 0] }}
+      transition={{
+        duration: 2,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+      className="flex flex-col items-center gap-1 focus:outline-none"
+    >
+      <span className="text-xs font-medium tracking-wider uppercase">
+        Scroll
+      </span>
+      <ChevronDown className="w-6 h-6 focus:outline-none" />
+    </motion.div>
+  </motion.button>
+</section>
+
 
       {/* Hero Section */}
-      <div className="mt-16">
+      <div className="mt-16 hero">
         <Hero getToSection={getToSection} />
       </div>
 
