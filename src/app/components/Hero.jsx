@@ -23,12 +23,7 @@ const Hero = ({ getToSection }) => {
     [0, enableParallax ? -50 : 0]
   );
 
-  const handleScroll = (item) => {
-    const element = document.querySelector(item);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -168,31 +163,7 @@ const Hero = ({ getToSection }) => {
         </motion.div> */}
       </div>
 
-      <motion.button
-        onClick={(e) => handleScroll("#about", e)}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-50  text-white/70 hover:text-emerald-400 transition-colors duration-300 focus:outline-none rounded-full p-2"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        aria-label="Scroll down to learn more"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="flex flex-col items-center gap-1 focus:outline-none"
-        >
-          <span className="text-xs font-medium tracking-wider uppercase">
-            Scroll
-          </span>
-          <ChevronDown className="w-6 h-6 focus:outline-none" />
-        </motion.div>
-      </motion.button>
+     
     </section>
   );
 };
