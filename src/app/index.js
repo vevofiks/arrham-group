@@ -18,7 +18,7 @@ export const branchesData = {
         lon: "50.583114618889056",
       },
       companyImg: "/companyDummy.jpeg",
-      country: "canada",
+      country: "Canada",
       location: "Canada (Head Office)",
       shortDescription:
         "Head office overseeing group operations, Canada-based construction & warehousing projects.",

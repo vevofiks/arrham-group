@@ -3,10 +3,10 @@ import { Eye, Target, Award, Users, Zap, Facebook, Twitter, Linkedin, Instagram,
 const navLinks = [
     { name: "Home", href: "home", path: "/" },
     { name: "About Us", href: "about", path: "/" },
-    { name: "Companies", href: "company", path: "/" },
+    // { name: "Companies", href: "company", path: "/" },
     { name: "News", href: "", path: "/news" },
-    {name:"Support", href: "", path: "/support" },
-    {name:"Careers", href:"" , path:"/careers"},
+    { name: "Support", href: "", path: "/support" },
+    { name: "Careers", href: "", path: "/careers" },
     // {
     //     name: "Services",
     //     href: "services",
@@ -80,7 +80,7 @@ export const AboutData = [
 
 export const CompanyAbout = [
     {
-        id : 1,
+        id: 1,
         aboutText: "Founded in Canada in 2019, Arrham Al Arabia has built a strong reputation for delivering high-quality projects with professionalism, precision, and a commitment to exceeding client expectations. Guided by our core principles of dedication and integrity, we have rapidly expanded our operations into the Middle East, with an active presence in the Kingdom of Bahrain and the Kingdom of Saudi Arabia.",
 
     }
@@ -102,10 +102,13 @@ const socialIcons = [
 ]
 
 const imageLogos = [
-    { src: "/major_client_logo_1.png", alt: "Company 1", href: "#" },
-    { src: "/major_client_logo_2.png", alt: "Company 2", href: "#" },
-    { src: "/major_client_logo_3.png", alt: "Company 3", href: "#" },
-    { src: "/major_client_logo_4.png", alt: "Company 3", href: "#" },
+    { src: "/clients/major_client_logo_1.png", alt: "Company 1" },
+    { src: "/clients/major_client_logo_2.png", alt: "Company 2" },
+    { src: "/clients/major_client_logo_3.png", alt: "Company 3" },
+    { src: "/clients/major_client_logo_4.png", alt: "Company 4" },
+    { src: "/clients/major_client_logo_5.png", alt: "Company 5" },
+    { src: "/clients/major_client_logo_6.png", alt: "Company 6" },
+    { src: "/clients/major_client_logo_7.png", alt: "Company 7" },
 ]
 
 
@@ -136,28 +139,28 @@ export const branchesOverview = [
     }
 ];
 
-  const mapData = [
+const mapData = [
     {
-      name: "Arrham Trading & Contracting",
-      lat: 26.4207,
-      lng: 50.0888, 
+        name: "Arrham Trading & Contracting",
+        lat: 26.4207,
+        lng: 50.0888,
     },
     {
-      name: "Arrham Contracting Company",
-      lat: 26.2172,
-      lng: 50.1971, 
+        name: "Arrham Contracting Company",
+        lat: 26.2172,
+        lng: 50.1971,
     },
     {
-      name: "Arrham Group",
-      lat: 24.7136,
-      lng: 46.6753, 
+        name: "Arrham Group",
+        lat: 24.7136,
+        lng: 46.6753,
     },
     {
-      name: "Arrham Health Care Solutions",
-      lat: 26.0667,
-      lng: 50.5577, 
+        name: "Arrham Health Care Solutions",
+        lat: 26.0667,
+        lng: 50.5577,
     },
-  ];
+];
 
 
 export { navLinks, servicesData, stats, socialIcons, imageLogos, mapData }

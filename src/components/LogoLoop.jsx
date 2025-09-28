@@ -222,7 +222,7 @@ export const LogoLoop = memo(
       () =>
         cx(
           "relative overflow-x-hidden group",
-          "[--logoloop-gap:32px]",
+          "[--logoloop-gap:35px]",
           "[--logoloop-logoHeight:28px]",
           "[--logoloop-fadeColorAuto:#ffffff]",
           "dark:[--logoloop-fadeColorAuto:#0b0b0b]",
