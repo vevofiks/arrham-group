@@ -65,10 +65,9 @@ const Page = () => {
     <div id="home" className="relative">
       
 
-      <section className="relative flex items-center justify-center mt-12 px-5 sm:px-10 md:px-20 h-[93vh]">
-  {/* Grid content */}
+      <section className="relative flex flex-col items-center justify-center mt-26 md:mt-12 px-5 sm:px-10 md:px-20 min-h-screen">
   <motion.div
-    className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-8 justify-items-center"
+    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6 }}
@@ -84,7 +83,7 @@ const Page = () => {
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: 1.5 }}
-    className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 text-white/70 hover:text-emerald-400 transition-colors duration-300 focus:outline-none rounded-full p-2"
+    className="mt-12 z-50 text-white/70 hover:text-emerald-400 transition-colors duration-300 focus:outline-none rounded-full p-2"
     whileHover={{ scale: 1.1 }}
     whileTap={{ scale: 0.9 }}
     aria-label="Scroll down to learn more"
