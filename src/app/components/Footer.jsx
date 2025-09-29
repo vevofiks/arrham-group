@@ -85,7 +85,7 @@ const Footer = () => {
                   {/* <span className="text-sm">Nuwaidrat, Bahrain</span> */}
                   <span className="text-sm max-w-2xl">
                     {" "}
-                    ARRHAM TRADING AND CONTRACTING W.L.L Mr. Shabab 1445A &
+                    ARRHAM TRADING AND CONTRACTING W.L.L 1445A &
                     1445G, Road 4630, Block 646, Nuwaidrat, Sitrah 644 Bahrain
                   </span>
                 </div>

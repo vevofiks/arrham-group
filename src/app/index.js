@@ -35,14 +35,14 @@ export const branchesData = {
           name: "Krystallaite GT Inc Manufacturing Facility",
           location: "North York, Canada",
           status: "Completed",
-          img: "/project-1.png",
+          img: ["/project-1.png","/project-2.png","/project-4.png"],
         },
         {
           id: 2,
           name: "Fergus Warehouse Project",
           location: "Fergus, Canada",
           status: "Completed",
-          img: "/arrham3.png",
+          img: ["/arrham3.png"],
         },
       ],
       clients: ["Local manufacturing clients", "Regional logistics firms"],
@@ -105,7 +105,7 @@ export const branchesData = {
           location: "North York, Canada",
           status: "Completed",
           value: "1,916,243 SAR",
-          img: "/project-1.png",
+          img: ["/project-1.png"],
         },
         {
           id: 2,
@@ -113,7 +113,7 @@ export const branchesData = {
           location: "Khushaybi, KSA",
           status: "Ongoing",
           value: "371,000 SAR",
-          img: "/project-2.png",
+          img: ["/project-2.png"],
         },
         {
           id: 3,
@@ -121,8 +121,58 @@ export const branchesData = {
           location: "Khobar, KSA",
           status: "Ongoing",
           value: "2,603,550 SAR",
-          img: "/project-4.png",
+          img: ["/project-4.png"],
         },
+      ],
+      sampleWorks: [
+        {
+          id: 1,
+          image: "/arhamarabiaworks/work1.jpg",
+          category: "Interior Design",
+          height: 250
+        },
+        {
+          id: 2,
+          image: "/arhamarabiaworks/work2.jpg",
+          category: "Branding",
+          height: 320
+        },
+        {
+          id: 3,
+          image: "/arhamarabiaworks/work3.jpg",
+          category: "UI/UX Design",
+          height: 280
+        },
+        {
+          id: 4,
+          image: "/arhamarabiaworks/work4.jpg",
+          category: "Web Design",
+          height: 300
+        },
+        {
+          id: 5,
+          image: "/arhamarabiaworks/work5.jpg",
+          category: "Marketing",
+          height: 260
+        },
+        {
+          id: 6,
+          image: "/arhamarabiaworks/work6.jpg",
+          category: "Photography",
+          height: 290
+        },
+        {
+          id: 7,
+          image: "/arhamarabiaworks/work7.jpg",
+          category: "Architecture",
+          height: 310
+        },
+        {
+          id: 8,
+          image: "/arhamarabiaworks/work8.jpg",
+          category: "Digital Marketing",
+          height: 240
+        }
       ],
       clients: [
         "Saudi Aramco",
@@ -143,6 +193,7 @@ export const branchesData = {
           "Project Managers, Electrical & Instrumentation Engineers, Supervisors, electricians, heavy equipment.",
       },
     },
+  
 
     {
       id: "arrham-trading-bahrain",
@@ -311,6 +362,72 @@ export const branchesData = {
       projects: [
         { id: 1, name: "Nuwaidrat Retail Fit-Out", location: "Sitrah, Bahrain", status: "Completed" },
         { id: 2, name: "AutoCare Center Setup", location: "Sitrah, Bahrain", status: "Completed" },
+      ],
+      sampleWorks : [
+        {
+          id: 1,
+          title: "Modern Office Design",
+          image: "/works/work1.jpg",
+          description: "Complete office renovation with modern aesthetics and sustainable materials",
+          category: "Interior Design",
+          height: 250
+        },
+        {
+          id: 2,
+          title: "Brand Identity Package",
+          image: "/works/work2.jpg",
+          description: "Full branding suite for tech startup including logo, guidelines, and collateral",
+          category: "Branding",
+          height: 320
+        },
+        {
+          id: 3,
+          title: "Mobile App UI/UX",
+          image: "/works/work3.jpg",
+          description: "E-commerce mobile application design with seamless user experience",
+          category: "UI/UX Design",
+          height: 280
+        },
+        {
+          id: 4,
+          title: "Website Redesign",
+          image: "/works/work4.jpg",
+          description: "Corporate website overhaul with modern tech stack",
+          category: "Web Design",
+          height: 300
+        },
+        {
+          id: 5,
+          title: "Marketing Campaign",
+          image: "/works/work5.jpg",
+          description: "Multi-channel marketing strategy execution across digital platforms",
+          category: "Marketing",
+          height: 260
+        },
+        {
+          id: 6,
+          title: "Product Photography",
+          image: "/works/work6.jpg",
+          description: "Professional product shoot for e-commerce platform",
+          category: "Photography",
+          height: 290
+        },
+        {
+          id: 7,
+          title: "Architectural Visualization",
+          image: "/works/work7.jpg",
+          description: "3D rendering and architectural planning for commercial space",
+          category: "Architecture",
+          height: 310
+        },
+        {
+          id: 8,
+          title: "Social Media Strategy",
+          image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800",
+          description: "Comprehensive social media management and content creation",
+          category: "Digital Marketing",
+          height: 240
+        }
       ],
       clients: ["Local retail chains", "Independent automotive dealers", "3M"],
       contact: {
