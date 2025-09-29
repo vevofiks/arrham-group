@@ -24,7 +24,6 @@ function ProjectCard({ setIsOpen, project, index, company }) {
         transition-all duration-300`}
       style={{ animationDelay: `${index * 150}ms` }}
     >
-      {/* Title + Status */}
       <div className="flex items-center justify-between mb-4">
         <h4
           className={`text-white font-semibold text-lg 

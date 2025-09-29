@@ -8,7 +8,7 @@ import { Montserrat as MontserratFont } from "next/font/google";
 import KeyPersonnel from "../components/KeyPersonal";
 import { CircleCheckBig } from "lucide-react";
 import RollingGallery from "@/components/RollingGallery";
-
+import { CompanyWorksGallery } from "../components/Gallery";
 const montserrat = MontserratFont({
   subsets: ["latin"],
   variable: "--font-montserrat",
@@ -32,6 +32,8 @@ function CompanyDetails({ companyData }) {
       subName: match ? match[2].trim() : "",
     };
   };
+
+  console.log(companyData.sampleWorks)
 
   const { mainName, subName } = parseCompanyName(companyData.name || "");
 
@@ -221,7 +223,7 @@ function CompanyDetails({ companyData }) {
               </div>
             </motion.div>
           )}
-
+          
           {/* Key Advantages */}
           {companyData.keyAdvantages && (
             <motion.div
@@ -310,6 +312,7 @@ function CompanyDetails({ companyData }) {
                 <h3 className={`font-bold text-xl mb-4 text-center text-gray-100 ${montserrat.className}`}>
                   {service.title}
                 </h3>
+
                 <div className="space-y-3">
                   {service.description.map((point, pIdx) => (
                     <p key={pIdx} className={`text-gray-300 text-left leading-relaxed ${montserrat.className}`}>
@@ -551,7 +554,7 @@ function CompanyDetails({ companyData }) {
       )}
 
       {/* Our Works Gallery */}
-      <section className="px-6 md:px-12 lg:px-16 py-16">
+      {/* <section className="px-6 md:px-12 lg:px-16 py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -574,7 +577,9 @@ function CompanyDetails({ companyData }) {
         >
           <RollingGallery autoplay={true} pauseOnHover={true} />
         </motion.div>
-      </section>
+      </section> */}
+
+      <CompanyWorksGallery works={companyData?.sampleWorks} />
 
       {/* Modal */}
       <Modal

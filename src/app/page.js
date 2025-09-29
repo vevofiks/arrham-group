@@ -101,10 +101,10 @@ const Page = () => {
           <ChevronDown className="w-6 h-6 focus:outline-none" />
         </motion.div>
       </motion.button>
-    </section>
+      </section>
 
       {/* Hero Section */}
-      <div className="mt-16 hero">
+      <div className="hero">
         <Hero getToSection={getToSection} />
       </div>
 

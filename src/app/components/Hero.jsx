@@ -52,7 +52,7 @@ const Hero = ({ getToSection }) => {
   return (
     <section
       id="hero"
-      className="relative h-screen flex items-center justify-center text-center px-6 md:px-24 overflow-hidden"
+      className="relative h-screen flex items-center justify-center text-center px-4 sm:px-6 lg:px-24 overflow-hidden"
     >
       <motion.div
         className="absolute inset-0"
@@ -68,13 +68,11 @@ const Hero = ({ getToSection }) => {
           priority
           className="object-cover object-center scale-105"
           onLoad={() => setIsLoaded(true)}
-          sizes="100vw"
+          sizes="(max-width: 768px) 100vw, 100vw"
         />
 
         <div className="absolute inset-0 bg-gradient-to-b -mt-24 from-black/50 via-black/60 to-black/70" />
-
         <div className="absolute inset-x-0 bottom-0 h-60 -mt-24 bg-gradient-to-b from-transparent to-black/90 blur-2xl" />
-
         <motion.div
           className="absolute inset-0 -mt-5 bg-gradient-to-r from-emerald-500/10 via-transparent to-teal-500/10"
           animate={{
@@ -88,82 +86,36 @@ const Hero = ({ getToSection }) => {
         />
       </motion.div>
 
-      <div className="relative z-10 max-w-4xl pt-12">
+      <div className="relative z-10 pt-12 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h1
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className={`text-white text-2xl md:text-[48px] font-extrabold leading-tight tracking-wide ${montserrat.className}`}
-        >
-          <span className="whitespace-normal md:whitespace-nowrap text-center">
-            Shaping Tomorrow with ,
-          </span>
-          <span className="block bg-gradient-to-r from-lgreen to-teal-400 text-transparent bg-clip-text">
-            Engineered Solution
-          </span>
-        </motion.h1>
+  initial={{ opacity: 0, y: 50 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, ease: "easeOut" }}
+  className={`text-white font-extrabold leading-tight tracking-wide text-center whitespace-nowrap ${montserrat.className} text-[clamp(1rem,6vw,3rem)]`}
+>
+  <span className="block sm:inline">Shaping Tomorrow with </span>
+  <span className="bg-gradient-to-r from-lgreen to-teal-400 text-transparent bg-clip-text sm:inline">
+    Engineered Solution
+  </span>
+</motion.h1>
+
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-white/90 text-md md:text-lg mt-6 "
+          className="text-white/90 text-sm sm:text-md md:text-lg mt-4 sm:mt-6 max-w-4xl text-center mx-auto"
         >
           At Arrham Group, we deliver high-quality, future-ready solutions in
           <span className="font-bold bg-gradient-to-r from-lgreen to-teal-400 text-transparent bg-clip-text">
             {" "}
-            Automotive Films, Interior Design &{" "}
-            <span className="whitespace-nowrap">Fit-Out</span>, and Mechanical
+            Automotive Film, Electrical, Turnkey  Services, 
+            <span className="whitespace-nowrap">Fit-Out</span>, Healthcare and Mechanical
             Services,{" "}
           </span>
-          serving both businesses and individuals across Bahrain and beyond.
+         serving both businesses and individuals across Bahrain, Saudi Arabia, Canada and beyond.
         </motion.p>
-
-        {/* <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="mt-12 flex flex-col sm:flex-row gap-6 justify-center items-center"
-        >
-          <motion.a
-          onClick={() => getToSection("services")}
-            className="group relative cursor-pointer bg-gradient-to-r from-emerald-500 to-teal-500 text-black px-8 py-4 rounded-2xl font-semibold overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/25 focus:outline-none focus:ring-4 focus:ring-emerald-500/50"
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 20px 40px rgba(16,185,129,0.3)",
-            }}
-            whileTap={{ scale: 0.98 }}
-            aria-label={`Explore Services - Learn more about our services`}
-          >
-            <span className="relative z-10 flex items-center gap-2 cursor-pointer">
-              Explore Services
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-            </span>
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              layoutId="button-bg"
-            />
-          </motion.a>
-
-          <motion.a
-            className="group relative border-2 border-white/80 cursor-pointer  text-white px-8 py-4 rounded-2xl font-semibold backdrop-blur-sm bg-white/5 transition-all duration-300 hover:bg-white hover:text-black hover:border-white focus:outline-none focus:ring-4 focus:ring-white/50"
-            whileHover={{
-              scale: 1.05,
-              backgroundColor: "rgba(255,255,255,0.95)",
-            }}
-            whileTap={{ scale: 0.98 }}
-            aria-label={`Contact Us - Get in touch with us`}
-            onClick={() => getToSection('contact')}
-          >
-            <span className="flex items-center gap-2">
-              Contact Us
-              <Play className="w-4 h-4 transition-transform group-hover:scale-110 group-hover:text-lgreen" />
-            </span>
-          </motion.a>
-        </motion.div> */}
       </div>
-
-     
     </section>
   );
 };
