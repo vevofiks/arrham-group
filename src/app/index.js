@@ -423,7 +423,7 @@ export const branchesData = {
         {
           id: 8,
           title: "Social Media Strategy",
-          image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800",
+          image: "/works/work8.jpg",
           description: "Comprehensive social media management and content creation",
           category: "Digital Marketing",
           height: 240

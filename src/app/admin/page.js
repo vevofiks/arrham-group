@@ -1,13 +1,11 @@
 import React from 'react'
 
-function page() {
+function AdminPage() {
   return (
-    < >
-    <div className='bg-red-900' >
-
-    </div>
+    <>
+    
     </>
   )
 }
 
-export default page
+export default AdminPage;

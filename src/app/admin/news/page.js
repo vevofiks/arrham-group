@@ -68,21 +68,6 @@ const NewsPage = () => {
     }, []);
 
 
-    const handleLogout = async () => {
-        try {
-            const response = await fetch("/api/admin/logout", { method: "POST" });
-            if (response.ok) {
-                showNotification("Logged out successfully!", "success");
-                router.push("/admin/login")
-            } else {
-                showNotification("Error logging out", "error");
-            }
-        } catch (error) {
-            showNotification("Error logging out", "error");
-        } finally {
-            setLoading(false);
-        }
-    };
 
 
     // Notification
@@ -189,39 +174,7 @@ const NewsPage = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
             {/* Navigation */}
-            <nav className="border-b border-slate-200/60 backdrop-blur-xl bg-white/70 sticky top-0 z-40">
-                <div className="max-w-7xl mx-auto px-6 py-4">
-                    <div className="flex items-center justify-end">
-                        {/* <div className="flex items-center space-x-4">
-                            <div className="relative">
-                                <div className="flex items-center justify-center shadow-lg">
-                                    <Image
-                                        src="/arrham3.png"
-                                        alt="logo"
-                                        width={150}
-                                        height={150}
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent">
-                                    Arrham Group
-                                </h1>
-                                <p className="text-sm text-slate-500">Editorial Dashboard</p>
-                            </div>
-                        </div> */}
-
-                        <div className="flex items-center space-x-4">
-                            <button
-                                className="cursor-pointer"
-                                onClick={handleLogout}
-                            >
-                                <LogOut />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            
 
             <div className="max-w-7xl mx-auto px-6 py-8">
                 {/* Header Section */}

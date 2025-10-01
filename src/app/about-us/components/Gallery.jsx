@@ -96,7 +96,7 @@ export const CompanyWorksGallery = ({
 
   return (
     <div className="relative">
-      <div className="flex gap-4 p-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
         {workColumns.map((column, colIndex) => (
           <div key={colIndex} className="flex-1 flex flex-col gap-4">
             {column.map((work) => (
