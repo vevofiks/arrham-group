@@ -35,7 +35,7 @@ const ProjectPage = () => {
       fetchProjects();
     }
   }, [selectedBranch]);
-
+  console.log('selectedBranch',selectedBranch)
   const fetchBranches = async () => {
     try {
       const res = await fetch(`/api/branches/`);
@@ -96,7 +96,7 @@ const ProjectPage = () => {
     });
     setFormData(prev => ({ ...prev, images: [...prev.images, ...files] }));
   };
-
+  
   const handleDrop = (e) => {
     e.preventDefault();
     setIsDragging(false);
@@ -108,12 +108,13 @@ const ProjectPage = () => {
     e.preventDefault();
     setIsDragging(true);
   };
-
+  
   const handleDragLeave = () => {
     setIsDragging(false);
   };
 
   const handleImageChange = (e) => {
+    console.log('e.target.files', e.target.files)
     const files = Array.from(e.target.files);
     files.forEach(file => {
       const reader = new FileReader();
@@ -123,7 +124,9 @@ const ProjectPage = () => {
       reader.readAsDataURL(file);
     });
     setFormData(prev => ({ ...prev, images: [...prev.images, ...files] }));
+    console.log(formData)
   };
+
 
   const removeImage = (index) => {
     setImagePreview(prev => prev.filter((_, i) => i !== index));
@@ -133,6 +136,7 @@ const ProjectPage = () => {
     }));
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitLoading(true);
@@ -143,10 +147,14 @@ const ProjectPage = () => {
     formDataToSend.append("status", formData.status);
 
     formData.images.forEach((image) => {
-      if (image instanceof File) {
+      if (typeof image === "string") {
+        formDataToSend.append("existingImages", image); 
+      } else if (image instanceof File) {
         formDataToSend.append("images", image);
       }
     });
+
+    console.log(formDataToSend);
 
     try {
       const url = modalType === "create"
@@ -199,6 +207,9 @@ const ProjectPage = () => {
     p.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  console.log('projects', selectedProject);
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
 
@@ -218,7 +229,7 @@ const ProjectPage = () => {
               >
                 <option value="">Select Branch</option>
                 {branches.map((b) => (
-                  <option key={b._id} value={b._id}>
+                  <option key={b.id} value={b.id}>
                     {b.name}
                   </option>
                 ))}

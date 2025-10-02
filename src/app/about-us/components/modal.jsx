@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/carousel";
 
 function Modal({ isOpen, onClose, project }) {
+  console.log("Modal project:", project);
   const plugin = React.useRef(
     Autoplay({ delay: 3000, stopOnInteraction: true })
   );
@@ -75,7 +76,7 @@ function Modal({ isOpen, onClose, project }) {
                     onMouseLeave={plugin.current.reset}
                   >
                     <CarouselContent className="h-full">
-                      {project?.img?.map((image, index) => (
+                      {project?.images?.map((image, index) => (
                         <CarouselItem key={index} className="h-full">
                           <Card className="h-full bg-transparent shadow-none border-0">
                             <CardContent className="relative w-full h-full p-0 flex items-center justify-center">
@@ -92,7 +93,7 @@ function Modal({ isOpen, onClose, project }) {
                         </CarouselItem>
                       ))}
                     </CarouselContent>
-                    {project?.img?.length > 1 && (
+                    {project?.images?.length > 1 && (
                       <>
                         <CarouselPrevious className="left-2 sm:left-4 bg-black/50 border-white/40 
                           hover:bg-white/20 text-white backdrop-blur-sm" />
@@ -104,11 +105,11 @@ function Modal({ isOpen, onClose, project }) {
                 </div>
 
                 {/* Image counter indicator */}
-                {project?.img?.length > 1 && (
+                {project?.images?.length > 1 && (
                   <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 
                     px-3 py-1 rounded-full  backdrop-blur-sm 
                     text-white/80 text-xs font-medium">
-                    {project.img.length} photos
+                    {project.images?.length} photos
                   </div>
                 )}
               </div>
