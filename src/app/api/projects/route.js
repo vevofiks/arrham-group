@@ -2,20 +2,39 @@ import { NextResponse } from "next/server";
 import connectDB from "@/app/lib/mongodb";
 import Project from "@/app/models/Projects";
 import cloudinary from "@/app/lib/cloudinary";
-
-
+import Branch from "@/app/models/Branch";
 
 export async function GET(request) {
+  try {
     await connectDB();
+
     const { searchParams } = new URL(request.url);
-    const branchId = searchParams.get("branchId");
+    const branchId = searchParams.get("branchId"); // frontend sends custom id
 
-    const query = branchId ? { branchId } : {};
-    const projects = await Project.find(query);
+    console.log(branchId)
+    console.log("Branch ID from frontend:", branchId);
 
+    const branch = await Branch.findOne({ id: branchId });
+    if (!branch) {
+      return NextResponse.json(
+        { error: "Branch not found" },
+        { status: 404 }
+      );
+    }
+
+    // ✅ Now use MongoDB ObjectId (_id) to fetch related projects
+    const projects = await Project.find({ branchId: branchId });
+
+    console.log("Projects:", projects);
     return NextResponse.json(projects);
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch projects" },
+      { status: 500 }
+    );
+  }
 }
-
 
 export async function POST(req) {
     try {

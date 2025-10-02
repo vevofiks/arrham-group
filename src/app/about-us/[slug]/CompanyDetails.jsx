@@ -1,14 +1,14 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import ProjectCard from "../components/ProjectsCard";
 import Modal from "../components/modal";
 import { Montserrat as MontserratFont } from "next/font/google";
 import KeyPersonnel from "../components/KeyPersonal";
 import { CircleCheckBig } from "lucide-react";
-import RollingGallery from "@/components/RollingGallery";
 import { CompanyWorksGallery } from "../components/Gallery";
+import Projects from "@/app/models/Projects";
 const montserrat = MontserratFont({
   subsets: ["latin"],
   variable: "--font-montserrat",
@@ -17,11 +17,13 @@ const montserrat = MontserratFont({
 function CompanyDetails({ companyData }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [projects , setProjects] = useState([]);
 
-  const openModal = (index) => {
+  const openModal = (index,projectDetails) => {
     setIsOpen(true);
-    const project = companyData.projects?.find((p) => p.id === index);
-    setSelectedProject(project);
+    console.log('project',projectDetails)
+    // const project = companyData.projects?.find((p) => p.id === index);
+    setSelectedProject(projectDetails);
   };
 
   // Parse company name for main and sub parts
@@ -33,7 +35,24 @@ function CompanyDetails({ companyData }) {
     };
   };
 
-  console.log(companyData.sampleWorks)
+  // fetch projects data based on company id using query param branchId
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch(`/api/projects?branchId=${companyData.id}`);
+        const data = await response.json();
+        setProjects(data);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+
+    if (companyData.id) {
+      fetchProjects();
+    }
+  },[])
+
+  console.log(projects)
 
   const { mainName, subName } = parseCompanyName(companyData.name || "");
 
@@ -503,7 +522,7 @@ function CompanyDetails({ companyData }) {
       )}
 
       {/* Projects */}
-      {companyData.projects && companyData.projects.length > 0 && (
+      {projects && projects.length > 0 && (
         <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -516,40 +535,42 @@ function CompanyDetails({ companyData }) {
               Our Projects
             </span>
           </motion.h2>
+          
+          
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={{
+                hidden: { opacity: 0 },
+                show: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.15 },
+                },
+              }}
+            >
 
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={{
-              hidden: { opacity: 0 },
-              show: {
-                opacity: 1,
-                transition: { staggerChildren: 0.15 },
-              },
-            }}
-          >
-            {companyData.projects.map((project, projectIdx) => (
-              <motion.div
-                key={projectIdx}
-                onClick={() => openModal(projectIdx + 1)}
-                variants={{
-                  hidden: { opacity: 0, y: 30 },
-                  show: { opacity: 1, y: 0 },
-                }}
-                transition={{ duration: 0.6 }}
-                className="cursor-pointer"
-              >
-                <ProjectCard
-                  setIsOpen={setIsOpen}
-                  project={project}
-                  index={projectIdx}
-                  company={companyData}
-                />
-              </motion.div>
-            ))}
-          </motion.div>
+              { projects?.map((project, projectIdx) => (
+                <motion.div
+                  key={projectIdx}
+                  onClick={() => openModal(projectIdx + 1, project)}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    show: { opacity: 1, y: 0 },
+                  }}
+                  transition={{ duration: 0.6 }}
+                  className="cursor-pointer"
+                >
+                  <ProjectCard
+                    setIsOpen={setIsOpen}
+                    project={project}
+                    index={projectIdx}
+                    company={companyData}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
         </section>
       )}
 
@@ -579,7 +600,7 @@ function CompanyDetails({ companyData }) {
         </motion.div>
       </section> */}
 
-      <CompanyWorksGallery works={companyData?.sampleWorks} />
+      <CompanyWorksGallery companyId={companyData?.id} />
 
       {/* Modal */}
       <Modal

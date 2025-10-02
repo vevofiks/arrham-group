@@ -193,7 +193,7 @@ export const branchesData = {
           "Project Managers, Electrical & Instrumentation Engineers, Supervisors, electricians, heavy equipment.",
       },
     },
-  
+
 
     {
       id: "arrham-trading-bahrain",
@@ -303,7 +303,6 @@ export const branchesData = {
           "Custom packages to suit individual car owners and fleet clients.",
         ]
       },
-
       // 🔹 Electrical & MEP Works
       electricalMEP: {
         name: "Electrical & MEP Works",
@@ -423,7 +422,7 @@ export const branchesData = {
         {
           id: 8,
           title: "Social Media Strategy",
-          image: "/works/work8.jpg",
+          image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800",
           description: "Comprehensive social media management and content creation",
           category: "Digital Marketing",
           height: 240
