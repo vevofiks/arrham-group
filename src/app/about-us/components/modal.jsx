@@ -57,48 +57,63 @@ function Modal({ isOpen, onClose, project }) {
             <div className="p-6 sm:p-8 md:p-10">
               {/* Title */}
               {project?.name && (
-                <h2 className="text-center text-2xl sm:text-3xl md:text-4xl text-white font-bold 
-                  mb-6 md:mb-8 leading-tight tracking-tight">
+                <h2
+                  className="text-center text-2xl sm:text-3xl md:text-4xl text-white font-bold 
+                  mb-6 md:mb-8 leading-tight tracking-tight"
+                >
                   {project.name}
                 </h2>
               )}
 
               {/* Carousel wrapper */}
               <div className="relative w-full mb-6 md:mb-8">
-                <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-xl 
+                <div
+                  className="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-xl 
                   overflow-hidden bg-gradient-to-br from-black/60 to-gray-900/60 
-                  shadow-lg ring-1 ring-white/10">
+                  shadow-lg ring-1 ring-white/10"
+                >
                   <Carousel
                     opts={{ align: "center", loop: true }}
                     plugins={[plugin.current]}
-                    className="w-full h-full"
+                    className="w-full h-auto"
                     onMouseEnter={plugin.current.stop}
                     onMouseLeave={plugin.current.reset}
                   >
-                    <CarouselContent className="h-full">
+                    <CarouselContent>
                       {project?.images?.map((image, index) => (
-                        <CarouselItem key={index} className="h-full">
-                          <Card className="h-full bg-transparent shadow-none border-0">
-                            <CardContent className="relative w-full h-full p-0 flex items-center justify-center">
-                              <Image
-                                src={image || "/arrham3.png"}
-                                alt={`${project.name || "Project"} - Image ${index + 1}`}
-                                width={1200}
-                                height={675}
-                                className="object-contain w-full h-full"
-                                priority={index === 0}
-                              />
+                        <CarouselItem
+                          key={index}
+                          className="flex items-center justify-center"
+                        >
+                          <Card className="bg-transparent shadow-none border-0 w-full h-full flex items-center justify-center">
+                            <CardContent className="relative w-full h-full flex items-center justify-center p-0">
+                              <div className="relative w-full max-w-4xl aspect-[16/9] flex items-center justify-center">
+                                <Image
+                                  src={image || "/arrham3.png"}
+                                  alt={`${project.name || "Project"} - Image ${
+                                    index + 1
+                                  }`}
+                                  fill
+                                  className="object-contain"
+                                  priority={index === 0}
+                                />
+                              </div>
                             </CardContent>
                           </Card>
                         </CarouselItem>
                       ))}
                     </CarouselContent>
+
                     {project?.images?.length > 1 && (
                       <>
-                        <CarouselPrevious className="left-2 sm:left-4 bg-black/50 border-white/40 
-                          hover:bg-white/20 text-white backdrop-blur-sm" />
-                        <CarouselNext className="right-2 sm:right-4 bg-black/50 border-white/40 
-                          hover:bg-white/20 text-white backdrop-blur-sm" />
+                        <CarouselPrevious
+                          className="left-2 sm:left-4 bg-black/50 border-white/40 
+        hover:bg-white/20 text-white backdrop-blur-sm"
+                        />
+                        <CarouselNext
+                          className="right-2 sm:right-4 bg-black/50 border-white/40 
+        hover:bg-white/20 text-white backdrop-blur-sm"
+                        />
                       </>
                     )}
                   </Carousel>
@@ -106,9 +121,11 @@ function Modal({ isOpen, onClose, project }) {
 
                 {/* Image counter indicator */}
                 {project?.images?.length > 1 && (
-                  <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 
+                  <div
+                    className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 
                     px-3 py-1 rounded-full  backdrop-blur-sm 
-                    text-white/80 text-xs font-medium">
+                    text-white/80 text-xs font-medium"
+                  >
                     {project.images?.length} photos
                   </div>
                 )}
@@ -117,8 +134,10 @@ function Modal({ isOpen, onClose, project }) {
               {/* Description */}
               {project?.description && (
                 <div className="max-w-3xl mx-auto">
-                  <p className="text-gray-100 text-center text-base sm:text-lg leading-relaxed 
-                    tracking-wide font-light">
+                  <p
+                    className="text-gray-100 text-center text-base sm:text-lg leading-relaxed 
+                    tracking-wide font-light"
+                  >
                     {project.description}
                   </p>
                 </div>
