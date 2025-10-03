@@ -24,6 +24,7 @@
     "dotenv": "^17.2.2",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
+    "gsap": "^3.13.0",
     "jose": "^6.1.0",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.542.0",
