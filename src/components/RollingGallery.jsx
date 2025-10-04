@@ -1,25 +1,35 @@
-import { useEffect, useState } from 'react';
-import { motion, useMotionValue, useAnimation, useTransform } from 'motion/react';
+import { useEffect, useState } from "react";
+import {
+  motion,
+  useMotionValue,
+  useAnimation,
+  useTransform,
+} from "motion/react";
 
 const IMGS = [
-    "/works/work1.jpg",
-    "/works/work2.jpg",
-    "/works/work3.jpg",
-    "/works/work4.jpg",
-    "/works/work5.jpg",
-    "/works/work6.jpg",
-    "/works/work7.jpg",
-
+  "/works/work1.jpg",
+  "/works/work2.jpg",
+  "/works/work3.jpg",
+  "/works/work4.jpg",
+  "/works/work5.jpg",
+  "/works/work6.jpg",
+  "/works/work7.jpg",
 ];
 
-const RollingGallery = ({ autoplay = false, pauseOnHover = false, images = [] }) => {
+const RollingGallery = ({
+  autoplay = false,
+  pauseOnHover = false,
+  images = [],
+}) => {
   images = images.length > 0 ? images : IMGS;
 
-  const [isScreenSizeSm, setIsScreenSizeSm] = useState(window.innerWidth <= 640);
+  const [isScreenSizeSm, setIsScreenSizeSm] = useState(
+    window.innerWidth <= 640
+  );
   useEffect(() => {
     const handleResize = () => setIsScreenSizeSm(window.innerWidth <= 640);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const cylinderWidth = isScreenSizeSm ? 1200 : 1800;
@@ -31,16 +41,19 @@ const RollingGallery = ({ autoplay = false, pauseOnHover = false, images = [] })
   const rotation = useMotionValue(0);
   const controls = useAnimation();
 
-  const transform = useTransform(rotation, val => `rotate3d(0,1,0,${val}deg)`);
+  const transform = useTransform(
+    rotation,
+    (val) => `rotate3d(0,1,0,${val}deg)`
+  );
 
-  const startInfiniteSpin = startAngle => {
+  const startInfiniteSpin = (startAngle) => {
     controls.start({
       rotateY: [startAngle, startAngle - 360],
       transition: {
         duration: 20,
-        ease: 'linear',
-        repeat: Infinity
-      }
+        ease: "linear",
+        repeat: Infinity,
+      },
     });
   };
 
@@ -54,8 +67,8 @@ const RollingGallery = ({ autoplay = false, pauseOnHover = false, images = [] })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoplay]);
 
-  const handleUpdate = latest => {
-    if (typeof latest.rotateY === 'number') {
+  const handleUpdate = (latest) => {
+    if (typeof latest.rotateY === "number") {
       rotation.set(latest.rotateY);
     }
   };
@@ -91,13 +104,15 @@ const RollingGallery = ({ autoplay = false, pauseOnHover = false, images = [] })
       <div
         className="absolute top-0 left-0 h-full w-[48px] z-10"
         style={{
-          background: 'linear-gradient(to left, rgba(0,0,0,0) 0%, #060010 100%)'
+          background:
+            "linear-gradient(to left, rgba(0,0,0,0) 0%, #060010 100%)",
         }}
       />
       <div
         className="absolute top-0 right-0 h-full w-[48px] z-10"
         style={{
-          background: 'linear-gradient(to right, rgba(0,0,0,0) 0%, #060010 100%)'
+          background:
+            "linear-gradient(to right, rgba(0,0,0,0) 0%, #060010 100%)",
         }}
       />
 
@@ -115,7 +130,7 @@ const RollingGallery = ({ autoplay = false, pauseOnHover = false, images = [] })
             transform: transform,
             rotateY: rotation,
             width: cylinderWidth,
-            transformStyle: 'preserve-3d'
+            transformStyle: "preserve-3d",
           }}
           className="flex min-h-[200px] cursor-grab items-center justify-center [transform-style:preserve-3d]"
         >
@@ -125,7 +140,9 @@ const RollingGallery = ({ autoplay = false, pauseOnHover = false, images = [] })
               className="group absolute flex h-fit items-center justify-center p-[8%] [backface-visibility:hidden] md:p-[6%]"
               style={{
                 width: `${faceWidth}px`,
-                transform: `rotateY(${(360 / faceCount) * i}deg) translateZ(${radius}px)`
+                transform: `rotateY(${
+                  (360 / faceCount) * i
+                }deg) translateZ(${radius}px)`,
               }}
             >
               <img

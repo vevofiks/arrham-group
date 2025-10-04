@@ -35,7 +35,7 @@ export const branchesData = {
           name: "Krystallaite GT Inc Manufacturing Facility",
           location: "North York, Canada",
           status: "Completed",
-          img: ["/project-1.png","/project-2.png","/project-4.png"],
+          img: ["/project-1.png", "/project-2.png", "/project-4.png"],
         },
         {
           id: 2,
@@ -264,7 +264,7 @@ export const branchesData = {
         services: [
           {
             title: "3M™ Paint Protection Film (PPF)",
-            description:[
+            description: [
               "Protects vehicle paint from scratches, chips, stains, and weather damage.",
               "Available in Gloss & Matte finishes (Pro Series 200).",
               "Self-healing technology for minor scratches.",
@@ -283,7 +283,7 @@ export const branchesData = {
           },
           {
             title: "3M™ Fasara™ & Decorative Films (optional for premium clients)",
-            description:[
+            description: [
 
               "Stylish privacy and decorative films for vehicle customization."
             ]
@@ -294,7 +294,7 @@ export const branchesData = {
               "Ceramic coatings for extended paint protection."
             ]
           },
-          
+
         ],
         keyAdvantages: [
           "Authorized 3M Applicators in Bahrain.",
@@ -362,7 +362,7 @@ export const branchesData = {
         { id: 1, name: "Nuwaidrat Retail Fit-Out", location: "Sitrah, Bahrain", status: "Completed" },
         { id: 2, name: "AutoCare Center Setup", location: "Sitrah, Bahrain", status: "Completed" },
       ],
-      sampleWorks : [
+      sampleWorks: [
         {
           id: 1,
           title: "Modern Office Design",

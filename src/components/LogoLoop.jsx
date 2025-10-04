@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState, memo } from "react";
 
@@ -267,11 +267,9 @@ export const LogoLoop = memo(
                 "transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120"
             )}
             src={item.src}
-            srcSet={item.srcSet}
-            sizes={item.sizes}
-            width={item.width || 200}
-            height={item.height || 200}
             alt={item.alt ?? ""}
+            width={logoHeight}
+            height={logoHeight}
             title={item.title}
             loading="lazy"
             decoding="async"

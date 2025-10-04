@@ -1,17 +1,28 @@
 "use client";
 import { X, Loader2 } from "lucide-react";
 
-const ConfirmModal = ({ isOpen, onConfirm, onCancel, title, message, loading }) => {
+const ConfirmModal = ({
+  isOpen,
+  onConfirm,
+  onCancel,
+  title,
+  message,
+  loading,
+}) => {
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
-        
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-slate-200">
-          <h3 className="text-lg font-bold text-slate-900">{title || "Confirm"}</h3>
-          <button onClick={onCancel} className="p-2 rounded-lg hover:bg-slate-100">
+          <h3 className="text-lg font-bold text-slate-900">
+            {title || "Confirm"}
+          </h3>
+          <button
+            onClick={onCancel}
+            className="p-2 rounded-lg hover:bg-slate-100"
+          >
             <X className="w-5 h-5 text-slate-500" />
           </button>
         </div>
