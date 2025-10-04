@@ -109,6 +109,14 @@ const imageLogos = [
     { src: "/clients/major_client_logo_5.png", alt: "Company 5" },
     { src: "/clients/major_client_logo_6.png", alt: "Company 6" },
     { src: "/clients/major_client_logo_7.png", alt: "Company 7" },
+    { src: "/clients/major_client_logo_8.png", alt: "Company 8" },
+    { src: "/clients/major_client_logo_9.png", alt: "Company 9" },
+    { src: "/clients/major_client_logo_10.png", alt: "Company 10" },
+    { src: "/clients/major_client_logo_11.png", alt: "Company 11" },
+    { src: "/clients/major_client_logo_12.png", alt: "Company 12" },
+    { src: "/clients/major_client_logo_13.png", alt: "Company 13" },
+    { src: "/clients/major_client_logo_14.png", alt: "Company 14" },
+    { src: "/clients/major_client_logo_15.png", alt: "Company 15" },
 ]
 
 

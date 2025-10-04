@@ -16,11 +16,11 @@ const Clients = () => {
           <div className="relative h-[230px]  mx-auto overflow-hidden mt-20">
             <LogoLoop
               logos={imageLogos}
-              speed={60}
+              speed={100}
               direction="right"
-              logoHeight={100}
-              gap={60}
-              pauseOnHover={false}
+              logoHeight={125}
+              gap={80}
+              pauseOnHover={true}
               scaleOnHover
               fadeOut
               fadeOutColor="#000000"
