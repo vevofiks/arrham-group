@@ -5,7 +5,7 @@ export const branchesData = {
       id: "arrham-canada",
       name: "Arrham Group Inc. (Canada)",
       companyIcon: "/arrham-canada.png",
-      color: ["from-lgreen/70", "to-teal-400"],
+      color: ["from-lgreen/80", "to-teal-400"],
       primaryColor: {
         border: "border-teal-400",
         text: "text-white",
@@ -17,7 +17,7 @@ export const branchesData = {
         lat: "26.14129995053057",
         lon: "50.583114618889056",
       },
-      companyImg: "/companyDummy.jpeg",
+      companyImg: "/companyDummy.png",
       country: "Canada",
       location: "Canada (Head Office)",
       shortDescription:
@@ -59,7 +59,7 @@ export const branchesData = {
     {
       id: "arrham-contracting-ksa",
       name: "Arrham Al Arabia Contracting Company (KSA)",
-      color: ["from-lgreen/40", "to-teal-400"],
+      color: ["from-lgreen/80", "to-teal-400"],
       primaryColor: {
         border: "border-teal-400",
         text: "text-white",
@@ -72,7 +72,7 @@ export const branchesData = {
         lon: "50.583114618889056",
       },
       companyIcon: "/arrham-logo.png",
-      companyImg: "/companyDummy.jpeg",
+      companyImg: "/companyDummy.png",
       country: "Saudi Arabia",
       location: "Al Khobar Al Janubiyah Dist., Kingdom of Saudi Arabia",
       shortDescription:
@@ -198,7 +198,7 @@ export const branchesData = {
     {
       id: "arrham-trading-bahrain",
       name: "Arrham Trading and Contracting W.L.L. (Kingdom of Bahrain)",
-      color: ["from-lgreen/40", "to-teal-400"],
+      color: ["from-lgreen/80", "to-teal-400"],
       primaryColor: {
         border: "border-teal-400",
         text: "text-white",
@@ -211,7 +211,7 @@ export const branchesData = {
         lon: "50.583114618889056",
       },
       companyIcon: "/arrham-ksa.png",
-      companyImg: "/companyDummy.jpeg",
+      companyImg: "/companyDummy.png",
       country: "Bahrain",
       location:
         "1445A, Road 4630, Block 646, Nuwaidrat, Sitrah 644, Kingdom of Bahrain",
@@ -446,7 +446,7 @@ export const branchesData = {
       id: "arrham-healthcare-bahrain",
       name: "Arrham Healthcare Solutions (Hidaya Healthcare Solutions W.L.L.)",
       companyIcon: "/arrham-healthcare.png",
-      companyImg: "/companyDummy.jpeg",
+      companyImg: "/companyDummy.png",
       country: "Bahrain",
       color: ["from-lgreen/40", "to-teal-400"],
       primaryColor: {
