@@ -61,7 +61,7 @@ function CompanyDetails({ companyData }) {
       <div className="relative h-[420px] w-full overflow-hidden">
         <Image
           src={companyData.companyImg}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover brightness-55"
           fill
           alt={companyData.name}
           priority
