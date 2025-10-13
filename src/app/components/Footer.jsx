@@ -82,12 +82,15 @@ const Footer = () => {
               <div className="space-y-3">
                 <div className="flex items-center gap-3 text-white/70 hover:text-lgreen transition-colors cursor-pointer">
                   <MapPin className="w-4 h-4 flex-shrink-0" />
-                  {/* <span className="text-sm">Nuwaidrat, Bahrain</span> */}
-                  <span className="text-sm max-w-2xl">
-                    {" "}
-                    ARRHAM TRADING AND CONTRACTING W.L.L 1445A &
-                    1445G, Road 4630, Block 646, Nuwaidrat, Sitrah 644 Bahrain
-                  </span>
+                  <div className="inline-block text-sm max-w-2xl">
+  <span className="block">
+    ARRHAM TRADING AND CONTRACTING W.L.L
+  </span>
+  <span className="block mt-2">
+    Building 1445A & 1445G, Road 4630, Block 646, Nuwaidrat, Sitrah 644 Bahrain
+  </span>
+</div>
+
                 </div>
                 <div className="flex items-center gap-3 text-white/70 hover:text-lgreen transition-colors cursor-pointer">
                   <Phone className="w-4 h-4 flex-shrink-0" />
@@ -144,25 +147,25 @@ const Footer = () => {
 
           {/* Bottom Bar */}
           <motion.div
-  variants={itemVariants}
-  className="relative mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row md:items-start"
->
-  {/* Text aligned to start */}
-  <div className="text-center md:text-left">
-    <p className="text-white/60 text-sm">
-      © {new Date().getFullYear()} Arrham Trading and Contracting. All
-      rights reserved.
-    </p>
-    <p className="text-white/40 text-xs mt-1">
-      Website developed by{" "}
-      <span className="text-lgreen font-medium">Vevofiks</span>
-    </p>
-  </div>
+            variants={itemVariants}
+            className="relative mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row md:items-start"
+          >
+            {/* Text aligned to start */}
+            <div className="text-center md:text-left">
+              <p className="text-white/60 text-sm">
+                © {new Date().getFullYear()} Arrham Trading and Contracting. All
+                rights reserved.
+              </p>
+              <p className="text-white/40 text-xs mt-1">
+                Website developed by{" "}
+                <span className="text-lgreen font-medium">Vevofiks</span>
+              </p>
+            </div>
 
-  {/* Button absolutely centered */}
-  <motion.button
-    onClick={scrollToTop}
-    className="
+            {/* Button absolutely centered */}
+            <motion.button
+              onClick={scrollToTop}
+              className="
       absolute left-1/2 -translate-x-1/2
       top-0 mt-[-3rem]   /* on mobile, bump it above the text */
       md:mt-0 md:top-auto md:bottom-0 /* reset for desktop */
@@ -170,13 +173,13 @@ const Footer = () => {
       text-black cursor-pointer
       hover:shadow-lg hover:shadow-lgreen/25 transition-all
     "
-    whileHover={{ scale: 1.1, y: -2 }}
-    whileTap={{ scale: 0.95 }}
-    title="Scroll to top"
-  >
-    <ArrowUp className="w-5 h-5" />
-  </motion.button>
-</motion.div>
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              title="Scroll to top"
+            >
+              <ArrowUp className="w-5 h-5" />
+            </motion.button>
+          </motion.div>
 
 
         </motion.div>

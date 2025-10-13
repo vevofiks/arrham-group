@@ -66,53 +66,57 @@ export const CompanyWorksGallery = ({
 
   return (
     <div className="relative">
-      <div className="text-center mb-12">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className={`text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase my-6 ${montserrat.className}`}
-        >
-          <span
-            className={`bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent`}
-          >
-            Gallery
-          </span>
-        </motion.h2>
-
-        <motion.div
-          initial={{ opacity: 0, scaleX: 0 }}
-          whileInView={{ opacity: 1, scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-24 h-1 bg-emerald-400 mx-auto rounded-full"
-        />
-      </div>
-      <div className="flex gap-4 p-4">
-        {workColumns.map((column, colIndex) => (
-          <div key={colIndex} className="flex-1 flex flex-col gap-4">
-            {column.map((work) => (
-              <div
-                key={work.id}
-                onClick={() => handleWorkClick(work)}
-                className="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
+      {works.length > 0 && (
+        <>
+          <div className="text-center mb-12">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className={`text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase my-6 ${montserrat.className}`}
+            >
+              <span
+                className={`bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent`}
               >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={work.image}
-                    alt="work"
-                    style={{ height: `${work.height}px` }}
-                    className="w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
+                Gallery
+              </span>
+            </motion.h2>
+
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-24 h-1 bg-emerald-400 mx-auto rounded-full"
+            />
+          </div>
+
+          <div className="flex gap-4 p-4">
+            {workColumns.map((column, colIndex) => (
+              <div key={colIndex} className="flex-1 flex flex-col gap-4">
+                {column.map((work) => (
+                  <div
+                    key={work.id}
+                    onClick={() => handleWorkClick(work)}
+                    className="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
+                  >
+                    <div className="relative overflow-hidden">
+                      <img
+                        src={work.image}
+                        alt="work"
+                        style={{ height: `${work.height}px` }}
+                        className="w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                  </div>
+                ))}
               </div>
             ))}
           </div>
-        ))}
-      </div>
-
+        </>
+      )}
       {selectedWork && (
         <div
           className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
