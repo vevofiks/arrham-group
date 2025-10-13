@@ -23,7 +23,7 @@ export const branchesData = {
       shortDescription:
         "Head office overseeing group operations, Canada-based construction & warehousing projects.",
       description:
-        "Arrham Groups Canada acts as the group's head office, coordinating international projects, investment and initial projects such as manufacturing facilities and warehousing in North America.",
+        "Arrham Group Inc., headquartered in Canada, serves as the central hub for the group's international operations—overseeing global project coordination, investment strategies, and the execution of local initiatives including manufacturing facilities and warehouse developments across North America.",
       services: [
         "Project oversight and group operations.",
         "Construction & engineering support for Canadian projects.",

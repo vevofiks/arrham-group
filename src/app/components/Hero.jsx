@@ -91,13 +91,17 @@ const Hero = ({ getToSection }) => {
   initial={{ opacity: 0, y: 50 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.8, ease: "easeOut" }}
-  className={`text-white font-extrabold leading-tight tracking-wide text-center whitespace-nowrap ${montserrat.className} text-[clamp(1rem,6vw,3rem)]`}
+  className={`text-white font-extrabold leading-tight tracking-wide text-center overflow-visible ${montserrat.className} text-[clamp(1rem,5vw,2.8rem)]`}
 >
-  <span className="block sm:inline">Shaping Tomorrow with </span>
-  <span className="bg-gradient-to-r from-lgreen to-teal-400 text-transparent bg-clip-text sm:inline">
-    Engineered Solution
+  <span className="inline-block whitespace-nowrap md:whitespace-nowrap sm:whitespace-normal">
+    Shaping Tomorrow with{" "}
+  </span>
+  <span className="inline-block bg-gradient-to-r from-lgreen to-teal-400 text-transparent bg-clip-text whitespace-nowrap md:whitespace-nowrap sm:whitespace-normal pl-3">
+    Engineered Solutions
   </span>
 </motion.h1>
+
+
 
 
         <motion.p
