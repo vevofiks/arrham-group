@@ -11,6 +11,7 @@ const ProjectSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    description: { type: String, default: "" },
     location: String,
     status: {
       type: String,

@@ -9,9 +9,8 @@ export async function GET(request) {
     await connectDB();
 
     const { searchParams } = new URL(request.url);
-    const branchId = searchParams.get("branchId"); // frontend sends custom id
+    const branchId = searchParams.get("branchId");
 
-    console.log(branchId)
     console.log("Branch ID from frontend:", branchId);
 
     const branch = await Branch.findOne({ id: branchId });
@@ -22,9 +21,7 @@ export async function GET(request) {
       );
     }
 
-    // ✅ Now use MongoDB ObjectId (_id) to fetch related projects
     const projects = await Project.find({ branchId: branchId });
-
     console.log("Projects:", projects);
     return NextResponse.json(projects);
   } catch (error) {
@@ -37,43 +34,47 @@ export async function GET(request) {
 }
 
 export async function POST(req) {
-    try {
-        await connectDB();
+  try {
+    await connectDB();
 
-        const formData = await req.formData();
-        const branchId = formData.get("branchId");
-        const name = formData.get("name");
-        const location = formData.get("location");
-        const status = formData.get("status");
+    const formData = await req.formData();
+    const branchId = formData.get("branchId");
+    const name = formData.get("name");
+    const location = formData.get("location");
+    const status = formData.get("status");
+    const description = formData.get("description");
 
-        const files = formData.getAll("images");
-        const uploadedUrls = [];
+    console.log("Creating project with:", { branchId, name, location, status, description });
 
-        for (const file of files) {
-            const buffer = Buffer.from(await file.arrayBuffer());
-            const base64String = `data:${file.type};base64,${buffer.toString("base64")}`;
+    const files = formData.getAll("images");
+    const uploadedUrls = [];
 
-            const uploadRes = await cloudinary.uploader.upload(base64String, {
-                folder: "projects",
-            });
+    for (const file of files) {
+      const buffer = Buffer.from(await file.arrayBuffer());
+      const base64String = `data:${file.type};base64,${buffer.toString("base64")}`;
 
-            uploadedUrls.push(uploadRes.secure_url);
-        }
+      const uploadRes = await cloudinary.uploader.upload(base64String, {
+        folder: "projects",
+      });
 
-        const newProject = await Project.create({
-            branchId,
-            name,
-            location,
-            status,
-            images: uploadedUrls,
-        });
-
-        return NextResponse.json(newProject, { status: 201 });
-    } catch (error) {
-        console.error("Error creating project:", error);
-        return NextResponse.json(
-            { error: "Failed to create project" },
-            { status: 500 }
-        );
+      uploadedUrls.push(uploadRes.secure_url);
     }
+
+    const newProject = await Project.create({
+      branchId,
+      name,
+      location,
+      description,
+      status,
+      images: uploadedUrls,
+    });
+
+    return NextResponse.json(newProject, { status: 201 });
+  } catch (error) {
+    console.error("Error creating project:", error);
+    return NextResponse.json(
+      { error: "Failed to create project" },
+      { status: 500 }
+    );
+  }
 }
