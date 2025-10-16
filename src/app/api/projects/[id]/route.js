@@ -8,19 +8,32 @@ export async function PUT(request, { params }) {
         await connectDB();
 
         const { id } = params;
-        console.log("Updating project with branchId:", id)
+        console.log("Updating project with ID:", id);
+
         const formData = await request.formData();
+
+        console.log("=== FORM DATA RECEIVED ===");
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}:`, value);
+        }
+        console.log("==========================");
 
         // Extract fields
         const name = formData.get("name");
         const location = formData.get("location");
         const status = formData.get("status");
+        const description = formData.get("description");
+
+        console.log("Update data:", { name, location, status, description });
 
         const existingImages = formData.getAll("existingImages") || [];
+        console.log("Existing images:", existingImages);
 
         // Handle new uploads
         const newImages = [];
         const files = formData.getAll("images");
+        console.log("New image files:", files.length);
+
         for (const file of files) {
             if (file && file instanceof File) {
                 const arrayBuffer = await file.arrayBuffer();
@@ -38,14 +51,21 @@ export async function PUT(request, { params }) {
                 newImages.push(uploaded.secure_url);
             }
         }
+
         const finalImages = [...existingImages, ...newImages];
+        console.log("Final images:", finalImages);
 
-        const updateData = { name, location, status, images: finalImages };
+        const updateData = {
+            name,
+            location,
+            status,
+            description,
+            images: finalImages
+        };
 
-
-        // Find project by branchId
-        const project = await Project.findOneAndUpdate(
-            {_id: params.id},
+        // Update project by MongoDB _id
+        const project = await Project.findByIdAndUpdate(
+            id,
             updateData,
             { new: true }
         );
@@ -64,7 +84,6 @@ export async function PUT(request, { params }) {
         return NextResponse.json({ error: err.message }, { status: 400 });
     }
 }
-
 
 export async function DELETE(request, { params }) {
     try {

@@ -90,9 +90,8 @@ function Modal({ isOpen, onClose, project }) {
                               <div className="relative w-full max-w-4xl aspect-[16/9] flex items-center justify-center">
                                 <Image
                                   src={image || "/arrham3.png"}
-                                  alt={`${project.name || "Project"} - Image ${
-                                    index + 1
-                                  }`}
+                                  alt={`${project.name || "Project"} - Image ${index + 1
+                                    }`}
                                   fill
                                   className="object-contain"
                                   priority={index === 0}
@@ -134,6 +133,13 @@ function Modal({ isOpen, onClose, project }) {
               {/* Description */}
               {project?.description && (
                 <div className="max-w-3xl mx-auto">
+                  <h3
+                    className="text-center text-xl sm:text-2xl md:text-5xl font-extrabold mb-3 leading-tight tracking-tight
+                    bg-gradient-to-r from-emerald-300 via-teal-200 to-cyan-300 bg-clip-text text-transparent drop-shadow"
+                  >
+                    Project Overview
+                  </h3>
+                  <div className="mx-auto mb-5 h-1 w-16 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400" />
                   <p
                     className="text-gray-100 text-center text-base sm:text-lg leading-relaxed 
                     tracking-wide font-light"
