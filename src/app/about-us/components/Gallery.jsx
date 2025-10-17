@@ -12,7 +12,6 @@ export const CompanyWorksGallery = ({
   companyId,
   columns = 3,
   onWorkClick = null,
-  emptyMessage = "No works to display",
 }) => {
   const [selectedWork, setSelectedWork] = useState(null);
   const [works, setWorks] = useState([]);

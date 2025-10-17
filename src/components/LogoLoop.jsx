@@ -242,7 +242,18 @@ export const LogoLoop = memo(
 
     const renderLogoItem = useCallback(
       (item, key) => {
-        const isNodeItem = "node" in item;
+        if (!item) return null;
+
+        // Normalize input: allow string URLs in addition to object items
+        const normalizedItem =
+          typeof item === "string"
+            ? { src: item, alt: "" }
+            : item;
+
+        const isNodeItem =
+          typeof normalizedItem === "object" &&
+          normalizedItem !== null &&
+          "node" in normalizedItem;
 
         const content = isNodeItem ? (
           <span
@@ -252,9 +263,9 @@ export const LogoLoop = memo(
               scaleOnHover &&
                 "transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120"
             )}
-            aria-hidden={!!item.href && !item.ariaLabel}
+            aria-hidden={!!normalizedItem.href && !normalizedItem.ariaLabel}
           >
-            {item.node}
+            {normalizedItem.node}
           </span>
         ) : (
           <Image
@@ -266,11 +277,11 @@ export const LogoLoop = memo(
               scaleOnHover &&
                 "transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120"
             )}
-            src={item.src}
-            alt={item.alt ?? ""}
+            src={normalizedItem.src}
+            alt={normalizedItem.alt ?? ""}
             width={logoHeight}
             height={logoHeight}
-            title={item.title}
+            title={normalizedItem.title}
             loading="lazy"
             decoding="async"
             draggable={false}
@@ -278,10 +289,10 @@ export const LogoLoop = memo(
         );
 
         const itemAriaLabel = isNodeItem
-          ? item.ariaLabel ?? item.title
-          : item.alt ?? item.title;
+          ? normalizedItem.ariaLabel ?? normalizedItem.title
+          : normalizedItem.alt ?? normalizedItem.title;
 
-        const inner = item.href ? (
+        const inner = normalizedItem.href ? (
           <a
             className={cx(
               "inline-flex items-center no-underline rounded",
@@ -289,7 +300,7 @@ export const LogoLoop = memo(
               "hover:opacity-80",
               "focus-visible:outline focus-visible:outline-current focus-visible:outline-offset-2"
             )}
-            href={item.href}
+            href={normalizedItem.href}
             aria-label={itemAriaLabel || "logo link"}
             target="_blank"
             rel="noreferrer noopener"

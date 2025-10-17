@@ -2,9 +2,8 @@
 
 import LogoLoop from "@/components/LogoLoop";
 import React from "react";
-import { imageLogos } from "../data";
 
-const Clients = () => {
+const Clients = ({ imageLogos }) => {
   return (
     <section>
       <div className="mt-[50px]">

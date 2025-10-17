@@ -4,11 +4,13 @@ import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import ProjectCard from "../components/ProjectsCard";
 import Modal from "../components/modal";
-import { Montserrat as MontserratFont } from "next/font/google";
+import { DM_Sans, Montserrat as MontserratFont } from "next/font/google";
 import KeyPersonnel from "../components/KeyPersonal";
-import { CircleCheckBig } from "lucide-react";
+import { CircleCheckBig , ExternalLink } from "lucide-react";
 import { CompanyWorksGallery } from "../components/Gallery";
-import Projects from "@/app/models/Projects";
+import RollingGallery from "@/components/RollingGallery";
+import Partners from "../components/Partners";
+import Clients from "@/app/components/Clients";
 const montserrat = MontserratFont({
   subsets: ["latin"],
   variable: "--font-montserrat",
@@ -18,11 +20,14 @@ function CompanyDetails({ companyData }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [projects , setProjects] = useState([]);
-
+  const [brands , setBrands] = useState([]);
+  const [clients , setClients ] = useState([]);
+  const [partners, setPartners] = useState([]);
+  const partnersCacheRef = React.useRef(new Map());
+  
   const openModal = (index,projectDetails) => {
     setIsOpen(true);
     console.log('project',projectDetails)
-    // const project = companyData.projects?.find((p) => p.id === index);
     setSelectedProject(projectDetails);
   };
 
@@ -34,6 +39,7 @@ function CompanyDetails({ companyData }) {
       subName: match ? match[2].trim() : "",
     };
   };
+
 
   // fetch projects data based on company id using query param branchId
   useEffect(() => {
@@ -52,7 +58,106 @@ function CompanyDetails({ companyData }) {
     }
   },[])
 
-  console.log(projects)
+
+
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const response = await fetch(`/api/brands?branchId=${companyData.id}`);
+        const data = await response.json();
+        setBrands(data);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+
+    if (companyData.id) {
+      fetchBrands();
+    }
+  },[])
+
+
+  useEffect(() => {
+    if (!companyData?.id) return;
+
+    const controller = new AbortController();
+    const cache = partnersCacheRef.current;
+    const key = companyData.id;
+
+    // If cached value exists, use it. It can be either data or an in-flight Promise.
+    if (cache.has(key)) {
+      const cached = cache.get(key);
+      if (cached instanceof Promise) {
+        cached
+          .then((data) => {
+            if (!controller.signal.aborted) setPartners(Array.isArray(data) ? data : []);
+          })
+          .catch(() => {
+            if (!controller.signal.aborted) setPartners([]);
+          });
+      } else {
+        setPartners(Array.isArray(cached) ? cached : []);
+      }
+      return () => controller.abort();
+    }
+
+    // Create a fetch promise, store it in cache to dedupe concurrent requests
+    const fetchPromise = (async () => {
+      try {
+        const res = await fetch(`/api/partners?branchId=${encodeURIComponent(key)}`, { signal: controller.signal });
+        if (!res.ok) throw new Error(`Fetch error: ${res.status}`);
+        const data = await res.json();
+        const partnersData = Array.isArray(data) ? data : [];
+        cache.set(key, partnersData); // replace promise with actual data
+        return partnersData;
+      } catch (err) {
+        cache.delete(key);
+        throw err;
+      }
+    })();
+
+    cache.set(key, fetchPromise);
+
+    fetchPromise
+      .then((data) => {
+        if (!controller.signal.aborted) setPartners(data);
+      })
+      .catch((err) => {
+        if (!controller.signal.aborted) {
+          console.error("Error fetching partners:", err);
+          setPartners([]);
+        }
+      });
+
+    return () => {
+      controller.abort();
+    };
+  }, [companyData?.id]);
+
+
+
+  useEffect(() => {
+    const fetchClients = async () => {
+      try {
+        const response = await fetch(`/api/clients?branchId=${companyData.id}`);
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          const images = data.flatMap(item => Array.isArray(item.images) ? item.images : []);
+          setClients(images);
+        } else {
+          setClients([]);
+        }
+      } catch (error) {
+        console.error("Error fetching clients:", error);
+      }
+    };
+
+    if (companyData.id) {
+      fetchClients();
+    }
+  }, [companyData.id]);
+
+  console.log(clients)
 
   const { mainName, subName } = parseCompanyName(companyData.name || "");
 
@@ -273,6 +378,8 @@ function CompanyDetails({ companyData }) {
           )}
         </section>
       )}
+
+
 
       {/* 3M Section */}
       {companyData.threeM && (
@@ -574,6 +681,74 @@ function CompanyDetails({ companyData }) {
         </section>
       )}
 
+      {
+
+        partners.length > 0 && (
+          <Partners/>
+        )
+      }
+
+
+      {
+        brands.length > 0 &&
+
+        (
+
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold text-emerald-300 mb-4">
+              Our Brands
+            </h2>
+
+            <div className="w-24 h-1 bg-emerald-400 mx-auto mt-6 rounded-full shadow-lg shadow-emerald-500/50"></div>
+          </div>
+
+          {/* Brand Logos Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {brands.map((brand) => (
+              <a
+                key={brand._id}
+                href={brand.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-emerald-400/50 hover:shadow-2xl hover:shadow-emerald-500/20 transform hover:-translate-y-2"
+              >
+                {/* Logo Container */}
+                <div className="aspect-square w-full mb-4 rounded-xl bg-white p-4 flex items-center justify-center overflow-hidden">
+                  <img
+                    src={brand.img}
+                    alt={`${brand.name} logo`}
+                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+                  />
+                </div>
+
+                {/* Brand Name */}
+                <h3 className="text-white font-semibold text-center text-lg mb-2 capitalize">
+                  {brand.name}
+                </h3>
+
+                {/* Visit Link Indicator */}
+                <div className="flex items-center justify-center gap-2 text-emerald-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span>Visit Site</span>
+                  <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+                </div>
+
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-400/0 to-emerald-600/0 group-hover:from-emerald-400/10 group-hover:to-emerald-600/10 transition-all duration-300 pointer-events-none"></div>
+              </a>
+            ))}
+          </div>  
+
+        </div>
+        )
+      }
+
+      {
+        clients.length > 0 &&
+        <Clients imageLogos={clients} />
+      }
+
+
       {/* Our Works Gallery */}
       {/* <section className="px-6 md:px-12 lg:px-16 py-16">
         <motion.div
@@ -596,11 +771,11 @@ function CompanyDetails({ companyData }) {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <RollingGallery autoplay={true} pauseOnHover={true} />
+          <RollingGallery autoplay={true} pauseOnHover={true} companyId={companyData?.id} />
         </motion.div>
       </section> */}
-
-      <CompanyWorksGallery companyId={companyData?.id} />
+      
+      {/* <CompanyWorksGallery companyId={companyData?.id} /> */}
 
       {/* Modal */}
       <Modal

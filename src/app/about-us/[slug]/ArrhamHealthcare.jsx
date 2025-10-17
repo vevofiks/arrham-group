@@ -1,9 +1,15 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Hospital, Wrench, Sprout } from 'lucide-react';
 import Image from 'next/image';
 import { motion } from "motion/react";
 import { Montserrat as MontserratFont } from "next/font/google";
+import { useParams } from 'next/navigation';
+import ProjectCard from '../components/ProjectsCard';
+import { branchesData } from '@/app';
+import Modal from '../components/modal';
+import Partners from '../components/Partners';
+import RollingGallery from '@/components/RollingGallery';
 
 const montserrat = MontserratFont({
   subsets: ["latin"],
@@ -11,18 +17,43 @@ const montserrat = MontserratFont({
 });
 
 function ArrhamHealthcare() {
+
+  const {slug} = useParams();
+  const companyData = branchesData.branches.find((branch) => branch.id == slug);
   const companyName = "Arrham Healthcare Solutions";
   const subName = "Kingdom of Bahrain";
+  const [projects , setProjects] = useState()
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedProject , setSelectedProject] = useState();
 
-  // Country flag for Bahrain (inline SVG)
+  const openModal = (projectDetails) => {
+    setIsOpen(true);
+    console.log('project',projectDetails)
+    setSelectedProject(projectDetails);
+  };
 
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch(`/api/projects?branchId=${slug}`);
+        const data = await response.json();
+        setProjects(data);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
 
+    if (slug) {
+      fetchProjects();
+    }
+  },[])
+  console.log(projects)
   return (
     <div className="min-h-screen text-white overflow-hidden">
       {/* Hero Section */}
       <div className="relative h-[420px] w-full overflow-hidden">
         <Image
-          src="/companyDummy.jpeg"
+          src="/companyDummy.png"
           className="h-full w-full object-cover"
           fill
           alt="arrham health care solutions"
@@ -160,6 +191,7 @@ function ArrhamHealthcare() {
               hoverBorder: "teal-400/50",
               textColor: "teal-300"
             }
+
           ].map((service, idx) => (
             <motion.div
               key={idx}
@@ -236,7 +268,7 @@ function ArrhamHealthcare() {
       </section>
 
       {/* Who We Are Section */}
-      <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
+      {/* <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -318,7 +350,7 @@ function ArrhamHealthcare() {
             </ul>
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* Mission, Vision, Values */}
       <section className="px-6 md:px-12 lg:px-16 py-16 bg-gradient-to-br from-gray-800/50 to-teal-900/30">
@@ -397,7 +429,93 @@ function ArrhamHealthcare() {
             ))}
           </motion.div>
         </div>
+
+        <Partners/>
+
+        {projects && projects.length > 0 && (
+          <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className={`mb-12 text-center text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase ${montserrat.className}`}
+
+            >
+              <span className={`bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent`}>
+                Our Projects
+              </span>
+
+            </motion.h2>
+            
+              <motion.div
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                variants={{
+                  hidden: { opacity: 0 },
+                  show: {
+                    opacity: 1,
+                    transition: { staggerChildren: 0.15 },
+                  },
+                }}
+              >
+  
+                {projects?.map((project, projectIdx) => (
+                  <motion.div
+                    key={projectIdx}
+                    onClick={() => openModal( project)}
+                    variants={{
+                      hidden: { opacity: 0, y: 30 },
+                      show: { opacity: 1, y: 0 },
+                    }}
+                    transition={{ duration: 0.6 }}
+                    className="cursor-pointer"
+                  >
+                    <ProjectCard
+                      setIsOpen={setIsOpen}
+                      project={project}
+                      index={projectIdx}
+                      company={companyData}
+                    />
+                  </motion.div>
+                ))}
+              </motion.div>
+          </section>
+        )}
       </section>
+
+      {/* <section className="px-6 md:px-12 lg:px-16 py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <h2 className={`text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase ${montserrat.className}`}>
+            <span className={`bg-gradient-to-r from-emerald-400 ${companyData.color?.[1] || 'to-blue-600'} bg-clip-text text-transparent`}>
+              Our Works
+            </span>
+          </h2>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <RollingGallery autoplay={true} pauseOnHover={true} companyId={companyData?.id} />
+        </motion.div>
+      </section> */}
+
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        project={selectedProject}
+      />
     </div>
   );
 }
