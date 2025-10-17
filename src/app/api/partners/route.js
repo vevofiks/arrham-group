@@ -4,6 +4,23 @@ import Partners from "@/app/models/Partners";
 import Branch from "@/app/models/Branch";
 import cloudinary from "@/app/lib/cloudinary";
 
+
+
+export async function getAllPartners() {
+  try {
+    await connectDB();
+    const partners = await Partners.find();
+    return NextResponse.json(partners);
+  } catch (error) {
+    console.error("Error fetching all partners:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch partners" },
+      { status: 500 }
+    );
+  }
+}
+
+
 export async function GET(request) {
   try {
     await connectDB();

@@ -16,13 +16,14 @@ const IMGS = [
   "/works/work7.jpg",
 ];
 
+
 const RollingGallery = ({
+  companyId,
   autoplay = false,
   pauseOnHover = false,
   images = [],
 }) => {
-  images = images.length > 0 ? images : IMGS;
-
+  const [works , setWorks] = useState([])
   const [isScreenSizeSm, setIsScreenSizeSm] = useState(
     window.innerWidth <= 640
   );
@@ -32,6 +33,33 @@ const RollingGallery = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+    useEffect(() => {
+      const fetchWorks = async () => {
+        try {
+          const res = await fetch(`/api/gallery?branchId=${companyId}`);
+          const result = await res.json();
+
+          if (result.success && result.data && result.data.images?.length > 0) {
+            const images = result.data.images.map((img, index) => ({
+              id: `${result.data._id}-${index}`,
+              image: img,
+              height: 250 + Math.floor(Math.random() * 100),
+            }));
+            setWorks(images);
+          } else {
+            setWorks([]);
+          }
+        } catch (error) {
+          console.error("Error while fetching works:", error);
+          setWorks([]);
+        }
+      };
+
+      if (companyId) fetchWorks();
+      else setWorks([]);
+    }, [companyId]);
+    console.log(works,'works data')
+  images = works.length > 0 ? works : IMGS;
   const cylinderWidth = isScreenSizeSm ? 1200 : 1800;
   const faceCount = images.length;
   const faceWidth = (cylinderWidth / faceCount) * 1.4;
@@ -134,7 +162,7 @@ const RollingGallery = ({
           }}
           className="flex min-h-[200px] cursor-grab items-center justify-center [transform-style:preserve-3d]"
         >
-          {images.map((url, i) => (
+          {images.map((img, i) => (
             <div
               key={i}
               className="group absolute flex h-fit items-center justify-center p-[8%] [backface-visibility:hidden] md:p-[6%]"
@@ -146,7 +174,7 @@ const RollingGallery = ({
               }}
             >
               <img
-                src={url}
+                src={img.image}
                 alt="gallery"
                 className="pointer-events-none h-[180px] w-[450px] rounded-[15px] border-[3px] border-white object-cover
                            transition-transform duration-300 ease-out group-hover:scale-105

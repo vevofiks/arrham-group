@@ -5,17 +5,15 @@ import Hero from './components/Hero'
 import About from './components/About'
 import ServiceCard from './components/Services'
 import { motion } from "motion/react";
-import { imageLogos, servicesData } from './data'
 import Contact from './components/Contact'
 import { ArrowRight, ChevronDown } from 'lucide-react'
 import LogoLoop from '@/components/LogoLoop'
 import Clients from './components/Clients'
 import GlobalBranches from './components/GlobalBranches'
 import { useRouter } from 'next/navigation'
-// import Map from './components/Map'
 import { branchesData } from '.'
 import SimpleCard from './about-us/components/Companies'
-
+import { imageLogos } from './data'
 const Page = () => {
   const router = useRouter();
   useEffect(() => {
@@ -102,7 +100,7 @@ const Page = () => {
           </motion.div>
         </motion.button>
       </section>
-
+      
       {/* Hero Section */}
       <div className="hero">
         <Hero getToSection={getToSection} />
@@ -149,7 +147,7 @@ const Page = () => {
       </div> */}
 
       {/* Clients & Contact */}
-      <Clients />
+      <Clients imageLogos={imageLogos} />
       <Contact />
     </div>
   );

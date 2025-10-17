@@ -215,7 +215,7 @@ const ClientsPage = () => {
                 className="flex-1 sm:flex-initial sm:min-w-[200px] px-4 py-3 rounded-xl bg-white border border-slate-200 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all shadow-sm text-sm sm:text-base"
               >
                 <option value="">Select Branch</option>
-                {branches.map((b) => (
+                {branches?.map((b) => (
                   <option key={b.id} value={b.id}>
                     {b.name}
                   </option>
