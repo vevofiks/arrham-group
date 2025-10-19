@@ -18,6 +18,7 @@ function Modal({ isOpen, onClose, project }) {
   const plugin = React.useRef(
     Autoplay({ delay: 3000, stopOnInteraction: true })
   );
+  console.log(project)
 
   return (
     <AnimatePresence>

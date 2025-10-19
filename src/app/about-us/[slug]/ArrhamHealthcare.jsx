@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { Hospital, Wrench, Sprout } from 'lucide-react';
+import { Hospital, Wrench, Sprout, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import { motion } from "motion/react";
 import { Montserrat as MontserratFont } from "next/font/google";
@@ -10,6 +10,8 @@ import { branchesData } from '@/app';
 import Modal from '../components/modal';
 import Partners from '../components/Partners';
 import RollingGallery from '@/components/RollingGallery';
+import Certificates from '../components/Certificates';
+import Clients from '@/app/components/Clients';
 
 const montserrat = MontserratFont({
   subsets: ["latin"],
@@ -25,7 +27,98 @@ function ArrhamHealthcare() {
   const [projects , setProjects] = useState()
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProject , setSelectedProject] = useState();
+  const [partnerships, setPartnerships] = useState([]);
+  const [certificates, setCertificates] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [clients, setClients] = useState([]);
 
+  const samplePartnerships = [
+    {
+      id: 1,
+      name: "TechCorp Solutions",
+      logo: "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=400&h=400&fit=crop",
+      website: "https://techcorp.example.com"
+    },
+    {
+      id: 2,
+      name: "Digital Innovations",
+      logo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&h=400&fit=crop",
+      website: "https://digitalinnovations.example.com"
+    },
+  ];
+
+  async function getPartnerships() {
+    try {
+        const res = await fetch(`/api/partners?branchId=${companyData.id}`);
+      if (!res.ok) throw new Error(`Failed to fetch partnerships: ${res.status}`);
+      const data = await res.json();
+      setPartnerships(Array.isArray(data) && data.length ? data : samplePartnerships);
+    } catch (error) {
+      console.error('Error fetching partnerships, falling back to sample:', error);
+      setPartnerships(samplePartnerships);
+    }
+  }
+
+  useEffect(() => {
+    getPartnerships();
+  }, []);
+
+  // Fetch certificates data
+  useEffect(() => {
+    const fetchCertificates = async () => {
+      try {
+        const response = await fetch(`/api/certifications?branchId=${companyData.id}`);
+        const data = await response.json();
+        setCertificates(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Error fetching certificates:", error);
+        setCertificates([]);
+      }
+    };
+
+    if (companyData.id) {
+      fetchCertificates();
+    }
+  }, [companyData.id]);
+
+  // Fetch brands data
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const response = await fetch(`/api/brands?branchId=${companyData.id}`);
+        const data = await response.json();
+        setBrands(data);
+      } catch (error) {
+        console.error("Error fetching brands:", error);
+      }
+    };
+
+    if (companyData.id) {
+      fetchBrands();
+    }
+  }, [companyData.id]);
+
+  // Fetch clients data
+  useEffect(() => {
+    const fetchClients = async () => {
+      try {
+        const response = await fetch(`/api/clients?branchId=${companyData.id}`);
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          const images = data.flatMap(item => Array.isArray(item.images) ? item.images : []);
+          setClients(images);
+        } else {
+          setClients([]);
+        }
+      } catch (error) {
+        console.error("Error fetching clients:", error);
+      }
+    };
+
+    if (companyData.id) {
+      fetchClients();
+    }
+  }, [companyData.id]);
   const openModal = (projectDetails) => {
     setIsOpen(true);
     console.log('project',projectDetails)
@@ -47,7 +140,7 @@ function ArrhamHealthcare() {
       fetchProjects();
     }
   },[])
-  console.log(projects)
+  console.log(partnerships)
   return (
     <div className="min-h-screen text-white overflow-hidden">
       {/* Hero Section */}
@@ -429,8 +522,20 @@ function ArrhamHealthcare() {
             ))}
           </motion.div>
         </div>
+            {
+              partnerships.length > 0 && (
 
-        <Partners/>
+
+                <Partners partnerships={partnerships} lColor={"emerald-400"} rColor={"blue-400"} />
+              )
+            }
+
+            {/* Certificates Section */}
+            {certificates && certificates.length > 0 && (
+              <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
+                <Certificates certificates={certificates} />
+              </section>
+            )}
 
         {projects && projects.length > 0 && (
           <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
@@ -483,6 +588,60 @@ function ArrhamHealthcare() {
                 ))}
               </motion.div>
           </section>
+        )}
+
+        {/* Brands Section */}
+        {brands.length > 0 && (
+          <div className="max-w-7xl mx-auto">
+            {/* Section Header */}
+            <div className="text-center mb-16">
+              <h2 className="text-5xl font-bold text-emerald-300 mb-4">
+                Our Brands
+              </h2>
+
+              <div className="w-24 h-1 bg-emerald-400 mx-auto mt-6 rounded-full shadow-lg shadow-emerald-500/50"></div>
+            </div>
+
+            {/* Brand Logos Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+              {brands.map((brand) => (
+                <a
+                  key={brand._id}
+                  href={brand.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-emerald-400/50 hover:shadow-2xl hover:shadow-emerald-500/20 transform hover:-translate-y-2"
+                >
+                  {/* Logo Container */}
+                  <div className="aspect-square w-full mb-4 rounded-xl bg-white p-4 flex items-center justify-center overflow-hidden">
+                    <img
+                      src={brand.img}
+                      alt={`${brand.name} logo`}
+                      className="w-full h-full object-contain transition-transform duration-300"
+                    />
+                  </div>
+
+                  {/* Brand Name */}
+                  <h3 className="text-white font-semibold text-center text-lg mb-2 capitalize">
+                    {brand.name}
+                  </h3>
+
+                  {/* Visit Link Indicator */}
+                  <div className="flex items-center justify-center gap-2 text-emerald-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span>Visit Site</span>
+                    <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+                  </div>
+
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-400/0 to-emerald-600/0 group-hover:from-emerald-400/10 group-hover:to-emerald-600/10 transition-all duration-300 pointer-events-none"></div>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Clients Section */}
+        {clients.length > 0 && (
+          <Clients imageLogos={clients} />
         )}
       </section>
 
