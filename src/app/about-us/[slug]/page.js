@@ -8,6 +8,7 @@ async function Page({ params }) {
   console.log(slug);
 
   const data = branchesData.branches.find((branch) => branch.id == slug);
+  console.log('company dd' , data)
   if (data.id === "arrham-healthcare-bahrain"){
     return (
       <div >

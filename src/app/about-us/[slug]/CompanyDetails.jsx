@@ -6,11 +6,12 @@ import ProjectCard from "../components/ProjectsCard";
 import Modal from "../components/modal";
 import { DM_Sans, Montserrat as MontserratFont } from "next/font/google";
 import KeyPersonnel from "../components/KeyPersonal";
-import { CircleCheckBig , ExternalLink } from "lucide-react";
+import { CircleCheckBig, ExternalLink } from "lucide-react";
 import { CompanyWorksGallery } from "../components/Gallery";
 import RollingGallery from "@/components/RollingGallery";
 import Partners from "../components/Partners";
 import Clients from "@/app/components/Clients";
+import Certificates from "../components/Certificates";
 const montserrat = MontserratFont({
   subsets: ["latin"],
   variable: "--font-montserrat",
@@ -19,15 +20,16 @@ const montserrat = MontserratFont({
 function CompanyDetails({ companyData }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [projects , setProjects] = useState([]);
-  const [brands , setBrands] = useState([]);
-  const [clients , setClients ] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [clients, setClients] = useState([]);
   const [partners, setPartners] = useState([]);
+  const [certificates, setCertificates] = useState([]);
   const partnersCacheRef = React.useRef(new Map());
-  
-  const openModal = (index,projectDetails) => {
+
+  const openModal = (index, projectDetails) => {
     setIsOpen(true);
-    console.log('project',projectDetails)
+    console.log('project', projectDetails)
     setSelectedProject(projectDetails);
   };
 
@@ -56,7 +58,7 @@ function CompanyDetails({ companyData }) {
     if (companyData.id) {
       fetchProjects();
     }
-  },[])
+  }, [])
 
 
 
@@ -74,73 +76,70 @@ function CompanyDetails({ companyData }) {
     if (companyData.id) {
       fetchBrands();
     }
-  },[])
-
-
+  }, [])
   useEffect(() => {
-    if (!companyData?.id) return;
-
-    const controller = new AbortController();
-    const cache = partnersCacheRef.current;
-    const key = companyData.id;
-
-    // If cached value exists, use it. It can be either data or an in-flight Promise.
-    if (cache.has(key)) {
-      const cached = cache.get(key);
-      if (cached instanceof Promise) {
-        cached
-          .then((data) => {
-            if (!controller.signal.aborted) setPartners(Array.isArray(data) ? data : []);
-          })
-          .catch(() => {
-            if (!controller.signal.aborted) setPartners([]);
-          });
-      } else {
-        setPartners(Array.isArray(cached) ? cached : []);
-      }
-      return () => controller.abort();
+    if (!companyData?.id) {
+      setPartners([]);
+      return;
     }
 
-    // Create a fetch promise, store it in cache to dedupe concurrent requests
-    const fetchPromise = (async () => {
+    const cached = partnersCacheRef.current.get(companyData.id);
+    if (cached) {
+      setPartners(cached);
+      return;
+    }
+
+    let cancelled = false;
+    const fetchPartners = async () => {
       try {
-        const res = await fetch(`/api/partners?branchId=${encodeURIComponent(key)}`, { signal: controller.signal });
-        if (!res.ok) throw new Error(`Fetch error: ${res.status}`);
+        const res = await fetch(`/api/partners?branchId=${companyData.id}`);
         const data = await res.json();
-        const partnersData = Array.isArray(data) ? data : [];
-        cache.set(key, partnersData); // replace promise with actual data
-        return partnersData;
-      } catch (err) {
-        cache.delete(key);
-        throw err;
-      }
-    })();
-
-    cache.set(key, fetchPromise);
-
-    fetchPromise
-      .then((data) => {
-        if (!controller.signal.aborted) setPartners(data);
-      })
-      .catch((err) => {
-        if (!controller.signal.aborted) {
-          console.error("Error fetching partners:", err);
-          setPartners([]);
+        const list = Array.isArray(data) ? data : [];
+        if (!cancelled) {
+          setPartners(list);
+          partnersCacheRef.current.set(companyData.id, list);
         }
-      });
+      } catch (error) {
+        console.error("Error fetching partners:", error);
+        if (!cancelled) setPartners([]);
+      }
+    };
+
+    fetchPartners();
 
     return () => {
-      controller.abort();
+      cancelled = true;
     };
   }, [companyData?.id]);
 
+  // Fetch certificates data
+  useEffect(() => {
+    const fetchCertificates = async () => {
+      try {
+        const response = await fetch(`/api/certifications?branchId=${companyData.id}`);
+        const data = await response.json();
+        setCertificates(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Error fetching certificates:", error);
+        setCertificates([]);
+      }
+    };
 
+    if (companyData.id) {
+      fetchCertificates();
+    }
+  }, [companyData.id]);
+
+  console.log(partners)
 
   useEffect(() => {
+
     const fetchClients = async () => {
+      console.log('api call has been created for client')
       try {
         const response = await fetch(`/api/clients?branchId=${companyData.id}`);
         const data = await response.json();
+        console.log(data, 'clients datas')
         if (Array.isArray(data)) {
           const images = data.flatMap(item => Array.isArray(item.images) ? item.images : []);
           setClients(images);
@@ -199,38 +198,38 @@ function CompanyDetails({ companyData }) {
               </motion.h1>
 
               <div className="flex-col w-1/2 h-1/2 items-start justify-start">
-              {subName && (
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.6 }}
-                className={`text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-medium text-gray-300 leading-relaxed max-w-xl ${montserrat.className}`}
-              >
-                {subName}
-              </motion.h2>
-              )}
+                {subName && (
+                  <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: 0.6 }}
+                    className={`text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-medium text-gray-300 leading-relaxed max-w-xl ${montserrat.className}`}
+                  >
+                    {subName}
+                  </motion.h2>
+                )}
 
-            {(companyData.id === "arrham-trading-bahrain" || companyData.id === "arrham-contracting-ksa") && (
-              <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="flex justify-center lg:justify-end w-full lg:w-1/2"
-              >
-              <Image
-                src="/threeM-rbg.png"
-                width={400}
-                height={500}
-                className="object-contain drop-shadow-xl w-3/4 sm:w-2/3 md:w-1/2 lg:w-full"
-                alt="Company Logo"
-              />
-              </motion.div>
-            )}
+                {(companyData.id === "arrham-trading-bahrain" || companyData.id === "arrham-contracting-ksa") && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1, delay: 0.5 }}
+                    className="flex justify-center lg:justify-end w-full lg:w-1/2"
+                  >
+                    <Image
+                      src="/threeM-rbg.png"
+                      width={400}
+                      height={500}
+                      className="object-contain drop-shadow-xl w-3/4 sm:w-2/3 md:w-1/2 lg:w-full"
+                      alt="Company Logo"
+                    />
+                  </motion.div>
+                )}
               </div>
             </div>
 
             {/* Right Image */}
-            
+
           </div>
 
           {/* Bottom Right - Country Flag */}
@@ -347,7 +346,7 @@ function CompanyDetails({ companyData }) {
               </div>
             </motion.div>
           )}
-          
+
           {/* Key Advantages */}
           {companyData.keyAdvantages && (
             <motion.div
@@ -642,49 +641,56 @@ function CompanyDetails({ companyData }) {
               Our Projects
             </span>
           </motion.h2>
-          
-          
-            <motion.div
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={{
-                hidden: { opacity: 0 },
-                show: {
-                  opacity: 1,
-                  transition: { staggerChildren: 0.15 },
-                },
-              }}
-            >
 
-              { projects?.map((project, projectIdx) => (
-                <motion.div
-                  key={projectIdx}
-                  onClick={() => openModal(projectIdx + 1, project)}
-                  variants={{
-                    hidden: { opacity: 0, y: 30 },
-                    show: { opacity: 1, y: 0 },
-                  }}
-                  transition={{ duration: 0.6 }}
-                  className="cursor-pointer"
-                >
-                  <ProjectCard
-                    setIsOpen={setIsOpen}
-                    project={project}
-                    index={projectIdx}
-                    company={companyData}
-                  />
-                </motion.div>
-              ))}
-            </motion.div>
+
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0 },
+              show: {
+                opacity: 1,
+                transition: { staggerChildren: 0.15 },
+              },
+            }}
+          >
+
+            {projects?.map((project, projectIdx) => (
+              <motion.div
+                key={projectIdx}
+                onClick={() => openModal(projectIdx + 1, project)}
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  show: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.6 }}
+                className="cursor-pointer"
+              >
+                <ProjectCard
+                  setIsOpen={setIsOpen}
+                  project={project}
+                  index={projectIdx}
+                  company={companyData}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        </section>
+      )}
+
+      {/* Certificates Section */}
+      {certificates && certificates.length > 0 && (
+        <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
+          <Certificates certificates={certificates} />
         </section>
       )}
 
       {
 
         partners.length > 0 && (
-          <Partners/>
+          <Partners partnerships={partners} />
         )
       }
 
@@ -694,52 +700,52 @@ function CompanyDetails({ companyData }) {
 
         (
 
-        <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-emerald-300 mb-4">
-              Our Brands
-            </h2>
+          <div className="max-w-7xl mx-auto">
+            {/* Section Header */}
+            <div className="text-center mb-16">
+              <h2 className="text-5xl font-bold text-emerald-300 mb-4">
+                Our Brands
+              </h2>
 
-            <div className="w-24 h-1 bg-emerald-400 mx-auto mt-6 rounded-full shadow-lg shadow-emerald-500/50"></div>
+              <div className="w-24 h-1 bg-emerald-400 mx-auto mt-6 rounded-full shadow-lg shadow-emerald-500/50"></div>
+            </div>
+
+            {/* Brand Logos Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+              {brands.map((brand) => (
+                <a
+                  key={brand._id}
+                  href={brand.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-emerald-400/50 hover:shadow-2xl hover:shadow-emerald-500/20 transform hover:-translate-y-2"
+                >
+                  {/* Logo Container */}
+                  <div className="aspect-square w-full mb-4 rounded-xl bg-white p-4 flex items-center justify-center overflow-hidden">
+                    <img
+                      src={brand.img}
+                      alt={`${brand.name} logo`}
+                      className="w-full h-full object-contain transition-transform duration-300"
+                    />
+                  </div>
+
+                  {/* Brand Name */}
+                  <h3 className="text-white font-semibold text-center text-lg mb-2 capitalize">
+                    {brand.name}
+                  </h3>
+
+                  {/* Visit Link Indicator */}
+                  <div className="flex items-center justify-center gap-2 text-emerald-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span>Visit Site</span>
+                    <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+                  </div>
+
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-400/0 to-emerald-600/0 group-hover:from-emerald-400/10 group-hover:to-emerald-600/10 transition-all duration-300 pointer-events-none"></div>
+                </a>
+              ))}
+            </div>
+
           </div>
-
-          {/* Brand Logos Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {brands.map((brand) => (
-              <a
-                key={brand._id}
-                href={brand.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-emerald-400/50 hover:shadow-2xl hover:shadow-emerald-500/20 transform hover:-translate-y-2"
-              >
-                {/* Logo Container */}
-                <div className="aspect-square w-full mb-4 rounded-xl bg-white p-4 flex items-center justify-center overflow-hidden">
-                  <img
-                    src={brand.img}
-                    alt={`${brand.name} logo`}
-                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
-                  />
-                </div>
-
-                {/* Brand Name */}
-                <h3 className="text-white font-semibold text-center text-lg mb-2 capitalize">
-                  {brand.name}
-                </h3>
-
-                {/* Visit Link Indicator */}
-                <div className="flex items-center justify-center gap-2 text-emerald-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span>Visit Site</span>
-                  <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-                </div>
-
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-400/0 to-emerald-600/0 group-hover:from-emerald-400/10 group-hover:to-emerald-600/10 transition-all duration-300 pointer-events-none"></div>
-              </a>
-            ))}
-          </div>  
-
-        </div>
         )
       }
 
@@ -774,7 +780,7 @@ function CompanyDetails({ companyData }) {
           <RollingGallery autoplay={true} pauseOnHover={true} companyId={companyData?.id} />
         </motion.div>
       </section> */}
-      
+
       {/* <CompanyWorksGallery companyId={companyData?.id} /> */}
 
       {/* Modal */}
