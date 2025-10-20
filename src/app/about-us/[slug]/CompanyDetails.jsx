@@ -156,7 +156,13 @@ function CompanyDetails({ companyData }) {
     }
   }, [companyData.id]);
 
-  console.log(clients)
+  const toExternalUrl = (url) => {
+    if (!url) return "";
+    const trimmed = url.trim();
+    if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) return trimmed;
+    return `https://${trimmed}`;
+  };
+
 
   const { mainName, subName } = parseCompanyName(companyData.name || "");
 
@@ -683,7 +689,7 @@ function CompanyDetails({ companyData }) {
       {/* Certificates Section */}
       {certificates && certificates.length > 0 && (
         <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
-          <Certificates certificates={certificates} />
+          <Certificates certificates={certificates} lColor="rgb(52, 211, 153)" rColor="rgb(52, 211, 153)" />
         </section>
       )}
 
@@ -715,10 +721,10 @@ function CompanyDetails({ companyData }) {
               {brands.map((brand) => (
                 <a
                   key={brand._id}
-                  href={brand.url}
+                  href={toExternalUrl(brand.url)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-emerald-400/50 hover:shadow-2xl hover:shadow-emerald-500/20 transform hover:-translate-y-2"
+                  className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white-400/50 hover:shadow-2xl hover:shadow-emerald-500/20 transform hover:-translate-y-2"
                 >
                   {/* Logo Container */}
                   <div className="aspect-square w-full mb-4 rounded-xl bg-white p-4 flex items-center justify-center overflow-hidden">
@@ -751,8 +757,8 @@ function CompanyDetails({ companyData }) {
 
       {
         clients.length > 0 &&
-        <Clients imageLogos={clients} />
-      }
+        <Clients imageLogos={clients} lColor="rgb(52, 211, 153)" rColor="rgb(52, 211, 153)" />      
+        }
 
 
       {/* Our Works Gallery */}

@@ -157,6 +157,13 @@ const BrandsPage = () => {
     b.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const toExternalUrl = (url) => {
+    if (!url) return "";
+    const trimmed = url.trim();
+    if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) return trimmed;
+    return `https://${trimmed}`;
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
@@ -228,7 +235,7 @@ const BrandsPage = () => {
                 <div className="p-4 sm:p-6">
                   <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">{b.name}</h3>
                   {b.url && (
-                    <a href={b.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm text-indigo-600 hover:text-indigo-700">
+                    <a href={toExternalUrl(b.url)} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm text-indigo-600 hover:text-indigo-700">
                       <Link2 className="w-4 h-4" />
                       <span className="truncate max-w-[220px] sm:max-w-[280px]">{b.url}</span>
                     </a>
@@ -300,7 +307,7 @@ const BrandsPage = () => {
                   {selectedBrand.url && (
                     <div className="bg-slate-50 rounded-xl p-4">
                       <h4 className="text-sm font-medium text-slate-600 mb-1">URL</h4>
-                      <a href={selectedBrand.url} target="_blank" rel="noreferrer" className="text-indigo-600 hover:text-indigo-700 break-all">{selectedBrand.url}</a>
+                      <a href={toExternalUrl(selectedBrand.url)} target="_blank" rel="noreferrer" className="text-indigo-600 hover:text-indigo-700 break-all">{selectedBrand.url}</a>
                     </div>
                   )}
                   {selectedBrand.img && (

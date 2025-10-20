@@ -18,22 +18,29 @@ const samplePartnerships = [
 ];
 
 const Partners = ({ partnerships = samplePartnerships , lColor='', rColor=""  }) => {
+  const toExternalUrl = (url) => {
+    if (!url) return "";
+    const trimmed = url.trim();
+    if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) return trimmed;
+    return `https://${trimmed}`;
+  };
   return (
-    <div className="py-16 px-4">
+    <div className="py-16 px-4 mt-10">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h2
-  className={`text-5xl font-bold mb-3 ${
-    lColor && rColor
-      ? `bg-gradient-to-r from-${lColor} to-${rColor} text-transparent bg-clip-text`
-      : 'text-emerald-300'
-  }`}
->
-  Our Partnerships
-</h2>
-          <div className="w-24 h-1 bg-teal-600 mx-auto mt-4 rounded-full"></div>
-        </div>
+
+          className={`text-5xl font-extrabold mb-3  ${
+              lColor && rColor
+                ? `bg-gradient-to-r from-${lColor} to-${rColor} text-transparent bg-clip-text`
+                : 'text-emerald-300'
+            }`}
+          >
+            Our Partnerships
+          </h2>
+            
+          </div>
 
         {/* Partnership Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -53,7 +60,7 @@ const Partners = ({ partnerships = samplePartnerships , lColor='', rColor=""  })
                 </div>
 
                 <a
-                  href={partner.url}
+                  href={toExternalUrl(partner.url)}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

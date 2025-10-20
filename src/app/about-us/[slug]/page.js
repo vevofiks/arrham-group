@@ -1,4 +1,5 @@
 import React from "react";
+import { notFound } from "next/navigation";
 import CompanyDetails from "./CompanyDetails";
 import { branchesData } from "@/app";
 import ArrhamHealthcare from "./ArrhamHealthcare";
@@ -8,6 +9,7 @@ async function Page({ params }) {
   console.log(slug);
 
   const data = branchesData.branches.find((branch) => branch.id == slug);
+  if (!data) return notFound();
   console.log('company dd' , data)
   if (data.id === "arrham-healthcare-bahrain"){
     return (

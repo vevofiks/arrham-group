@@ -444,7 +444,7 @@ export const branchesData = {
 
     {
       id: "arrham-healthcare-bahrain",
-      name: "Arrham Healthcare Solutions (Hidaya Healthcare Solutions W.L.L.)",
+      name: "Arrham Healthcare Solutions W.L.L. (Kingdom of Bahrain)",
       companyIcon: "/arrham-healthcare.png",
       companyImg: "/companyDummy.png",
       country: "Bahrain",
