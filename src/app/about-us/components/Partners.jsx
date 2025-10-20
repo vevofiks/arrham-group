@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
 
 // Sample data structure - replace with your actual API data
@@ -52,10 +53,12 @@ const Partners = ({ partnerships = samplePartnerships , lColor='', rColor=""  })
               <div className="p-8">
                 {/* Company Logo */}
                 <div className="relative w-32 h-32 mx-auto mb-6 rounded-xl overflow-hidden bg-slate-100 shadow-md">
-                  <img
+                  <Image
                     src={partner.img}
                     alt={`${partner.name} logo`}
-                    className="w-full h-full object-cover duration-300"
+                    fill
+                    className="object-cover duration-300"
+                    sizes="128px"
                   />
                 </div>
 

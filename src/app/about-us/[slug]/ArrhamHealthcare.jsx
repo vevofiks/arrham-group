@@ -620,11 +620,13 @@ function ArrhamHealthcare() {
                   className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-emerald-400/50 hover:shadow-2xl hover:shadow-emerald-500/20 transform hover:-translate-y-2"
                 >
                   {/* Logo Container */}
-                  <div className="aspect-square w-full mb-4 rounded-xl bg-white p-4 flex items-center justify-center overflow-hidden">
-                    <img
+                  <div className="aspect-square w-full mb-4 rounded-xl bg-white p-4 flex items-center justify-center overflow-hidden relative">
+                    <Image
                       src={brand.img}
                       alt={`${brand.name} logo`}
-                      className="w-full h-full object-contain transition-transform duration-300"
+                      fill
+                      className="object-contain transition-transform duration-300"
+                      sizes="(max-width: 768px) 50vw, 25vw"
                     />
                   </div>
 

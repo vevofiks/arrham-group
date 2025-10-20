@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { Search, Plus, Edit, Eye, Trash2, Loader2, Building, X, Upload, Link2 } from "lucide-react";
 import ConfirmModal from "@/app/components/ConfirmModal";
 
@@ -224,11 +225,13 @@ const PartnersPage = () => {
                 className="bg-white rounded-2xl border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
               >
                 {p.img && (
-                  <div className="h-40 sm:h-48 bg-slate-100 overflow-hidden flex items-center justify-center">
-                    <img
+                  <div className="h-40 sm:h-48 bg-slate-100 overflow-hidden flex items-center justify-center relative">
+                    <Image
                       src={p.img}
                       alt={p.name}
-                      className="h-full w-auto object-contain"
+                      fill
+                      className="object-contain"
+                      sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   </div>
                 )}
@@ -313,8 +316,8 @@ const PartnersPage = () => {
                   {selectedPartner.img && (
                     <div>
                       <h4 className="text-sm font-medium text-slate-600 mb-3">Logo</h4>
-                      <div className="w-full bg-slate-50 rounded-xl p-4 flex items-center justify-center">
-                        <img src={selectedPartner.img} alt={selectedPartner.name} className="max-h-40 object-contain" />
+                      <div className="w-full bg-slate-50 rounded-xl p-4 flex items-center justify-center relative h-40">
+                        <Image src={selectedPartner.img} alt={selectedPartner.name} fill className="object-contain" />
                       </div>
                     </div>
                   )}
