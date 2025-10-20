@@ -1,4 +1,4 @@
-import { Eye, Target, Award, Users, Zap, Facebook, Twitter, Linkedin, Instagram, } from "lucide-react";
+import { Eye, Target, Award, Users, Zap, Facebook, Handshake ,Twitter, Linkedin, Instagram, ShieldCheck } from "lucide-react";
 
 const navLinks = [
     { name: "Home", href: "home", path: "/" },
@@ -86,13 +86,27 @@ export const CompanyAbout = [
     }
 ]
 
-const stats = [
-    { number: 30, suffix: "K+", label: "Projects Completed", icon: Award },
-    { number: 25, suffix: "+", label: "Years Experience", icon: Zap },
-    { number: 20, suffix: "K+", label: "Happy Clients", icon: Users },
-    { number: 20, suffix: "+", label: "Ongoing Projects", icon: Target },
-    { number: 40, suffix: "+", label: "Certified Applications", icon: Target },
+// Static fallback values are removed in favor of dynamic API-driven counts
+// Define config mapping API keys to labels and icons
+export const statsConfig = [
+    { key: "projects", suffix: "+", label: "Projects Completed", icon: ShieldCheck },
+    { key: "brands", suffix: "+", label: "Brands", icon: Target },
+    { key: "clients", suffix: "+", label: "Happy Clients", icon: Handshake },
+    { key: "partners", suffix: "+", label: "partners", icon: Users },
+    { key: "certifications", suffix: "+", label: "Certifications", icon: Award },
 ];
+
+// Client-side helper to fetch stats counts
+export async function fetchStatsCounts() {
+    try {
+        const res = await fetch("/api/stats", { cache: "no-store" });
+        if (!res.ok) throw new Error("Failed to fetch stats");
+        return await res.json();
+    } catch (err) {
+        console.error("fetchStatsCounts error:", err);
+        return { projects: 0, brands: 0, clients: 0, partners: 0, certifications: 0 };
+    }
+}
 
 const socialIcons = [
     { icon: Facebook, href: "#", color: "hover:bg-blue-500/20 hover:border-blue-500", iconColor: "text-[#1877F2]" },
@@ -171,4 +185,4 @@ const mapData = [
 ];
 
 
-export { navLinks, servicesData, stats, socialIcons, imageLogos, mapData }
+export { navLinks, servicesData , socialIcons, imageLogos, mapData }

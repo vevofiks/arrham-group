@@ -8,7 +8,7 @@ function KeyPersonnel({ personnels , color , primaryColor }) {
 
   return (
     <div className="p-4">
-      <h2 className="text-3xl font-bold text-lgreen mb-6 text-center uppercase ">
+      <h2 className="text-3xl font-extrabold text-lgreen mb-6 text-center uppercase ">
         Key &nbsp;
 
         <span className="text-lgreen text-3xl font-extrabold uppercase bg-clip-text">

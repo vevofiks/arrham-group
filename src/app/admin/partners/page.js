@@ -156,6 +156,13 @@ const PartnersPage = () => {
   const filteredPartners = partners.filter((p) =>
     p.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+  const toExternalUrl = (url) => {
+    if (!url) return "";
+    const trimmed = url.trim();
+    if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) return trimmed;
+    return `https://${trimmed}`;
+  };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
@@ -228,7 +235,7 @@ const PartnersPage = () => {
                 <div className="p-4 sm:p-6">
                   <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">{p.name}</h3>
                   {p.url && (
-                    <a href={p.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm text-indigo-600 hover:text-indigo-700">
+                    <a href={toExternalUrl(p.url)} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm text-indigo-600 hover:text-indigo-700">
                       <Link2 className="w-4 h-4" />
                       <span className="truncate max-w-[220px] sm:max-w-[280px]">{p.url}</span>
                     </a>

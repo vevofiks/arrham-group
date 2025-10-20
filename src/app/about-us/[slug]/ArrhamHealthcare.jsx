@@ -140,7 +140,14 @@ function ArrhamHealthcare() {
       fetchProjects();
     }
   },[])
-  console.log(partnerships)
+
+  const toExternalUrl = (url) => {
+    if (!url) return "";
+    const trimmed = url.trim();
+    if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) return trimmed;
+    return `https://${trimmed}`;
+  };
+
   return (
     <div className="min-h-screen text-white overflow-hidden">
       {/* Hero Section */}
@@ -533,7 +540,7 @@ function ArrhamHealthcare() {
             {/* Certificates Section */}
             {certificates && certificates.length > 0 && (
               <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
-                <Certificates certificates={certificates} />
+                <Certificates certificates={certificates} lColor="#34d399" rColor="#60a5fa" />              
               </section>
             )}
 
@@ -595,7 +602,7 @@ function ArrhamHealthcare() {
           <div className="max-w-7xl mx-auto">
             {/* Section Header */}
             <div className="text-center mb-16">
-              <h2 className="text-5xl font-bold text-emerald-300 mb-4">
+              <h2 className="text-5xl font-bold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent mb-4">
                 Our Brands
               </h2>
 
@@ -607,7 +614,7 @@ function ArrhamHealthcare() {
               {brands.map((brand) => (
                 <a
                   key={brand._id}
-                  href={brand.url}
+                  href={toExternalUrl(brand.url)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-emerald-400/50 hover:shadow-2xl hover:shadow-emerald-500/20 transform hover:-translate-y-2"
@@ -641,8 +648,7 @@ function ArrhamHealthcare() {
 
         {/* Clients Section */}
         {clients.length > 0 && (
-          <Clients imageLogos={clients} />
-        )}
+          <Clients imageLogos={clients} lColor="#34d399" rColor="#60a5fa" />)}
       </section>
 
       {/* <section className="px-6 md:px-12 lg:px-16 py-16">

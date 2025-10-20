@@ -3,8 +3,9 @@ import { motion } from 'motion/react';
 import { useState } from 'react';
 import { X, ExternalLink, Award } from 'lucide-react';
 
-const Certificates = ({ certificates = [] }) => {
+const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
   const [selectedCertificate, setSelectedCertificate] = useState(null);
+  const hasGradient = Boolean(lColor && rColor)
 
   const cardVariants = {
     initial: { 
@@ -63,9 +64,18 @@ const Certificates = ({ certificates = [] }) => {
             </span>
           </motion.div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 text-transparent bg-clip-text">
-              Our Certifications
-            </span>
+            {hasGradient ? (
+              <span
+                className="text-transparent bg-clip-text font-bold"
+                style={{ backgroundImage: `linear-gradient(to right, ${lColor}, ${rColor})` }}
+              >
+                Our Certifications
+              </span>
+            ) : (
+              <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 text-transparent bg-clip-text">
+                Our Certifications
+              </span>
+            )}
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Recognized for excellence and commitment to quality standards
@@ -205,16 +215,9 @@ const Certificates = ({ certificates = [] }) => {
                   <div className="space-y-2 pt-4 border-t border-white/20">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
-                      <span className="text-sm text-gray-400">Branch: </span>
+                      <span className="text-sm text-gray-400">Comany: </span>
                       <span className="text-sm text-white font-medium">
                         {selectedCertificate.branchId}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                      <span className="text-sm text-gray-400">Issued: </span>
-                      <span className="text-sm text-white font-medium">
-                        {new Date(selectedCertificate.createdAt).toLocaleDateString()}
                       </span>
                     </div>
                   </div>

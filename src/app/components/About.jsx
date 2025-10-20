@@ -10,21 +10,19 @@ import {
 } from "motion/react";
 import Image from "next/image";
 import { ArrowRight, Play, CheckCircle } from "lucide-react";
-import { stats } from "../data";
+import { statsConfig, fetchStatsCounts } from "../data";
 
 const AnimatedCounter = React.memo(
   ({ value, suffix = "", prifix = "", shouldAnimate }) => {
     const count = useMotionValue(0);
     const springValue = useSpring(count, { stiffness: 100, damping: 30 });
     const rounded = useTransform(springValue, (latest) => Math.floor(latest));
-    const [hasAnimated, setHasAnimated] = useState(false);
 
     useEffect(() => {
-      if (shouldAnimate && !hasAnimated) {
+      if (shouldAnimate) {
         count.set(value);
-        setHasAnimated(true);
       }
-    }, [shouldAnimate, value, count, hasAnimated]);
+    }, [shouldAnimate, value, count]);
 
     return (
       <span className="text-3xl sm:text-4xl font-bold text-lgreen">
@@ -46,6 +44,7 @@ const About = ({
   const [imageLoaded, setImageLoaded] = useState(false);
   const [hoveredStat, setHoveredStat] = useState(null);
   const [shouldAnimateStats, setShouldAnimateStats] = useState(false);
+  const [statsCounts, setStatsCounts] = useState(null);
 
   const sectionRef = useRef(null);
   const statsRef = useRef(null);
@@ -65,6 +64,17 @@ const About = ({
       return () => clearTimeout(timer);
     }
   }, [statsInView, shouldAnimateStats]);
+
+  useEffect(() => {
+    let isMounted = true;
+    (async () => {
+      const data = await fetchStatsCounts();
+      if (isMounted) setStatsCounts(data);
+    })();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleStatHoverStart = useCallback((index) => {
     setHoveredStat(index);
@@ -289,8 +299,8 @@ const About = ({
           className="mt-20 pt-16 border-t border-white/10"
         >
           <div className="grid grid-cols-2 lg:grid-cols-5 gap-8">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
+            {statsConfig.map((entry, index) => {
+              const Icon = entry.icon;
               return (
                 <motion.div
                   key={index}
@@ -309,15 +319,15 @@ const About = ({
 
                   <div className="mb-2">
                     <AnimatedCounter
-                      value={stat.number}
-                      suffix={stat.suffix}
-                      prifix={stat.prifix}
+                      value={statsCounts ? statsCounts[entry.key] ?? 0 : 0}
+                      suffix={entry.suffix}
+                      prifix={entry.prifix}
                       shouldAnimate={shouldAnimateStats}
                     />
                   </div>
 
                   <p className="text-white/70 text-sm font-medium">
-                    {stat.label}
+                    {entry.label}
                   </p>
                 </motion.div>
               );
