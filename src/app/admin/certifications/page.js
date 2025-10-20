@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { Search, Plus, Edit, Eye, Trash2, Loader2, Building, X, Upload } from "lucide-react";
 import ConfirmModal from "@/app/components/ConfirmModal";
 
@@ -211,11 +212,13 @@ const CertificationsPage = () => {
                 className="bg-white rounded-2xl border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
               >
                 {c.img && (
-                  <div className="h-40 sm:h-48 bg-slate-100 overflow-hidden flex items-center justify-center">
-                    <img
+                  <div className="h-40 sm:h-48 bg-slate-100 overflow-hidden flex items-center justify-center relative">
+                    <Image
                       src={c.img}
                       alt={c.name}
-                      className="h-full w-auto object-contain"
+                      fill
+                      className="object-contain"
+                      sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   </div>
                 )}
@@ -295,8 +298,8 @@ const CertificationsPage = () => {
                   {selectedCert.img && (
                     <div>
                       <h4 className="text-sm font-medium text-slate-600 mb-3">Certificate Image</h4>
-                      <div className="w-full bg-slate-50 rounded-xl p-4 flex items-center justify-center">
-                        <img src={selectedCert.img} alt={selectedCert.name} className="max-h-60 object-contain" />
+                      <div className="w-full bg-slate-50 rounded-xl p-4 flex items-center justify-center relative h-60">
+                        <Image src={selectedCert.img} alt={selectedCert.name} fill className="object-contain" />
                       </div>
                     </div>
                   )}

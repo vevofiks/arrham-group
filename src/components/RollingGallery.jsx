@@ -6,15 +6,15 @@ import {
   useTransform,
 } from "motion/react";
 
-const IMGS = [
-  "/works/work1.jpg",
-  "/works/work2.jpg",
-  "/works/work3.jpg",
-  "/works/work4.jpg",
-  "/works/work5.jpg",
-  "/works/work6.jpg",
-  "/works/work7.jpg",
-];
+// const IMGS = [
+//   "/works/work1.jpg",
+//   "/works/work2.jpg",
+//   "/works/work3.jpg",
+//   "/works/work4.jpg",
+//   "/works/work5.jpg",
+//   "/works/work6.jpg",
+//   "/works/work7.jpg",
+// ];
 
 
 const RollingGallery = ({

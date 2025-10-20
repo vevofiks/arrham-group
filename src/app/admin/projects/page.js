@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { Search, Plus, Edit, Eye, Trash2, Loader2, Building, X, Upload } from "lucide-react";
 import ConfirmModal from "@/app/components/ConfirmModal";
 
@@ -291,11 +292,13 @@ const ProjectPage = () => {
                 className="bg-white rounded-2xl border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
               >
                 {p.images?.[0] && (
-                  <div className="h-40 sm:h-48 bg-slate-100 overflow-hidden">
-                    <img
+                  <div className="h-40 sm:h-48 bg-slate-100 overflow-hidden relative">
+                    <Image
                       src={p.images[0]}
                       alt={p.name}
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   </div>
                 )}
@@ -390,11 +393,13 @@ const ProjectPage = () => {
                       <h4 className="text-sm font-medium text-slate-600 mb-3">Images</h4>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                         {selectedProject.images.map((img, i) => (
-                          <div key={i} className="relative group">
-                            <img
+                          <div key={i} className="relative group h-32">
+                            <Image
                               src={img}
                               alt={`Project ${i + 1}`}
-                              className="w-full h-32 object-cover rounded-lg shadow-sm group-hover:shadow-md transition"
+                              fill
+                              className="object-cover rounded-lg shadow-sm group-hover:shadow-md transition"
+                              sizes="(max-width: 768px) 50vw, 25vw"
                             />
                           </div>
                         ))}

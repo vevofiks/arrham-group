@@ -1,8 +1,9 @@
 "use client"
 
 import React, { useEffect } from 'react'
-import Hero from './components/Hero'
-import About from './components/About'
+import dynamic from 'next/dynamic'
+const Hero = dynamic(() => import('./components/Hero'), { ssr: false })
+const About = dynamic(() => import('./components/About'), { ssr: false })
 import ServiceCard from './components/Services'
 import { motion } from "motion/react";
 import Contact from './components/Contact'

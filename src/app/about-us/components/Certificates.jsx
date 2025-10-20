@@ -2,6 +2,7 @@
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { X, ExternalLink, Award } from 'lucide-react';
+import Image from 'next/image';
 
 const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
   const [selectedCertificate, setSelectedCertificate] = useState(null);
@@ -109,12 +110,16 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
               <div className="relative z-10 p-6">
                 {/* Certificate Image */}
                 <div className="relative mb-4 overflow-hidden rounded-xl">
-                  <img
-                    src={certificate.img}
-                    alt={certificate.name}
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
-                  />
+                  <div className="relative w-full h-48">
+                    <Image
+                      src={certificate.img}
+                      alt={certificate.name}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      priority={false}
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
@@ -194,11 +199,15 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Image */}
                 <div className="relative overflow-hidden rounded-xl">
-                  <img
-                    src={selectedCertificate.img}
-                    alt={selectedCertificate.name}
-                    className="w-full h-auto object-cover"
-                  />
+                  <div className="relative w-full h-64">
+                    <Image
+                      src={selectedCertificate.img}
+                      alt={selectedCertificate.name}
+                      fill
+                      className="object-contain"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
                 </div>
 
                 {/* Details */}
