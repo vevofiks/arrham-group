@@ -52,7 +52,7 @@ const Partners = ({ partnerships = samplePartnerships , lColor='', rColor=""  })
             >
               <div className="p-8">
                 {/* Company Logo */}
-                <div className="relative w-32 h-32 mx-auto mb-6 rounded-xl overflow-hidden bg-slate-100 shadow-md">
+                <div className="relative w-80 h-52 mx-auto mb-6 rounded-xl overflow-hidden bg-slate-100 shadow-md">
                   <Image
                     src={partner.img}
                     alt={`${partner.name} logo`}
