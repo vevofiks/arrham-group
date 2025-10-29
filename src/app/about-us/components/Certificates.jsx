@@ -64,7 +64,7 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
               Certifications
             </span>
           </motion.div>
-          <h2 className="text-2xl md:text-3xl font-bold mb-6">
+          <h2 className="text-2xl md:text-3xl lg:text-3xl font-bold mb-6 uppercase">
             {hasGradient ? (
               <span
                 className="text-transparent bg-clip-text font-bold"
@@ -73,18 +73,31 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
                 Our Certifications
               </span>
             ) : (
-              <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 text-transparent bg-clip-text">
+              <span className="text-emerald-400">
                 Our Certifications
               </span>
             )}
           </h2>
-          <motion.div
+          {lColor && rColor ? (
+            <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               whileInView={{ opacity: 1, scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
+              className="w-24 h-1 mb-8 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full"
+            />
+          ): (
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-24 h-1 mb-8 flex mx-auto bg-emerald-400 rounded-full"
           />
+          )
+        
+        }
+        
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Recognized for excellence and commitment to quality standards
           </p>

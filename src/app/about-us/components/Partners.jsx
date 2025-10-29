@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { ExternalLink } from 'lucide-react';
+import { motion } from 'motion/react';
 
 // Sample data structure - replace with your actual API data
 const samplePartnerships = [
@@ -32,7 +32,7 @@ const Partners = ({ partnerships = samplePartnerships , lColor='', rColor=""  })
         <div className="text-center mb-8">
           <h2
 
-          className={`text-5xl font-extrabold mb-3  ${
+          className={`text-2xl md:text-3xl lg:text-3xl font-bold mb-3 uppercase ${
               lColor && rColor
                 ? `bg-gradient-to-r from-${lColor} to-${rColor} text-transparent bg-clip-text`
                 : 'text-emerald-300'
@@ -40,6 +40,26 @@ const Partners = ({ partnerships = samplePartnerships , lColor='', rColor=""  })
           >
             Our Partners
           </h2>
+          {lColor && rColor ? (
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-24 h-1 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full"
+            />
+          ): (
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-24 h-1 flex mx-auto bg-emerald-400 rounded-full"
+          />
+          )
+        
+        }
+
             
           </div>
 

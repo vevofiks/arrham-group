@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 import Autoplay from "embla-carousel-autoplay";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -14,11 +14,9 @@ import {
 } from "@/components/ui/carousel";
 
 function Modal({ isOpen, onClose, project }) {
-  console.log("Modal project:", project);
   const plugin = React.useRef(
     Autoplay({ delay: 3000, stopOnInteraction: true })
   );
-  console.log(project)
 
   return (
     <AnimatePresence>
@@ -59,11 +57,23 @@ function Modal({ isOpen, onClose, project }) {
               {/* Title */}
               {project?.name && (
                 <h2
-                  className="text-center text-2xl sm:text-3xl md:text-4xl text-white font-bold 
+                  className="text-center text-2xl sm:text-3xl md:text-4xl bg-gradient-to-r from-emerald-300 via-teal-200 to-cyan-300 bg-clip-text text-transparent font-bold 
                   mb-6 md:mb-8 leading-tight tracking-tight"
                 >
                   {project.name}
                 </h2>
+              )}
+
+              {/* Carousel wrapper */}
+              {project?.status && (
+                <div className="flex justify-center mb-6">
+                  <span className={`px-4 py-1 rounded-full text-sm font-semibold
+                    ${project.status === 'Completed' ? 'bg-green-500/20 text-green-300' :
+                      project.status === 'Ongoing' ? 'bg-blue-500/20 text-blue-300' :
+                        'bg-yellow-500/20 text-yellow-300'}`}>
+                    {project.status}
+                  </span>
+                </div>
               )}
 
               {/* Carousel wrapper */}
@@ -131,20 +141,49 @@ function Modal({ isOpen, onClose, project }) {
                 )}
               </div>
 
-              {/* Description */}
+              {/* Project Details Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                {/* Location */}
+                {project?.location && (
+                  <div className="bg-black/20 rounded-lg p-4 backdrop-blur-sm border border-white/10">
+                    <h4 className="text-emerald-400 font-semibold mb-2">Location</h4>
+                    <p className="text-gray-200">{project.location}</p>
+                  </div>
+                )}
+
+                {/* Client */}
+                {project?.clientName && (
+                  <div className="bg-black/20 rounded-lg p-4 backdrop-blur-sm border border-white/10">
+                    <h4 className="text-emerald-400 font-semibold mb-2">Client</h4>
+                    <p className="text-gray-200">{project.clientName}</p>
+                  </div>
+                )}
+
+                {/* Main Contractor */}
+                {project?.mainContractor && (
+                  <div className="bg-black/20 rounded-lg p-4 backdrop-blur-sm border border-white/10">
+                    <h4 className="text-emerald-400 font-semibold mb-2">Main Contractor</h4>
+                    <p className="text-gray-200">{project.mainContractor}</p>
+                  </div>
+                )}
+
+                {/* Branch */}
+                {project?.branchId && (
+                  <div className="bg-black/20 rounded-lg p-4 backdrop-blur-sm border border-white/10">
+                    <h4 className="text-emerald-400 font-semibold mb-2">Branch</h4>
+                    <p className="text-gray-200">{project.branchId}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Project Description */}
               {project?.description && (
-                <div className="max-w-3xl mx-auto">
-                  <h3
-                    className="text-center text-xl sm:text-2xl md:text-5xl font-extrabold mb-3 leading-tight tracking-tight
-                    bg-gradient-to-r from-emerald-300 via-teal-200 to-cyan-300 bg-clip-text text-transparent drop-shadow"
-                  >
+                <div className="bg-black/30 rounded-lg p-6 backdrop-blur-sm border border-white/10">
+                  <h3 className="text-center text-xl sm:text-2xl font-bold mb-4 bg-gradient-to-r from-emerald-300 via-teal-200 to-cyan-300 bg-clip-text text-transparent">
                     Project Overview
                   </h3>
                   <div className="mx-auto mb-5 h-1 w-16 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400" />
-                  <p
-                    className="text-gray-100 text-center text-base sm:text-lg leading-relaxed 
-                    tracking-wide font-light"
-                  >
+                  <p className="text-gray-200 text-center leading-relaxed">
                     {project.description}
                   </p>
                 </div>

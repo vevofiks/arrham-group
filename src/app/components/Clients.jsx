@@ -2,6 +2,7 @@
 
 import LogoLoop from "@/components/LogoLoop";
 import React from "react";
+import { motion } from "motion/react";
 
 const Clients = ({ imageLogos, lColor = "", rColor = "" }) => {
   // if you pass lColor and rColor they will be used as a right-to-left gradient (to left)
@@ -13,10 +14,10 @@ const Clients = ({ imageLogos, lColor = "", rColor = "" }) => {
         <div
           className={
             hasGradient
-              ? `text-3xl md:text-5xl text-transparent bg-clip-text uppercase text-center font-extrabold tracking-tight mb-7`
-              : `text-3xl md:text-5xl uppercase text-center font-extrabold tracking-tight mb-7 text-white`
+              ? `text-2xl md:text-3xl lg:text-3xl font-bold text-transparent bg-clip-text uppercase text-center tracking-tight mb-7`
+              : `text-2xl md:text-3xl lg:text-3xl font-extrabold uppercase text-center tracking-tight mb-7 text-white`
           }
-          style={hasGradient ? { backgroundImage: `linear-gradient(to left, ${rColor}, ${lColor})` } : undefined}
+          style={hasGradient ? { backgroundImage: `linear-gradient(to left, ${rColor}, ${lColor})` } : null }
         >
           {hasGradient ? (
             <>Our Clients</>
@@ -26,7 +27,26 @@ const Clients = ({ imageLogos, lColor = "", rColor = "" }) => {
             </>
           )}
         </div>
-        <div className="w-24 h-1 bg-lgreen mx-auto my-6 mb-12"></div>
+
+          { rColor && rColor !== "rgb(52, 211, 153)" ? (
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-24 h-1 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full"
+            />
+          ): (
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-24 h-1 flex mx-auto bg-emerald-400 rounded-full"
+          />
+          )
+        
+        }
 
         <div className="relative h-[230px]  mx-auto overflow-hidden mt-20">
           <LogoLoop
