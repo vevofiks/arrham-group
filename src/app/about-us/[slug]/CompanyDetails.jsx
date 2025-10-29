@@ -777,7 +777,7 @@ function CompanyDetails({ companyData }) {
 
 
       {
-        clients.length > 0 &&
+        clients.length > 0 &&(
         <Clients imageLogos={clients} lColor="rgb(52, 211, 153)" rColor="rgb(52, 211, 153)" />
       )}
 
