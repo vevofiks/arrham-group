@@ -10,7 +10,7 @@ export default function LayoutWrapper({ children }) {
   const pathname = usePathname();
   const isAdmin = pathname.startsWith("/admin");
 
-  const phone = "97335372929";
+  const phone = "+97317473535";
   const message = "Hello, I came from your website and want to know more.";
   const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 

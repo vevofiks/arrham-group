@@ -7,7 +7,7 @@ export async function PUT(request, { params }) {
   try {
     await connectDB();
 
-    const { id } = params;
+    const { id } = await params;
     const formData = await request.formData();
 
     const name = formData.get("name");
@@ -42,7 +42,7 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     await connectDB();
-    const { id } = params;
+    const { id } = await params;
     const cert = await Certifications.findByIdAndDelete(id);
     if (!cert) {
       return NextResponse.json({ error: "Certification not found" }, { status: 404 });

@@ -7,7 +7,7 @@ export async function PUT(request, { params }) {
   try {
     await connectDB();
 
-    const { id } = params;
+    const { id } = await params;
     const formData = await request.formData();
 
     const name = formData.get("name");
@@ -42,7 +42,7 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     await connectDB();
-    const { id } = params;
+    const { id } = await params;
     const partner = await Partners.findByIdAndDelete(id);
     if (!partner) {
       return NextResponse.json({ error: "Partner not found" }, { status: 404 });

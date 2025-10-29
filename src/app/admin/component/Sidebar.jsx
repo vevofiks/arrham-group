@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Newspaper, Briefcase, Tags, Users, Handshake, Award } from "lucide-react";
+import { Newspaper, Briefcase, Tags, Users, Handshake, Award, UserCircle } from "lucide-react";
 
 const navItems = [
   { name: "News", href: "/admin/news", icon: Newspaper },
@@ -10,6 +10,7 @@ const navItems = [
   { name: "Clients", href: "/admin/clients", icon: Users },
   { name: "Partners", href: "/admin/partners", icon: Handshake },
   { name: "Certifications", href: "/admin/certifications", icon: Award },
+  { name: "Key Personnel", href: "/admin/key-personnel", icon: UserCircle },
 ];
 
 export default function Sidebar() {

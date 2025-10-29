@@ -38,7 +38,7 @@ const Partners = ({ partnerships = samplePartnerships , lColor='', rColor=""  })
                 : 'text-emerald-300'
             }`}
           >
-            Our Partnerships
+            Our Partners
           </h2>
             
           </div>

@@ -3,7 +3,7 @@
 import LogoLoop from "@/components/LogoLoop";
 import React from "react";
 
-const Clients = ({ imageLogos , lColor="" , rColor="" }) => {
+const Clients = ({ imageLogos, lColor = "", rColor = "" }) => {
   // if you pass lColor and rColor they will be used as a right-to-left gradient (to left)
   const hasGradient = Boolean(lColor && rColor)
 
