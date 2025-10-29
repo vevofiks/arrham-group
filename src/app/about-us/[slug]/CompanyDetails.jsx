@@ -262,7 +262,7 @@ function CompanyDetails({ companyData }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className={`text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase mb-6 ${montserrat.className}`}
+              className={`text-2xl md:text-3xl lg:text-3xl font-extrabold uppercase mb-6 ${montserrat.className}`}
             >
               <span className={`bg-gradient-to-r from-emerald-400 ${companyData.color?.[1] || 'to-blue-600'} bg-clip-text text-transparent`}>
                 What We Do
@@ -304,9 +304,16 @@ function CompanyDetails({ companyData }) {
               transition={{ duration: 0.6 }}
               className="mb-16"
             >
-              <h2 className={`text-2xl md:text-3xl font-bold text-emerald-400 mb-8 text-center ${montserrat.className}`}>
+              <h2 className={`text-2xl md:text-3xl lg:text-3xl font-bold text-emerald-400 mb-8 uppercase text-center ${montserrat.className}`}>
                 Our Services
               </h2>
+                <motion.div
+                  initial={{ opacity: 0, scaleX: 0 }}
+                  whileInView={{ opacity: 1, scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
+                />
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {companyData.services.map((service, idx) => (
                   <motion.div
@@ -333,9 +340,19 @@ function CompanyDetails({ companyData }) {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mb-16"
             >
-              <h2 className={`text-2xl md:text-3xl font-bold text-emerald-400 mb-8 text-center ${montserrat.className}`}>
+
+              <h2 className={`text-2xl md:text-3xl font-bold text-emerald-400 mb-8 uppercase text-center ${montserrat.className}`}>
                 Industries We Serve
               </h2>
+
+              <motion.div
+                initial={{ opacity: 0, scaleX: 0 }}
+                whileInView={{ opacity: 1, scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
+              />
+
               <div className="flex flex-wrap justify-center gap-3">
                 {companyData.industries.map((industry, idx) => (
                   <motion.span
@@ -361,9 +378,16 @@ function CompanyDetails({ companyData }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <h2 className={`text-2xl md:text-3xl font-bold text-emerald-400 mb-8 text-center ${montserrat.className}`}>
+              <h2 className={`text-2xl md:text-3xl font-bold text-emerald-400 mb-8 uppercase text-center ${montserrat.className}`}>
                 Key Advantages
               </h2>
+              <motion.div
+                initial={{ opacity: 0, scaleX: 0 }}
+                whileInView={{ opacity: 1, scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
+              />
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-4xl mx-auto">
                 {companyData.keyAdvantages.map((advantage, idx) => (
                   <motion.div
@@ -440,7 +464,7 @@ function CompanyDetails({ companyData }) {
                 transition={{ duration: 0.6 }}
                 className="p-6 border border-gray-700 rounded-xl bg-gray-900/60 shadow-lg hover:shadow-xl transition-shadow duration-300"
               >
-                <h3 className={`font-bold text-xl mb-4 text-center text-gray-100 ${montserrat.className}`}>
+                <h3 className={`font-bold text-xl mb-4 text-center text-gray-100 uppercase ${montserrat.className}`}>
                   {service.title}
                 </h3>
 
@@ -501,7 +525,15 @@ function CompanyDetails({ companyData }) {
               className={`text-3xl md:text-4xl font-bold text-emerald-400 mb-6 ${montserrat.className}`}
             >
               {companyData.electricalMEP.name}
+
             </motion.h2>
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
+            />
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -566,6 +598,13 @@ function CompanyDetails({ companyData }) {
               <h3 className={`text-2xl md:text-3xl font-semibold text-emerald-300 mb-8 text-center ${montserrat.className}`}>
                 Industries & Sectors We Serve
               </h3>
+              <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
+            />
               <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
                 {companyData.electricalMEP.industries.map((industry, idx) => (
                   <motion.div
@@ -594,6 +633,13 @@ function CompanyDetails({ companyData }) {
               <h3 className={`text-2xl md:text-3xl font-semibold text-emerald-300 mb-8 text-center ${montserrat.className}`}>
                 Our Strengths
               </h3>
+              <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
+            />
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
                 {companyData.electricalMEP.keyAdvantages.map((adv, idx) => (
                   <motion.div
@@ -633,6 +679,62 @@ function CompanyDetails({ companyData }) {
         </section>
       )}
 
+      {partners.length > 0 && (
+        <Partners partnerships={partners} />
+      )}
+
+
+      {brands.length > 0 &&
+        (<div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <h2 className="text-2xl md:text-3xl lg:text-3xl font-bold text-emerald-300 mb-4">
+              Our Brands
+            </h2>
+            <div className="w-24 h-1 bg-emerald-400 mx-auto mt-6 rounded-full shadow-lg shadow-emerald-500/50"></div>
+          </div>
+
+          {/* Brand Logos Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+            {brands.map((brand) => (
+              <a
+                key={brand._id}
+                href={toExternalUrl(brand.url)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white-400/50 hover:shadow-2xl hover:shadow-emerald-500/20 transform hover:-translate-y-2"
+              >
+                {/* Logo Container */}
+                <div className="aspect-square w-full mb-4 rounded-xl bg-white p-4 flex items-center justify-center overflow-hidden relative">
+                  <Image
+                    src={brand.img}
+                    alt={`${brand.name} logo`}
+                    fill
+                    className="object-contain transition-transform duration-300"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                </div>
+
+                {/* Brand Name */}
+                <h3 className="text-white font-semibold text-center text-lg mb-2 capitalize">
+                  {brand.name}
+                </h3>
+
+                {/* Visit Link Indicator */}
+                <div className="flex items-center justify-center gap-2 text-emerald-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span>Visit Site</span>
+                  <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+                </div>
+
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-400/0 to-emerald-600/0 group-hover:from-emerald-400/10 group-hover:to-emerald-600/10 transition-all duration-300 pointer-events-none"></div>
+              </a>
+            ))}
+          </div>
+
+        </div>
+        )
+      }
+
       {/* Projects */}
       {projects && projects.length > 0 && (
         <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
@@ -641,12 +743,19 @@ function CompanyDetails({ companyData }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className={`mb-12 text-center text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase ${montserrat.className}`}
+            className={`mb-12 text-center text-2xl md:text-3xl lg:text-3xl font-extrabold uppercase ${montserrat.className}`}
           >
             <span className={`bg-gradient-to-r from-emerald-400 ${companyData.color?.[1] || 'to-blue-600'} bg-clip-text text-transparent`}>
               Our Projects
             </span>
           </motion.h2>
+          <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
+            />
 
 
           <motion.div
@@ -693,74 +802,12 @@ function CompanyDetails({ companyData }) {
         </section>
       )}
 
-      {
 
-        partners.length > 0 && (
-          <Partners partnerships={partners} />
-        )
-      }
-
-
-      {
-        brands.length > 0 &&
-
-        (
-
-          <div className="max-w-7xl mx-auto">
-            {/* Section Header */}
-            <div className="text-center mb-16">
-              <h2 className="text-5xl font-bold text-emerald-300 mb-4">
-                Our Brands
-              </h2>
-
-              <div className="w-24 h-1 bg-emerald-400 mx-auto mt-6 rounded-full shadow-lg shadow-emerald-500/50"></div>
-            </div>
-
-            {/* Brand Logos Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
-              {brands.map((brand) => (
-                <a
-                  key={brand._id}
-                  href={toExternalUrl(brand.url)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white-400/50 hover:shadow-2xl hover:shadow-emerald-500/20 transform hover:-translate-y-2"
-                >
-                  {/* Logo Container */}
-                  <div className="aspect-square w-full mb-4 rounded-xl bg-white p-4 flex items-center justify-center overflow-hidden relative">
-                    <Image
-                      src={brand.img}
-                      alt={`${brand.name} logo`}
-                      fill
-                      className="object-contain transition-transform duration-300"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                  </div>
-
-                  {/* Brand Name */}
-                  <h3 className="text-white font-semibold text-center text-lg mb-2 capitalize">
-                    {brand.name}
-                  </h3>
-
-                  {/* Visit Link Indicator */}
-                  <div className="flex items-center justify-center gap-2 text-emerald-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span>Visit Site</span>
-                    <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-                  </div>
-
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-400/0 to-emerald-600/0 group-hover:from-emerald-400/10 group-hover:to-emerald-600/10 transition-all duration-300 pointer-events-none"></div>
-                </a>
-              ))}
-            </div>
-
-          </div>
-        )
-      }
 
       {
         clients.length > 0 &&
-        <Clients imageLogos={clients} lColor="rgb(52, 211, 153)" rColor="rgb(52, 211, 153)" />      
-        }
+        <Clients imageLogos={clients} lColor="rgb(52, 211, 153)" rColor="rgb(52, 211, 153)" />
+      }
 
 
       {/* Our Works Gallery */}

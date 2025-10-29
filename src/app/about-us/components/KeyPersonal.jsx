@@ -1,5 +1,6 @@
 import React from "react";
 import { User } from "lucide-react";
+import { motion } from "motion/react";
 
 function KeyPersonnel({ personnels , color , primaryColor }) {
   if (!personnels || personnels.length === 0) return null;
@@ -8,13 +9,20 @@ function KeyPersonnel({ personnels , color , primaryColor }) {
 
   return (
     <div className="p-4">
-      <h2 className="text-3xl font-extrabold text-lgreen mb-6 text-center uppercase ">
+      <h2 className="text-2xl md:text-3xl lg:text-3xl font-bold text-lgreen mb-6 text-center uppercase ">
         Key &nbsp;
 
-        <span className="text-lgreen text-3xl font-extrabold uppercase bg-clip-text">
+        <span className="text-2xl md:text-3xl lg:text-3xl font-bold uppercase bg-clip-text">
             Personnels
         </span>
       </h2>
+      <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          whileInView={{ opacity: 1, scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
+      />
 
       <div className="flex items-center justify-center gap-6 ">
 

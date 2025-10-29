@@ -18,6 +18,14 @@ const ProjectSchema = new mongoose.Schema(
       enum: ["Completed", "Ongoing", "Upcoming"],
       default: "Ongoing",
     },
+    mainContractor: {
+      type: String,
+      default: "",
+    },
+    clientName: {
+      type: String,
+      required: true,
+    },
     images: {
       type: [String],
     },

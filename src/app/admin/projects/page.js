@@ -23,6 +23,8 @@ const ProjectPage = () => {
     location: "",
     status: "Ongoing",
     description: "",
+    mainContractor: "",
+    clientName: "",
     images: [],
   });
   const [imagePreview, setImagePreview] = useState([]);
@@ -70,13 +72,15 @@ const ProjectPage = () => {
         location: project.location,
         status: project.status,
         description: project.description,
+        mainContractor: project.mainContractor || "",
+        clientName: project.clientName || "",
         images: project.images || [],
       });
       setImagePreview(project.images || []);
     } else if (type === "view" && project) {
       setSelectedProject(project);
     } else {
-      setFormData({ name: "", location: "", description: "", status: "Ongoing", images: [] });
+      setFormData({ name: "", location: "", description: "", mainContractor: "", clientName: "", status: "Ongoing", images: [] });
       setImagePreview([]);
     }
     setShowModal(true);
@@ -85,7 +89,7 @@ const ProjectPage = () => {
   const closeModal = () => {
     setShowModal(false);
     setSelectedProject(null);
-    setFormData({ name: "", location: "", description: "", status: "Ongoing", images: [] });
+    setFormData({ name: "", location: "", description: "", mainContractor: "", clientName: "", status: "Ongoing", images: [] });
     setImagePreview([]);
   };
 
@@ -149,7 +153,8 @@ const ProjectPage = () => {
     formDataToSend.append("name", formData.name);
     formDataToSend.append("location", formData.location);
     formDataToSend.append("status", formData.status);
-    
+    formDataToSend.append("mainContractor", formData.mainContractor || "");
+    formDataToSend.append("clientName", formData.clientName || "");
     formDataToSend.append("description", formData.description || "");
   
     console.log("Submitting form data:", {
@@ -192,9 +197,11 @@ const ProjectPage = () => {
       } else {
         const errorData = await res.json();
         console.error("Server error:", errorData);
+        alert(errorData.error || "Failed to save project. Please try again.");
       }
     } catch (error) {
       console.error("Error saving project:", error);
+      alert("An error occurred while saving. Please try again.");
     } finally {
       setSubmitLoading(false);
     }
@@ -376,6 +383,16 @@ const ProjectPage = () => {
                     <h4 className="text-sm font-medium text-slate-600 mb-1">Location</h4>
                     <p className="text-slate-900">{selectedProject.location}</p>
                   </div>
+                  {selectedProject.mainContractor && (
+                    <div className="bg-slate-50 rounded-xl p-4">
+                      <h4 className="text-sm font-medium text-slate-600 mb-1">Main Contractor</h4>
+                      <p className="text-slate-900">{selectedProject.mainContractor}</p>
+                    </div>
+                  )}
+                  <div className="bg-slate-50 rounded-xl p-4">
+                    <h4 className="text-sm font-medium text-slate-600 mb-1">Client Name</h4>
+                    <p className="text-slate-900">{selectedProject.clientName}</p>
+                  </div>
                   {selectedProject.description &&
                     <div className="bg-slate-50 rounded-xl p-4">
                       <h4 className="text-sm font-medium text-slate-600 mb-1">Description</h4>
@@ -432,6 +449,29 @@ const ProjectPage = () => {
                       required
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all text-sm sm:text-base"
                       placeholder="Enter location"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Main Contractor</label>
+                    <input
+                      type="text"
+                      value={formData.mainContractor}
+                      onChange={(e) => setFormData({ ...formData, mainContractor: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all text-sm sm:text-base"
+                      placeholder="Enter main contractor name"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Client Name <span className="text-red-500">*</span></label>
+                    <input
+                      type="text"
+                      value={formData.clientName}
+                      onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
+                      required
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all text-sm sm:text-base"
+                      placeholder="Enter client name"
                     />
                   </div>
 

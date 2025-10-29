@@ -37,7 +37,7 @@ export const PUT = async (req, { params }) => {
 export const DELETE = async (req, { params }) => {
     try {
         await connectDB();
-        const { id } = params;
+        const { id } = await params;
         const deletedNews = await News.findByIdAndDelete(id);
 
         if (!deletedNews) {

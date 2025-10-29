@@ -7,7 +7,7 @@ export async function PUT(request, { params }) {
     try {
         await connectDB();
 
-        const { id } = params;
+        const { id } = await params;
         console.log("Updating project with ID:", id);
 
         const formData = await request.formData();
@@ -23,8 +23,18 @@ export async function PUT(request, { params }) {
         const location = formData.get("location");
         const status = formData.get("status");
         const description = formData.get("description");
+        const mainContractor = formData.get("mainContractor") || "";
+        const clientName = formData.get("clientName");
 
-        console.log("Update data:", { name, location, status, description });
+        // Validate clientName if it's being updated
+        if (clientName !== null && !clientName) {
+          return NextResponse.json(
+            { error: "clientName is required" },
+            { status: 400 }
+          );
+        }
+
+        console.log("Update data:", { name, location, status, description, mainContractor, clientName });
 
         const existingImages = formData.getAll("existingImages") || [];
         console.log("Existing images:", existingImages);
@@ -60,6 +70,8 @@ export async function PUT(request, { params }) {
             location,
             status,
             description,
+            mainContractor,
+            clientName,
             images: finalImages
         };
 
@@ -88,7 +100,8 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
     try {
         await connectDB();
-        const project = await Project.findByIdAndDelete(params.id);
+        const { id } = await params;
+        const project = await Project.findByIdAndDelete(id);
         if (!project) {
             return NextResponse.json({ error: "Project not found" }, { status: 404 });
         }

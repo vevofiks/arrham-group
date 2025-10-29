@@ -64,7 +64,7 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
               Certifications
             </span>
           </motion.div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold mb-6">
             {hasGradient ? (
               <span
                 className="text-transparent bg-clip-text font-bold"
@@ -78,6 +78,13 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
               </span>
             )}
           </h2>
+          <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
+          />
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Recognized for excellence and commitment to quality standards
           </p>

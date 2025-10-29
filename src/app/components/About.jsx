@@ -200,7 +200,7 @@ const About = ({
             <motion.div variants={itemVariants}>
               <h2 className="text-4xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight  uppercase">
                 <span className="text-white">{title} </span>
-                <span className="bg-gradient-to-r from-lgreen via-teal-400 to-cyan-400 text-transparent bg-clip-text">
+                <span className="bg-lgreen text-transparent bg-clip-text">
                   Us
                 </span>
               </h2>
@@ -211,47 +211,8 @@ const About = ({
 
             {/* Updated Description */}
             <motion.div variants={itemVariants} className="space-y-6">
-              <p className="text-lg lg:text-xl text-white/90 leading-relaxed">
-                Founded in{" "}
-                <span className="font-semibold text-lgreen">
-                  Canada in 2019
-                </span>
-                , {companyName} has quickly built a reputation for{" "}
-                <span className="font-semibold text-lgreen">
-                  professionalism
-                </span>
-                , <span className="font-semibold text-lgreen">precision</span>,
-                and a{" "}
-                <span className="font-semibold text-lgreen">
-                  relentless drive to exceed
-                </span>
-                . Guided by our core principles of dedication and{" "}
-                integrity, we have expanded across the Middle East with
-                a strong presence in{" "}
-                <span className="text-lgreen">Bahrain</span> and{" "}
-                <span className="text-lgreen">Saudi Arabia</span>.
-              </p>
-
-              <p className="text-lg lg:text-xl text-white/80 leading-relaxed">
-                In just a few years, we’ve become a trusted partner in{" "}
-                <span className="font-semibold text-lgreen">
-                  turnkey contracting
-                </span>
-                , delivering impactful projects across multiple sectors. By
-                blending vision with technical expertise, our team transforms
-                ideas into practical, results-driven solutions.
-              </p>
-
-              <p className="text-lg lg:text-xl text-white/80 leading-relaxed">
-                At {companyName},{" "}
-                <span className="font-semibold text-lgreen">
-                  no project is too big or too small
-                </span>
-                . Every stage of execution reflects our{" "}
-                <span className="font-semibold text-lgreen">
-                  commitment to customer satisfaction
-                </span>
-                and our passion for delivering excellence that lasts.
+              <p className="text-lg lg:text-xl text-white leading-relaxed">
+                Founded in Canada in 2019, {companyName} has quickly built a reputation for professionalism, precision, and a relentless drive to exceed. Guided by our core principles of dedication and integrity, we have expanded across the Middle East with a strong presence in Bahrain and Saudi Arabia. In just a few years, we've become a trusted partner in turnkey contracting, delivering impactful projects across multiple sectors. By blending vision with technical expertise, our team transforms ideas into practical, results-driven solutions. At {companyName}, no project is too big or too small. Every stage of execution reflects our commitment to customer satisfaction and our passion for delivering excellence that lasts.
               </p>
             </motion.div>
 

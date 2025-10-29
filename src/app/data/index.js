@@ -91,7 +91,7 @@ export const CompanyAbout = [
 export const statsConfig = [
     { key: "projects", suffix: "+", label: "Projects Completed", icon: ShieldCheck },
     { key: "brands", suffix: "+", label: "Brands", icon: Target },
-    { key: "clients", suffix: "+", label: "Happy Clients", icon: Handshake },
+    { key: "clients", suffix: "+", label: "Clients", icon: Handshake },
     { key: "partners", suffix: "+", label: "partners", icon: Users },
     { key: "certifications", suffix: "+", label: "Certifications", icon: Award },
 ];

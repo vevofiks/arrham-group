@@ -43,8 +43,17 @@ export async function POST(req) {
     const location = formData.get("location");
     const status = formData.get("status");
     const description = formData.get("description");
+    const mainContractor = formData.get("mainContractor") || "";
+    const clientName = formData.get("clientName");
 
-    console.log("Creating project with:", { branchId, name, location, status, description });
+    if (!clientName) {
+      return NextResponse.json(
+        { error: "clientName is required" },
+        { status: 400 }
+      );
+    }
+
+    console.log("Creating project with:", { branchId, name, location, status, description, mainContractor, clientName });
 
     const files = formData.getAll("images");
     const uploadedUrls = [];
@@ -66,6 +75,8 @@ export async function POST(req) {
       location,
       description,
       status,
+      mainContractor,
+      clientName,
       images: uploadedUrls,
     });
 
