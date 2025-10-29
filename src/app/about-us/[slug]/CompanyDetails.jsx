@@ -5,13 +5,14 @@ import { motion } from "motion/react";
 import ProjectCard from "../components/ProjectsCard";
 import Modal from "../components/modal";
 import { DM_Sans, Montserrat as MontserratFont } from "next/font/google";
-import KeyPersonnel from "../components/KeyPersonal";
+import KeyPersonnel from "../components/KeyPersonnel";
 import { CircleCheckBig, ExternalLink } from "lucide-react";
 import { CompanyWorksGallery } from "../components/Gallery";
 import RollingGallery from "@/components/RollingGallery";
 import Partners from "../components/Partners";
 import Clients from "@/app/components/Clients";
 import Certificates from "../components/Certificates";
+
 const montserrat = MontserratFont({
   subsets: ["latin"],
   variable: "--font-montserrat",
@@ -25,6 +26,7 @@ function CompanyDetails({ companyData }) {
   const [clients, setClients] = useState([]);
   const [partners, setPartners] = useState([]);
   const [certificates, setCertificates] = useState([]);
+  const [keyPersonnel, setKeyPersonnel] = useState([]);
   const partnersCacheRef = React.useRef(new Map());
 
   const openModal = (index, projectDetails) => {
@@ -42,6 +44,22 @@ function CompanyDetails({ companyData }) {
     };
   };
 
+  useEffect(() => {
+    const fetchKeyPersonnel = async () => {
+      try {
+        const response = await fetch(`/api/key-personnel?branchId=${companyData.id}`);
+        const data = await response.json();
+        setKeyPersonnel(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Error fetching key personnel:", error);
+        setKeyPersonnel([]);
+      }
+    };
+
+    if (companyData.id) {
+      fetchKeyPersonnel();
+    }
+  }, [companyData.id]);
 
   // fetch projects data based on company id using query param branchId
   useEffect(() => {
@@ -58,9 +76,7 @@ function CompanyDetails({ companyData }) {
     if (companyData.id) {
       fetchProjects();
     }
-  }, [])
-
-
+  }, [companyData.id]);
 
   useEffect(() => {
     const fetchBrands = async () => {
@@ -76,7 +92,8 @@ function CompanyDetails({ companyData }) {
     if (companyData.id) {
       fetchBrands();
     }
-  }, [])
+  }, []);
+
   useEffect(() => {
     if (!companyData?.id) {
       setPartners([]);
@@ -130,10 +147,7 @@ function CompanyDetails({ companyData }) {
     }
   }, [companyData.id]);
 
-  console.log(partners)
-
   useEffect(() => {
-
     const fetchClients = async () => {
       console.log('api call has been created for client')
       try {
@@ -163,11 +177,71 @@ function CompanyDetails({ companyData }) {
     return `https://${trimmed}`;
   };
 
-
   const { mainName, subName } = parseCompanyName(companyData.name || "");
+
+  // Consistent section header component
+  const SectionHeader = ({ title, description, color = "emerald" }) => (
+    <div className="text-center mb-12">
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className={`text-2xl md:text-3xl lg:text-4xl font-extrabold mb-6 ${montserrat.className}`}
+      >
+        <span className={`bg-gradient-to-r from-${color}-400 ${companyData.color?.[1] || 'to-blue-600'} bg-clip-text text-transparent uppercase`}>
+          {title}
+        </span>
+      </motion.h2>
+
+      <motion.div
+        initial={{ opacity: 0, scaleX: 0 }}
+        whileInView={{ opacity: 1, scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className={`w-24 h-1 bg-${color}-400 mx-auto rounded-full mb-8`}
+      />
+
+      {description && (
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className={`text-gray-300 text-lg max-w-2xl mx-auto ${montserrat.className}`}
+        >
+          {description}
+        </motion.p>
+      )}
+    </div>
+  );
+
+  // Consistent sub-section header component
+  const SubSectionHeader = ({ title, color = "emerald" }) => (
+    <div className="text-center mb-8">
+      <motion.h3
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className={`text-2xl md:text-3xl font-bold text-${color}-400 mb-4 ${montserrat.className}`}
+      >
+        {title}
+      </motion.h3>
+
+      <motion.div
+        initial={{ opacity: 0, scaleX: 0 }}
+        whileInView={{ opacity: 1, scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className={`w-20 h-1 bg-${color}-400 mx-auto rounded-full`}
+      />
+    </div>
+  );
 
   return (
     <div className="text-white">
+      {/* Hero Section */}
       <div className="relative h-[420px] w-full overflow-hidden">
         <Image
           src={companyData.companyImg}
@@ -179,9 +253,7 @@ function CompanyDetails({ companyData }) {
 
         {/* Overlay */}
         <div className="absolute inset-0 px-6 md:px-12 flex flex-col justify-center">
-          {/* Container with left text + right image */}
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8 max-w-6xl mx-auto w-full pt-12">
-
             {/* Left Content */}
             <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-4 flex-1">
               <motion.h1
@@ -233,9 +305,6 @@ function CompanyDetails({ companyData }) {
                 )}
               </div>
             </div>
-
-            {/* Right Image */}
-
           </div>
 
           {/* Bottom Right - Country Flag */}
@@ -253,30 +322,14 @@ function CompanyDetails({ companyData }) {
           )}
         </div>
       </div>
+
       {/* What We Do Section */}
       {companyData.description && (
         <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className={`text-2xl md:text-3xl lg:text-3xl font-extrabold uppercase mb-6 ${montserrat.className}`}
-            >
-              <span className={`bg-gradient-to-r from-emerald-400 ${companyData.color?.[1] || 'to-blue-600'} bg-clip-text text-transparent`}>
-                What We Do
-              </span>
-            </motion.h2>
-
-            <motion.div
-              initial={{ opacity: 0, scaleX: 0 }}
-              whileInView={{ opacity: 1, scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-24 h-1 bg-emerald-400 mx-auto rounded-full"
-            />
-          </div>
+          <SectionHeader
+            title="What We Do"
+            description={null}
+          />
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -304,16 +357,8 @@ function CompanyDetails({ companyData }) {
               transition={{ duration: 0.6 }}
               className="mb-16"
             >
-              <h2 className={`text-2xl md:text-3xl lg:text-3xl font-bold text-emerald-400 mb-8 uppercase text-center ${montserrat.className}`}>
-                Our Services
-              </h2>
-                <motion.div
-                  initial={{ opacity: 0, scaleX: 0 }}
-                  whileInView={{ opacity: 1, scaleX: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
-                />
+              <SubSectionHeader title="Our Services" />
+
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {companyData.services.map((service, idx) => (
                   <motion.div
@@ -340,18 +385,7 @@ function CompanyDetails({ companyData }) {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mb-16"
             >
-
-              <h2 className={`text-2xl md:text-3xl font-bold text-emerald-400 mb-8 uppercase text-center ${montserrat.className}`}>
-                Industries We Serve
-              </h2>
-
-              <motion.div
-                initial={{ opacity: 0, scaleX: 0 }}
-                whileInView={{ opacity: 1, scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
-              />
+              <SubSectionHeader title="Industries We Serve" />
 
               <div className="flex flex-wrap justify-center gap-3">
                 {companyData.industries.map((industry, idx) => (
@@ -378,16 +412,8 @@ function CompanyDetails({ companyData }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <h2 className={`text-2xl md:text-3xl font-bold text-emerald-400 mb-8 uppercase text-center ${montserrat.className}`}>
-                Key Advantages
-              </h2>
-              <motion.div
-                initial={{ opacity: 0, scaleX: 0 }}
-                whileInView={{ opacity: 1, scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
-              />
+              <SubSectionHeader title="Key Advantages" />
+
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-4xl mx-auto">
                 {companyData.keyAdvantages.map((advantage, idx) => (
                   <motion.div
@@ -407,8 +433,6 @@ function CompanyDetails({ companyData }) {
           )}
         </section>
       )}
-
-
 
       {/* 3M Section */}
       {companyData.threeM && (
@@ -464,7 +488,7 @@ function CompanyDetails({ companyData }) {
                 transition={{ duration: 0.6 }}
                 className="p-6 border border-gray-700 rounded-xl bg-gray-900/60 shadow-lg hover:shadow-xl transition-shadow duration-300"
               >
-                <h3 className={`font-bold text-xl mb-4 text-center text-gray-100 uppercase ${montserrat.className}`}>
+                <h3 className={`text-xl font-bold mb-4 text-center text-gray-100 ${montserrat.className}`}>
                   {service.title}
                 </h3>
 
@@ -488,9 +512,8 @@ function CompanyDetails({ companyData }) {
               transition={{ duration: 0.6 }}
               className="text-center bg-gray-900/40 rounded-2xl p-8 border border-gray-700"
             >
-              <h2 className={`text-3xl md:text-4xl font-bold text-teal-400 mb-8 ${montserrat.className}`}>
-                Why Choose Us
-              </h2>
+              <SubSectionHeader title="Why Choose Us" color="teal" />
+
               <div className="max-w-3xl mx-auto">
                 <ul className="space-y-4">
                   {companyData.threeM.keyAdvantages.map((advantage, idx) => (
@@ -516,34 +539,10 @@ function CompanyDetails({ companyData }) {
       {/* Electrical & MEP Section */}
       {companyData.electricalMEP && (
         <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className={`text-3xl md:text-4xl font-bold text-emerald-400 mb-6 ${montserrat.className}`}
-            >
-              {companyData.electricalMEP.name}
-
-            </motion.h2>
-            <motion.div
-              initial={{ opacity: 0, scaleX: 0 }}
-              whileInView={{ opacity: 1, scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
-            />
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className={`text-gray-300 max-w-4xl mx-auto text-lg leading-relaxed text-left ${montserrat.className}`}
-            >
-              {companyData.electricalMEP.description}
-            </motion.p>
-          </div>
+          <SectionHeader
+            title={companyData.electricalMEP.name}
+            description={companyData.electricalMEP.description}
+          />
 
           {/* Services */}
           {companyData.electricalMEP.services && (
@@ -595,16 +594,8 @@ function CompanyDetails({ companyData }) {
               transition={{ duration: 0.6 }}
               className="mb-16"
             >
-              <h3 className={`text-2xl md:text-3xl font-semibold text-emerald-300 mb-8 text-center ${montserrat.className}`}>
-                Industries & Sectors We Serve
-              </h3>
-              <motion.div
-              initial={{ opacity: 0, scaleX: 0 }}
-              whileInView={{ opacity: 1, scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
-            />
+              <SubSectionHeader title="Industries & Sectors We Serve" />
+
               <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
                 {companyData.electricalMEP.industries.map((industry, idx) => (
                   <motion.div
@@ -630,16 +621,8 @@ function CompanyDetails({ companyData }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h3 className={`text-2xl md:text-3xl font-semibold text-emerald-300 mb-8 text-center ${montserrat.className}`}>
-                Our Strengths
-              </h3>
-              <motion.div
-              initial={{ opacity: 0, scaleX: 0 }}
-              whileInView={{ opacity: 1, scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
-            />
+              <SubSectionHeader title="Our Strengths" />
+
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
                 {companyData.electricalMEP.keyAdvantages.map((adv, idx) => (
                   <motion.div
@@ -661,48 +644,59 @@ function CompanyDetails({ companyData }) {
       )}
 
       {/* Key Personnel */}
-      {companyData.keyPersonnel && (
-        <section className="px-6 md:px-12 lg:px-16 py-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="flex items-center justify-center"
-          >
+      {keyPersonnel.length > 0 && (
+        <section className="px-6 md:px-12 lg:px-16 pt-16">
+          <div className="max-w-7xl mx-auto">
+            {/* Section Header */}
+            <div className="text-center">
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className={`text-2xl md:text-3xl lg:text-4xl font-extrabold mb-6 ${montserrat.className}`}
+              >
+                <span className={`bg-gradient-to-r from-emerald-400 ${companyData.color?.[1] || 'to-blue-600'} bg-clip-text text-transparent uppercase`}>
+                  KEY PERSONNEL
+                </span>
+              </motion.h2>
+
+              <motion.div
+                initial={{ opacity: 0, scaleX: 0 }}
+                whileInView={{ opacity: 1, scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="w-24 h-1 bg-emerald-400 mx-auto rounded-full"
+              />
+            </div>
+
+            {/* Key Personnel Component */}
             <KeyPersonnel
-              personnels={companyData.keyPersonnel}
-              color={companyData.color}
-              primaryColor={companyData.primaryColor}
+              personnels={keyPersonnel}
+              colors={companyData.color || ['from-teal-600', 'to-blue-600']}
             />
-          </motion.div>
+          </div>
         </section>
       )}
 
+      {/* Partners */}
       {partners.length > 0 && (
         <Partners partnerships={partners} />
       )}
 
+      {/* Brands */}
+      {brands.length > 0 && (
+        <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
+          <SectionHeader title="Our Brands" />
 
-      {brands.length > 0 &&
-        (<div className="max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-2xl md:text-3xl lg:text-3xl font-bold text-emerald-300 mb-4">
-              Our Brands
-            </h2>
-            <div className="w-24 h-1 bg-emerald-400 mx-auto mt-6 rounded-full shadow-lg shadow-emerald-500/50"></div>
-          </div>
-
-          {/* Brand Logos Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {brands.map((brand) => (
               <a
                 key={brand._id}
                 href={toExternalUrl(brand.url)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white-400/50 hover:shadow-2xl hover:shadow-emerald-500/20 transform hover:-translate-y-2"
+                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-emerald-400/50 hover:shadow-2xl hover:shadow-emerald-500/20 transform hover:-translate-y-2"
               >
                 {/* Logo Container */}
                 <div className="aspect-square w-full mb-4 rounded-xl bg-white p-4 flex items-center justify-center overflow-hidden relative">
@@ -730,33 +724,13 @@ function CompanyDetails({ companyData }) {
               </a>
             ))}
           </div>
-
-        </div>
-        )
-      }
+        </section>
+      )}
 
       {/* Projects */}
       {projects && projects.length > 0 && (
         <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className={`mb-12 text-center text-2xl md:text-3xl lg:text-3xl font-extrabold uppercase ${montserrat.className}`}
-          >
-            <span className={`bg-gradient-to-r from-emerald-400 ${companyData.color?.[1] || 'to-blue-600'} bg-clip-text text-transparent`}>
-              Our Projects
-            </span>
-          </motion.h2>
-          <motion.div
-              initial={{ opacity: 0, scaleX: 0 }}
-              whileInView={{ opacity: 1, scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8"
-            />
-
+          <SectionHeader title="Our Projects" />
 
           <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
@@ -771,7 +745,6 @@ function CompanyDetails({ companyData }) {
               },
             }}
           >
-
             {projects?.map((project, projectIdx) => (
               <motion.div
                 key={projectIdx}
@@ -802,41 +775,10 @@ function CompanyDetails({ companyData }) {
         </section>
       )}
 
-
-
-      {
-        clients.length > 0 &&
+      {/* Clients */}
+      {clients.length > 0 && (
         <Clients imageLogos={clients} lColor="rgb(52, 211, 153)" rColor="rgb(52, 211, 153)" />
-      }
-
-
-      {/* Our Works Gallery */}
-      {/* <section className="px-6 md:px-12 lg:px-16 py-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className={`text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase ${montserrat.className}`}>
-            <span className={`bg-gradient-to-r from-emerald-400 ${companyData.color?.[1] || 'to-blue-600'} bg-clip-text text-transparent`}>
-              Our Works
-            </span>
-          </h2>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <RollingGallery autoplay={true} pauseOnHover={true} companyId={companyData?.id} />
-        </motion.div>
-      </section> */}
-
-      {/* <CompanyWorksGallery companyId={companyData?.id} /> */}
+      )}
 
       {/* Modal */}
       <Modal

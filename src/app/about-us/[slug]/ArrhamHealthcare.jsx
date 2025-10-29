@@ -20,36 +20,22 @@ const montserrat = MontserratFont({
 
 function ArrhamHealthcare() {
 
-  const {slug} = useParams();
+  const { slug } = useParams();
   const companyData = branchesData.branches.find((branch) => branch.id == slug);
   const companyName = "Arrham Healthcare Solutions";
   const subName = "Kingdom of Bahrain";
-  const [projects , setProjects] = useState()
+  const [projects, setProjects] = useState()
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedProject , setSelectedProject] = useState();
+  const [selectedProject, setSelectedProject] = useState();
   const [partnerships, setPartnerships] = useState([]);
   const [certificates, setCertificates] = useState([]);
   const [brands, setBrands] = useState([]);
   const [clients, setClients] = useState([]);
 
-  const samplePartnerships = [
-    {
-      id: 1,
-      name: "TechCorp Solutions",
-      logo: "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=400&h=400&fit=crop",
-      website: "https://techcorp.example.com"
-    },
-    {
-      id: 2,
-      name: "Digital Innovations",
-      logo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&h=400&fit=crop",
-      website: "https://digitalinnovations.example.com"
-    },
-  ];
 
   async function getPartnerships() {
     try {
-        const res = await fetch(`/api/partners?branchId=${companyData.id}`);
+      const res = await fetch(`/api/partners?branchId=${companyData.id}`);
       if (!res.ok) throw new Error(`Failed to fetch partnerships: ${res.status}`);
       const data = await res.json();
       setPartnerships(Array.isArray(data) && data.length ? data : samplePartnerships);
@@ -121,7 +107,7 @@ function ArrhamHealthcare() {
   }, [companyData.id]);
   const openModal = (projectDetails) => {
     setIsOpen(true);
-    console.log('project',projectDetails)
+    console.log('project', projectDetails)
     setSelectedProject(projectDetails);
   };
 
@@ -139,7 +125,7 @@ function ArrhamHealthcare() {
     if (slug) {
       fetchProjects();
     }
-  },[])
+  }, [])
 
   const toExternalUrl = (url) => {
     if (!url) return "";
@@ -149,7 +135,7 @@ function ArrhamHealthcare() {
   };
 
   return (
-    <div className="min-h-screen text-white overflow-hidden">
+    <div className="min-h-screen bg-gray-100 text-gray-900 overflow-hidden">
       {/* Hero Section */}
       <div className="relative h-[420px] w-full overflow-hidden">
         <Image
@@ -161,14 +147,14 @@ function ArrhamHealthcare() {
         />
 
         {/* Overlay */}
-        <div className="absolute inset-0 flex items-center px-6 md:px-12 bg-black/60 backdrop-blur-sm">
+        <div className="absolute inset-0 flex items-center px-6 md:px-12">
           {/* Left Content */}
           <div className="">
             <motion.h1
               initial={{ opacity: 0, y: -40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className={`text-xl md:text-2xl lg:text-3xl font-bold text-left text-gray-100 ${montserrat.className}`}
+              className={`text-xl md:text-2xl lg:text-3xl font-bold text-left text-white ${montserrat.className}`}
             >
               Welcome to
             </motion.h1>
@@ -178,7 +164,7 @@ function ArrhamHealthcare() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.3 }}
-              className={`bg-gradient-to-r from-blue-400 to-teal-500 bg-clip-text text-transparent text-2xl sm:text-3xl md:text-5xl lg:text-4xl xl:text-5xl font-extrabold leading-snug text-nowrap ${montserrat.className}`}
+              className={`bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent text-2xl sm:text-3xl md:text-5xl lg:text-4xl xl:text-5xl font-extrabold leading-snug text-nowrap ${montserrat.className}`}
             >
               {companyName}
             </motion.h1>
@@ -188,7 +174,7 @@ function ArrhamHealthcare() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.6 }}
-              className={`text-lg md:text-xl lg:text-2xl font-medium text-left text-gray-200 leading-relaxed ${montserrat.className}`}
+              className={`text-lg md:text-xl lg:text-2xl font-medium text-left text-gray-100 leading-relaxed ${montserrat.className}`}
             >
               {subName}
             </motion.h2>
@@ -204,21 +190,21 @@ function ArrhamHealthcare() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className={`text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase mb-6 ${montserrat.className}`}
+            className={`text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 ${montserrat.className}`}
           >
-            <span className="text-white">Who </span>
-            <span className="bg-gradient-to-r from-blue-400 to-teal-500 bg-clip-text text-transparent">
-              We Are
+     
+            <span className="bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
+            Who We Are
             </span>
           </motion.h2>
 
           <motion.div
-            initial={{ opacity: 0, scaleX: 0 }}
-            whileInView={{ opacity: 1, scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-24 h-1 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full"
-          />
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-24 h-1 bg-teal-400 mx-auto rounded-full"
+            />
         </div>
 
         <motion.div
@@ -228,22 +214,17 @@ function ArrhamHealthcare() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="max-w-4xl mx-auto mb-16"
         >
-          <p className={`text-lg md:text-xl leading-relaxed text-gray-300 text-left ${montserrat.className}`}>
-              Arrham Trading and Contracting W.L.L. is a dynamic and multifaceted firm
-              specializing in high-quality construction, fit-out, and contracting services across the
-              Commercial, Residential, and Industrial sectors. With a solid foundation built on
-              integrity, innovation, and professionalism, Arrham has earned a reputation for
-              delivering projects that align with international standards and exceed client
-              expectations.
-              Hidaya Healthcare W.L.L. is a specialized entity under the Arrham Group, solely
-              focused on the design, construction, and turnkey development of healthcare
-              environments. With an in-depth understanding of medical compliance, hygiene
-              protocols, and patient-centric design, Hidaya stands at the forefront of healthcare
-              infrastructure development in Bahrain and the region.
-              From large-scale hospitals to niche diagnostic clinics, Hidaya brings together a
-              multidisciplinary team of architects, engineers, healthcare planners, and project
-              managers to deliver environments that are efficient, safe, adaptable, and compliant
-              with global healthcare standards.
+          <p className={`text-lg md:text-xl leading-relaxed text-gray-700 text-left ${montserrat.className}`}>
+
+            Arrham Healthcare Solutions, Kingdom of Bahrain is a specialized entity under the Arrham Group, solely
+            focused on the design, construction, and turnkey development of healthcare
+            environments. With an in-depth understanding of medical compliance, hygiene
+            protocols, and patient-centric design, Arrham Healthcare Solutions stands at the forefront of healthcare
+            infrastructure development in Bahrain and the region.
+            From large-scale hospitals to niche diagnostic clinics, Arrham Healthcare Solutions brings together a
+            multidisciplinary team of architects, engineers, healthcare planners, and project
+            managers to deliver environments that are efficient, safe, adaptable, and compliant
+            with global healthcare standards.
           </p>
         </motion.div>
 
@@ -300,15 +281,15 @@ function ArrhamHealthcare() {
                 show: { opacity: 1, y: 0 },
               }}
               transition={{ duration: 0.6 }}
-              className={`bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-${service.borderColor} hover:border-${service.hoverBorder} transition-all duration-300 hover:transform hover:scale-105 shadow-lg hover:shadow-xl`}
+              className={`bg-white rounded-2xl p-8 border border-gray-200 hover:border-teal-300 transition-all duration-300 hover:transform hover:scale-105 shadow`}
             >
               <div className={`w-16 h-16 bg-gradient-to-br ${service.gradient} rounded-full flex items-center justify-center mb-6 mx-auto`}>
-                <service.icon size={35} />
+                <service.icon size={35} color='#FFFFFF' />
               </div>
-              <h3 className={`text-2xl font-bold mb-4 text-${service.textColor} ${montserrat.className}`}>
+              <h3 className={`text-2xl font-bold mb-4 text-teal-700 ${montserrat.className}`}>
                 {service.title}
               </h3>
-              <p className={`text-gray-300 leading-relaxed ${montserrat.className}`}>
+              <p className={`text-gray-700 leading-relaxed ${montserrat.className}`}>
                 {service.description}
               </p>
             </motion.div>
@@ -317,28 +298,28 @@ function ArrhamHealthcare() {
       </section>
 
       {/* Key Personnel Section */}
-      <section className="px-6 md:px-12 lg:px-16 py-16 bg-gradient-to-r from-gray-900/50 to-gray-800/50">
+      <section className="px-6 md:px-12 lg:px-16 py-16  ">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-6 ${montserrat.className}`}
-            >
-              <span className="text-white">Key </span>
-              <span className="bg-gradient-to-r from-blue-400 to-teal-500 bg-clip-text text-transparent">
-                Personnel
-              </span>
-            </motion.h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className={`text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 ${montserrat.className}`}
+          >
+     
+            <span className="bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent uppercase">
+            Key Personnels
+            </span>
+          </motion.h2>
 
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               whileInView={{ opacity: 1, scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-24 h-1 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full"
+              className="w-24 h-1 bg-teal-400 mx-auto rounded-full"
             />
           </div>
 
@@ -349,17 +330,17 @@ function ArrhamHealthcare() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="flex justify-center"
           >
-            <div className="bg-white/5 backdrop-blur-md rounded-3xl p-12 border border-teal-400/30 max-w-md hover:border-teal-400/50 transition-colors duration-300 shadow-lg">
+            <div className="bg-white rounded-3xl p-12 border border-gray-200 max-w-md hover:border-teal-300 transition-colors duration-300 shadow">
               <div className="w-32 h-32 bg-gradient-to-br from-teal-400 to-blue-500 rounded-full flex items-center justify-center mb-8 mx-auto text-4xl font-bold shadow-lg">
                 F
               </div>
-              <h3 className={`text-3xl font-bold mb-2 text-teal-300 ${montserrat.className}`}>
+              <h3 className={`text-3xl font-bold mb-2 text-teal-700 ${montserrat.className}`}>
                 Faisal Al Mansoor
               </h3>
-              <p className={`text-xl text-blue-300 mb-4 ${montserrat.className}`}>
+              <p className={`text-xl text-blue-700 mb-4 ${montserrat.className}`}>
                 Country Operations Head - Bahrain
               </p>
-              <p className={`text-gray-300 ${montserrat.className}`}>
+              <p className={`text-gray-700 ${montserrat.className}`}>
                 12+ years in fit-out and retail verticals
               </p>
             </div>
@@ -453,7 +434,7 @@ function ArrhamHealthcare() {
       </section> */}
 
       {/* Mission, Vision, Values */}
-      <section className="px-6 md:px-12 lg:px-16 py-16 bg-gradient-to-br from-gray-800/50 to-teal-900/30">
+      <section className="px-6 md:px-12 lg:px-16 py-16 bg-gray-100">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="grid grid-cols-1 lg:grid-cols-2 gap-8"
@@ -502,12 +483,12 @@ function ArrhamHealthcare() {
                   show: { opacity: 1, y: 0 },
                 }}
                 transition={{ duration: 0.6 }}
-                className={`bg-white/5 backdrop-blur-md rounded-3xl p-8 md:p-10 border border-${item.borderColor} hover:border-${item.color}/30 transition-colors duration-300 shadow-lg`}
+                className={`bg-white rounded-3xl p-8 md:p-10 border border-gray-200 hover:border-teal-300 transition-colors duration-300 shadow`}
               >
-                <h2 className={`text-3xl md:text-4xl font-bold mb-6 text-${item.color} ${montserrat.className}`}>
+                <h2 className={`text-3xl md:text-4xl font-bold mb-6 text-teal-700 ${montserrat.className}`}>
                   {item.title}
                 </h2>
-                <p className={`text-lg text-gray-300 leading-relaxed mb-4 ${montserrat.className}`}>
+                <p className={`text-lg text-gray-700 leading-relaxed mb-4 ${montserrat.className}`}>
                   {item.content}
                 </p>
                 {item.tags && (
@@ -516,8 +497,8 @@ function ArrhamHealthcare() {
                       <span
                         key={tagIdx}
                         className={`px-3 py-1 rounded-full text-sm ${tagIdx % 2 === 0
-                          ? "bg-teal-400/20 text-teal-300"
-                          : "bg-blue-400/20 text-blue-300"
+                          ? "bg-teal-100 text-teal-800"
+                          : "bg-blue-100 text-blue-800"
                           } ${montserrat.className}`}
                       >
                         {tag}
@@ -529,71 +510,70 @@ function ArrhamHealthcare() {
             ))}
           </motion.div>
         </div>
-            {
-              partnerships.length > 0 && (
+        {
+          partnerships.length > 0 && (
 
 
-                <Partners partnerships={partnerships} lColor={"emerald-400"} rColor={"blue-400"} />
-              )
-            }
+            <Partners partnerships={partnerships} lColor="teal-600" rColor="blue-600" />
+          )
+        }
 
-            {/* Certificates Section */}
-            {certificates && certificates.length > 0 && (
-              <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
-                <Certificates certificates={certificates} lColor="#34d399" rColor="#60a5fa" />              
-              </section>
-            )}
+        {/* Certificates Section */}
+        {certificates && certificates.length > 0 && (
+          <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
+            <Certificates certificates={certificates} lColor="teal-600" rColor="blue-600" />
+          </section>
+        )}
 
         {projects && projects.length > 0 && (
           <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className={`text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 ${montserrat.className}`}
+          >
+     
+            <span className="bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent uppercase">
+            Our Projects
+            </span>
+          </motion.h2>
+
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+              initial="hidden"
+              whileInView="show"
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className={`mb-12 text-center text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase ${montserrat.className}`}
-
+              variants={{
+                hidden: { opacity: 0 },
+                show: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.15 },
+                },
+              }}
             >
-              <span className={`bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent`}>
-                Our Projects
-              </span>
 
-            </motion.h2>
-            
-              <motion.div
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                variants={{
-                  hidden: { opacity: 0 },
-                  show: {
-                    opacity: 1,
-                    transition: { staggerChildren: 0.15 },
-                  },
-                }}
-              >
-  
-                {projects?.map((project, projectIdx) => (
-                  <motion.div
-                    key={projectIdx}
-                    onClick={() => openModal( project)}
-                    variants={{
-                      hidden: { opacity: 0, y: 30 },
-                      show: { opacity: 1, y: 0 },
-                    }}
-                    transition={{ duration: 0.6 }}
-                    className="cursor-pointer"
-                  >
-                    <ProjectCard
-                      setIsOpen={setIsOpen}
-                      project={project}
-                      index={projectIdx}
-                      company={companyData}
-                    />
-                  </motion.div>
-                ))}
-              </motion.div>
+              {projects?.map((project, projectIdx) => (
+                <motion.div
+                  key={projectIdx}
+                  onClick={() => openModal(project)}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    show: { opacity: 1, y: 0 },
+                  }}
+                  transition={{ duration: 0.6 }}
+                  className="cursor-pointer"
+                >
+                  <ProjectCard
+                    setIsOpen={setIsOpen}
+                    project={project}
+                    index={projectIdx}
+                    company={companyData}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
           </section>
         )}
 
@@ -602,11 +582,11 @@ function ArrhamHealthcare() {
           <div className="max-w-7xl mx-auto">
             {/* Section Header */}
             <div className="text-center mb-16">
-              <h2 className="text-5xl font-bold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent mb-4">
+              <h2 className="text-5xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent mb-4">
                 Our Brands
               </h2>
 
-              <div className="w-24 h-1 bg-emerald-400 mx-auto mt-6 rounded-full shadow-lg shadow-emerald-500/50"></div>
+              <div className="w-24 h-1 bg-emerald-500 mx-auto mt-6 rounded-full shadow-lg shadow-emerald-500/30"></div>
             </div>
 
             {/* Brand Logos Grid */}
@@ -617,7 +597,7 @@ function ArrhamHealthcare() {
                   href={toExternalUrl(brand.url)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-emerald-400/50 hover:shadow-2xl hover:shadow-emerald-500/20 transform hover:-translate-y-2"
+                  className="group relative bg-white rounded-2xl p-6 hover:bg-white transition-all duration-300 border border-gray-200 hover:border-emerald-300 hover:shadow-xl transform hover:-translate-y-2"
                 >
                   {/* Logo Container */}
                   <div className="aspect-square w-full mb-4 rounded-xl bg-white p-4 flex items-center justify-center overflow-hidden relative">
@@ -631,12 +611,12 @@ function ArrhamHealthcare() {
                   </div>
 
                   {/* Brand Name */}
-                  <h3 className="text-white font-semibold text-center text-lg mb-2 capitalize">
+                  <h3 className="text-gray-900 font-semibold text-center text-lg mb-2 capitalize">
                     {brand.name}
                   </h3>
 
                   {/* Visit Link Indicator */}
-                  <div className="flex items-center justify-center gap-2 text-emerald-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="flex items-center justify-center gap-2 text-emerald-700 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <span>Visit Site</span>
                     <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
                   </div>

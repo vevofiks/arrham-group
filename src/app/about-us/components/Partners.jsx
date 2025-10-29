@@ -1,47 +1,80 @@
 import React from 'react';
 import Image from 'next/image';
-import { ExternalLink } from 'lucide-react';
+import { motion } from 'motion/react';
+import { Montserrat as MontserratFont } from "next/font/google";
 
-// Sample data structure - replace with your actual API data
-const samplePartnerships = [
-  {
-    id: 1,
-    name: "TechCorp Solutions", 
-    logo: "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=400&h=400&fit=crop",
-    website: "https://techcorp.example.com"
-  },
-  {
-    id: 2,
-    name: "Digital Innovations",
-    logo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&h=400&fit=crop",
-    website: "https://digitalinnovations.example.com"
-  },
-];
 
-const Partners = ({ partnerships = samplePartnerships , lColor='', rColor=""  }) => {
+const montserrat = MontserratFont({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+});
+
+
+const colorMap = {
+  'teal-600': '#0d9488',
+  'blue-600': '#2563eb',
+  'emerald-300': '#6ee7b7',
+  'emerald-400': '#34d399',
+  'emerald-600': '#059669',
+  'blue-400': '#60a5fa',
+};
+
+const Partners = ({ partnerships = [], lColor = '', rColor = '' }) => {
   const toExternalUrl = (url) => {
     if (!url) return "";
     const trimmed = url.trim();
     if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) return trimmed;
     return `https://${trimmed}`;
   };
+
+  const getGradientStyle = () => {
+    console.log('lColor:', lColor, 'rColor:', rColor);
+    console.log('lColor value:', colorMap[lColor]);
+    console.log('rColor value:', colorMap[rColor]);
+
+    if (lColor && rColor) {
+      const style = {
+        backgroundImage: `linear-gradient(to right, ${colorMap[lColor] || '#0d9488'}, ${colorMap[rColor] || '#2563eb'})`,
+        WebkitBackgroundClip: 'text',
+        backgroundClip: 'text',
+        color: 'transparent',
+      };
+      console.log('Final style:', style);
+      return style;
+    }
+    return { color: '#6ee7b7' };
+  };
+
+  // Test the style output
+  const gradientStyle = getGradientStyle();
+  console.log('Applied gradient style:', gradientStyle);
+
   return (
     <div className="py-16 px-4 mt-10">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-8">
-          <h2
-
-          className={`text-5xl font-extrabold mb-3  ${
-              lColor && rColor
-                ? `bg-gradient-to-r from-${lColor} to-${rColor} text-transparent bg-clip-text`
-                : 'text-emerald-300'
-            }`}
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className={`text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 ${montserrat.className}`}
           >
-            Our Partners
-          </h2>
-            
-          </div>
+            <span className={`bg-gradient-to-r from-${lColor} to-${rColor} bg-clip-text text-transparent uppercase`}>
+              Our Partners
+            </span>
+          </motion.h2>
+
+          <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-24 h-1 bg-teal-400 mx-auto rounded-full"
+            />
+
+        </div>
 
         {/* Partnership Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -67,9 +100,9 @@ const Partners = ({ partnerships = samplePartnerships , lColor='', rColor=""  })
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                <h3 className="text-xl font-bold text-white text-center mb-4 min-h-14 flex items-center justify-center">
-                  {partner.name}
-                </h3>
+                  <h3 className="text-xl font-bold text-white text-center mb-4 min-h-14 flex items-center justify-center">
+                    {partner.name}
+                  </h3>
 
                 </a>
               </div>
@@ -81,4 +114,4 @@ const Partners = ({ partnerships = samplePartnerships , lColor='', rColor=""  })
   );
 };
 
-export default Partners ;
+export default Partners;
