@@ -61,28 +61,42 @@ const Certificates = ({ certificates = [], lColor = '', rColor = '' }) => {
             <span style={getGradientStyle()} className="uppercase">
               Our Certificates
             </span>
-          </motion.h2>
-
+          </motion.div>
+          <h2 className="text-2xl md:text-3xl lg:text-3xl font-bold mb-6 uppercase">
+            {hasGradient ? (
+              <span
+                className="text-transparent bg-clip-text font-bold"
+                style={{ backgroundImage: `linear-gradient(to right, ${lColor}, ${rColor})` }}
+              >
+                Our Certifications
+              </span>
+            ) : (
+              <span className="text-emerald-400">
+                Our Certifications
+              </span>
+            )}
+          </h2>
+          {lColor && rColor ? (
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-24 h-1 mb-8 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full"
+            />
+          ): (
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
             whileInView={{ opacity: 1, scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            style={{
-              background: lColor && rColor
-                ? `linear-gradient(to right, ${colorMap[lColor] || '#34d399'}, ${colorMap[rColor] || '#60a5fa'})`
-                : '#34d399'
-            }}
-            className="w-24 h-1 mx-auto rounded-full mb-8"
+            className="w-24 h-1 mb-8 flex mx-auto bg-emerald-400 rounded-full"
           />
-
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className={`text-gray-600 text-lg max-w-2xl mx-auto ${montserrat.className}`}
-          >
+          )
+        
+        }
+        
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Recognized for excellence and commitment to quality standards
           </motion.p>
         </div>
