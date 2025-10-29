@@ -61,7 +61,7 @@ const Certificates = ({ certificates = [], lColor = '', rColor = '' }) => {
             <span style={getGradientStyle()} className="uppercase">
               Our Certificates
             </span>
-          </motion.div>
+          </motion.h2>
           <h2 className="text-2xl md:text-3xl lg:text-3xl font-bold mb-6 uppercase">
             {hasGradient ? (
               <span
@@ -96,7 +96,7 @@ const Certificates = ({ certificates = [], lColor = '', rColor = '' }) => {
         
         }
         
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <motion.p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Recognized for excellence and commitment to quality standards
           </motion.p>
         </div>
