@@ -3,34 +3,39 @@ import { motion } from 'motion/react';
 import { useState } from 'react';
 import { X, ExternalLink, Award } from 'lucide-react';
 import Image from 'next/image';
+import { Montserrat as MontserratFont } from "next/font/google";
 
-const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
+const montserrat = MontserratFont({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+});
+
+const colorMap = {
+  'teal-600': '#0d9488',
+  'blue-600': '#2563eb',
+  'emerald-300': '#6ee7b7',
+  'emerald-400': '#34d399',
+  'emerald-600': '#059669',
+  'blue-400': '#60a5fa',
+};
+
+const Certificates = ({ certificates = [], lColor = '', rColor = '' }) => {
   const [selectedCertificate, setSelectedCertificate] = useState(null);
-  const hasGradient = Boolean(lColor && rColor)
 
-  const cardVariants = {
-    initial: { 
-      opacity: 0, 
-      y: 30,
-      scale: 0.95
-    },
-    animate: { 
-      opacity: 1, 
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
+  const getGradientStyle = () => {
+    if (lColor && rColor) {
+      return {
+        backgroundImage: `linear-gradient(to right, ${colorMap[lColor] || '#34d399'}, ${colorMap[rColor] || '#60a5fa'})`,
+        WebkitBackgroundClip: 'text',
+        backgroundClip: 'text',
+        color: 'transparent',
+      };
     }
+    return { color: '#34d399' };
   };
 
-  const staggerContainer = {
-    animate: {
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
+  const getIconColor = () => {
+    return colorMap[lColor] || '#34d399';
   };
 
   const openModal = (certificate) => {
@@ -42,26 +47,19 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
   };
 
   return (
-    <section className="py-16 px-4">
+    <div className="py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <motion.div
-            className="inline-flex items-center gap-2 mb-4"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className={`text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 ${montserrat.className}`}
           >
-            <Award className="w-6 h-6 text-emerald-400" />
-            <span className="text-emerald-400 font-semibold text-sm uppercase tracking-wider">
-              Certifications
+            <span style={getGradientStyle()} className="uppercase">
+              Our Certificates
             </span>
           </motion.div>
           <h2 className="text-2xl md:text-3xl lg:text-3xl font-bold mb-6 uppercase">
@@ -100,70 +98,74 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
         
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Recognized for excellence and commitment to quality standards
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
         {/* Certificates Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          initial="hidden"
+          whileInView="show"
           viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: { staggerChildren: 0.15 },
+            },
+          }}
         >
-          {certificates.map((certificate) => (
+          {certificates.map((certificate, index) => (
             <motion.div
               key={certificate._id}
-              variants={cardVariants}
-              whileHover={{ 
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                show: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{
                 scale: 1.03,
                 y: -8,
                 transition: { duration: 0.3 }
               }}
-              className="group relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-500 hover:bg-emerald-500/10 hover:border-emerald-500/30 hover:shadow-2xl hover:shadow-emerald-500/20 cursor-pointer"
+              className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden cursor-pointer border border-gray-200 hover:border-teal-300"
               onClick={() => openModal(certificate)}
             >
-              {/* Background Effects */}
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-emerald-400/20 to-teal-400/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              
-              <div className="relative z-10 p-6">
-                {/* Certificate Image */}
-                <div className="relative mb-4 overflow-hidden rounded-xl">
-                  <div className="relative w-full h-48">
-                    <Image
-                      src={certificate.img}
-                      alt={certificate.name}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      priority={false}
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                      <ExternalLink className="w-4 h-4 text-white" />
-                    </div>
+              {/* Certificate Image */}
+              <div className="relative w-full h-64 overflow-hidden">
+                <Image
+                  src={certificate.img}
+                  alt={certificate.name}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300"></div>
+                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg">
+                    <ExternalLink className="w-5 h-5 text-gray-700" />
                   </div>
                 </div>
+              </div>
 
-                {/* Certificate Info */}
-                <div className="space-y-3">
-                  <h3 className="text-xl font-bold text-white group-hover:text-emerald-300 transition-colors duration-300">
-                    {certificate.name}
-                  </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed line-clamp-3">
-                    {certificate.description}
-                  </p>
-                  
-                  {/* Branch Badge */}
-                  <div className="flex items-center gap-2 pt-2">
-                    <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
-                    <span className="text-xs text-gray-500 uppercase tracking-wider">
-                      {certificate.branchId}
-                    </span>
-                  </div>
+              {/* Certificate Info */}
+              <div className="p-6">
+                <h3 className={`text-xl font-bold text-gray-900 mb-3 group-hover:text-teal-700 transition-colors duration-300 ${montserrat.className}`}>
+                  {certificate.name}
+                </h3>
+                <p className={`text-gray-600 leading-relaxed mb-4 line-clamp-3 ${montserrat.className}`}>
+                  {certificate.description}
+                </p>
+
+                {/* Branch Badge */}
+                <div className="flex items-center gap-2 pt-3 border-t border-gray-100">
+                  <div
+                    className="w-2 h-2 rounded-full"
+                    style={{ backgroundColor: getIconColor() }}
+                  ></div>
+                  <span className={`text-xs text-gray-500 uppercase tracking-wider ${montserrat.className}`}>
+                    {certificate.branchId}
+                  </span>
                 </div>
               </div>
             </motion.div>
@@ -179,9 +181,13 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <Award className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-400 mb-2">No Certificates Available</h3>
-            <p className="text-gray-500">Certificates will be displayed here when available.</p>
+            <Award className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <h3 className={`text-xl font-semibold text-gray-500 mb-2 ${montserrat.className}`}>
+              No Certificates Available
+            </h3>
+            <p className={`text-gray-400 ${montserrat.className}`}>
+              Certificates will be displayed here when available.
+            </p>
           </motion.div>
         )}
       </div>
@@ -197,10 +203,10 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
         >
           {/* Backdrop */}
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
-          
+
           {/* Modal Content */}
           <motion.div
-            className="relative bg-white/10 border border-white/20 rounded-2xl backdrop-blur-xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+            className="relative bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
@@ -209,17 +215,17 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
             {/* Close Button */}
             <button
               onClick={closeModal}
-              className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors duration-200"
+              className="absolute top-4 right-4 z-10 w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors duration-200 shadow-lg border border-gray-200"
             >
-              <X className="w-5 h-5 text-white" />
+              <X className="w-5 h-5 text-gray-700" />
             </button>
 
             {/* Modal Body */}
             <div className="p-6">
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-8">
                 {/* Image */}
                 <div className="relative overflow-hidden rounded-xl">
-                  <div className="relative w-full h-64">
+                  <div className="relative w-full h-80">
                     <Image
                       src={selectedCertificate.img}
                       alt={selectedCertificate.name}
@@ -231,21 +237,24 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
                 </div>
 
                 {/* Details */}
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <div>
-                    <h3 className="text-2xl font-bold text-white mb-2">
+                    <h3 className={`text-2xl font-bold text-gray-900 mb-4 ${montserrat.className}`}>
                       {selectedCertificate.name}
                     </h3>
-                    <p className="text-gray-300 leading-relaxed">
+                    <p className={`text-gray-600 leading-relaxed ${montserrat.className}`}>
                       {selectedCertificate.description}
                     </p>
                   </div>
 
-                  <div className="space-y-2 pt-4 border-t border-white/20">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
-                      <span className="text-sm text-gray-400">Comany: </span>
-                      <span className="text-sm text-white font-medium">
+                  <div className="space-y-3 pt-4 border-t border-gray-200">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-3 h-3 rounded-full"
+                        style={{ backgroundColor: getIconColor() }}
+                      ></div>
+                      <span className={`text-sm text-gray-500 ${montserrat.className}`}>Company: </span>
+                      <span className={`text-sm text-gray-900 font-medium ${montserrat.className}`}>
                         {selectedCertificate.branchId}
                       </span>
                     </div>
@@ -256,7 +265,7 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
           </motion.div>
         </motion.div>
       )}
-    </section>
+    </div>
   );
 };
 
