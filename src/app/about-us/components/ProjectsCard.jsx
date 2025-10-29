@@ -18,9 +18,9 @@ function ProjectCard({ setIsOpen, project, index, company }) {
   console.log(project)
   return (
     <div 
-      className='p-6'
+      className='p-6 w-full'
     >
-      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center">
+      <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center">
         <div className="w-full max-w-[300px]">
 
           <TiltedCard
@@ -30,16 +30,15 @@ function ProjectCard({ setIsOpen, project, index, company }) {
             containerHeight="300px"
             containerWidth="300px"
             imageHeight="300px"
-            imageWidth="250px"
+            imageWidth="260px"
             rotateAmplitude={12}
             scaleOnHover={1.2}
             showMobileWarning={false}
             showTooltip={true}
             displayOverlayContent={true}
             overlayContent={
-              <p className="tilted-card-demo-text">
-                {project.name}
-              </p>
+              <p className="text-lg m-4 text-white mb-3 font-semibold">{project.name}</p>
+
             }
           />
         </div>

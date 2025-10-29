@@ -798,11 +798,9 @@ function CompanyDetails({ companyData }) {
       {/* Certificates Section */}
       {certificates && certificates.length > 0 && (
         <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
-          <Certificates certificates={certificates} lColor="rgb(52, 211, 153)" rColor="rgb(52, 211, 153)" />
+          <Certificates certificates={certificates} lColor="" rColor="" />
         </section>
       )}
-
-
 
       {
         clients.length > 0 &&

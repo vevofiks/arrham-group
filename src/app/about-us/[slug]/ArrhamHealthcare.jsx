@@ -197,20 +197,21 @@ function ArrhamHealthcare() {
       </div>
 
       {/* What We Do Section */}
-      <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
+      <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto ">
         <div className="text-center mb-12">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className={`text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase mb-6 ${montserrat.className}`}
+            className={`text-2xl md:text-3xl lg:text-3xl font-bold uppercase mb-6 ${montserrat.className}`}
           >
-            <span className="text-white">Who </span>
             <span className="bg-gradient-to-r from-blue-400 to-teal-500 bg-clip-text text-transparent">
-              We Are
+             what we do
             </span>
+
           </motion.h2>
+          
 
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
@@ -277,16 +278,16 @@ function ArrhamHealthcare() {
               description: "Complete project execution from concept to handover, ensuring seamless integration and superior quality.",
               color: "blue",
               gradient: "from-blue-400 to-teal-500",
-              borderColor: "blue-400/20",
-              hoverBorder: "blue-400/50",
-              textColor: "blue-300"
+              borderColor: "teal-400/20",
+              hoverBorder: "teal-400/50",
+              textColor: "blue-400"
             },
             {
               icon: Sprout,
               title: "Sustainable Design",
               description: "Environmental consciousness integrated into every project with energy-efficient and eco-friendly solutions.",
               color: "teal",
-              gradient: "from-teal-500 to-blue-400",
+              gradient: "from-emerald-400 to-blue-400",
               borderColor: "teal-400/20",
               hoverBorder: "teal-400/50",
               textColor: "teal-300"
@@ -317,7 +318,7 @@ function ArrhamHealthcare() {
       </section>
 
       {/* Key Personnel Section */}
-      <section className="px-6 md:px-12 lg:px-16 py-16 bg-gradient-to-r from-gray-900/50 to-gray-800/50">
+      <section className="px-6 md:px-12 lg:px-16 py-16">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <motion.h2
@@ -325,11 +326,10 @@ function ArrhamHealthcare() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-6 ${montserrat.className}`}
+              className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 uppercase ${montserrat.className}`}
             >
-              <span className="text-white">Key </span>
               <span className="bg-gradient-to-r from-blue-400 to-teal-500 bg-clip-text text-transparent">
-                Personnel
+               Key Personnel
               </span>
             </motion.h2>
 
@@ -453,7 +453,7 @@ function ArrhamHealthcare() {
       </section> */}
 
       {/* Mission, Vision, Values */}
-      <section className="px-6 md:px-12 lg:px-16 py-16 bg-gradient-to-br from-gray-800/50 to-teal-900/30">
+      <section className="px-6 md:px-12 lg:px-16 py-16 ">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="grid grid-cols-1 lg:grid-cols-2 gap-8"
@@ -479,7 +479,7 @@ function ArrhamHealthcare() {
                 title: "Vision",
                 content: "Envision a future where design, construction, and healthcare environments converge to uplift communities. Through innovation and specialized partnerships, we aim to be the partner of choice for quality, compliance, and long-term performance.",
                 color: "blue-400",
-                borderColor: "blue-400/20"
+                borderColor: "teal-400/20"
               },
               {
                 title: "Values",
@@ -491,7 +491,7 @@ function ArrhamHealthcare() {
                 title: "Sustainability",
                 content: "Engineering healthcare environments that minimize environmental impact while maximizing human well-being through energy-efficient systems and smart automation.",
                 color: "blue-400",
-                borderColor: "blue-400/20",
+                borderColor: "teal-400/20",
                 tags: ["Renewable Energy", "Water Efficiency", "Low Emissions"]
               }
             ].map((item, idx) => (
@@ -504,7 +504,7 @@ function ArrhamHealthcare() {
                 transition={{ duration: 0.6 }}
                 className={`bg-white/5 backdrop-blur-md rounded-3xl p-8 md:p-10 border border-${item.borderColor} hover:border-${item.color}/30 transition-colors duration-300 shadow-lg`}
               >
-                <h2 className={`text-3xl md:text-4xl font-bold mb-6 text-${item.color} ${montserrat.className}`}>
+                <h2 className={`text-1xl md:text-3xl lg:text-3xl font-bold mb-6 text-${item.color} ${montserrat.className}`}>
                   {item.title}
                 </h2>
                 <p className={`text-lg text-gray-300 leading-relaxed mb-4 ${montserrat.className}`}>
@@ -551,14 +551,21 @@ function ArrhamHealthcare() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className={`mb-12 text-center text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase ${montserrat.className}`}
+              className={`mb-8 text-center text-2xl md:text-3xl lg:text-3xl font-bold uppercase ${montserrat.className}`}
 
             >
               <span className={`bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent`}>
                 Our Projects
               </span>
 
-            </motion.h2>
+          </motion.h2>
+              <motion.div
+                initial={{ opacity: 0, scaleX: 0 }}
+                whileInView={{ opacity: 1, scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="w-24 h-1 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full"
+            />
             
               <motion.div
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
@@ -585,12 +592,14 @@ function ArrhamHealthcare() {
                     transition={{ duration: 0.6 }}
                     className="cursor-pointer"
                   >
+
                     <ProjectCard
                       setIsOpen={setIsOpen}
                       project={project}
                       index={projectIdx}
                       company={companyData}
                     />
+
                   </motion.div>
                 ))}
               </motion.div>
@@ -602,12 +611,18 @@ function ArrhamHealthcare() {
           <div className="max-w-7xl mx-auto">
             {/* Section Header */}
             <div className="text-center mb-16">
-              <h2 className="text-5xl font-bold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent mb-4">
+              <h2 className="text-2xl md:text-3xl lg:text-3xl font-bold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent mb-4">
                 Our Brands
               </h2>
 
-              <div className="w-24 h-1 bg-emerald-400 mx-auto mt-6 rounded-full shadow-lg shadow-emerald-500/50"></div>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-24 h-1 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full"
+            />           
+           </div>
 
             {/* Brand Logos Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
