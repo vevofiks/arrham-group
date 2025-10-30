@@ -27,7 +27,7 @@ const KeyPersonnel = ({ personnels = [], colors = ['from-teal-600', 'to-blue-600
 
         {/* Personnel Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 "
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
@@ -50,7 +50,7 @@ const KeyPersonnel = ({ personnels = [], colors = ['from-teal-600', 'to-blue-600
               className={
                   isHealthcare
                     ? 'group relative rounded-3xl p-3 border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300'
-                    : 'group relative rounded-3xl p-8 bg-transparent border border-transparent text-white transition-all duration-300 hover:shadow-lg overflow-hidden'
+                    : 'group relative rounded-3xl p-8 bg-transparent border border-gray-200 text-white transition-all duration-300 hover:shadow-lg overflow-hidden'
                 }
             >
               {/* Top accent bar for transparent variant */}
