@@ -1,36 +1,48 @@
-'use client';
-import { motion } from 'motion/react';
-import { useState } from 'react';
-import { X, ExternalLink, Award } from 'lucide-react';
-import Image from 'next/image';
+"use client";
+import { motion } from "motion/react";
+import { useState } from "react";
+import { X, ExternalLink, Award } from "lucide-react";
+import Image from "next/image";
 
-const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
+import { Montserrat as MontserratFont } from "next/font/google";
+
+const montserrat = MontserratFont({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+});
+
+const Certificates = ({
+  certificates = [],
+  lColor = "",
+  rColor = "",
+  id = "healthcare",
+}) => {
   const [selectedCertificate, setSelectedCertificate] = useState(null);
-  const hasGradient = Boolean(lColor && rColor)
+  const hasGradient = Boolean(lColor && rColor);
 
   const cardVariants = {
-    initial: { 
-      opacity: 0, 
+    initial: {
+      opacity: 0,
       y: 30,
-      scale: 0.95
+      scale: 0.95,
     },
-    animate: { 
-      opacity: 1, 
+    animate: {
+      opacity: 1,
       y: 0,
       scale: 1,
       transition: {
         duration: 0.5,
-        ease: "easeOut"
-      }
-    }
+        ease: "easeOut",
+      },
+    },
   };
 
   const staggerContainer = {
     animate: {
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const openModal = (certificate) => {
@@ -52,30 +64,20 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <motion.div
-            className="inline-flex items-center gap-2 mb-4"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
+          <h2
+            className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 uppercase ${montserrat.className}`}
           >
-            <Award className="w-6 h-6 text-emerald-400" />
-            <span className="text-emerald-400 font-semibold text-sm uppercase tracking-wider">
-              Certifications
-            </span>
-          </motion.div>
-          <h2 className="text-2xl md:text-3xl lg:text-3xl font-bold mb-6 uppercase">
             {hasGradient ? (
               <span
                 className="text-transparent bg-clip-text font-extrabold"
-                style={{ backgroundImage: `linear-gradient(to right, ${lColor}, ${rColor})` }}
+                style={{
+                  backgroundImage: `linear-gradient(to right, ${lColor}, ${rColor})`,
+                }}
               >
                 Our Certifications
               </span>
             ) : (
-              <span className="text-emerald-400">
-                Our Certifications
-              </span>
+              <span className="text-emerald-400">Our Certifications</span>
             )}
           </h2>
           {lColor && rColor && lColor != "rgb(52, 211, 153)" ? (
@@ -84,26 +86,24 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
               whileInView={{ opacity: 1, scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-24 h-1 mb-8 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full"
+              className="w-24 h-1 mb-8 bg-linear-to-r from-teal-400 to-blue-500 mx-auto rounded-full"
             />
-          ): (
-          <motion.div
-            initial={{ opacity: 0, scaleX: 0 }}
-            whileInView={{ opacity: 1, scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-24 h-1 mb-8 flex mx-auto bg-emerald-400 rounded-full"
-          />
-          )
-        
-        }
-        
+          ) : (
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-24 h-1 mb-8 flex mx-auto bg-emerald-400 rounded-full"
+            />
+          )}
+
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Recognized for excellence and commitment to quality standards
           </p>
         </motion.div>
 
-{/* Certificates Grid */}
+        {/* Certificates Grid */}
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           variants={staggerContainer}
@@ -115,18 +115,18 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
             <motion.div
               key={certificate._id}
               variants={cardVariants}
-              whileHover={{ 
+              whileHover={{
                 scale: 1.03,
                 y: -8,
-                transition: { duration: 0.3 }
+                transition: { duration: 0.3 },
               }}
               className="group relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-500 hover:bg-emerald-500/10 hover:border-emerald-500/30 hover:shadow-2xl hover:shadow-emerald-500/20 cursor-pointer"
               onClick={() => openModal(certificate)}
             >
               {/* Background Effects */}
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-emerald-400/20 to-teal-400/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              
+              <div className="absolute inset-0 bg-linear-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute -top-4 -right-4 w-20 h-20 bg-linear-to-br from-emerald-400/20 to-teal-400/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
               <div className="relative z-10 p-6">
                 {/* Certificate Image */}
                 <div className="relative mb-4 overflow-hidden rounded-xl">
@@ -140,7 +140,7 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
                       priority={false}
                     />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
                       <ExternalLink className="w-4 h-4 text-white" />
@@ -150,13 +150,21 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
 
                 {/* Certificate Info */}
                 <div className="space-y-3">
-                  <h3 className="text-xl font-bold text-white group-hover:text-emerald-300 transition-colors duration-300">
+                  <h3
+                    className={`text-xl font-bold ${
+                      id === "healthcare" ? "text-black" : "text-white"
+                    } group-hover:text-emerald-300 transition-colors duration-300`}
+                  >
                     {certificate.name}
                   </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed line-clamp-3">
+                  <p
+                    className={`${
+                      id === "healthcare" ? "text-gray-700" : "text-gray-400"
+                    } text-sm leading-relaxed line-clamp-3"`}
+                  >
                     {certificate.description}
                   </p>
-                  
+
                   {/* Branch Badge */}
                   <div className="flex items-center gap-2 pt-2">
                     <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
@@ -180,13 +188,17 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
             viewport={{ once: true }}
           >
             <Award className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-400 mb-2">No Certificates Available</h3>
-            <p className="text-gray-500">Certificates will be displayed here when available.</p>
+            <h3 className="text-xl font-semibold text-gray-400 mb-2">
+              No Certificates Available
+            </h3>
+            <p className="text-gray-500">
+              Certificates will be displayed here when available.
+            </p>
           </motion.div>
         )}
       </div>
 
-{/* Modal */}
+      {/* Modal */}
       {selectedCertificate && (
         <motion.div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -197,7 +209,7 @@ const Certificates = ({ certificates = [] , lColor = "" , rColor = "" }) => {
         >
           {/* Backdrop */}
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
-          
+
           {/* Modal Content */}
           <motion.div
             className="relative bg-white/10 border border-white/20 rounded-2xl backdrop-blur-xl max-w-4xl w-full max-h-[90vh] overflow-hidden"

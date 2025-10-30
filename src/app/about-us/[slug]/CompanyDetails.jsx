@@ -31,7 +31,7 @@ function CompanyDetails({ companyData }) {
 
   const openModal = (index, projectDetails) => {
     setIsOpen(true);
-    console.log('project', projectDetails)
+    console.log("project", projectDetails);
     setSelectedProject(projectDetails);
   };
 
@@ -47,7 +47,9 @@ function CompanyDetails({ companyData }) {
   useEffect(() => {
     const fetchKeyPersonnel = async () => {
       try {
-        const response = await fetch(`/api/key-personnel?branchId=${companyData.id}`);
+        const response = await fetch(
+          `/api/key-personnel?branchId=${companyData.id}`
+        );
         const data = await response.json();
         setKeyPersonnel(Array.isArray(data) ? data : []);
       } catch (error) {
@@ -65,7 +67,9 @@ function CompanyDetails({ companyData }) {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch(`/api/projects?branchId=${companyData.id}`);
+        const response = await fetch(
+          `/api/projects?branchId=${companyData.id}`
+        );
         const data = await response.json();
         setProjects(data);
       } catch (error) {
@@ -133,7 +137,9 @@ function CompanyDetails({ companyData }) {
   useEffect(() => {
     const fetchCertificates = async () => {
       try {
-        const response = await fetch(`/api/certifications?branchId=${companyData.id}`);
+        const response = await fetch(
+          `/api/certifications?branchId=${companyData.id}`
+        );
         const data = await response.json();
         setCertificates(Array.isArray(data) ? data : []);
       } catch (error) {
@@ -149,13 +155,15 @@ function CompanyDetails({ companyData }) {
 
   useEffect(() => {
     const fetchClients = async () => {
-      console.log('api call has been created for client')
+      console.log("api call has been created for client");
       try {
         const response = await fetch(`/api/clients?branchId=${companyData.id}`);
         const data = await response.json();
-        console.log(data, 'clients datas')
+        console.log(data, "clients datas");
         if (Array.isArray(data)) {
-          const images = data.flatMap(item => Array.isArray(item.images) ? item.images : []);
+          const images = data.flatMap((item) =>
+            Array.isArray(item.images) ? item.images : []
+          );
           setClients(images);
         } else {
           setClients([]);
@@ -173,7 +181,8 @@ function CompanyDetails({ companyData }) {
   const toExternalUrl = (url) => {
     if (!url) return "";
     const trimmed = url.trim();
-    if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) return trimmed;
+    if (trimmed.startsWith("http://") || trimmed.startsWith("https://"))
+      return trimmed;
     return `https://${trimmed}`;
   };
 
@@ -187,11 +196,13 @@ function CompanyDetails({ companyData }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-
-
         className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 ${montserrat.className}`}
       >
-        <span className={`bg-gradient-to-r from-${color}-400 ${companyData.color?.[1] || 'to-blue-600'} bg-clip-text text-transparent uppercase`}>
+        <span
+          className={`bg-linear-to-r from-${color}-400 ${
+            companyData.color?.[1] || "to-blue-600"
+          } bg-clip-text text-transparent uppercase`}
+        >
           {title}
         </span>
       </motion.h2>
@@ -272,7 +283,13 @@ function CompanyDetails({ companyData }) {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1, delay: 0.3 }}
-                className={`bg-gradient-to-r ${companyData.color?.[0] || 'from-blue-400'} ${companyData.color?.[1] || 'to-purple-600'} bg-clip-text text-transparent text-2xl sm:text-3xl md:text-5xl lg:text-4xl xl:text-5xl font-extrabold leading-snug ${montserrat.className}`}
+                className={`bg-linear-to-r ${
+                  companyData.color?.[0] || "from-blue-400"
+                } ${
+                  companyData.color?.[1] || "to-purple-600"
+                } bg-clip-text text-transparent text-2xl sm:text-3xl md:text-5xl lg:text-4xl xl:text-5xl font-extrabold leading-snug ${
+                  montserrat.className
+                }`}
               >
                 {mainName}
               </motion.h1>
@@ -289,7 +306,8 @@ function CompanyDetails({ companyData }) {
                   </motion.h2>
                 )}
 
-                {(companyData.id === "arrham-trading-bahrain" || companyData.id === "arrham-contracting-ksa") && (
+                {(companyData.id === "arrham-trading-bahrain" ||
+                  companyData.id === "arrham-contracting-ksa") && (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -336,7 +354,11 @@ function CompanyDetails({ companyData }) {
               transition={{ duration: 0.6 }}
               className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 ${montserrat.className} `}
             >
-              <span className={`bg-gradient-to-r from-emerald-400 ${companyData.color?.[1] || 'to-blue-600'} bg-clip-text text-transparent uppercase`}>
+              <span
+                className={`bg-linear-to-r from-emerald-400 ${
+                  companyData.color?.[1] || "to-blue-600"
+                } bg-clip-text text-transparent uppercase`}
+              >
                 what we do
               </span>
             </motion.h2>
@@ -348,8 +370,6 @@ function CompanyDetails({ companyData }) {
               transition={{ duration: 0.8, delay: 0.2 }}
               className={`w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8`}
             />
-
-
           </div>
 
           <motion.div
@@ -359,7 +379,9 @@ function CompanyDetails({ companyData }) {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="max-w-4xl mx-auto"
           >
-            <p className={`text-lg md:text-xl leading-relaxed text-gray-300 text-left ${montserrat.className}`}>
+            <p
+              className={`text-lg md:text-xl leading-relaxed text-gray-300 text-left ${montserrat.className}`}
+            >
               {companyData.description}
             </p>
           </motion.div>
@@ -390,7 +412,9 @@ function CompanyDetails({ companyData }) {
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                     className="bg-gray-900/60 border border-gray-700 p-6 rounded-xl text-gray-200 shadow-lg hover:shadow-xl transition-shadow duration-300"
                   >
-                    <p className={`text-left ${montserrat.className}`}>{service}</p>
+                    <p className={`text-left ${montserrat.className}`}>
+                      {service}
+                    </p>
                   </motion.div>
                 ))}
               </div>
@@ -446,7 +470,9 @@ function CompanyDetails({ companyData }) {
                     className="flex items-start gap-3 p-4 rounded-xl bg-gray-900/60 border border-gray-700 text-gray-200 hover:bg-gray-900/80 transition-colors duration-300"
                   >
                     <span className="text-emerald-400 text-xl mt-1">✔</span>
-                    <span className={`text-left ${montserrat.className}`}>{advantage}</span>
+                    <span className={`text-left ${montserrat.className}`}>
+                      {advantage}
+                    </span>
                   </motion.div>
                 ))}
               </div>
@@ -509,13 +535,18 @@ function CompanyDetails({ companyData }) {
                 transition={{ duration: 0.6 }}
                 className="p-6 border border-gray-700 rounded-xl bg-gray-900/60 shadow-lg hover:shadow-xl transition-shadow duration-300"
               >
-                <h3 className={`text-xl font-bold mb-4 text-center text-gray-100 ${montserrat.className}`}>
+                <h3
+                  className={`text-xl font-bold mb-4 text-center text-gray-100 ${montserrat.className}`}
+                >
                   {service.title}
                 </h3>
 
                 <div className="space-y-3">
                   {service.description.map((point, pIdx) => (
-                    <p key={pIdx} className={`text-gray-300 text-left leading-relaxed ${montserrat.className}`}>
+                    <p
+                      key={pIdx}
+                      className={`text-gray-300 text-left leading-relaxed ${montserrat.className}`}
+                    >
                       {point}
                     </p>
                   ))}
@@ -546,7 +577,10 @@ function CompanyDetails({ companyData }) {
                       transition={{ duration: 0.5, delay: idx * 0.1 }}
                       className={`flex items-start gap-3 text-left text-gray-300 leading-relaxed ${montserrat.className}`}
                     >
-                      <CircleCheckBig className="text-teal-400 flex-shrink-0 mt-1" size={20} />
+                      <CircleCheckBig
+                        className="text-teal-400 shrink-0 mt-1"
+                        size={20}
+                      />
                       <span>{advantage}</span>
                     </motion.li>
                   ))}
@@ -590,12 +624,17 @@ function CompanyDetails({ companyData }) {
                   transition={{ duration: 0.6 }}
                   className="bg-gray-900/60 border border-gray-700 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
                 >
-                  <h3 className={`text-xl font-semibold text-emerald-300 mb-4 ${montserrat.className}`}>
+                  <h3
+                    className={`text-xl font-semibold text-emerald-300 mb-4 ${montserrat.className}`}
+                  >
                     {service.title}
                   </h3>
                   <ul className="space-y-2 text-left">
                     {service.points.map((point, i) => (
-                      <li key={i} className={`text-gray-200 leading-relaxed flex items-start gap-2 ${montserrat.className}`}>
+                      <li
+                        key={i}
+                        className={`text-gray-200 leading-relaxed flex items-start gap-2 ${montserrat.className}`}
+                      >
                         <span className="text-emerald-400 mt-2">•</span>
                         <span>{point}</span>
                       </li>
@@ -655,7 +694,9 @@ function CompanyDetails({ companyData }) {
                     className="flex items-start gap-3 p-4 rounded-xl bg-gray-900/60 border border-gray-700 text-gray-200 hover:bg-gray-900/80 transition-colors duration-300"
                   >
                     <span className="text-emerald-400 text-xl mt-1">⚡</span>
-                    <span className={`text-left ${montserrat.className}`}>{adv}</span>
+                    <span className={`text-left ${montserrat.className}`}>
+                      {adv}
+                    </span>
                   </motion.div>
                 ))}
               </div>
@@ -677,8 +718,12 @@ function CompanyDetails({ companyData }) {
                 transition={{ duration: 0.6 }}
                 className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 ${montserrat.className}`}
               >
-                <span className={`bg-gradient-to-r from-emerald-400 ${companyData.color?.[1] || 'to-blue-600'} bg-clip-text text-transparent uppercase`}>
-                  KEY PERSONNELS
+                <span
+                  className={`bg-linear-to-r from-emerald-400 ${
+                    companyData.color?.[1] || "to-blue-600"
+                  } bg-clip-text text-transparent uppercase`}
+                >
+                  KEY PERSONNEL
                 </span>
               </motion.h2>
 
@@ -691,10 +736,15 @@ function CompanyDetails({ companyData }) {
               />
             </div>
 
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto text-center my-8">
+              The skilled professionals whose leadership and expertise drive our
+              success.
+            </p>
+
             {/* Key Personnel Component */}
             <KeyPersonnel
               personnels={keyPersonnel}
-              colors={companyData.color || ['from-teal-600', 'to-blue-600']}
+              colors={companyData.color || ["from-teal-600", "to-blue-600"]}
               companyId={companyData.id}
             />
           </div>
@@ -703,13 +753,22 @@ function CompanyDetails({ companyData }) {
 
       {/* Partners */}
       {partners.length > 0 && (
-        <Partners partnerships={partners} lColor="teal-600" rColor="blue-600" id="healthcare" />
+        <Partners
+          partnerships={partners}
+          lColor={companyData.color?.[0] ? undefined : "rgb(52, 211, 153)"}
+          rColor={companyData.color?.[1] ? undefined : "rgb(52, 211, 153)"}
+          id={companyData.id}
+        />
       )}
 
       {/* Brands */}
       {brands.length > 0 && (
         <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
           <SectionHeader title="Our Brands" />
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto text-center mb-8">
+            Showcasing trusted names that represent our commitment to quality
+            and innovation.
+          </p>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {brands.map((brand) => (
@@ -742,7 +801,7 @@ function CompanyDetails({ companyData }) {
                   <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
                 </div>
 
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-400/0 to-emerald-600/0 group-hover:from-emerald-400/10 group-hover:to-emerald-600/10 transition-all duration-300 pointer-events-none"></div>
+                <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-emerald-400/0 to-emerald-600/0 group-hover:from-emerald-400/10 group-hover:to-emerald-600/10 transition-all duration-300 pointer-events-none"></div>
               </a>
             ))}
           </div>
@@ -753,6 +812,10 @@ function CompanyDetails({ companyData }) {
       {projects && projects.length > 0 && (
         <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
           <SectionHeader title="Our Projects" />
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto text-center mb-8">
+            A portfolio reflecting our expertise, precision, and pursuit of
+            excellence.
+          </p>
 
           <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
@@ -793,13 +856,21 @@ function CompanyDetails({ companyData }) {
       {/* Certificates Section */}
       {certificates && certificates.length > 0 && (
         <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
-          <Certificates certificates={certificates} lColor="rgb(52, 211, 153)" rColor='rgb(52, 211, 153)'/>
+          <Certificates
+            certificates={certificates}
+            lColor="rgb(52, 211, 153)"
+            rColor="rgb(52, 211, 153)"
+          />
         </section>
       )}
 
       {/* Clients */}
       {clients.length > 0 && (
-        <Clients imageLogos={clients} lColor="rgb(52, 211, 153)" rColor="rgb(52, 211, 153)" />
+        <Clients
+          imageLogos={clients}
+          lColor="rgb(52, 211, 153)"
+          rColor="rgb(52, 211, 153)"
+        />
       )}
 
       {/* Modal */}
