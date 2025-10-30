@@ -12,6 +12,7 @@ import Partners from '../components/Partners';
 import RollingGallery from '@/components/RollingGallery';
 import Certificates from '../components/Certificates';
 import Clients from '@/app/components/Clients';
+import KeyPersonnel from '../components/KeyPersonnel';
 
 const montserrat = MontserratFont({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ function ArrhamHealthcare() {
   const [certificates, setCertificates] = useState([]);
   const [brands, setBrands] = useState([]);
   const [clients, setClients] = useState([]);
+  const [keyPersonnel, setKeyPersonnel] = useState([]);
 
 
   async function getPartnerships() {
@@ -38,16 +40,34 @@ function ArrhamHealthcare() {
       const res = await fetch(`/api/partners?branchId=${companyData.id}`);
       if (!res.ok) throw new Error(`Failed to fetch partnerships: ${res.status}`);
       const data = await res.json();
-      setPartnerships(Array.isArray(data) && data.length ? data : samplePartnerships);
+      console.log('Fetched partnerships:', data);
+      setPartnerships(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Error fetching partnerships, falling back to sample:', error);
-      setPartnerships(samplePartnerships);
     }
   }
 
   useEffect(() => {
     getPartnerships();
   }, []);
+
+  // Fetch key personnel for Arrham Healthcare
+  useEffect(() => {
+    const fetchKeyPersonnel = async () => {
+      try {
+        const res = await fetch(`/api/key-personnel?branchId=${companyData.id}`);
+        const data = await res.json();
+        setKeyPersonnel(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error('Error fetching key personnel:', error);
+        setKeyPersonnel([]);
+      }
+    };
+
+    if (companyData?.id) {
+      fetchKeyPersonnel();
+    }
+  }, [companyData?.id]);
 
   // Fetch certificates data
   useEffect(() => {
@@ -174,7 +194,7 @@ function ArrhamHealthcare() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.6 }}
-              className={`text-lg md:text-xl lg:text-2xl font-medium text-left text-gray-100 leading-relaxed ${montserrat.className}`}
+              className={`text-2xl md:text-3xl lg:text-4xl font-extrabold mb-6 text-white ${montserrat.className}`}
             >
               {subName}
             </motion.h2>
@@ -190,21 +210,21 @@ function ArrhamHealthcare() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className={`text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 ${montserrat.className}`}
+        className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 ${montserrat.className}`}
           >
-     
+
             <span className="bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
-            Who We Are
+              Who We Are
             </span>
           </motion.h2>
 
           <motion.div
-              initial={{ opacity: 0, scaleX: 0 }}
-              whileInView={{ opacity: 1, scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-24 h-1 bg-teal-400 mx-auto rounded-full"
-            />
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-24 h-1 bg-teal-400 mx-auto rounded-full"
+          />
         </div>
 
         <motion.div
@@ -298,21 +318,25 @@ function ArrhamHealthcare() {
       </section>
 
       {/* Key Personnel Section */}
+
+      {
+        keyPersonnel.length > 0 && (
+
       <section className="px-6 md:px-12 lg:px-16 py-16  ">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className={`text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 ${montserrat.className}`}
-          >
-     
-            <span className="bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent uppercase">
-            Key Personnels
-            </span>
-          </motion.h2>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 ${montserrat.className}`}
+            >
+
+              <span className="bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent uppercase">
+                Key Personnels
+              </span>
+            </motion.h2>
 
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
@@ -328,25 +352,17 @@ function ArrhamHealthcare() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex justify-center"
+            className=""
           >
-            <div className="bg-white rounded-3xl p-12 border border-gray-200 max-w-md hover:border-teal-300 transition-colors duration-300 shadow">
-              <div className="w-32 h-32 bg-gradient-to-br from-teal-400 to-blue-500 rounded-full flex items-center justify-center mb-8 mx-auto text-4xl font-bold shadow-lg">
-                F
-              </div>
-              <h3 className={`text-3xl font-bold mb-2 text-teal-700 ${montserrat.className}`}>
-                Faisal Al Mansoor
-              </h3>
-              <p className={`text-xl text-blue-700 mb-4 ${montserrat.className}`}>
-                Country Operations Head - Bahrain
-              </p>
-              <p className={`text-gray-700 ${montserrat.className}`}>
-                12+ years in fit-out and retail verticals
-              </p>
-            </div>
+            <KeyPersonnel
+              personnels={keyPersonnel}
+              colors={['from-emerald-400', 'to-blue-400']}
+              companyId={companyData?.id}
+            />
           </motion.div>
         </div>
       </section>
+      )}
 
       {/* Who We Are Section */}
       {/* <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
@@ -485,7 +501,8 @@ function ArrhamHealthcare() {
                 transition={{ duration: 0.6 }}
                 className={`bg-white rounded-3xl p-8 md:p-10 border border-gray-200 hover:border-teal-300 transition-colors duration-300 shadow`}
               >
-                <h2 className={`text-3xl md:text-4xl font-bold mb-6 text-teal-700 ${montserrat.className}`}>
+                <h2 className={`text-2xl md:text-3xl lg:text-4xl font-extrabold mb-6 ${montserrat.className}`}
+                >
                   {item.title}
                 </h2>
                 <p className={`text-lg text-gray-700 leading-relaxed mb-4 ${montserrat.className}`}>
@@ -521,24 +538,24 @@ function ArrhamHealthcare() {
         {/* Certificates Section */}
         {certificates && certificates.length > 0 && (
           <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
-            <Certificates certificates={certificates} lColor="teal-600" rColor="blue-600" />
+            <Certificates certificates={certificates} lColor="rgb(13, 148, 136)" rColor="rgb(37, 99, 235)" />
           </section>
         )}
 
         {projects && projects.length > 0 && (
           <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
             <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className={`text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 ${montserrat.className}`}
-          >
-     
-            <span className="bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent uppercase">
-            Our Projects
-            </span>
-          </motion.h2>
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 ${montserrat.className}`}
+            >
+
+              <span className="bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent uppercase">
+                Our Projects
+              </span>
+            </motion.h2>
 
             <motion.div
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
@@ -582,7 +599,8 @@ function ArrhamHealthcare() {
           <div className="max-w-7xl mx-auto">
             {/* Section Header */}
             <div className="text-center mb-16">
-              <h2 className="text-5xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent mb-4">
+
+              <h2 className="text-2xl md:text-3xl lg:text-3xl font-extrabold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent mb-4">
                 Our Brands
               </h2>
 
@@ -630,7 +648,7 @@ function ArrhamHealthcare() {
 
         {/* Clients Section */}
         {clients.length > 0 && (
-          <Clients imageLogos={clients} lColor="#34d399" rColor="#60a5fa" />)}
+          <Clients imageLogos={clients} lColor="#34d399" rColor="#60a5fa" id='healthcare' />)}
       </section>
 
       {/* <section className="px-6 md:px-12 lg:px-16 py-16">
