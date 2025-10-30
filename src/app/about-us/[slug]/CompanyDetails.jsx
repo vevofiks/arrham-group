@@ -187,7 +187,9 @@ function CompanyDetails({ companyData }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className={`text-2xl md:text-3xl lg:text-4xl font-extrabold mb-6 ${montserrat.className}`}
+
+
+        className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 ${montserrat.className}`}
       >
         <span className={`bg-gradient-to-r from-${color}-400 ${companyData.color?.[1] || 'to-blue-600'} bg-clip-text text-transparent uppercase`}>
           {title}
@@ -224,7 +226,7 @@ function CompanyDetails({ companyData }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className={`text-2xl md:text-3xl font-bold text-${color}-400 mb-4 ${montserrat.className}`}
+        className={`text-2xl md:text-3xl font-bold text-${color}-400 mb-4 ${montserrat.className} uppercase`}
       >
         {title}
       </motion.h3>
@@ -260,7 +262,7 @@ function CompanyDetails({ companyData }) {
                 initial={{ opacity: 0, y: -40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-100 ${montserrat.className}`}
+                className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-100 ${montserrat.className} `}
               >
                 Welcome to
               </motion.h1>
@@ -281,7 +283,7 @@ function CompanyDetails({ companyData }) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.6 }}
-                    className={`text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-medium text-gray-300 leading-relaxed max-w-xl ${montserrat.className}`}
+                    className={`text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-medium text-gray-300 leading-relaxed max-w-xl ${montserrat.className} uppercase`}
                   >
                     {subName}
                   </motion.h2>
@@ -326,10 +328,29 @@ function CompanyDetails({ companyData }) {
       {/* What We Do Section */}
       {companyData.description && (
         <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
-          <SectionHeader
-            title="What We Do"
-            description={null}
-          />
+          <div className="text-center mb-12">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 ${montserrat.className} `}
+            >
+              <span className={`bg-gradient-to-r from-emerald-400 ${companyData.color?.[1] || 'to-blue-600'} bg-clip-text text-transparent uppercase`}>
+                what we do
+              </span>
+            </motion.h2>
+
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className={`w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8`}
+            />
+
+
+          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -654,10 +675,10 @@ function CompanyDetails({ companyData }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className={`text-2xl md:text-3xl lg:text-4xl font-extrabold mb-6 ${montserrat.className}`}
+                className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 ${montserrat.className}`}
               >
                 <span className={`bg-gradient-to-r from-emerald-400 ${companyData.color?.[1] || 'to-blue-600'} bg-clip-text text-transparent uppercase`}>
-                  KEY PERSONNEL
+                  KEY PERSONNELS
                 </span>
               </motion.h2>
 
@@ -674,6 +695,7 @@ function CompanyDetails({ companyData }) {
             <KeyPersonnel
               personnels={keyPersonnel}
               colors={companyData.color || ['from-teal-600', 'to-blue-600']}
+              companyId={companyData.id}
             />
           </div>
         </section>
@@ -681,7 +703,7 @@ function CompanyDetails({ companyData }) {
 
       {/* Partners */}
       {partners.length > 0 && (
-        <Partners partnerships={partners} />
+        <Partners partnerships={partners} lColor="teal-600" rColor="blue-600" id="healthcare" />
       )}
 
       {/* Brands */}
@@ -771,13 +793,12 @@ function CompanyDetails({ companyData }) {
       {/* Certificates Section */}
       {certificates && certificates.length > 0 && (
         <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
-          <Certificates certificates={certificates} lColor="" rColor="" />
+          <Certificates certificates={certificates} lColor="rgb(52, 211, 153)" rColor='rgb(52, 211, 153)'/>
         </section>
       )}
 
-
-      {
-        clients.length > 0 &&(
+      {/* Clients */}
+      {clients.length > 0 && (
         <Clients imageLogos={clients} lColor="rgb(52, 211, 153)" rColor="rgb(52, 211, 153)" />
       )}
 

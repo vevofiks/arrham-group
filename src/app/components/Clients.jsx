@@ -4,7 +4,7 @@ import LogoLoop from "@/components/LogoLoop";
 import React from "react";
 import { motion } from "motion/react";
 
-const Clients = ({ imageLogos, lColor = "", rColor = "" }) => {
+const Clients = ({ imageLogos, lColor = "", rColor = "", id="" }) => {
   // if you pass lColor and rColor they will be used as a right-to-left gradient (to left)
   const hasGradient = Boolean(lColor && rColor)
 
@@ -58,12 +58,12 @@ const Clients = ({ imageLogos, lColor = "", rColor = "" }) => {
             pauseOnHover={true}
             scaleOnHover
             fadeOut
-            fadeOutColor="#000000"
+            fadeOutColor={id === "healthcare" ? "FFFFFF" : "#000000" }
             ariaLabel="Technology partners"
           />
 
-          <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-black to-transparent" />
-          <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-black to-transparent" />
+          <div className={`pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r ${id === "healthcare" ? "from-transparent" :  "from-black"} to-transparent`} />
+          <div className={`pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l ${id === "healthcare" ? "from-transparent" :  "from-black"} to-transparent`} />
         </div>
       </div>
     </section>
