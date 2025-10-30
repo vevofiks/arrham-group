@@ -16,14 +16,13 @@ import {
 //   "/works/work7.jpg",
 // ];
 
-
 const RollingGallery = ({
   companyId,
   autoplay = false,
   pauseOnHover = false,
   images = [],
 }) => {
-  const [works , setWorks] = useState([])
+  const [works, setWorks] = useState([]);
   const [isScreenSizeSm, setIsScreenSizeSm] = useState(
     window.innerWidth <= 640
   );
@@ -33,32 +32,32 @@ const RollingGallery = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-    useEffect(() => {
-      const fetchWorks = async () => {
-        try {
-          const res = await fetch(`/api/gallery?branchId=${companyId}`);
-          const result = await res.json();
+  useEffect(() => {
+    const fetchWorks = async () => {
+      try {
+        const res = await fetch(`/api/gallery?branchId=${companyId}`);
+        const result = await res.json();
 
-          if (result.success && result.data && result.data.images?.length > 0) {
-            const images = result.data.images.map((img, index) => ({
-              id: `${result.data._id}-${index}`,
-              image: img,
-              height: 250 + Math.floor(Math.random() * 100),
-            }));
-            setWorks(images);
-          } else {
-            setWorks([]);
-          }
-        } catch (error) {
-          console.error("Error while fetching works:", error);
+        if (result.success && result.data && result.data.images?.length > 0) {
+          const images = result.data.images.map((img, index) => ({
+            id: `${result.data._id}-${index}`,
+            image: img,
+            height: 250 + Math.floor(Math.random() * 100),
+          }));
+          setWorks(images);
+        } else {
           setWorks([]);
         }
-      };
+      } catch (error) {
+        console.error("Error while fetching works:", error);
+        setWorks([]);
+      }
+    };
 
-      if (companyId) fetchWorks();
-      else setWorks([]);
-    }, [companyId]);
-    console.log(works,'works data')
+    if (companyId) fetchWorks();
+    else setWorks([]);
+  }, [companyId]);
+  console.log(works, "works data");
   images = works.length > 0 ? works : IMGS;
   const cylinderWidth = isScreenSizeSm ? 1200 : 1800;
   const faceCount = images.length;
@@ -130,21 +129,21 @@ const RollingGallery = ({
   return (
     <div className="relative h-[500px] w-full overflow-hidden">
       <div
-        className="absolute top-0 left-0 h-full w-[48px] z-10"
+        className="absolute top-0 left-0 h-full w-12 z-10"
         style={{
           background:
             "linear-gradient(to left, rgba(0,0,0,0) 0%, #060010 100%)",
         }}
       />
       <div
-        className="absolute top-0 right-0 h-full w-[48px] z-10"
+        className="absolute top-0 right-0 h-full w-12 z-10"
         style={{
           background:
             "linear-gradient(to right, rgba(0,0,0,0) 0%, #060010 100%)",
         }}
       />
 
-      <div className="flex h-full items-center justify-center [perspective:1000px] [transform-style:preserve-3d]">
+      <div className="flex h-full items-center justify-center perspective-[1000px] transform-3d">
         <motion.div
           drag="x"
           dragElastic={0}
@@ -160,12 +159,12 @@ const RollingGallery = ({
             width: cylinderWidth,
             transformStyle: "preserve-3d",
           }}
-          className="flex min-h-[200px] cursor-grab items-center justify-center [transform-style:preserve-3d]"
+          className="flex min-h-[200px] cursor-grab items-center justify-center transform-3d"
         >
           {images.map((img, i) => (
             <div
               key={i}
-              className="group absolute flex h-fit items-center justify-center p-[8%] [backface-visibility:hidden] md:p-[6%]"
+              className="group absolute flex h-fit items-center justify-center p-[8%] backface-hidden md:p-[6%]"
               style={{
                 width: `${faceWidth}px`,
                 transform: `rotateY(${
