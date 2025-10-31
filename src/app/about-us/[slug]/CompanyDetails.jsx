@@ -12,6 +12,7 @@ import RollingGallery from "@/components/RollingGallery";
 import Partners from "../components/Partners";
 import Clients from "@/app/components/Clients";
 import Certificates from "../components/Certificates";
+import LogoLoop from "@/components/LogoLoop";
 
 const montserrat = MontserratFont({
   subsets: ["latin"],
@@ -755,8 +756,8 @@ function CompanyDetails({ companyData }) {
       {partners.length > 0 && (
         <Partners
           partnerships={partners}
-          lColor={companyData.color?.[0] ? undefined : "rgb(52, 211, 153)"}
-          rColor={companyData.color?.[1] ? undefined : "rgb(52, 211, 153)"}
+          lColor="#2ec9a2"
+          rColor="#2dd4bf"
           id={companyData.id}
         />
       )}
@@ -770,41 +771,74 @@ function CompanyDetails({ companyData }) {
             and innovation.
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {brands.map((brand) => (
-              <a
-                key={brand._id}
-                href={toExternalUrl(brand.url)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-emerald-400/50 hover:shadow-2xl hover:shadow-emerald-500/20 transform hover:-translate-y-2"
-              >
-                {/* Logo Container */}
-                <div className="aspect-square w-full mb-4 rounded-xl bg-white p-4 flex items-center justify-center overflow-hidden relative">
-                  <Image
-                    src={brand.img}
-                    alt={`${brand.name} logo`}
-                    fill
-                    className="object-contain transition-transform duration-300"
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                  />
-                </div>
+          {brands.length > 3 ? (
+            <div className="py-4">
+              <LogoLoop
+                logos={brands.map((b) => ({
+                  node: (
+                    <a
+                      href={toExternalUrl(b.url)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${b.name} website`}
+                      className="inline-flex items-center justify-center"
+                    >
+                      <Image
+                        src={b.img}
+                        alt={`${b.name} logo`}
+                        width={200}
+                        height={150}
+                        className="h-32 w-auto object-contain"
+                      />
+                    </a>
+                  ),
+                  title: b.name,
+                }))}
+                logoHeight={150}
+                gap={56}
+                speed={120}
+                pauseOnHover={true}
+                scaleOnHover={true}
+                ariaLabel="Brands carousel"
+              />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {brands.map((brand, idx) => (
+                <a
+                  key={brand._id}
+                  href={toExternalUrl(brand.url)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-emerald-400/50 hover:shadow-2xl hover:shadow-emerald-500/20 transform hover:-translate-y-2 ${(() => { const total = brands.length; const rem = total % 3 || 3; const startIndexLastRow = total - rem; if (idx < startIndexLastRow || rem === 3) return ""; const pos = idx - startIndexLastRow; if (rem === 1) return "sm:col-start-2"; if (rem === 2) return pos === 0 ? "sm:col-start-1" : "sm:col-start-3"; return ""; })()}`}
+                >
+                  {/* Logo Container */}
+                  <div className="aspect-square w-full mb-4 rounded-xl bg-white p-4 flex items-center justify-center overflow-hidden relative">
+                    <Image
+                      src={brand.img}
+                      alt={`${brand.name} logo`}
+                      fill
+                      className="object-contain transition-transform duration-300"
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                    />
+                  </div>
 
-                {/* Brand Name */}
-                <h3 className="text-white font-semibold text-center text-lg mb-2 capitalize">
-                  {brand.name}
-                </h3>
+                  {/* Brand Name */}
+                  <h3 className="text-white font-semibold text-center text-lg mb-2 capitalize">
+                    {brand.name}
+                  </h3>
 
-                {/* Visit Link Indicator */}
-                <div className="flex items-center justify-center gap-2 text-emerald-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span>Visit Site</span>
-                  <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-                </div>
+                  {/* Visit Link Indicator */}
+                  <div className="flex items-center justify-center gap-2 text-emerald-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span>Visit Site</span>
+                    <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+                  </div>
 
-                <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-emerald-400/0 to-emerald-600/0 group-hover:from-emerald-400/10 group-hover:to-emerald-600/10 transition-all duration-300 pointer-events-none"></div>
-              </a>
-            ))}
-          </div>
+                  <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-emerald-400/0 to-emerald-600/0 group-hover:from-emerald-400/10 group-hover:to-emerald-600/10 transition-all duration-300 pointer-events-none"></div>
+                </a>
+              ))}
+            </div>
+          )}
         </section>
       )}
 
@@ -818,7 +852,7 @@ function CompanyDetails({ companyData }) {
           </p>
 
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-8"
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
@@ -839,7 +873,7 @@ function CompanyDetails({ companyData }) {
                   show: { opacity: 1, y: 0 },
                 }}
                 transition={{ duration: 0.6 }}
-                className="cursor-pointer"
+                className={`cursor-pointer ${(() => { const total = projects.length; const rem = total % 3 || 3; const startIndexLastRow = total - rem; if (projectIdx < startIndexLastRow || rem === 3) return ""; const pos = projectIdx - startIndexLastRow; if (rem === 1) return "sm:col-start-2"; if (rem === 2) return pos === 0 ? "sm:col-start-1" : "sm:col-start-3"; return ""; })()}`}
               >
                 <ProjectCard
                   setIsOpen={setIsOpen}
@@ -865,6 +899,7 @@ function CompanyDetails({ companyData }) {
       )}
 
       {/* Clients */}
+      <div className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
       {clients.length > 0 && (
         <Clients
           imageLogos={clients}
@@ -872,6 +907,7 @@ function CompanyDetails({ companyData }) {
           rColor="rgb(52, 211, 153)"
         />
       )}
+      </div>
 
       {/* Modal */}
       <Modal

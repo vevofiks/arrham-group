@@ -2,6 +2,7 @@
 
 import LogoLoop from "@/components/LogoLoop";
 import React from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { Montserrat as MontserratFont } from "next/font/google";
 
@@ -17,30 +18,20 @@ const Clients = ({ imageLogos, lColor = "", rColor = "", id = "" }) => {
   return (
     <section>
       <div className="mt-[50px]">
-        <div
-          className={`${montserrat.className}
-            ${
-              hasGradient
-                ? `text-2xl md:text-3xl lg:text-3xl font-extrabold text-transparent bg-clip-text uppercase text-center  mb-7`
-                : `text-2xl md:text-3xl lg:text-3xl font-extrabold uppercase text-center  mb-7 text-white`
-            }
-          `}
-          style={
-            hasGradient
-              ? {
-                  backgroundImage: `linear-gradient(to left, ${rColor}, ${lColor})`,
-                }
-              : null
-          }
-        >
+        <h2 className={`text-2xl md:text-3xl lg:text-3xl font-extrabold uppercase text-center mb-7 ${montserrat.className}`}>
           {hasGradient ? (
-            <>Our Clients</>
+            <span
+              className="bg-clip-text text-transparent"
+              style={{ backgroundImage: `linear-gradient(to right, ${lColor}, ${rColor})` }}
+            >
+              Our Clients
+            </span>
           ) : (
             <>
               Our <span className="text-lgreen">Clients</span>
             </>
           )}
-        </div>
+        </h2>
 
         {rColor && rColor !== "rgb(52, 211, 153)" ? (
           <motion.div
@@ -64,31 +55,69 @@ const Clients = ({ imageLogos, lColor = "", rColor = "", id = "" }) => {
           results.{" "}
         </p>
 
-        <div className="relative h-[230px]  mx-auto overflow-hidden mt-20">
-          <LogoLoop
-            logos={imageLogos}
-            speed={100}
-            direction="right"
-            logoHeight={125}
-            gap={80}
-            pauseOnHover={true}
-            scaleOnHover
-            fadeOut
-            fadeOutColor={id === "healthcare" ? "FFFFFF" : "#000000"}
-            ariaLabel="Technology partners"
-          />
+        {Array.isArray(imageLogos) && imageLogos.length > 3 ? (
+          <div className="relative h-[230px] mx-auto overflow-hidden mt-20">
+            <LogoLoop
+              logos={imageLogos}
+              speed={100}
+              direction="right"
+              logoHeight={125}
+              gap={80}
+              pauseOnHover={true}
+              scaleOnHover
+              fadeOut
+              fadeOutColor={id === "healthcare" ? "FFFFFF" : "#000000"}
+              ariaLabel="Technology partners"
+            />
 
-          <div
-            className={`pointer-events-none absolute left-0 top-0 h-full w-24 bg-linear-to-r ${
-              id === "healthcare" ? "from-transparent" : "from-black"
-            } to-transparent`}
-          />
-          <div
-            className={`pointer-events-none absolute right-0 top-0 h-full w-24 bg-linear-to-l ${
-              id === "healthcare" ? "from-transparent" : "from-black"
-            } to-transparent`}
-          />
-        </div>
+            <div
+              className={`pointer-events-none absolute left-0 top-0 h-full w-24 bg-linear-to-r ${
+                id === "healthcare" ? "from-transparent" : "from-black"
+              } to-transparent`}
+            />
+            <div
+              className={`pointer-events-none absolute right-0 top-0 h-full w-24 bg-linear-to-l ${
+                id === "healthcare" ? "from-transparent" : "from-black"
+              } to-transparent`}
+            />
+          </div>
+        ) : (
+          <div className="mt-12">
+            {imageLogos?.length === 1 && (
+              <div className="flex justify-center">
+                <div className="w-48 h-24 relative">
+                  <Image src={imageLogos[0]} alt="client logo" fill className="object-contain" />
+                </div>
+              </div>
+            )}
+            {imageLogos?.length === 2 && (
+              <div className="grid grid-cols-3 items-center">
+                <div className="flex justify-start">
+                  <div className="w-40 h-20 relative">
+                    <Image src={imageLogos[0]} alt="client logo" fill className="object-contain" />
+                  </div>
+                </div>
+                <div></div>
+                <div className="flex justify-end">
+                  <div className="w-40 h-20 relative">
+                    <Image src={imageLogos[1]} alt="client logo" fill className="object-contain" />
+                  </div>
+                </div>
+              </div>
+            )}
+            {imageLogos?.length === 3 && (
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 items-center">
+                {imageLogos.map((src, i) => (
+                  <div key={i} className="flex justify-center">
+                    <div className="w-40 h-20 relative">
+                      <Image src={src} alt="client logo" fill className="object-contain" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );

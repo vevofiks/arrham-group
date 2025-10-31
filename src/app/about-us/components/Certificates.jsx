@@ -105,13 +105,13 @@ const Certificates = ({
 
         {/* Certificates Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
           variants={staggerContainer}
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
         >
-          {certificates.map((certificate) => (
+          {certificates.map((certificate, idx) => (
             <motion.div
               key={certificate._id}
               variants={cardVariants}
@@ -120,7 +120,7 @@ const Certificates = ({
                 y: -8,
                 transition: { duration: 0.3 },
               }}
-              className="group relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-500 hover:bg-emerald-500/10 hover:border-emerald-500/30 hover:shadow-2xl hover:shadow-emerald-500/20 cursor-pointer"
+              className={`group relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-500 hover:bg-emerald-500/10 hover:border-emerald-500/30 hover:shadow-2xl hover:shadow-emerald-500/20 cursor-pointer ${(() => { const total = certificates.length; const rem = total % 3 || 3; const startIndexLastRow = total - rem; if (idx < startIndexLastRow || rem === 3) return ""; const pos = idx - startIndexLastRow; if (rem === 1) return "md:col-start-2"; if (rem === 2) return pos === 0 ? "md:col-start-1" : "md:col-start-3"; return ""; })()}`}
               onClick={() => openModal(certificate)}
             >
               {/* Background Effects */}

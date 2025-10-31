@@ -27,7 +27,7 @@ const KeyPersonnel = ({ personnels = [], colors = ['from-teal-600', 'to-blue-600
 
         {/* Personnel Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 "
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 "
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
@@ -47,11 +47,11 @@ const KeyPersonnel = ({ personnels = [], colors = ['from-teal-600', 'to-blue-600
                 show: { opacity: 1, y: 0, scale: 1 },
               }}
               transition={{ duration: 0.6, delay: index * 0.05 }}
-              className={
+              className={`${(() => { const total = personnels.length; const rem = total % 3 || 3; const startIndexLastRow = total - rem; if (index < startIndexLastRow || rem === 3) return ""; const pos = index - startIndexLastRow; if (rem === 1) return "md:col-start-2"; if (rem === 2) return pos === 0 ? "md:col-start-1" : "md:col-start-3"; return ""; })()} ${
                   isHealthcare
                     ? 'group relative rounded-3xl p-3 border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300'
                     : 'group relative rounded-3xl p-8 bg-transparent border border-gray-200 text-white transition-all duration-300 hover:shadow-lg overflow-hidden'
-                }
+                }`}
             >
               {/* Top accent bar for transparent variant */}
               {!isHealthcare && (
@@ -59,7 +59,7 @@ const KeyPersonnel = ({ personnels = [], colors = ['from-teal-600', 'to-blue-600
               )}
 
               {/* Profile Image */}
-              <div className="relative mb-6">
+              <div className="relative mb-9">
                 <div className="w-32 h-32 mx-auto relative">
                   {person.profileImage ? (
                     <Image
@@ -68,8 +68,8 @@ const KeyPersonnel = ({ personnels = [], colors = ['from-teal-600', 'to-blue-600
                       fill
                       className={
                         isHealthcare
-                          ? 'rounded-full object-cover border-4 border-white shadow-lg'
-                          : 'rounded-full object-cover ring-2 ring-white/10 shadow-lg group-hover:ring-white/20 transition-all duration-300'
+                          ? 'rounded-md object-cover border-4 border-white shadow-lg'
+                          : 'rounded-md object-cover ring-2 ring-white/10 shadow-lg group-hover:ring-white/20 transition-all duration-300'
                       }
                       sizes="128px"
                     />
@@ -86,7 +86,7 @@ const KeyPersonnel = ({ personnels = [], colors = ['from-teal-600', 'to-blue-600
 
                 {/* Experience Badge */}
                 {person.yearOfExperience && (
-                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
+                  <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
                     <div className={isHealthcare ? 'bg-gray-100 text-gray-800 px-4 py-1 rounded-full text-sm font-semibold shadow' : 'bg-gray-500 text-white px-4 py-1 rounded-full text-sm font-semibold shadow flex items-center gap-1'}>
                       <Calendar className={isHealthcare ? 'w-4 h-3 text-gray-700 inline mb-1' : 'w-3 h-3 text-white'} />
                       <span>{person.yearOfExperience}+ years</span>
@@ -98,11 +98,11 @@ const KeyPersonnel = ({ personnels = [], colors = ['from-teal-600', 'to-blue-600
               {/* Personnel Info */}
               <div className={`text-center space-y-4`}>
                 <div>
-                  <h3 className={`${isHealthcare ? 'text-2xl text-gray-900' : 'text-2xl text-white'} font-bold mb-1 group-hover:text-opacity-90 transition-colors duration-300 ${montserrat.className}`}>
+                  <h3 className={`${isHealthcare ? 'text-xl text-gray-900' : 'text-xl text-white'} font-semibold mb-1 group-hover:text-opacity-90 transition-colors duration-300 ${montserrat.className}`}>
                     {person.name}
                   </h3>
 
-                  <p className={`text-lg font-semibold bg-clip-text text-transparent ${gradientClasses} ${montserrat.className}` + (isHealthcare ? '' : ' inline-block')}>
+                  <p className={`text-lg font-medium bg-clip-text text-transparent ${gradientClasses} ${montserrat.className}` + (isHealthcare ? '' : ' inline-block')}>
                     {person.position}
                   </p>
                 </div>
