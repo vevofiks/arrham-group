@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
-import LogoLoop from "@/components/LogoLoop";
+ 
 import { ExternalLink, Users, X } from "lucide-react";
 import { Montserrat as MontserratFont } from "next/font/google";
 
@@ -96,111 +96,33 @@ const Partners = ({ partnerships = [], lColor = "", rColor = "", id = "" }) => {
     Collaborating with leading companies and organizations worldwide
   </p>
 </motion.div>
-        {partnerships.length > 3 ? (
-          <div className="py-4">
-            <LogoLoop
-              logos={partnerships.map((p) => ({
-                node: (
-                  <button
-                    type="button"
-                    onClick={() => openModal(p)}
-                    className="inline-flex items-center justify-center h-20 w-auto"
-                    aria-label={`Open details for ${p.name}`}
-                  >
-                    <Image
-                      src={p.img}
-                      alt={p.name}
-                      width={200}
-                      height={150}
-                      className="h-32 w-auto object-contain"
-                    />
-                  </button>
-                ),
-                title: p.name,
-              }))}
-              logoHeight={80}
-              gap={56}
-              speed={120}
-              pauseOnHover={true}
-              scaleOnHover={true}
-              ariaLabel="Partners carousel"
-            />
-          </div>
-        ) : (
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-          >
-            {partnerships.map((partner, idx) => (
-              <motion.div
-                key={partner._id}
-                variants={cardVariants}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { duration: 0.3 },
-                }}
-                className={`group relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-500 hover:bg-emerald-500/10 hover:border-emerald-500/30 hover:shadow-2xl hover:shadow-emerald-500/20 cursor-pointer ${(() => { const total = partnerships.length; const rem = total % 3 || 3; const startIndexLastRow = total - rem; if (idx < startIndexLastRow || rem === 3) return ""; const pos = idx - startIndexLastRow; if (rem === 1) return "md:col-start-2"; if (rem === 2) return pos === 0 ? "md:col-start-1" : "md:col-start-3"; return ""; })()}`}
-                onClick={() => openModal(partner)}
-              >
-                {/* Background Effects */}
-                <div className="absolute inset-0 bg-linear-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute -top-4 -right-4 w-20 h-20 bg-linear-to-br from-emerald-400/20 to-teal-400/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                <div className="relative z-10 p-6">
-                  {/* Partner Image */}
-                  <div className="relative mb-4 overflow-hidden rounded-xl">
-                    <div className="relative w-full h-48">
-                      <Image
-                        src={partner.img}
-                        alt={partner.name}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        priority={false}
-                      />
-                    </div>
-                    <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                        <ExternalLink className="w-4 h-4 text-white" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Partner Info */}
-                  <div className="space-y-3">
-                    <h3
-                      className={`text-xl font-bold ${
-                        id === "healthcare" ? "text-black" : "text-white"
-                      } group-hover:text-emerald-300 transition-colors duration-300`}
-                    >
-                      {partner.name}
-                    </h3>
-                    <p
-                      className={`${
-                        id === "healthcare" ? "text-gray-700" : "text-gray-400"
-                      } text-sm leading-relaxed line-clamp-3`}
-                    >
-                      {partner.description || "Trusted partner and collaborator."}
-                    </p>
-
-                    {/* Branch Badge */}
-                    <div className="flex items-center gap-2 pt-2">
-                      <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
-                      <span className="text-xs text-gray-500 uppercase tracking-wider">
-                        {partner.branchId}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
+        {/* Partners Grid (replacing carousel) */}
+        <motion.div
+          className="xl:max-w-[1290px] mx-auto flex flex-wrap justify-center gap-16"
+          variants={staggerContainer}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+        >
+          {partnerships.map((partner) => (
+            <motion.div key={partner._id} variants={cardVariants} className="group w-[140px]">
+              <div className={`relative w-full aspect-square rounded-xl overflow-hidden border ${isHealthcare ? "bg-white border-gray-200" : "bg-white/5 border-white/10"} p-4 flex items-center justify-center`}>
+                <Image
+                  src={partner.img}
+                  alt={partner.name}
+                  fill
+                  className="object-contain"
+                  sizes="140px"
+                />
+              </div>
+              <div className="mt-3 text-center">
+                <h3 className={`${isHealthcare ? "text-gray-900" : "text-white"} font-medium text-sm sm:text-base`}>
+                  {partner.name}
+                </h3>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
 
         {/* Empty State */}
         {partnerships.length === 0 && (

@@ -108,7 +108,7 @@ const Page = () => {
       </div>
 
       {/* Bottom Blur / Gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-20 backdrop-blur-3xl bg-gradient-to-b from-transparent to-black" />
+      <div className="absolute bottom-0 left-0 right-0 h-20 backdrop-blur-3xl bg-linear-to-b from-transparent to-black" />
 
       {/* About Section */}
       <div className="mt-32">

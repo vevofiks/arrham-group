@@ -13,7 +13,6 @@ import RollingGallery from "@/components/RollingGallery";
 import Certificates from "../components/Certificates";
 import Clients from "@/app/components/Clients";
 import KeyPersonnel from "../components/KeyPersonnel";
-import LogoLoop from "@/components/LogoLoop";
 
 const montserrat = MontserratFont({
   subsets: ["latin"],
@@ -598,68 +597,33 @@ function ArrhamHealthcare() {
               </p>
             </div>
 
-            {/* Brand Logos */}
-            {brands.length > 3 ? (
-              <div className="py-4">
-                <LogoLoop
-                  logos={brands.map((b) => ({
-                    href: toExternalUrl(b.url),
-                    node: (
-                      <Image
-                        src={b.img}
-                        alt={`${b.name} logo`}
-                        width={200}
-                        height={150}
-                        className="h-32 w-auto object-contain"
-                      />
-                    )
-                  }))}
-                  gap={56}
-                  speed={120}
-                  pauseOnHover={true}
-                  scaleOnHover={true}
-                  width="100%"
-                  logoHeight={150}
-                  ariaLabel="Brands carousel"
-                />
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                {brands.map((brand, idx) => (
-                  <a
-                    key={brand._id}
-                    href={toExternalUrl(brand.url)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`group relative bg-white rounded-2xl p-6 hover:bg-white transition-all duration-300 border border-gray-200 hover:border-emerald-300 hover:shadow-xl transform hover:-translate-y-2 ${(() => { const total = brands.length; const rem = total % 3 || 3; const startIndexLastRow = total - rem; if (idx < startIndexLastRow || rem === 3) return ""; const pos = idx - startIndexLastRow; if (rem === 1) return "md:col-start-2"; if (rem === 2) return pos === 0 ? "md:col-start-1" : "md:col-start-3"; return ""; })()}`}
-                  >
-                    {/* Fixed-size Logo Container */}
-                    <div className="w-full h-40 mb-4 rounded-xl bg-white p-4 flex items-center justify-center overflow-hidden relative">
-                      <Image
-                        src={brand.img}
-                        alt={`${brand.name} logo`}
-                        fill
-                        className="object-contain"
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                      />
-                    </div>
-
-                    {/* Brand Name */}
-                    <h3 className="text-gray-900 font-semibold text-center text-lg mb-2 capitalize">
+            {/* Brand Grid (replacing carousel) */}
+            <div className="xl:max-w-[1290px] mx-auto flex flex-wrap justify-center gap-16 mb-8">
+              {brands.map((brand) => (
+                <a
+                  key={brand._id}
+                  href={toExternalUrl(brand.url)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block w-[140px]"
+                >
+                  <div className="relative w-full aspect-square rounded-xl bg-white border border-gray-200 p-4 flex items-center justify-center overflow-hidden">
+                    <Image
+                      src={brand.img}
+                      alt={`${brand.name} logo`}
+                      fill
+                      className="object-contain"
+                      sizes="140px"
+                    />
+                  </div>
+                  <div className="mt-3 text-center">
+                    <h3 className="text-gray-900 font-medium text-sm sm:text-base capitalize">
                       {brand.name}
                     </h3>
-
-                    {/* Visit Link Indicator */}
-                    <div className="flex items-center justify-center gap-2 text-emerald-700 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span>Visit Site</span>
-                      <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-                    </div>
-
-                    <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-emerald-400/0 to-emerald-600/0 group-hover:from-emerald-400/10 group-hover:to-emerald-600/10 transition-all duration-300 pointer-events-none"></div>
-                  </a>
-                ))}
-              </div>
-            )}
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
         )}
 
