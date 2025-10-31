@@ -810,7 +810,7 @@ function CompanyDetails({ companyData }) {
           </p>
 
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-3 gap-8"
+            className={`grid gap-8 ${projects.length === 1 ? 'grid-cols-1 place-items-center' : projects.length === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-3'}`}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
@@ -831,7 +831,7 @@ function CompanyDetails({ companyData }) {
                   show: { opacity: 1, y: 0 },
                 }}
                 transition={{ duration: 0.6 }}
-                className={`cursor-pointer ${(() => { const total = projects.length; const rem = total % 3 || 3; const startIndexLastRow = total - rem; if (projectIdx < startIndexLastRow || rem === 3) return ""; const pos = projectIdx - startIndexLastRow; if (rem === 1) return "sm:col-start-2"; if (rem === 2) return pos === 0 ? "sm:col-start-1" : "sm:col-start-3"; return ""; })()}`}
+                className={`cursor-pointer ${projects.length === 1 ? 'max-w-xl w-full mx-auto' : ''}`}
               >
                 <ProjectCard
                   setIsOpen={setIsOpen}
