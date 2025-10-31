@@ -41,94 +41,96 @@ const KeyPersonnel = ({ personnels = [], colors = ['from-teal-600', 'to-blue-600
         >
           {personnels.map((person, index) => (
             <motion.div
-              key={person._id || index}
-              variants={{
-                hidden: { opacity: 0, y: 30, scale: 0.98 },
-                show: { opacity: 1, y: 0, scale: 1 },
-              }}
-              transition={{ duration: 0.6, delay: index * 0.05 }}
-              className={`${(() => { const total = personnels.length; const rem = total % 3 || 3; const startIndexLastRow = total - rem; if (index < startIndexLastRow || rem === 3) return ""; const pos = index - startIndexLastRow; if (rem === 1) return "md:col-start-2"; if (rem === 2) return pos === 0 ? "md:col-start-1" : "md:col-start-3"; return ""; })()} ${
-                  isHealthcare
-                    ? 'group relative rounded-3xl p-3 border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300'
-                    : 'group relative rounded-3xl p-8 bg-transparent border border-gray-200 text-white transition-all duration-300 hover:shadow-lg overflow-hidden'
-                }`}
-            >
-              {/* Top accent bar for transparent variant */}
-              {!isHealthcare && (
-                <div className={`absolute -top-6 left-6 right-6 h-2 rounded-full opacity-90 ${gradientClasses}`} aria-hidden />
-              )}
-
-              {/* Profile Image */}
-              <div className="relative mb-9">
-                <div className="w-32 h-32 mx-auto relative">
-                  {person.profileImage ? (
-                    <Image
-                      src={person.profileImage}
-                      alt={person.name}
-                      fill
-                      className={
-                        isHealthcare
-                          ? 'rounded-md object-cover border-4 border-white shadow-lg'
-                          : 'rounded-md object-cover ring-2 ring-white/10 shadow-lg group-hover:ring-white/20 transition-all duration-300'
-                      }
-                      sizes="128px"
-                    />
-                  ) : (
-                    <div className={
+            key={person._id || index}
+            variants={{
+              hidden: { opacity: 0, y: 30, scale: 0.98 },
+              show: { opacity: 1, y: 0, scale: 1 },
+            }}
+            transition={{ duration: 0.6, delay: index * 0.05 }}
+            className={`${(() => { 
+              const total = personnels.length; 
+              const rem = total % 3 || 3; 
+              const startIndexLastRow = total - rem; 
+              if (index < startIndexLastRow || rem === 3) return ""; 
+              const pos = index - startIndexLastRow; 
+              if (rem === 1) return "md:col-start-2"; 
+              if (rem === 2) return pos === 0 ? "md:col-start-1" : "md:col-start-3"; 
+              return ""; 
+            })()} ${
+              isHealthcare
+                ? 'group relative rounded-3xl p-6 border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300'
+                : 'group relative rounded-3xl p-6 bg-transparent border border-gray-200 text-white transition-all duration-300 hover:shadow-lg overflow-hidden'
+            }`}
+          >
+            {/* Top accent bar for transparent variant */}
+            {!isHealthcare && (
+              <div className={`absolute -top-6 left-6 right-6 h-2 rounded-full opacity-90 ${gradientClasses}`} aria-hidden />
+            )}
+          
+            {/* Profile Image */}
+            <div className="relative mb-4">
+              <div className="w-32 h-32 mx-auto relative">
+                {person.profileImage ? (
+                  <Image
+                    src={person.profileImage}
+                    alt={person.name}
+                    fill
+                    className={
                       isHealthcare
-                        ? `w-full h-full ${gradientClasses} rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg`
-                        : `w-full h-full ${gradientClasses} rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg`
-                    }>
-                      {person.name?.charAt(0).toUpperCase() || '?'}
-                    </div>
-                  )}
-                </div>
-
-                {/* Experience Badge */}
-                {person.yearOfExperience && (
-                  <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
-                    <div className={isHealthcare ? 'bg-gray-100 text-gray-800 px-4 py-1 rounded-full text-sm font-semibold shadow' : 'bg-gray-500 text-white px-4 py-1 rounded-full text-sm font-semibold shadow flex items-center gap-1'}>
-                      <Calendar className={isHealthcare ? 'w-4 h-3 text-gray-700 inline mb-1' : 'w-3 h-3 text-white'} />
-                      <span>{person.yearOfExperience}+ years</span>
-                    </div>
+                        ? 'rounded-md object-cover border-4 border-white shadow-lg'
+                        : 'rounded-md object-cover ring-2 ring-white/10 shadow-lg group-hover:ring-white/20 transition-all duration-300'
+                    }
+                    sizes="128px"
+                  />
+                ) : (
+                  <div className={
+                    isHealthcare
+                      ? `w-full h-full ${gradientClasses} rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg`
+                      : `w-full h-full ${gradientClasses} rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg`
+                  }>
+                    {person.name?.charAt(0).toUpperCase() || '?'}
                   </div>
                 )}
               </div>
-
-              {/* Personnel Info */}
-              <div className={`text-center space-y-4`}>
-                <div>
-                  <h3 className={`${isHealthcare ? 'text-xl text-gray-900' : 'text-xl text-white'} font-semibold mb-1 group-hover:text-opacity-90 transition-colors duration-300 ${montserrat.className}`}>
-                    {person.name}
-                  </h3>
-
-                  <p className={`text-lg font-medium bg-clip-text text-transparent ${gradientClasses} ${montserrat.className}` + (isHealthcare ? '' : ' inline-block')}>
-                    {person.position}
-                  </p>
-                </div>
-
-                {person.description && (
-                  <p className={`${isHealthcare ? 'text-gray-700' : 'text-gray-200'} leading-relaxed ${montserrat.className}`}>
-                    {person.description}
-                  </p>
-                )}
-
-                {/* Contact Row */}
-                <div className="flex items-center justify-center gap-4 mt-2">
-                  {person.email && (
-                    <a href={`mailto:${person.email}`} className={isHealthcare ? 'text-gray-700' : 'text-gray-200'} aria-label={`Email ${person.name}`}>
-                      <Mail className="w-5 h-5" />
-                    </a>
-                  )}
-                  {person.phone && (
-                    <a href={`tel:${person.phone}`} className={isHealthcare ? 'text-gray-700' : 'text-gray-200'} aria-label={`Call ${person.name}`}>
-                      <Phone className="w-5 h-5" />
-                    </a>
-                  )}
+            </div>
+          
+            {/* Experience Badge - Now below the image */}
+            {person.yearOfExperience && (
+              <div className="flex justify-center mb-5">
+                <div className={
+                  isHealthcare 
+                    ? 'bg-gray-100 text-gray-800 px-4 py-1.5 rounded-full text-sm font-semibold shadow flex items-center gap-1.5' 
+                    : 'bg-gray-500 text-white px-4 py-1.5 rounded-full text-sm font-semibold shadow flex items-center gap-1.5'
+                }>
+                  <Calendar className="w-3.5 h-3.5" />
+                  <span>{person.yearOfExperience}+ years</span>
                 </div>
               </div>
-
-            </motion.div>
+            )}
+          
+            {/* Personnel Info */}
+            <div className="text-center space-y-3">
+              <div className="space-y-2">
+                <h3 className={`${
+                  isHealthcare ? 'text-xl text-gray-900' : 'text-xl text-white'
+                } font-semibold group-hover:text-opacity-90 transition-colors duration-300 ${montserrat.className}`}>
+                  {person.name}
+                </h3>
+          
+                <p className={`text-base font-medium bg-clip-text text-transparent ${gradientClasses} ${montserrat.className}`}>
+                  {person.position}
+                </p>
+              </div>
+          
+              {person.description && (
+                <p className={`${
+                  isHealthcare ? 'text-gray-700' : 'text-gray-200'
+                } text-sm leading-relaxed ${montserrat.className} pt-2`}>
+                  {person.description}
+                </p>
+              )}
+            </div>
+          </motion.div>
           ))}
         </motion.div>
       </div>

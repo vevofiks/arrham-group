@@ -28,7 +28,7 @@ const Clients = ({ imageLogos, lColor = "", rColor = "", id = "" }) => {
             </span>
           ) : (
             <>
-              Our <span className="text-lgreen">Clients</span>
+               <span className="text-lgreen">Our Clients</span>
             </>
           )}
         </h2>
@@ -83,33 +83,12 @@ const Clients = ({ imageLogos, lColor = "", rColor = "", id = "" }) => {
           </div>
         ) : (
           <div className="mt-12">
-            {imageLogos?.length === 1 && (
-              <div className="flex justify-center">
-                <div className="w-48 h-24 relative">
-                  <Image src={imageLogos[0]} alt="client logo" fill className="object-contain" />
-                </div>
-              </div>
-            )}
-            {imageLogos?.length === 2 && (
-              <div className="grid grid-cols-3 items-center">
-                <div className="flex justify-start">
-                  <div className="w-40 h-20 relative">
-                    <Image src={imageLogos[0]} alt="client logo" fill className="object-contain" />
-                  </div>
-                </div>
-                <div></div>
-                <div className="flex justify-end">
-                  <div className="w-40 h-20 relative">
-                    <Image src={imageLogos[1]} alt="client logo" fill className="object-contain" />
-                  </div>
-                </div>
-              </div>
-            )}
-            {imageLogos?.length === 3 && (
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 items-center">
+            
+            {imageLogos?.length <= 3 && imageLogos?.length > 0 && (
+              <div className="flex flex-wrap justify-center gap-12">
                 {imageLogos.map((src, i) => (
-                  <div key={i} className="flex justify-center">
-                    <div className="w-40 h-20 relative">
+                  <div key={i} className="w-[140px]">
+                    <div className="relative w-full h-20 sm:h-24">
                       <Image src={src} alt="client logo" fill className="object-contain" />
                     </div>
                   </div>

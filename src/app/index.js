@@ -3,7 +3,7 @@ export const branchesData = {
   branches: [
     {
       id: "arrham-canada",
-      name: "Arrham Group Inc. (Canada)",
+      name: "Arrham Group Inc.",
       companyIcon: "/arrham-canada.png",
       color: ["from-lgreen/80", "to-teal-400"],
       primaryColor: {
@@ -58,7 +58,7 @@ export const branchesData = {
 
     {
       id: "arrham-contracting-ksa",
-      name: "Arrham Al Arabia Contracting Company (KSA)",
+      name: "Arrham Al Arabia Contracting Company",
       color: ["from-lgreen/80", "to-teal-400"],
       primaryColor: {
         border: "border-teal-400",
@@ -73,7 +73,7 @@ export const branchesData = {
       },
       companyIcon: "/arrham-logo.png",
       companyImg: "/companyDummy.png",
-      country: "Saudi Arabia",
+      country: "Kingdom of Saudi Arabia",
       location: "Al Khobar Al Janubiyah Dist., Kingdom of Saudi Arabia",
       shortDescription:
         "Turnkey contracting, E&I, cathodic protection, fit-out works for industrial & commercial clients.",
@@ -197,7 +197,7 @@ export const branchesData = {
 
     {
       id: "arrham-trading-bahrain",
-      name: "Arrham Trading and Contracting W.L.L. (Kingdom of Bahrain)",
+      name: "Arrham Trading and Contracting W.L.L.",
       color: ["from-lgreen/80", "to-teal-400"],
       primaryColor: {
         border: "border-teal-400",
@@ -212,7 +212,7 @@ export const branchesData = {
       },
       companyIcon: "/arrham-ksa.png",
       companyImg: "/companyDummy.png",
-      country: "Bahrain",
+      country: "Kingdom of Bahrain",
       location:
         "1445A, Road 4630, Block 646, Nuwaidrat, Sitrah 644, Kingdom of Bahrain",
       shortDescription:
@@ -444,10 +444,10 @@ export const branchesData = {
 
     {
       id: "arrham-healthcare-bahrain",
-      name: "Arrham Healthcare Solutions W.L.L. (Kingdom of Bahrain)",
+      name: "Arrham Healthcare Solutions W.L.L.",
       companyIcon: "/arrham-healthcare.png",
       companyImg: "/companyDummy.png",
-      country: "Bahrain",
+      country: "Kingdom of Bahrain",
       color: ["from-lgreen/40", "to-teal-400"],
       primaryColor: {
         border: "border-teal-400",
