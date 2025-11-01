@@ -13,7 +13,7 @@ const montserrat = MontserratFont({
 
 export default function SimpleCard({ branch }) {
   return (
-    <Link href={`/about-us/${branch.id}`}>
+    <Link href={`/about-us/${branch.id}`} className="block w-full">
       <motion.div
         className="
         relative w-full sm:`w-[320px] md:`w-[360px] lg:w-[400px]

@@ -178,7 +178,7 @@ function ArrhamHealthcare() {
         {/* Overlay */}
         <div className="absolute inset-0 flex items-center px-6 md:px-12">
           {/* Left Content */}
-          <div className="">
+          <div className="max-w-full">
             <motion.h1
               initial={{ opacity: 0, y: -40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -193,7 +193,7 @@ function ArrhamHealthcare() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.3 }}
-              className={`bg-linear-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent text-2xl sm:text-3xl md:text-5xl lg:text-4xl xl:text-5xl font-extrabold leading-snug text-nowrap ${montserrat.className}`}
+              className={`bg-linear-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-extrabold leading-tight wrap-break-word max-w-full ${montserrat.className}`}
             >
               {companyName}
             </motion.h1>
