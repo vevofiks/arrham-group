@@ -30,7 +30,7 @@ function ProjectCard({ setIsOpen, project, index, company }) {
             containerHeight="300px"
             containerWidth="300px"
             imageHeight="300px"
-            imageWidth="260px"
+            imageWidth="300px"
             rotateAmplitude={12}
             scaleOnHover={1.2}
             showMobileWarning={false}

@@ -656,7 +656,7 @@ function ArrhamHealthcare() {
             </div>
 
             <motion.div
-              className={`grid gap-8 ${projects.length === 1 ? 'grid-cols-1 place-items-center' : projects.length === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-3'}`}
+              className={`grid gap-8 justify-items-center ${projects.length === 1 ? 'grid-cols-1' : projects.length === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
@@ -677,7 +677,7 @@ function ArrhamHealthcare() {
                     show: { opacity: 1, y: 0 },
                   }}
                   transition={{ duration: 0.6 }}
-                  className={`cursor-pointer ${projects.length === 1 ? 'max-w-xl w-full mx-auto' : ''}`}
+                  className="cursor-pointer w-full"
                 >
                   <ProjectCard
                     setIsOpen={setIsOpen}

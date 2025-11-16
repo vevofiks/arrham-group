@@ -71,10 +71,10 @@ const Hero = ({ getToSection }) => {
           sizes="(max-width: 768px) 100vw, 100vw"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-b -mt-24 from-black/50 via-black/60 to-black/70" />
-        <div className="absolute inset-x-0 bottom-0 h-60 -mt-24 bg-gradient-to-b from-transparent to-black/90 blur-2xl" />
+        <div className="absolute inset-0 bg-linear-to-b -mt-24 from-black/50 via-black/60 to-black/70" />
+        <div className="absolute inset-x-0 bottom-0 h-60 -mt-24 bg-linear-to-b from-transparent to-black/90 blur-2xl" />
         <motion.div
-          className="absolute inset-0 -mt-5 bg-gradient-to-r from-emerald-500/10 via-transparent to-teal-500/10"
+          className="absolute inset-0 -mt-5 bg-linear-to-r from-emerald-500/10 via-transparent to-teal-500/10"
           animate={{
             background: [
               "linear-gradient(45deg, rgba(16,185,129,0.1) 0%, transparent 50%, rgba(20,184,166,0.1) 100%)",
@@ -96,7 +96,7 @@ const Hero = ({ getToSection }) => {
   <span className="inline-block whitespace-nowrap md:whitespace-nowrap sm:whitespace-normal">
     Shaping Tomorrow with{" "}
   </span>
-  <span className="inline-block bg-gradient-to-r from-lgreen to-teal-400 text-transparent bg-clip-text whitespace-nowrap md:whitespace-nowrap sm:whitespace-normal pl-3">
+  <span className="inline-block bg-linear-to-r from-lgreen to-teal-400 text-transparent bg-clip-text whitespace-nowrap md:whitespace-nowrap sm:whitespace-normal pl-3">
     Engineered Solutions
   </span>
 </motion.h1>
@@ -111,7 +111,7 @@ const Hero = ({ getToSection }) => {
           className="text-white/90 text-sm sm:text-md md:text-lg mt-4 sm:mt-6 max-w-4xl text-center mx-auto"
         >
           At Arrham Group, we deliver high-quality, future-ready solutions in
-          <span className="font-bold bg-gradient-to-r from-lgreen to-teal-400 text-transparent bg-clip-text">
+          <span className="font-bold bg-linear-to-r from-lgreen to-teal-400 text-transparent bg-clip-text">
             {" "}
             Automotive Film, Electrical, Turnkey  Services, 
             <span className="whitespace-nowrap">Fit-Out</span>, Healthcare and Mechanical

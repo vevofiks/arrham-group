@@ -13,18 +13,12 @@ const montserrat = MontserratFont({
 
 export default function SimpleCard({ branch }) {
   return (
-    <Link href={`/about-us/${branch.id}`} className="block w-full">
+    <Link href={`/about-us/${branch.id}`} className="w-full">
       <motion.div
-        className="
-        relative w-full sm:`w-[320px] md:`w-[360px] lg:w-[400px]
-          min-h-[300px] sm:min-h-[340px] md:min-h-[380px] lg:min-h-[380px]
-          rounded-2xl overflow-hidden
+        className="p-15 rounded-2xl flex flex-col justify-between h-[400px]
           bg-linear-to-br from-emerald-600/10 via-teal-700/10 to-black/90
           border border-emerald-500/20
           shadow-xl shadow-emerald-900/40
-          flex flex-col justify-between
-          p-6
-          cursor-pointer
         "
         whileHover={{ scale: 1.03 }}
         transition={{ duration: 0.3 }}
@@ -51,7 +45,7 @@ export default function SimpleCard({ branch }) {
         </div>
 
         {/* Show More Button */}
-        
+
       </motion.div>
     </Link>
   );

@@ -174,6 +174,54 @@ export const branchesData = {
           height: 240
         }
       ],
+
+      electricalMEP: {
+        name: "Electrical & MEP Works",
+        description:
+          "At Arrham Trading & Contracting W.L.L., we specialize in delivering comprehensive Electrical and MEP (Mechanical, Electrical & Plumbing) solutions for industrial, residential, and commercial projects. Our expertise ensures safe, efficient, and sustainable systems tailored to client requirements and international standards.",
+        services: [
+          {
+            title: "Our Electrical Works Include",
+            points: [
+              "MV & LV Switchgears – installation, testing, and commissioning.",
+              "Power Transformers (Step-down).",
+              "GIS Installations – 380kV, 132kV, and 33kV.",
+              "Overhead Transmission Lines & Gantries.",
+              "U/G and A/G Power Cables (MV & LV) – supply, pulling, termination, and testing.",
+              "Cable Trays – AL ladder type and GI trays.",
+              "Main Distribution Boards, Power & Lighting Panels.",
+              "Earthing & Lightning Protection Systems.",
+              "SCADA Development & Integration.",
+              "DCS/ESD Cabinets & Control Systems.",
+              "Fire Alarm & Low Current Systems (CCTV, Access Control, Data Networks).",
+            ],
+          },
+          {
+            title: "Our Mechanical & Plumbing (MEP) Works Include",
+            points: [
+              "Complete HVAC Systems (installation, testing, commissioning).",
+              "Chilled Water Systems – pumps, piping, and connections.",
+              "Plumbing & Drainage Systems – water supply, piping, sanitary installations.",
+              "Compressed Air & Instrument Air Tubing.",
+              "Firefighting Systems – sprinkler, hydrant, and suppression systems.",
+              "Mechanical Equipment Installations – pumps, tanks, chillers, boilers.",
+            ],
+          },
+        ],
+        industries: [
+          "Industrial Projects – factories, warehouses, power plants.",
+          "Commercial Projects – offices, malls, retail centers, hospitals, hotels.",
+          "Residential Projects – villas, apartments, residential towers.",
+          "Infrastructure Projects – utilities, substations, data centers.",
+        ],
+        keyAdvantages: [
+          "Skilled engineering and technical workforce.",
+          "Compliance with IEC, IEEE, BS, and NFPA standards.",
+          "In-house resources for design, supply, installation, and testing.",
+          "Proven track record in turnkey projects.",
+          "Commitment to safety, quality, and timely delivery.",
+        ],
+      },
       clients: [
         "Saudi Aramco",
         "Saudi Electricity Company",
