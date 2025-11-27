@@ -7,6 +7,7 @@ import Image from "next/image";
 import Map from "./Map";
 import { usePathname } from "next/navigation";
 import { branchesData } from "..";
+
 const Footer = () => {
   const pathname = usePathname();
   const scrollToTop = () => {
@@ -15,6 +16,8 @@ const Footer = () => {
   const companyData = branchesData.branches.find(
     (branch) => branch.id === pathname.split("/")[2]
   );
+
+  console.log(companyData, "company data in footer");
   const location = companyData?.map;
 
   // console.log(companydata)
@@ -83,18 +86,35 @@ const Footer = () => {
                 <div className="flex items-center gap-3 text-white/70 hover:text-lgreen transition-colors cursor-pointer">
                   <MapPin className="w-4 h-4 flex-shrink-0" />
                   <div className="inline-block text-sm max-w-2xl">
-  <span className="block">
-    ARRHAM TRADING AND CONTRACTING W.L.L
-  </span>
-  <span className="block mt-2">
-    Building 1445A & 1445G, Road 4630, Block 646, Nuwaidrat, Sitrah 644 Bahrain
-  </span>
-</div>
-
+                    {
+                      companyData?.name ? (
+                          <span className="block">
+                            {companyData.name}
+                          </span>
+                      ):(
+                        <span className="block">
+                          ARRHAM TRADING AND CONTRACTING W.L.L
+                        </span>
+                      )
+                    }
+                    
+                    {
+                      companyData?.contact ? (
+                          <span className="block">
+                            {companyData.contact.address}
+                          </span>
+                      ):(
+                        <span className="block mt-2">
+                          Building 1445A & 1445G, Road 4630, Block 646, Nuwaidrat, Sitrah 644 Bahrain
+                        </span>
+                      )
+                    }
+             
+              </div>
                 </div>
                 <div className="flex items-center gap-3 text-white/70 hover:text-lgreen transition-colors cursor-pointer">
                   <Phone className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-sm">+973 1747 3535</span>
+                  <span className="text-sm">{ companyData?.contact ? companyData.contact.phone : "+973 1747 3535" }</span>
                 </div>
                 <div className="flex items-center gap-3 text-white/70 hover:text-lgreen transition-colors cursor-pointer">
                   <Mail className="w-4 h-4 flex-shrink-0" />
@@ -103,7 +123,7 @@ const Footer = () => {
                     target="_blank"
                     className="text-sm"
                   >
-                    info@arrhamgroup.com
+                    { companyData?.contact ? companyData.contact.email : "info@arrhamgroup.com"}
                   </a>
                 </div>
               </div>
@@ -121,7 +141,6 @@ const Footer = () => {
                   { name: "About Us", href: "/about-us" },
                   { name: "Automotive", href: "/automotive" },
                   { name: "Architectural", href: "/architectural" },
-                  // { name: "Commercial Window", href: "/commercial-window" },
                   { name: "MEP Services", href: "/mep" },
                 ].map((link, index) => (
                   <li key={index}>
@@ -166,13 +185,14 @@ const Footer = () => {
             <motion.button
               onClick={scrollToTop}
               className="
-      absolute left-1/2 -translate-x-1/2
-      top-0 mt-[-3rem]   /* on mobile, bump it above the text */
-      md:mt-0 md:top-auto md:bottom-0 /* reset for desktop */
-      p-3 bg-gradient-to-r from-lgreen to-teal-500 rounded-full
-      text-black cursor-pointer
-      hover:shadow-lg hover:shadow-lgreen/25 transition-all
-    "
+              absolute left-1/2 -translate-x-1/2
+              top-0 mt-[-3rem]   /* on mobile, bump it above the text */
+              md:mt-0 md:top-auto md:bottom-0 /* reset for desktop */
+              p-3 bg-gradient-to-r from-lgreen to-teal-500 rounded-full
+              text-black cursor-pointer
+              hover:shadow-lg hover:shadow-lgreen/25 transition-all
+              "
+
               whileHover={{ scale: 1.1, y: -2 }}
               whileTap={{ scale: 0.95 }}
               title="Scroll to top"

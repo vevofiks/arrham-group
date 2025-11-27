@@ -699,6 +699,7 @@ function ArrhamHealthcare() {
               lColor="rgb(13, 148, 136)"
               rColor="rgb(37, 99, 235)"
               id="healthcare"
+              companyName={companyName}
             />
           </section>
         )}

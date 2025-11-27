@@ -14,8 +14,8 @@ export const branchesData = {
         shadow: "shadow-teal-900/30",
       },
       map: {
-        lat: "26.14129995053057",
-        lon: "50.583114618889056",
+        lat: "11.230224111176732",
+        lon: "75.9868206754021",
       },
       companyImg: "/companyDummy.png",
       country: "Canada",
@@ -174,11 +174,10 @@ export const branchesData = {
           height: 240
         }
       ],
-
       electricalMEP: {
         name: "Electrical & MEP Works",
         description:
-          "At Arrham Trading & Contracting W.L.L., we specialize in delivering comprehensive Electrical and MEP (Mechanical, Electrical & Plumbing) solutions for industrial, residential, and commercial projects. Our expertise ensures safe, efficient, and sustainable systems tailored to client requirements and international standards.",
+          "At Arrham Al Arabia Contracting Company, we specialize in delivering comprehensive Electrical and MEP (Mechanical, Electrical & Plumbing) solutions for industrial, residential, and commercial projects. Our expertise ensures safe, efficient, and sustainable systems tailored to client requirements and international standards.",
         services: [
           {
             title: "Our Electrical Works Include",
@@ -193,7 +192,7 @@ export const branchesData = {
               "Earthing & Lightning Protection Systems.",
               "SCADA Development & Integration.",
               "DCS/ESD Cabinets & Control Systems.",
-              "Fire Alarm & Low Current Systems (CCTV, Access Control, Data Networks).",
+              "Fire Alarm Security & Low Current Systems (CCTV, Access Control, Data Networks) - Installation, Testing and Commissioning .",
             ],
           },
           {

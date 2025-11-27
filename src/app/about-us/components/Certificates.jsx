@@ -15,7 +15,8 @@ const Certificates = ({
   certificates = [],
   lColor = "",
   rColor = "",
-  id = "healthcare",
+  id = "",
+  companyName= "",
 }) => {
   const [selectedCertificate, setSelectedCertificate] = useState(null);
   const hasGradient = Boolean(lColor && rColor);
@@ -52,6 +53,8 @@ const Certificates = ({
   const closeModal = () => {
     setSelectedCertificate(null);
   };
+
+  console.log("idvalue",id)
 
   return (
     <section className="py-16 px-4">
@@ -152,8 +155,8 @@ const Certificates = ({
                 <div className="space-y-3">
                   <h3
                     className={`text-xl font-bold ${
-                      id === "healthcare" ? "text-black" : "text-white"
-                    } group-hover:text-emerald-300 transition-colors duration-300`}
+                      id === "healthcare" ? "text-black" : "text-emerald-300"
+                    }`}
                   >
                     {certificate.name}
                   </h3>
@@ -168,8 +171,8 @@ const Certificates = ({
                   {/* Branch Badge */}
                   <div className="flex items-center gap-2 pt-2">
                     <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
-                    <span className="text-xs text-gray-500 uppercase tracking-wider">
-                      {certificate.branchId}
+                    <span className={`text-xs ${ id === "healthcare" ? "text-gray-500" :" text-white" } uppercase tracking-wider`}>
+                      {companyName}
                     </span>
                   </div>
                 </div>
@@ -258,7 +261,7 @@ const Certificates = ({
                       <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
                       <span className="text-sm text-gray-400">Comany: </span>
                       <span className="text-sm text-white font-medium">
-                        {selectedCertificate.branchId}
+                        {companyName}
                       </span>
                     </div>
                   </div>
