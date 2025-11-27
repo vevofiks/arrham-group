@@ -28,7 +28,7 @@ const Clients = ({ imageLogos, lColor = "", rColor = "", id = "" }) => {
             </span>
           ) : (
             <>
-               <span className="text-lgreen">Our Clients</span>
+              <span className="text-lgreen">Our Clients</span>
             </>
           )}
         </h2>

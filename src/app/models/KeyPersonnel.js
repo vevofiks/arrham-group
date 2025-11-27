@@ -18,6 +18,12 @@ const KeyPersonnelSchema = new mongoose.Schema(
       trim: true,
       default: "",
     },
+    qualification: {
+      type: String,
+      required: false,
+      trim: true,
+      default: "",
+    },
     profileImage: {
       type: String,
       required: true,

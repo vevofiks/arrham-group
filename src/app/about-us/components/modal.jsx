@@ -51,7 +51,7 @@ function Modal({ isOpen, onClose, project, companyName }) {
             transition={{ duration: 0.3, ease: "easeOut" }}
             onClick={(e) => e.stopPropagation()}
             className="relative w-full max-h-[92vh] overflow-y-auto rounded-2xl 
-              bg-gradient-to-br from-gray-900 via-teal-900/70 to-emerald-900/80 
+              bg-linear-to-br from-gray-900 via-teal-900/70 to-emerald-900/80 
               shadow-2xl shadow-emerald-500/20 backdrop-blur-xl border border-emerald-500/20
               max-w-sm sm:max-w-lg md:max-w-3xl lg:max-w-4xl"
           >
@@ -71,7 +71,7 @@ function Modal({ isOpen, onClose, project, companyName }) {
               {/* Title */}
               {project?.name && (
                 <h2
-                  className="text-center text-2xl sm:text-3xl md:text-4xl bg-gradient-to-r from-emerald-300 via-teal-200 to-cyan-300 bg-clip-text text-transparent font-bold 
+                  className="text-center text-2xl sm:text-3xl md:text-4xl bg-linear-to-r from-emerald-300 via-teal-200 to-cyan-300 bg-clip-text text-transparent font-bold 
                   mb-6 md:mb-8 leading-tight tracking-tight"
                 >
                   {project.name}
@@ -93,8 +93,8 @@ function Modal({ isOpen, onClose, project, companyName }) {
               {/* Carousel wrapper */}
               <div className="relative w-full mb-6 md:mb-8">
                 <div
-                  className="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-xl 
-                  overflow-hidden bg-gradient-to-br from-black/60 to-gray-900/60 
+                  className="relative w-full aspect-16/10 sm:aspect-video rounded-xl 
+                  overflow-hidden bg-linear-to-br from-black/60 to-gray-900/60 
                   shadow-lg ring-1 ring-white/10 group"
                 >
                   {/* Zoom Toggle Button */}
@@ -160,7 +160,7 @@ function Modal({ isOpen, onClose, project, companyName }) {
                                   </TransformComponent>
                                 </TransformWrapper>
                               ) : (
-                                <div className="relative w-full max-w-4xl aspect-[16/9] flex items-center justify-center">
+                                <div className="relative w-full max-w-4xl aspect-video flex items-center justify-center">
                                   <Image
                                     src={image || "/arrham3.png"}
                                     alt={`${project.name || "Project"} - Image ${index + 1}`}
@@ -241,10 +241,10 @@ function Modal({ isOpen, onClose, project, companyName }) {
               {/* Project Description */}
               {project?.description && (
                 <div className="bg-black/30 rounded-lg p-6 backdrop-blur-sm border border-white/10">
-                  <h3 className="text-center text-xl sm:text-2xl font-bold mb-4 bg-gradient-to-r from-emerald-300 via-teal-200 to-cyan-300 bg-clip-text text-transparent">
+                  <h3 className="text-center text-xl sm:text-2xl font-bold mb-4 bg-linear-to-r from-emerald-300 via-teal-200 to-cyan-300 bg-clip-text text-transparent">
                     Project Overview
                   </h3>
-                  <div className="mx-auto mb-5 h-1 w-16 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400" />
+                  <div className="mx-auto mb-5 h-1 w-16 rounded-full bg-linear-to-r from-emerald-400 to-cyan-400" />
                   <p className="text-gray-200 text-center leading-relaxed">
                     {project.description}
                   </p>

@@ -1,27 +1,35 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Mail, ArrowUp, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
-import Map from "./Map";
 import { usePathname } from "next/navigation";
+import Map from "./Map";
 import { branchesData } from "..";
 
 const Footer = () => {
+  const [hydrated, setHydrated] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  const segments = pathname?.split("/") || [];
+  const currentPath = segments[1];
+  const branchId = segments[2];
+
+  const companyData = branchesData?.branches?.find(
+    (b) => b.id === branchId
+  );
+
+  const location = companyData?.map;
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-  const companyData = branchesData.branches.find(
-    (branch) => branch.id === pathname.split("/")[2]
-  );
 
-  console.log(companyData, "company data in footer");
-  const location = companyData?.map;
-
-  // console.log(companydata)
-  console.log(pathname.split("/")[1]);
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -29,8 +37,6 @@ const Footer = () => {
       transition: { staggerChildren: 0.1, duration: 0.6 },
     },
   };
-
-  console.log(pathname, "path name on footer");
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -41,12 +47,9 @@ const Footer = () => {
     },
   };
 
+  const newLocal = "absolute -bottom-2 left-0 w-12 h-0.5 bg-linear-to-r from-teal-500";
   return (
-    <footer
-      id="footer"
-      className="relative bg-black text-white overflow-hidden"
-    >
-      {/* Background Grid Pattern */}
+    <footer className="relative bg-black text-white overflow-hidden">
       <div className="absolute inset-0 opacity-5">
         <div
           className="absolute inset-0"
@@ -57,8 +60,7 @@ const Footer = () => {
         />
       </div>
 
-      {/* Top Border Accent */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-lgreen via-teal-400 to-cyan-400"></div>
+      <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-teal-500 via-teal-400 to-cyan-400"></div>
 
       <div className="relative pt-16 pb-8 px-6 md:px-12 lg:px-20">
         <motion.div
@@ -68,87 +70,76 @@ const Footer = () => {
           viewport={{ once: true, margin: "-100px" }}
           className="max-w-7xl mx-auto"
         >
-          {/* Main Grid */}
-          <div className="flex flex-col justify-center md:flex-row items-start md:justify-between gap-20">
-            {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"> */}
+          <div className="flex flex-col md:flex-row justify-between items-start gap-20">
+            
             {/* Company Info */}
-            <motion.div variants={itemVariants}>
+            <motion.div variants={itemVariants} className="flex-1">
               <div className="mb-6">
                 <Image
                   src="/logo.png"
                   width={120}
                   height={120}
                   alt="Arrham Group Logo"
+                  className="object-contain"
                 />
               </div>
 
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 text-white/70 hover:text-lgreen transition-colors cursor-pointer">
-                  <MapPin className="w-4 h-4 flex-shrink-0" />
-                  <div className="inline-block text-sm max-w-2xl">
-                    {
-                      companyData?.name ? (
-                          <span className="block">
-                            {companyData.name}
-                          </span>
-                      ):(
-                        <span className="block">
-                          ARRHAM TRADING AND CONTRACTING W.L.L
-                        </span>
-                      )
-                    }
-                    
-                    {
-                      companyData?.contact ? (
-                          <span className="block">
-                            {companyData.contact.address}
-                          </span>
-                      ):(
-                        <span className="block mt-2">
-                          Building 1445A & 1445G, Road 4630, Block 646, Nuwaidrat, Sitrah 644 Bahrain
-                        </span>
-                      )
-                    }
-             
-              </div>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3 text-white/70 hover:text-teal-400 transition cursor-pointer group">
+                  <MapPin className="w-5 h-5 mt-0.5 group-hover:animate-bounce" />
+                  <div className="text-sm max-w-sm">
+                    <span className="block font-semibold text-white mb-1">
+                      {companyData?.name ||
+                        "ARRHAM TRADING AND CONTRACTING W.L.L"}
+                    </span>
+                    <span className="block leading-relaxed">
+                      {companyData?.contact?.address ||
+                        "Building 1445A & 1445G, Road 4630, Block 646, Nuwaidrat, Sitrah 644 Bahrain"}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-3 text-white/70 hover:text-lgreen transition-colors cursor-pointer">
-                  <Phone className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-sm">{ companyData?.contact ? companyData.contact.phone : "+973 1747 3535" }</span>
+
+                <div className="flex items-center gap-3 text-white/70 hover:text-teal-400 transition">
+                  <Phone className="w-4 h-4" />
+                  <span className="text-sm">
+                    {companyData?.contact?.phone || "+973 1747 3535"}
+                  </span>
                 </div>
-                <div className="flex items-center gap-3 text-white/70 hover:text-lgreen transition-colors cursor-pointer">
-                  <Mail className="w-4 h-4 flex-shrink-0" />
+
+                <div className="flex items-center gap-3 text-white/70 hover:text-teal-400 transition">
+                  <Mail className="w-4 h-4" />
                   <a
-                    href="https://mail.google.com/mail/?view=cm&fs=1&to=info@arrhamgroup.com"
-                    target="_blank"
+                    href={`mailto:${
+                      companyData?.contact?.email || "info@arrhamgroup.com"
+                    }`}
                     className="text-sm"
                   >
-                    { companyData?.contact ? companyData.contact.email : "info@arrhamgroup.com"}
+                    {companyData?.contact?.email || "info@arrhamgroup.com"}
                   </a>
                 </div>
               </div>
             </motion.div>
 
-            {/* Quick Links */}
-            <motion.div variants={itemVariants} className="mr-5 w-auto">
-              <h3 className="text-lg font-bold mb-6 relative ">
+            <motion.div variants={itemVariants} className="w-auto">
+              <h3 className="text-lg font-bold mb-6 relative">
                 Quick Links
-                <div className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-lgreen to-teal-400"></div>
+                <div className={newLocal}></div>
               </h3>
+
               <ul className="space-y-4">
                 {[
                   { name: "Home", href: "/" },
                   { name: "About Us", href: "/about-us" },
-                  { name: "Automotive", href: "/automotive" },
-                  { name: "Architectural", href: "/architectural" },
-                  { name: "MEP Services", href: "/mep" },
-                ].map((link, index) => (
-                  <li key={index}>
+                  { name: "What's New", href: "/news" },
+                  // { name: "Architectural", href: "/architectural" },
+                  // { name: "MEP Services", href: "/mep" },
+                ].map((link, i) => (
+                  <li key={i}>
                     <a
                       href={link.href}
-                      className="text-white/70 hover:text-lgreen transition-all duration-300 flex items-center gap-2 group text-sm"
+                      className="text-white/70 hover:text-teal-400 transition flex items-center gap-2 group text-sm"
                     >
-                      <span className="w-1 h-1 bg-white/40 rounded-full group-hover:bg-lgreen group-hover:w-2 transition-all"></span>
+                      <span className="w-1 h-1 bg-white/40 rounded-full group-hover:bg-teal-400 group-hover:w-2 transition"></span>
                       {link.name}
                     </a>
                   </li>
@@ -157,9 +148,13 @@ const Footer = () => {
             </motion.div>
 
             {/* Map */}
-            {pathname.split("/")[1] === "about-us" && (
-              <motion.div variants={itemVariants}>
-                <Map lat={location?.lat} lon={location?.lon} />
+            {currentPath === "about-us" && hydrated && (
+              <motion.div variants={itemVariants} className="flex-1 w-full">
+                <Map
+                  key={`${branchId}-${location?.lat}-${location?.lon}`}
+                  lat={location?.lat}
+                  lon={location?.lon}
+                />
               </motion.div>
             )}
           </div>
@@ -167,41 +162,26 @@ const Footer = () => {
           {/* Bottom Bar */}
           <motion.div
             variants={itemVariants}
-            className="relative mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row md:items-start"
+            className="relative mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between"
           >
-            {/* Text aligned to start */}
             <div className="text-center md:text-left">
               <p className="text-white/60 text-sm">
-                © {new Date().getFullYear()} Arrham Trading and Contracting. All
-                rights reserved.
+                © {new Date().getFullYear()} Arrham Trading and Contracting.
               </p>
               <p className="text-white/40 text-xs mt-1">
-                Website developed by{" "}
-                <span className="text-lgreen font-medium">Vevofiks</span>
+                Website developed by <span className="text-teal-400">Vevofiks</span>
               </p>
             </div>
 
-            {/* Button absolutely centered */}
             <motion.button
               onClick={scrollToTop}
-              className="
-              absolute left-1/2 -translate-x-1/2
-              top-0 mt-[-3rem]   /* on mobile, bump it above the text */
-              md:mt-0 md:top-auto md:bottom-0 /* reset for desktop */
-              p-3 bg-gradient-to-r from-lgreen to-teal-500 rounded-full
-              text-black cursor-pointer
-              hover:shadow-lg hover:shadow-lgreen/25 transition-all
-              "
-
+              className="absolute left-1/2 -translate-x-1/2 top-0 md:relative md:left-auto md:translate-x-0 p-3 bg-linear-to-r from-teal-600 to-teal-400 rounded-full text-white hover:shadow-lg hover:shadow-teal-500/25 transition"
               whileHover={{ scale: 1.1, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              title="Scroll to top"
             >
               <ArrowUp className="w-5 h-5" />
             </motion.button>
           </motion.div>
-
-
         </motion.div>
       </div>
     </footer>
