@@ -22,19 +22,18 @@ const KeyPersonnel = ({
 
   return (
     <section className="py-6 sm:py-8 md:py-10 lg:py-12">
-      {/* EXPANDED CONTAINER → allows 4 cards to fit perfectly */}
-      <div className="flex items-center justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* PERSONNEL GRID */}
-        <motion.div
+      {/* CONTAINER WITH FULL CENTER ALIGNMENT */}
+      <div className="flex items-center justify-center w-full px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-7xl">
+          {/* PERSONNEL GRID */}
+          <motion.div
           className="
             grid 
             grid-cols-1 
             sm:grid-cols-2 
-            md:grid-cols-3 
-            lg:grid-cols-4 
-            gap-10 
-            w-full 
+            md:grid-cols-3
+            gap-10
+            w-full
             place-items-center 
             justify-items-center
           "
@@ -166,7 +165,8 @@ const KeyPersonnel = ({
               </div>
             </motion.div>
           ))}
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

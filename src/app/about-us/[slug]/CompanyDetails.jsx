@@ -852,6 +852,7 @@ function CompanyDetails({ companyData }) {
             certificates={certificates}
             lColor="rgb(52, 211, 153)"
             rColor="rgb(52, 211, 153)"
+            companyName={companyData.name}
           />
         </section>
       )}
@@ -872,6 +873,7 @@ function CompanyDetails({ companyData }) {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         project={selectedProject}
+        companyName={companyData.name}
       />
     </div>
   );

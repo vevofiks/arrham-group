@@ -9,18 +9,17 @@ function ProjectCard({ setIsOpen, project, index, company }) {
     return company.primaryColor.text;
   };
 
-  const getStatusBg = (status) => {
-    if (status.toLowerCase().includes('completed')) return 'bg-emerald-400/10';
-    if (status.toLowerCase().includes('progress')) return 'bg-yellow-400/10';
-    return `${company.primaryColor.text}/10`;
-  };
+  // const getStatusBg = (status) => {
+  //   if (status.toLowerCase().includes('completed')) return 'bg-emerald-400/10';
+  //   if (status.toLowerCase().includes('progress')) return 'bg-yellow-400/10';
+  //   return `${company.primaryColor.text}/10`;
+  // };
 
-  console.log(project)
   return (
     <div 
       className='p-6 w-full'
     >
-      <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center">
+      <div className="grid gap-10 justify-center sm:grid-cols-2 md:grid-cols-3 place-items-center">
         <div className="w-full max-w-[300px]">
 
           <TiltedCard
