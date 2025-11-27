@@ -42,21 +42,22 @@ export async function POST(req) {
     const branchId = formData.get("branchId");
     const name = formData.get("name");
     const position = formData.get("position");
+    const qualification = formData.get("qualification");
     const description = formData.get("description");
     const yearOfExperience = formData.get("yearOfExperience");
     const imgFile = formData.get("profileImage");
 
-    if (!branchId || !name || !position || !description || !yearOfExperience || !imgFile) {
+    if (!branchId || !name || !position || !qualification || !description || !yearOfExperience || !imgFile) {
       return NextResponse.json(
-        { error: "branchId, name, position, description, yearOfExperience and profileImage are required" },
+        { error: "branchId, name, position, qualification, description, yearOfExperience and profileImage are required" },
         { status: 400 }
       );
     }
 
     // Validate description length (max 35 characters)
-    if (description.length > 35) {
+    if (description.length > 75) {
       return NextResponse.json(
-        { error: "Description must not exceed 35 characters" },
+        { error: "Description must not exceed 75 characters" },
         { status: 400 }
       );
     }
@@ -89,6 +90,7 @@ export async function POST(req) {
       branchId, 
       name,
       position,
+      qualification,
       profileImage: imageUrl, 
       description,
       yearOfExperience: parseInt(yearOfExperience)

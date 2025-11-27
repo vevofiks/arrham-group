@@ -12,6 +12,7 @@ export async function PUT(request, { params }) {
 
     const name = formData.get("name");
     const position = formData.get("position");
+    const qualification = formData.get("qualification");
     const description = formData.get("description");
     const yearOfExperience = formData.get("yearOfExperience");
     const imgFile = formData.get("profileImage");
@@ -20,6 +21,7 @@ export async function PUT(request, { params }) {
     console.log("ID:", id);
     console.log("Name:", name);
     console.log("Position:", position);
+    console.log("qualification:", qualification);
     console.log("Description:", description);
     console.log("Year of Experience:", yearOfExperience);
     console.log("============================");
@@ -27,13 +29,14 @@ export async function PUT(request, { params }) {
     const update = {};
     if (name !== null && name !== "") update.name = name;
     if (position !== null && position !== "") update.position = position;
+    if (qualification !== null && qualification !== "") update.qualification = qualification;
     if (description !== null && description !== "") update.description = description;
     if (yearOfExperience !== null && yearOfExperience !== "") update.yearOfExperience = parseInt(yearOfExperience);
 
-    // Validate description length if provided (max 35 characters)
-    if (description !== null && description.length > 35) {
+    // Validate description length if provided (max 75 characters)
+    if (description !== null && description.length > 75) {
       return NextResponse.json(
-        { error: "Description must not exceed 35 characters" },
+        { error: "Description must not exceed 75 characters" },
         { status: 400 }
       );
     }
