@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 const Hero = dynamic(() => import('./components/Hero'), { ssr: false })
 const About = dynamic(() => import('./components/About'), { ssr: false })
@@ -10,13 +10,13 @@ import Contact from './components/Contact'
 import { ArrowRight, ChevronDown } from 'lucide-react'
 import LogoLoop from '@/components/LogoLoop'
 import Clients from './components/Clients'
-import GlobalBranches from './components/GlobalBranches'
 import { useRouter } from 'next/navigation'
 import { branchesData } from '.'
 import SimpleCard from './about-us/components/Companies'
-import { imageLogos } from './data'
+
 const Page = () => {
   const router = useRouter();
+  const [imageLogosData , setImageLogosData] = useState(null);
   useEffect(() => {
     const target = sessionStorage.getItem("scroll-target");
     if (target) {
@@ -44,6 +44,20 @@ const Page = () => {
     }
   }
 
+  useEffect(() => {
+    const fetchClientImages = async () => {
+      try {
+        const response = await fetch('/api/clients/images');
+        const data = await response.json();
+        setImageLogosData(data);
+      } catch (error) {
+        console.error('Error fetching client images:', error);
+      }
+    };
+
+    fetchClientImages();
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -60,6 +74,9 @@ const Page = () => {
       transition: { duration: 0.8, ease: "easeOut" },
     },
   };
+
+  console.log("Image Logos Data:", imageLogosData);
+  
   return (
     <div id="home" className="relative">
       <section className="relative flex flex-col items-center justify-center mt-26 md:mt-12 px-5 sm:px-10 md:px-20 min-h-screen">
@@ -148,7 +165,7 @@ const Page = () => {
       </div> */}
 
       {/* Clients & Contact */}
-      <Clients imageLogos={imageLogos} />
+      <Clients imageLogos={imageLogosData} />
       <Contact />
     </div>
   );

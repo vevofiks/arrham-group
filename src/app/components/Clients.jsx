@@ -82,7 +82,7 @@ const Clients = ({ imageLogos, lColor = "", rColor = "", id = "" }) => {
             />
           </div>
         ) : (
-          <div className="mt-12">
+          <div className="mt-12 mb-15">
             
             {imageLogos?.length <= 3 && imageLogos?.length > 0 && (
               <div className="flex flex-wrap justify-center gap-12">

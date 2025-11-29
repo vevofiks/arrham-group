@@ -129,8 +129,9 @@ function Modal({ isOpen, onClose, project, companyName }) {
                           className="flex items-center justify-center"
                         >
                           <Card className="bg-transparent shadow-none border-0 w-full h-full flex items-center justify-center">
-                            <CardContent className="relative w-full h-full flex items-center justify-center p-0">
-                              {isZoomed ? (
+                          <CardContent className="relative w-full aspect-[16/9] flex items-center justify-center p-0">
+                            {isZoomed ? (
+                              <div className="relative w-full h-full">                               
                                 <TransformWrapper
                                   ref={transformRef}
                                   initialScale={1}
@@ -146,19 +147,22 @@ function Modal({ isOpen, onClose, project, companyName }) {
                                   }}
                                 >
                                   <TransformComponent>
-                                    <div className="relative w-96 h-64 flex items-center justify-center cursor-grab active:cursor-grabbing">
+                                    <div className="relative w-full h-full cursor-grab active:cursor-grabbing">                                        
                                       <Image
                                         src={image || "/arrham3.png"}
                                         alt={`${project.name || "Project"} - Image ${index + 1}`}
-                                        width={400}
-                                        height={300}
+                                        width={800}
+                                        height={400}
                                         className="object-contain select-none"
                                         priority={index === 0}
                                         draggable={false}
                                       />
+                                  
                                     </div>
+
                                   </TransformComponent>
                                 </TransformWrapper>
+                              </div>
                               ) : (
                                 <div className="relative w-full max-w-4xl aspect-video flex items-center justify-center">
                                   <Image

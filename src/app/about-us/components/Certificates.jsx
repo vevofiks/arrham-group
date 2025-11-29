@@ -1,9 +1,10 @@
 "use client";
-import { motion } from "motion/react";
-import { useState } from "react";
-import { X, ExternalLink, Award } from "lucide-react";
+import React, { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-
+import { ExternalLink } from "lucide-react";
+// Ensure you have installed: npm i react-zoom-pan-pinch
+import CertificateModal from "./CertificateModal";
 import { Montserrat as MontserratFont } from "next/font/google";
 
 const montserrat = MontserratFont({
@@ -11,56 +12,62 @@ const montserrat = MontserratFont({
   variable: "--font-montserrat",
 });
 
+const staggerContainer = {
+  initial: {},
+  animate: {
+    transition: { staggerChildren: 0.1 },
+  },
+};
+
+const cardVariants = {
+  initial: { opacity: 0, y: 30 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
+
+
 const Certificates = ({
   certificates = [],
-  lColor = "",
+  lColor = "", 
   rColor = "",
   id = "",
-  companyName= "",
+  companyName = "",
 }) => {
-  const [selectedCertificate, setSelectedCertificate] = useState(null);
-  const hasGradient = Boolean(lColor && rColor);
+  const [selectedCert, setSelectedCert] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const cardVariants = {
-    initial: {
-      opacity: 0,
-      y: 30,
-      scale: 0.95,
-    },
-    animate: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    },
-  };
+  // If no data, don't render section
+  if (!certificates || certificates.length === 0) return null;
 
-  const staggerContainer = {
-    animate: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const openModal = (certificate) => {
-    setSelectedCertificate(certificate);
+  const openModal = (cert) => {
+    setSelectedCert(cert);
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setSelectedCertificate(null);
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedCert(null), 300);
   };
 
-  console.log("idvalue",id)
+  const isHealthcare = id === "arrham-healthcare-bahrain";
+  
+  // Theme for cards
+  const cardTheme = isHealthcare 
+    ? "bg-white border-gray-100 shadow-[0_4px_20px_rgb(0,0,0,0.05)] hover:shadow-xl hover:border-teal-100"
+    : "bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-white/20 hover:shadow-2xl hover:shadow-emerald-500/10";
+
+  const hasGradient = Boolean(lColor && rColor);  
+  // Construct gradient strings from props
+  const gradientText = `bg-gradient-to-r ${lColor} ${rColor} bg-clip-text text-transparent`;
 
   return (
-    <section className="py-16 px-4">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.div
+    <section className="py-16 w-full relative z-10">
+      <div className="w-full px-4">
+
+         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -106,52 +113,57 @@ const Certificates = ({
           </p>
         </motion.div>
 
-        {/* Certificates Grid */}
+
+        
+        {/* --- CARDS CONTAINER --- */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          // Flex layout for tight centering + reduced gap
+          className="flex flex-wrap justify-center gap-5 w-full"
           variants={staggerContainer}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
         >
-          {certificates.map((certificate, idx) => (
+          {certificates.map((certificate) => (
             <motion.div
-              key={certificate._id}
+              key={certificate._id} // Using the _id from your data
               variants={cardVariants}
               whileHover={{
-                scale: 1.03,
-                y: -8,
+                scale: 1.02,
+                y: -5,
                 transition: { duration: 0.3 },
               }}
-              className={`group relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-500 hover:bg-emerald-500/10 hover:border-emerald-500/30 hover:shadow-2xl hover:shadow-emerald-500/20 cursor-pointer ${(() => { const total = certificates.length; const rem = total % 3 || 3; const startIndexLastRow = total - rem; if (idx < startIndexLastRow || rem === 3) return ""; const pos = idx - startIndexLastRow; if (rem === 1) return "md:col-start-2"; if (rem === 2) return pos === 0 ? "md:col-start-1" : "md:col-start-3"; return ""; })()}`}
+              className={`
+                group relative overflow-hidden rounded-2xl 
+                w-full md:w-[350px] flex-grow-0
+                flex flex-col
+                transition-all duration-500 cursor-pointer
+                ${cardTheme}
+              `}
               onClick={() => openModal(certificate)}
             >
-              {/* Background Effects */}
-              <div className="absolute inset-0 bg-linear-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="absolute -top-4 -right-4 w-20 h-20 bg-linear-to-br from-emerald-400/20 to-teal-400/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-              <div className="relative z-10 p-6">
-                {/* Certificate Image */}
-                <div className="relative mb-4 overflow-hidden rounded-xl">
-                  <div className="relative w-full h-48">
-                    <Image
-                      src={certificate.img}
-                      alt={certificate.name}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      priority={false}
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                      <ExternalLink className="w-4 h-4 text-white" />
-                    </div>
+              {/* Card Body */}
+              <div className="p-5 flex flex-col h-full">
+                
+                {/* Image Container - TALLER (h-64) */}
+                <div className="relative w-full h-64 mb-5 rounded-xl overflow-hidden shadow-sm bg-gray-900/5">
+                  <Image
+                    src={certificate.img} // Using img from your data
+                    alt={certificate.name}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, 350px"
+                  />
+                  
+                  {/* Overlay on hover */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                     <div className="bg-white/20 backdrop-blur-md p-3 rounded-full">
+                        <ExternalLink className="w-5 h-5 text-white" />
+                     </div>
                   </div>
                 </div>
 
-                {/* Certificate Info */}
+                {/* Info */}
                 <div className="space-y-3">
                   <h3
                     className={`text-xl font-bold ${
@@ -180,97 +192,18 @@ const Certificates = ({
             </motion.div>
           ))}
         </motion.div>
-
-        {/* Empty State */}
-        {certificates.length === 0 && (
-          <motion.div
-            className="text-center py-16"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <Award className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-400 mb-2">
-              No Certificates Available
-            </h3>
-            <p className="text-gray-500">
-              Certificates will be displayed here when available.
-            </p>
-          </motion.div>
-        )}
       </div>
 
-      {/* Modal */}
-      {selectedCertificate && (
-        <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={closeModal}
-        >
-          {/* Backdrop */}
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
-
-          {/* Modal Content */}
-          <motion.div
-            className="relative bg-white/10 border border-white/20 rounded-2xl backdrop-blur-xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button
-              onClick={closeModal}
-              className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors duration-200"
-            >
-              <X className="w-5 h-5 text-white" />
-            </button>
-
-            {/* Modal Body */}
-            <div className="p-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                {/* Image */}
-                <div className="relative overflow-hidden rounded-xl">
-                  <div className="relative w-full h-64">
-                    <Image
-                      src={selectedCertificate.img}
-                      alt={selectedCertificate.name}
-                      fill
-                      className="object-contain"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                  </div>
-                </div>
-
-                {/* Details */}
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="text-2xl font-bold text-white mb-2">
-                      {selectedCertificate.name}
-                    </h3>
-                    <p className="text-gray-300 leading-relaxed">
-                      {selectedCertificate.description}
-                    </p>
-                  </div>
-
-                  <div className="space-y-2 pt-4 border-t border-white/20">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
-                      <span className="text-sm text-gray-400">Comany: </span>
-                      <span className="text-sm text-white font-medium">
-                        {companyName}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
+      {/* --- MODAL --- */}
+      <CertificateModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        certificate={selectedCert}
+        id={id}
+        companyName={companyName}
+        lColor={lColor}
+        rColor={rColor}
+      />
     </section>
   );
 };

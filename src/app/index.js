@@ -14,8 +14,8 @@ export const branchesData = {
         shadow: "shadow-teal-900/30",
       },
       map: {
-        lat: "11.230224111176732",
-        lon: "75.9868206754021",
+        lat: "44.24616634099332",
+        lon: "79.46140044740201",
       },
       companyImg: "/companyDummy.png",
       country: "Canada",
@@ -48,8 +48,8 @@ export const branchesData = {
       clients: ["Local manufacturing clients", "Regional logistics firms"],
       accreditations: [],
       contact: {
-        address: "Head Office, Canada",
-        phone: "Contact via main office",
+        address: "102A, Church Street Keswick, Ontario L4p 0j4",
+        phone: "+1 111 100 4444",
         email: "info@arrhamgroup.com",
         website: "https://www.arrhamgroup.com",
       },
@@ -68,8 +68,8 @@ export const branchesData = {
         shadow: "shadow-teal-900/30",
       },
       map: {
-        lat: "26.14129995053057",
-        lon: "50.583114618889056",
+        lat: "44.24616634099332",
+        lon: "79.46140044740201",
       },
       companyIcon: "/arrham-logo.png",
       companyImg: "/companyDummy.png",
@@ -230,9 +230,9 @@ export const branchesData = {
       ],
       accreditations: ["ISO 45001:2018", "ISO 9001:2015", "ISO 14001:2015"],
       contact: {
-        address: "Al Khobar Al Janubiyah Dist., KSA",
-        phone: "+966 XXXXXXXXX",
-        email: "contact@arrhamgroup.com",
+        address: "Bulding No. 2581, Street 11, Al khobar, Postal Code 34611, Kingdom of Saudi Arabia.",
+        phone: "+966 54 129 0883",
+        email: "info@arrhamgroup.com",
         website: "https://www.arrhamgroup.com",
       },
       otherDetails: {
@@ -254,8 +254,8 @@ export const branchesData = {
         shadow: "shadow-teal-900/30",
       },
       map: {
-        lat: "26.14129995053057",
-        lon: "50.583114618889056",
+        lat: "26.13747452109067",
+        lon: "50.58448011989864",
       },
       companyIcon: "/arrham-ksa.png",
       companyImg: "/companyDummy.png",
@@ -544,7 +544,7 @@ export const branchesData = {
         address:
           "1445G, Road 4630, Block 646, Nuwaidrat, Sitrah 644, Kingdom of Bahrain",
         phone: "+973 1747 3535",
-        email: "healthcare@arrhamgroup.com",
+        email: "info@arrhamgroup.com",
         website: "https://www.arrhamgroup.com",
       },
       otherDetails: {

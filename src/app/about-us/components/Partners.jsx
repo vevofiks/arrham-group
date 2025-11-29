@@ -99,7 +99,7 @@ const Partners = ({ partnerships = [], lColor = "", rColor = "", id = "" }) => {
         {/* Partners Grid (replacing carousel) */}
         <motion.div
           className="xl:max-w-[1290px] mx-auto flex flex-wrap justify-center gap-16"
-          variants={staggerContainer}
+          // variants={staggerContainer}
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}

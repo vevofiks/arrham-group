@@ -131,8 +131,7 @@ const Footer = () => {
                   { name: "Home", href: "/" },
                   { name: "About Us", href: "/about-us" },
                   { name: "What's New", href: "/news" },
-                  // { name: "Architectural", href: "/architectural" },
-                  // { name: "MEP Services", href: "/mep" },
+                  { name: "Privacy Policy", href: "/privacy-policy" },
                 ].map((link, i) => (
                   <li key={i}>
                     <a
