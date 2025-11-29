@@ -9,17 +9,12 @@ function ProjectCard({ setIsOpen, project, index, company }) {
     return company.primaryColor.text;
   };
 
-  // const getStatusBg = (status) => {
-  //   if (status.toLowerCase().includes('completed')) return 'bg-emerald-400/10';
-  //   if (status.toLowerCase().includes('progress')) return 'bg-yellow-400/10';
-  //   return `${company.primaryColor.text}/10`;
-  // };
-
-  return (
+ return (
     <div 
       className='p-6 w-full'
     >
-      <div className="grid gap-10 justify-center sm:grid-cols-2 md:grid-cols-3 place-items-center">
+      {/* Changed Grid to Flex to center the single item perfectly */}
+      <div className="flex justify-center items-center w-full">
         <div className="w-full max-w-[300px]">
 
           <TiltedCard
@@ -37,7 +32,6 @@ function ProjectCard({ setIsOpen, project, index, company }) {
             displayOverlayContent={true}
             overlayContent={
               <p className="text-lg m-4 text-white mb-3 font-semibold">{project.name}</p>
-
             }
           />
         </div>

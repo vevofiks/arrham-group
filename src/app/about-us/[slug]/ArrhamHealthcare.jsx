@@ -385,93 +385,7 @@ function ArrhamHealthcare() {
           </div>
         </section>
       )}
-
-      {/* Who We Are Section */}
-      {/* <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-16 text-center ${montserrat.className}`}
-        >
-          <span className="text-white">Who </span>
-          <span className="bg-gradient-to-r from-blue-400 to-teal-500 bg-clip-text text-transparent">
-            We Are
-          </span>
-        </motion.h2>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8"
-          >
-            <p className={`text-lg md:text-xl text-gray-300 leading-relaxed ${montserrat.className}`}>
-              <span className="text-teal-400 font-semibold">Arrham Healthcare Solutions (Hidaya Healthcare Solutions W.L.L.)
-                Bahrain</span> is a dynamic and multifaceted firm specializing in high-quality construction, fit-out, and contracting services across Commercial, Residential, and Industrial sectors. Built on integrity, innovation, and professionalism.
-            </p>
-
-            <p className={`text-lg md:text-xl text-gray-300 leading-relaxed ${montserrat.className}`}>
-              <span className="text-blue-400 font-semibold">Hidaya Healthcare W.L.L.</span> is our specialized entity focused exclusively on healthcare infrastructure development, bringing together multidisciplinary expertise in medical compliance, hygiene protocols, and patient-centric design.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-teal-400/20 hover:border-teal-400/30 transition-colors duration-300 shadow-lg"
-          >
-            <h3 className={`text-2xl md:text-3xl font-bold mb-6 text-teal-300 ${montserrat.className}`}>
-              Our Healthcare Expertise
-            </h3>
-            <ul className="space-y-4 text-gray-300">
-              {[
-                {
-                  title: "Hospitals & Medical Centers:",
-                  description: "Full-scale in-patient and out-patient facilities, operating theatres, ICUs, labs, and imaging suites.",
-                  color: "teal-400"
-                },
-                {
-                  title: "Clinics & Day Surgery Centers:",
-                  description: "Functional layouts with medical gas systems and infection control zones.",
-                  color: "blue-400"
-                },
-                {
-                  title: "Diagnostic & Imaging Facilities:",
-                  description: "MRI, CT, X-Ray units with specialized radiation shielding.",
-                  color: "teal-400"
-                },
-                {
-                  title: "Wellness & Rehabilitation:",
-                  description: "Healing environments with hydrotherapy, physio, and wellness zones.",
-                  color: "blue-400"
-                }
-              ].map((item, idx) => (
-                <motion.li
-                  key={idx}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="flex items-start space-x-3"
-                >
-                  <div className={`w-2 h-2 bg-${item.color} rounded-full mt-3 flex-shrink-0`} />
-                  <span className={montserrat.className}>
-                    <strong className="text-white">{item.title}</strong> {item.description}
-                  </span>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-        </div>
-      </section> */}
-
-      {/* Mission, Vision, Values */}
+      
       <section className="px-6 md:px-12 lg:px-16 py-16 bg-gray-100">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -595,6 +509,7 @@ function ArrhamHealthcare() {
                 Showcasing trusted names that represent our commitment to
                 quality and innovation.
               </p>
+              
             </div>
 
             {/* Brand Grid (replacing carousel) */}
@@ -744,6 +659,7 @@ function ArrhamHealthcare() {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         project={selectedProject}
+        companyName={companyName}
       />
     </div>
   );
