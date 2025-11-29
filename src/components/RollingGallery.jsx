@@ -5,6 +5,7 @@ import {
   useAnimation,
   useTransform,
 } from "motion/react";
+import Image from "next/image";
 
 // const IMGS = [
 //   "/works/work1.jpg",
@@ -172,7 +173,7 @@ const RollingGallery = ({
                 }deg) translateZ(${radius}px)`,
               }}
             >
-              <img
+              <Image
                 src={img.image}
                 alt="gallery"
                 className="pointer-events-none h-[180px] w-[450px] rounded-[15px] border-[3px] border-white object-cover
