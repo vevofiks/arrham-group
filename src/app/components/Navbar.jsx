@@ -68,27 +68,28 @@ const Navbar = () => {
     },
   };
 
-const handleLinkClick = (path, href) => {
-  if (pathname === path) {
-    const element = document.getElementById(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+  const handleLinkClick = (path, href) => {
+    if (pathname === path) {
+      const element = document.getElementById(href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+      setTimeout(() => setIsMobileMenuOpen(false), 300);
+    } else {
+      sessionStorage.setItem("scroll-target", href);
+      router.push(path);
+      setIsMobileMenuOpen(false);
     }
-    setTimeout(() => setIsMobileMenuOpen(false), 300);
-  } else {
-    sessionStorage.setItem("scroll-target", href);
-    router.push(path);
-    setIsMobileMenuOpen(false);
-  }
-};
+  };
 
   return (
     <>
       <motion.nav
         variants={navbarVariants}
         animate={isScrolled ? "solid" : "transparent"}
-        className={`fixed top-0 left-0 right-0 z-50 px-10 md:px-24 py-8 transition-all duration-300  ${isScrolled ? "shadow-lg border-b-lgreen" : ""
-          }`}
+        className={`fixed top-0 left-0 right-0 z-50 px-10 md:px-24 py-8 transition-all duration-300  ${
+          isScrolled ? "shadow-lg border-b-lgreen" : ""
+        }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between ">
           <motion.a
@@ -97,10 +98,40 @@ const handleLinkClick = (path, href) => {
             transition={{ duration: 0.5 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="text-2xl font-bold text-white cursor-pointer"
+            className="text-2xl font-bold text-white cursor-pointer relative block"
             href="/"
           >
-            <Image src="/logo.png" alt="logo" width={50} height={50} />
+            <div className="relative z-10">
+              <Image
+                src="/logo.png"
+                alt="logo"
+                width={50}
+                height={50}
+                className="block"
+              />
+            </div>
+
+            <div
+              className="absolute inset-0 z-20 pointer-events-none"
+              style={{
+                maskImage: "url('/logo.png')",
+                WebkitMaskImage: "url('/logo.png')",
+                maskMode: "alpha",
+                WebkitMaskMode: "alpha",
+                maskRepeat: "no-repeat",
+                WebkitMaskRepeat: "no-repeat",
+                maskSize: "contain",
+                WebkitMaskSize: "contain",
+                maskPosition: "center",
+                WebkitMaskPosition: "center",
+              }}
+            >
+              <div
+                className="bg-linear-to-r from-transparent via-white/80 to-transparent 
+                -skew-x-25 
+                animate-sheen-auto"
+              ></div>
+            </div>
           </motion.a>
 
           <div className="hidden md:flex items-center space-x-8">
@@ -183,7 +214,6 @@ const handleLinkClick = (path, href) => {
                           toggleDropdown(link.name);
                         } else {
                           handleLinkClick(link.path, link.href);
-                          
                         }
                       }}
                       className={`${montserrat.className} flex justify-between cursor-pointer items-center w-full px-4 py-3 text-white hover:text-lgreen font-medium hover:bg-lgreen/10 rounded-lg`}

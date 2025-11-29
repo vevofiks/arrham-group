@@ -4,11 +4,9 @@ import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import ProjectCard from "../components/ProjectsCard";
 import Modal from "../components/modal";
-import { DM_Sans, Montserrat as MontserratFont } from "next/font/google";
+import { Montserrat as MontserratFont } from "next/font/google";
 import KeyPersonnel from "../components/KeyPersonnel";
-import { CircleCheckBig, ExternalLink } from "lucide-react";
-import { CompanyWorksGallery } from "../components/Gallery";
-import RollingGallery from "@/components/RollingGallery";
+import { CircleCheckBig } from "lucide-react";
 import Partners from "../components/Partners";
 import Clients from "@/app/components/Clients";
 import Certificates from "../components/Certificates";
@@ -17,6 +15,68 @@ const montserrat = MontserratFont({
   subsets: ["latin"],
   variable: "--font-montserrat",
 });
+
+const SectionHeader = ({ title, description, color = "emerald", secondaryColor = "to-blue-600" }) => (
+  <div className="text-center mb-12">
+    <motion.h2
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.6 }}
+      className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 ${montserrat.className}`}
+    >
+      <span
+        className={`bg-linear-to-r from-${color}-400 ${secondaryColor} bg-clip-text text-transparent uppercase`}
+      >
+        {title}
+      </span>
+    </motion.h2>
+
+    <motion.div
+      initial={{ opacity: 0, scaleX: 0 }}
+      whileInView={{ opacity: 1, scaleX: 1 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      className={`w-24 h-1 bg-${color}-400 mx-auto rounded-full mb-8`}
+    />
+
+    {description && (
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        className={`text-gray-300 text-lg max-w-2xl mx-auto ${montserrat.className}`}
+      >
+        {description}
+      </motion.p>
+    )}
+  </div>
+);
+
+const SubSectionHeader = ({ title, color = "emerald" }) => (
+  <div className="text-center mb-8">
+    <motion.h3
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }} // Added amount
+      transition={{ duration: 0.6 }}
+      className={`text-2xl md:text-3xl font-bold text-${color}-400 mb-4 ${montserrat.className} uppercase`}
+    >
+      {title}
+    </motion.h3>
+
+    <motion.div
+      initial={{ opacity: 0, scaleX: 0 }}
+      whileInView={{ opacity: 1, scaleX: 1 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      className={`w-20 h-1 bg-${color}-400 mx-auto rounded-full`}
+    />
+  </div>
+);
+
+// --- MAIN COMPONENT ---
 
 function CompanyDetails({ companyData }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -188,70 +248,6 @@ function CompanyDetails({ companyData }) {
 
   const { mainName, subName } = parseCompanyName(companyData.name || "");
 
-  // Consistent section header component
-  const SectionHeader = ({ title, description, color = "emerald" }) => (
-    <div className="text-center mb-12">
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 ${montserrat.className}`}
-      >
-        <span
-          className={`bg-linear-to-r from-${color}-400 ${
-            companyData.color?.[1] || "to-blue-600"
-          } bg-clip-text text-transparent uppercase`}
-        >
-          {title}
-        </span>
-      </motion.h2>
-
-      <motion.div
-        initial={{ opacity: 0, scaleX: 0 }}
-        whileInView={{ opacity: 1, scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className={`w-24 h-1 bg-${color}-400 mx-auto rounded-full mb-8`}
-      />
-
-      {description && (
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className={`text-gray-300 text-lg max-w-2xl mx-auto ${montserrat.className}`}
-        >
-          {description}
-        </motion.p>
-      )}
-    </div>
-  );
-
-  // Consistent sub-section header component
-  const SubSectionHeader = ({ title, color = "emerald" }) => (
-    <div className="text-center mb-8">
-      <motion.h3
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className={`text-2xl md:text-3xl font-bold text-${color}-400 mb-4 ${montserrat.className} uppercase`}
-      >
-        {title}
-      </motion.h3>
-
-      <motion.div
-        initial={{ opacity: 0, scaleX: 0 }}
-        whileInView={{ opacity: 1, scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className={`w-20 h-1 bg-${color}-400 mx-auto rounded-full`}
-      />
-    </div>
-  );
-
   return (
     <div className="text-white">
       {/* Hero Section */}
@@ -350,7 +346,7 @@ function CompanyDetails({ companyData }) {
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6 }}
               className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 ${montserrat.className} `}
             >
@@ -366,7 +362,7 @@ function CompanyDetails({ companyData }) {
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               whileInView={{ opacity: 1, scaleX: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className={`w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8`}
             />
@@ -375,7 +371,7 @@ function CompanyDetails({ companyData }) {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="max-w-4xl mx-auto"
           >
@@ -396,7 +392,7 @@ function CompanyDetails({ companyData }) {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6 }}
               className="mb-16"
             >
@@ -408,7 +404,7 @@ function CompanyDetails({ companyData }) {
                     key={idx}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.1 }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                     className="bg-gray-900/60 border border-gray-700 p-6 rounded-xl text-gray-200 shadow-lg hover:shadow-xl transition-shadow duration-300"
                   >
@@ -426,7 +422,7 @@ function CompanyDetails({ companyData }) {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mb-16"
             >
@@ -438,7 +434,7 @@ function CompanyDetails({ companyData }) {
                     key={idx}
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.1 }}
                     transition={{ duration: 0.4, delay: idx * 0.05 }}
                     className={`px-4 py-2 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-sm font-medium hover:bg-emerald-500/30 transition-colors duration-300 ${montserrat.className}`}
                   >
@@ -454,7 +450,7 @@ function CompanyDetails({ companyData }) {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <SubSectionHeader title="Key Advantages" />
@@ -465,7 +461,7 @@ function CompanyDetails({ companyData }) {
                     key={idx}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.1 }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                     className="flex items-start gap-3 p-4 rounded-xl bg-gray-900/60 border border-gray-700 text-gray-200 hover:bg-gray-900/80 transition-colors duration-300"
                   >
@@ -488,7 +484,7 @@ function CompanyDetails({ companyData }) {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6 }}
             >
               <Image
@@ -503,7 +499,7 @@ function CompanyDetails({ companyData }) {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className={`max-w-4xl mx-auto mb-12 text-lg md:text-xl text-gray-300 leading-relaxed text-left ${montserrat.className}`}
             >
@@ -516,7 +512,7 @@ function CompanyDetails({ companyData }) {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={{
               hidden: { opacity: 0 },
               show: {
@@ -560,7 +556,7 @@ function CompanyDetails({ companyData }) {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6 }}
               className="text-center bg-gray-900/40 rounded-2xl p-8 border border-gray-700"
             >
@@ -573,7 +569,7 @@ function CompanyDetails({ companyData }) {
                       key={idx}
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
+                      viewport={{ once: true, amount: 0.1 }}
                       transition={{ duration: 0.5, delay: idx * 0.1 }}
                       className={`flex items-start gap-3 text-left text-gray-300 leading-relaxed ${montserrat.className}`}
                     >
@@ -597,6 +593,7 @@ function CompanyDetails({ companyData }) {
           <SectionHeader
             title={companyData.electricalMEP.name}
             description={companyData.electricalMEP.description}
+            secondaryColor={companyData.color?.[1]}
           />
 
           {/* Services */}
@@ -605,7 +602,7 @@ function CompanyDetails({ companyData }) {
               className="grid md:grid-cols-2 gap-8 mb-16"
               initial="hidden"
               whileInView="show"
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               variants={{
                 hidden: { opacity: 0 },
                 show: {
@@ -650,7 +647,7 @@ function CompanyDetails({ companyData }) {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6 }}
               className="mb-16"
             >
@@ -662,7 +659,7 @@ function CompanyDetails({ companyData }) {
                     key={idx}
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.1 }}
                     transition={{ duration: 0.4, delay: idx * 0.05 }}
                     className={`p-4 bg-gray-900/60 border border-gray-700 rounded-lg text-gray-200 text-center hover:bg-gray-900/80 transition-colors duration-300 ${montserrat.className}`}
                   >
@@ -678,7 +675,7 @@ function CompanyDetails({ companyData }) {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <SubSectionHeader title="Our Strengths" />
@@ -689,7 +686,7 @@ function CompanyDetails({ companyData }) {
                     key={idx}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.1 }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                     className="flex items-start gap-3 p-4 rounded-xl bg-gray-900/60 border border-gray-700 text-gray-200 hover:bg-gray-900/80 transition-colors duration-300"
                   >
@@ -714,7 +711,7 @@ function CompanyDetails({ companyData }) {
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.6 }}
                 className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 ${montserrat.className}`}
               >
@@ -730,7 +727,7 @@ function CompanyDetails({ companyData }) {
               <motion.div
                 initial={{ opacity: 0, scaleX: 0 }}
                 whileInView={{ opacity: 1, scaleX: 1 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="w-24 h-1 bg-emerald-400 mx-auto rounded-full"
               />
@@ -813,7 +810,7 @@ function CompanyDetails({ companyData }) {
             className={`grid gap-8 justify-items-center ${projects.length === 1 ? 'grid-cols-1' : projects.length === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={{
               hidden: { opacity: 0 },
               show: {
