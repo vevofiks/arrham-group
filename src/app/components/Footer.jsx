@@ -174,7 +174,7 @@ const Footer = () => {
 
             <motion.button
               onClick={scrollToTop}
-              className="absolute left-1/2 -translate-x-1/2 top-0 md:relative md:left-auto md:translate-x-0 p-3 bg-linear-to-r from-teal-600 to-teal-400 rounded-full text-white hover:shadow-lg hover:shadow-teal-500/25 transition"
+              className="absolute left-1/2 -translate-x-1/2 -top-12 md:top-0 md:relative md:left-auto md:translate-x-0 p-3 bg-linear-to-r from-teal-600 to-teal-400 rounded-full text-white hover:shadow-lg hover:shadow-teal-500/25 transition"
               whileHover={{ scale: 1.1, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
