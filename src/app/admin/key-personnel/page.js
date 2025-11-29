@@ -12,6 +12,7 @@ import {
   Upload,
 } from "lucide-react";
 import ConfirmModal from "@/app/components/ConfirmModal";
+import Image from "next/image";
 
 const KeyPersonnelPage = () => {
   const [keyPersonnel, setKeyPersonnel] = useState([]);
@@ -345,7 +346,7 @@ const KeyPersonnelPage = () => {
               >
                 {p.profileImage && (
                   <div className="h-40 sm:h-48 bg-slate-100 overflow-hidden flex items-center justify-center">
-                    <img
+                    <Image
                       src={p.profileImage}
                       alt={p.name}
                       className="h-full w-full object-cover"
@@ -443,7 +444,7 @@ const KeyPersonnelPage = () => {
                         Profile Image
                       </h4>
                       <div className="w-full bg-slate-50 rounded-xl p-4 flex items-center justify-center">
-                        <img
+                        <Image
                           src={selectedPersonnel.profileImage}
                           alt={selectedPersonnel.name}
                           className="max-h-64 rounded-lg object-cover"
@@ -713,7 +714,7 @@ const KeyPersonnelPage = () => {
                     {imagePreview && (
                       <div className="mt-4">
                         <div className="relative inline-block">
-                          <img
+                          <Image
                             src={imagePreview}
                             alt="Preview"
                             className="h-24 sm:h-32 object-cover rounded-lg bg-slate-50 p-2"

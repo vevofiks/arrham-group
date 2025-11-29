@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { X } from "lucide-react";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { Montserrat as MontserratFont } from "next/font/google";
 
@@ -76,7 +77,7 @@ export const CompanyWorksGallery = ({
               className={`text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase my-6 ${montserrat.className}`}
             >
               <span
-                className={`bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent`}
+                className={`bg-linear-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent`}
               >
                 Gallery
               </span>
@@ -101,13 +102,13 @@ export const CompanyWorksGallery = ({
                     className="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
                   >
                     <div className="relative overflow-hidden">
-                      <img
+                      <Image
                         src={work.image}
                         alt="work"
                         style={{ height: `${work.height}px` }}
                         className="w-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
                   </div>
                 ))}
@@ -132,7 +133,7 @@ export const CompanyWorksGallery = ({
               >
                 <X size={24} className="text-gray-700" />
               </button>
-              <img
+              <Image
                 src={selectedWork.image}
                 alt="work Image"
                 className="w-full max-h-[80vh] object-contain bg-white/40"

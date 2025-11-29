@@ -367,7 +367,7 @@ const PartnersPage = () => {
                     {imagePreview && (
                       <div className="mt-4">
                         <div className="relative inline-block">
-                          <img src={imagePreview} alt="Preview" className="h-24 sm:h-32 object-contain rounded-lg bg-slate-50 p-2" />
+                          <Image src={imagePreview} alt="Preview" className="h-24 sm:h-32 object-contain rounded-lg bg-slate-50 p-2" />
                           <button
                             type="button"
                             onClick={() => { setImagePreview(""); setFormData(prev => ({ ...prev, img: null })); }}

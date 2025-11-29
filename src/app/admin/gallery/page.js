@@ -250,7 +250,7 @@ const GalleryPage = () => {
     );
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+        <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-100">
             {/* Notification Toast */}
             {uploadStatus.show && (
                 <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2">
@@ -308,7 +308,7 @@ const GalleryPage = () => {
                             <button
                                 onClick={openModal}
                                 disabled={!selectedBranch}
-                                className="px-4 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base flex items-center justify-center gap-2 whitespace-nowrap"
+                                className="px-4 sm:px-6 py-3 rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base flex items-center justify-center gap-2 whitespace-nowrap"
                             >
                                 <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
                                 <span className="hidden sm:inline">Upload Images</span>
@@ -342,7 +342,7 @@ const GalleryPage = () => {
                                     height={300}
                                     className="w-full h-40 sm:h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                                 <button
                                     onClick={() => {
                                         setDeleteTarget({ galleryId: gallery._id, url });
@@ -446,7 +446,7 @@ const GalleryPage = () => {
                                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                         {imagePreview.map((img, i) => (
                                             <div key={i} className="relative group">
-                                                <img
+                                                <Image
                                                     src={img}
                                                     alt={`Preview ${i + 1}`}
                                                     className="w-full h-24 sm:h-32 object-cover rounded-lg border border-slate-200"
@@ -477,7 +477,7 @@ const GalleryPage = () => {
                                 <button
                                     type="submit"
                                     disabled={uploading || images.length === 0}
-                                    className="flex-1 px-4 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                    className="flex-1 px-4 sm:px-6 py-3 rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                 >
                                     {uploading ? (
                                         <>

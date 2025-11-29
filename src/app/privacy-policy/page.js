@@ -5,16 +5,16 @@ import { policyData } from './data/policies';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import { Calendar, Lock } from 'lucide-react';
 
-const page = () => {
+const Page = () => {
   const activeId = useScrollSpy(policyData.map((s) => s.id), 150);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-gray-800 to-black text-gray-100 font-sans">
-      <main className="flex-grow">
+    <div className="min-h-screen flex flex-col bg-linear-to-br from-gray-900 via-gray-800 to-black text-gray-100 font-sans">
+      <main className="grow">
         {/* Hero Section */}
         <div className="relative bg-gray-800 border-b border-gray-700 mt-10">
           <div className="absolute inset-0">
-             <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/20 to-gray-900/50" />
+             <div className="absolute inset-0 bg-linear-to-r from-emerald-900/20 to-gray-900/50" />
           </div>
           <div className="relative max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8 ">
             <h1 className="text-2xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-5xl ">
@@ -64,4 +64,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
