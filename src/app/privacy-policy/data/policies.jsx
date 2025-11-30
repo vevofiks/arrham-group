@@ -7,7 +7,7 @@ export const policyData = [
     content: (
       <>
         <p className="mb-4">
-          We Larsen & Toubro Limited are committed to safeguarding the privacy of our website visitors; in this policy we explain how we will treat your personal information.
+          We, Arrham Group Inc., are committed to safeguarding the privacy of our website visitors; in this policy we explain how we will treat your personal information.
         </p>
         <p className="mb-4">
           By using our website and agreeing to this policy, you consent to our use of cookies in accordance with the terms of this policy.
