@@ -12,7 +12,6 @@ const montserrat = MontserratFont({
 });
 
 const Clients = ({ imageLogos, lColor = "", rColor = "", id = "" }) => {
-  // if you pass lColor and rColor they will be used as a right-to-left gradient (to left)
   const hasGradient = Boolean(lColor && rColor);
 
   return (
@@ -55,6 +54,7 @@ const Clients = ({ imageLogos, lColor = "", rColor = "", id = "" }) => {
           results.{" "}
         </p>
 
+        {/* LOGIC FIX: Case A - More than 4 items */}
         {Array.isArray(imageLogos) && imageLogos.length > 4 ? (
           <div className="relative h-[230px] mx-auto overflow-hidden mt-20">
             <LogoLoop
@@ -82,14 +82,21 @@ const Clients = ({ imageLogos, lColor = "", rColor = "", id = "" }) => {
             />
           </div>
         ) : (
+          /* LOGIC FIX: Case B - 4 or fewer items */
           <div className="mt-12 mb-15">
-            
-            {imageLogos?.length < 4 && imageLogos?.length > 0 && (
+            {/* CHANGED: < 4 to <= 4 */}
+            {imageLogos?.length <= 4 && imageLogos?.length > 0 && (
               <div className="flex flex-wrap justify-center gap-12">
                 {imageLogos.map((src, i) => (
                   <div key={i} className="w-[140px]">
                     <div className="relative w-full h-20 sm:h-24">
-                      <Image src={src} alt="client logo" fill className="object-contain" sizes="140px" />
+                      <Image 
+                        src={src} 
+                        alt="client logo" 
+                        fill 
+                        className="object-contain" 
+                        sizes="140px" 
+                      />
                     </div>
                   </div>
                 ))}
