@@ -48,7 +48,7 @@ const Certificates = ({
     setTimeout(() => setSelectedCert(null), 300);
   };
 
-  const isHealthcare = id === "arrham-healthcare-bahrain";
+  const isHealthcare = id === "healthcare";
 
   // Card Styling
   const cardTheme = isHealthcare
@@ -88,7 +88,7 @@ const Certificates = ({
           </h2>
           <div
             className={`w-16 h-1 mx-auto rounded-full ${
-              hasGradient ? "bg-gradient-to-r from-teal-400 to-blue-500" : "bg-emerald-400"
+              hasGradient ? "bg-linear-to-r from-teal-400 to-blue-500" : "bg-emerald-400"
             }`}
           />
         </motion.div>
@@ -114,7 +114,7 @@ const Certificates = ({
               `}
               onClick={() => openModal(certificate)}
             >
-              <div className="relative w-full h-48 bg-white p-4 flex items-center justify-center border-b border-gray-100/10">
+              <div className="relative w-full h-48 p-4 flex items-center justify-center border-b border-gray-100/10">
                 <div className="relative w-full h-full">
                   <Image
                     src={certificate.img}
@@ -128,14 +128,14 @@ const Certificates = ({
 
               <div className="p-4 flex flex-col gap-2">
                 <h3
-                  className={`text-base font-bold line-clamp-1 ${
+                  className={`text-base text-center font-bold line-clamp-1 ${
                     isHealthcare ? "text-gray-900" : "text-emerald-300"
                   }`}
                 >
                   {certificate.name}
                 </h3>
                 
-                <div className="flex items-center gap-2 mt-auto">
+                <div className="flex items-center justify-center gap-2 mt-auto">
                   <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full"></div>
                   <span className={`text-[10px] ${isHealthcare ? "text-gray-500" : "text-white/60"} uppercase tracking-wider`}>
                     {companyName}
