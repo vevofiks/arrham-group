@@ -74,10 +74,6 @@ const KeyPersonnel = ({
                   show: { opacity: 1, y: 0 },
                 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                /* UPDATED CARD SIZE:
-                   max-w-[300px]: Reduced width for a more compact look.
-                   p-6: Standard padding.
-                */
                 className={`
                   w-full max-w-[300px] flex flex-col
                   border rounded-3xl p-6

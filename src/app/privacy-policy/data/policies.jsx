@@ -6,6 +6,19 @@ export const policyData = [
     title: 'Introduction',
     content: (
       <>
+        {/* Added Dates Section based on Amendments clause */}
+        <div className="flex flex-col sm:flex-row gap-4 mb-8 p-4 bg-gray-800/50 border border-gray-700 rounded-lg">
+           <div className="text-sm text-gray-400">
+             <span className="block text-xs uppercase tracking-wider opacity-70">Created</span>
+             <span className="font-medium text-white">November 30, 2025</span>
+           </div>
+           <div className="w-px h-auto bg-gray-700 hidden sm:block"></div>
+           <div className="text-sm text-emerald-400">
+             <span className="block text-xs uppercase tracking-wider opacity-70 text-gray-400">Last Updated</span>
+             <span className="font-medium">November 30, 2025</span>
+           </div>
+        </div>
+
         <p className="mb-4">
           We, Arrham Group Inc., are committed to safeguarding the privacy of our website visitors; in this policy we explain how we will treat your personal information.
         </p>

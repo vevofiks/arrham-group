@@ -89,7 +89,8 @@ const Navbar = () => {
       <motion.nav
         variants={navbarVariants}
         animate={isScrolled ? "solid" : "transparent"}
-        className={`fixed top-0 left-0 right-0 z-50 px-10 md:px-24 py-8 transition-all duration-300  ${
+        // ✅ FIXED: Lowered Main Navbar to z-30 (Modal is z-100)
+        className={`fixed top-0 left-0 right-0 z-30 px-10 md:px-24 py-8 transition-all duration-300  ${
           isScrolled ? "shadow-lg border-b-lgreen" : ""
         }`}
       >
@@ -146,7 +147,11 @@ const Navbar = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleLinkClick(link.path, link.href)}
-                  className={`${montserrat.className} ${pathname === "/about-us/arrham-healthcare-bahrain" ? "text-black/50" : "text-white"} flex items-center gap-1 cursor-pointer hover:text-lgreen font-medium transition-colors duration-200`}
+                  className={`${montserrat.className} ${
+                    pathname === "/about-us/arrham-healthcare-bahrain"
+                      ? "text-black/50"
+                      : "text-white"
+                  } flex items-center gap-1 cursor-pointer hover:text-lgreen font-medium transition-colors duration-200`}
                 >
                   {link.name}
                   {link.subLinks && (
@@ -163,7 +168,9 @@ const Navbar = () => {
                 </motion.button>
 
                 {link.subLinks && openDropdown === link.name && (
-                  <div className="absolute left-0 mt-2 bg-black text-white  rounded-lg shadow-lg w-56 border border-white/20 z-50">
+                  // ✅ FIXED: Lowered Dropdown to z-40.
+                  // It is higher than Navbar (z-30) but lower than Modal (z-100)
+                  <div className="absolute left-0 mt-2 bg-black text-white  rounded-lg shadow-lg w-56 border border-white/20 z-40">
                     {link.subLinks.map((sub) => (
                       <a
                         key={sub.name}
@@ -205,7 +212,8 @@ const Navbar = () => {
               initial="closed"
               animate="open"
               exit="closed"
-              className="md:hidden overflow-hidden bg-black border-[0.2px] border-white mt-4 rounded-lg shadow-lg"
+              // ✅ FIXED: Mobile menu z-30 (Matches main navbar)
+              className="md:hidden overflow-hidden bg-black border-[0.2px] border-white mt-4 rounded-lg shadow-lg z-30"
             >
               <div className="px-4 py-2 space-y-1">
                 {navLinks.map((link) => (

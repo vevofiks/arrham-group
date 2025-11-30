@@ -1,7 +1,17 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Search, Plus, Edit, Eye, Trash2, Loader2, Building, X, Upload } from "lucide-react";
+import {
+  Search,
+  Plus,
+  Edit,
+  Eye,
+  Trash2,
+  Loader2,
+  Building,
+  X,
+  Upload,
+} from "lucide-react";
 import ConfirmModal from "@/app/components/ConfirmModal";
 
 const CertificationsPage = () => {
@@ -45,7 +55,9 @@ const CertificationsPage = () => {
   const fetchCerts = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/certifications/?branchId=${selectedBranch}`);
+      const res = await fetch(
+        `/api/certifications/?branchId=${selectedBranch}`
+      );
       const data = await res.json();
       setCerts(data);
     } catch (error) {
@@ -89,7 +101,7 @@ const CertificationsPage = () => {
       setImagePreview(reader.result);
     };
     reader.readAsDataURL(file);
-    setFormData(prev => ({ ...prev, img: file }));
+    setFormData((prev) => ({ ...prev, img: file }));
   };
 
   const handleSubmit = async (e) => {
@@ -99,11 +111,16 @@ const CertificationsPage = () => {
     const formDataToSend = new FormData();
     formDataToSend.append("branchId", selectedBranch);
     formDataToSend.append("name", formData.name);
-    if (formData.description) formDataToSend.append("description", formData.description);
-    if (formData.img instanceof File) formDataToSend.append("img", formData.img);
+    if (formData.description)
+      formDataToSend.append("description", formData.description);
+    if (formData.img instanceof File)
+      formDataToSend.append("img", formData.img);
 
     try {
-      const url = modalType === "create" ? `/api/certifications/` : `/api/certifications/${selectedCert._id}/`;
+      const url =
+        modalType === "create"
+          ? `/api/certifications/`
+          : `/api/certifications/${selectedCert._id}/`;
 
       const method = modalType === "create" ? "POST" : "PUT";
 
@@ -160,19 +177,28 @@ const CertificationsPage = () => {
         <div className="mb-6 sm:mb-8">
           <div className="flex flex-col gap-4 sm:gap-6">
             <div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-2">Manage Certifications</h2>
-              <p className="text-slate-600 text-sm sm:text-base lg:text-lg">Create, update, and view brand certifications</p>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-2">
+                Manage Certifications
+              </h2>
+              <p className="text-slate-600 text-sm sm:text-base lg:text-lg">
+                Create, update, and view brand certifications
+              </p>
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
               <select
                 value={selectedBranch}
-                onChange={(e) => { setSelectedBranch(e.target.value); setCerts([]); }}
+                onChange={(e) => {
+                  setSelectedBranch(e.target.value);
+                  setCerts([]);
+                }}
                 className="sm:min-w-[200px] px-4 py-3 rounded-xl bg-white border border-slate-200 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all shadow-sm text-sm sm:text-base"
               >
                 <option value="">Select Branch</option>
                 {branches.map((b) => (
-                  <option key={b.id} value={b.id}>{b.name}</option>
+                  <option key={b.id} value={b.id}>
+                    {b.name}
+                  </option>
                 ))}
               </select>
 
@@ -223,8 +249,14 @@ const CertificationsPage = () => {
                   </div>
                 )}
                 <div className="p-4 sm:p-6">
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1">{c.name}</h3>
-                  {c.description && <p className="text-slate-600 text-sm line-clamp-2">{c.description}</p>}
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1">
+                    {c.name}
+                  </h3>
+                  {c.description && (
+                    <p className="text-slate-600 text-sm line-clamp-2">
+                      {c.description}
+                    </p>
+                  )}
                   <div className="flex items-center justify-end mt-4">
                     <div className="flex gap-2">
                       <button
@@ -259,9 +291,13 @@ const CertificationsPage = () => {
             <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-100 rounded-3xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
               <Building className="w-8 h-8 sm:w-10 sm:h-10 text-slate-400" />
             </div>
-            <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2">No certifications found</h3>
+            <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2">
+              No certifications found
+            </h3>
             <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6">
-              {selectedBranch ? "Start by creating your first certification" : "Please select a branch first"}
+              {selectedBranch
+                ? "Start by creating your first certification"
+                : "Please select a branch first"}
             </p>
           </div>
         )}
@@ -272,7 +308,11 @@ const CertificationsPage = () => {
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between p-4 sm:p-6 border-b border-slate-200 sticky top-0 bg-white z-10">
               <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
-                {modalType === "create" ? "Create Certification" : modalType === "edit" ? "Edit Certification" : "Certification Details"}
+                {modalType === "create"
+                  ? "Create Certification"
+                  : modalType === "edit"
+                  ? "Edit Certification"
+                  : "Certification Details"}
               </h3>
               <button
                 onClick={closeModal}
@@ -286,20 +326,35 @@ const CertificationsPage = () => {
               <div className="p-4 sm:p-6">
                 <div className="space-y-6">
                   <div className="bg-slate-50 rounded-xl p-4">
-                    <h4 className="text-sm font-medium text-slate-600 mb-1">Certification Name</h4>
-                    <p className="text-lg font-semibold text-slate-900">{selectedCert.name}</p>
+                    <h4 className="text-sm font-medium text-slate-600 mb-1">
+                      Certification Name
+                    </h4>
+                    <p className="text-lg font-semibold text-slate-900">
+                      {selectedCert.name}
+                    </p>
                   </div>
                   {selectedCert.description && (
                     <div className="bg-slate-50 rounded-xl p-4">
-                      <h4 className="text-sm font-medium text-slate-600 mb-1">Description</h4>
-                      <p className="text-slate-900">{selectedCert.description}</p>
+                      <h4 className="text-sm font-medium text-slate-600 mb-1">
+                        Description
+                      </h4>
+                      <p className="text-slate-900">
+                        {selectedCert.description}
+                      </p>
                     </div>
                   )}
                   {selectedCert.img && (
                     <div>
-                      <h4 className="text-sm font-medium text-slate-600 mb-3">Certificate Image</h4>
+                      <h4 className="text-sm font-medium text-slate-600 mb-3">
+                        Certificate Image
+                      </h4>
                       <div className="w-full bg-slate-50 rounded-xl p-4 flex items-center justify-center relative h-60">
-                        <Image src={selectedCert.img} alt={selectedCert.name} fill className="object-contain" />
+                        <Image
+                          src={selectedCert.img}
+                          alt={selectedCert.name}
+                          fill
+                          className="object-contain"
+                        />
                       </div>
                     </div>
                   )}
@@ -309,11 +364,15 @@ const CertificationsPage = () => {
               <div className="p-4 sm:p-6">
                 <div className="space-y-4 sm:space-y-6">
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">Certification Name</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Certification Name
+                    </label>
                     <input
                       type="text"
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
                       required
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all text-sm sm:text-base"
                       placeholder="Enter certification name"
@@ -321,18 +380,29 @@ const CertificationsPage = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">Description</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Description
+                    </label>
                     <textarea
                       value={formData.description}
-                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          description: e.target.value,
+                        })
+                      }
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all text-sm sm:text-base"
                       placeholder="Enter description"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">Certificate Image</label>
-                    <div className={`border-2 border-dashed rounded-xl p-4 sm:p-6 text-center transition-colors border-slate-200`}>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Certificate Image
+                    </label>
+                    <div
+                      className={`border-2 border-dashed rounded-xl p-4 sm:p-6 text-center transition-colors border-slate-200`}
+                    >
                       <input
                         type="file"
                         accept="image/*"
@@ -340,18 +410,33 @@ const CertificationsPage = () => {
                         className="hidden"
                         id="cert-image-upload"
                       />
-                      <label htmlFor="cert-image-upload" className="cursor-pointer block">
+                      <label
+                        htmlFor="cert-image-upload"
+                        className="cursor-pointer block"
+                      >
                         <Upload className="w-10 h-10 sm:w-12 sm:h-12 text-slate-400 mx-auto mb-2 sm:mb-3" />
-                        <p className="text-sm sm:text-base text-slate-600">Click to upload certificate image</p>
+                        <p className="text-sm sm:text-base text-slate-600">
+                          Click to upload certificate image
+                        </p>
                       </label>
                     </div>
                     {imagePreview && (
                       <div className="mt-4">
                         <div className="relative inline-block">
-                          <Image src={imagePreview} alt="Preview" className="h-32 sm:h-40 object-contain rounded-lg bg-slate-50 p-2" />
+                          <Image
+                            src={imagePreview}
+                            alt="Preview"
+                            width={200} 
+                            height={200} 
+                            unoptimized={true}
+                            className="h-32 sm:h-40 object-contain rounded-lg bg-slate-50 p-2"
+                          />
                           <button
                             type="button"
-                            onClick={() => { setImagePreview(""); setFormData(prev => ({ ...prev, img: null })); }}
+                            onClick={() => {
+                              setImagePreview("");
+                              setFormData((prev) => ({ ...prev, img: null }));
+                            }}
                             className="absolute -top-2 -right-2 p-1 bg-red-500 text-white rounded-full"
                           >
                             <X className="w-4 h-4" />
@@ -377,10 +462,14 @@ const CertificationsPage = () => {
                       {submitLoading ? (
                         <>
                           <Loader2 className="w-4 h-4 animate-spin" />
-                          {modalType === "create" ? "Creating..." : "Updating..."}
+                          {modalType === "create"
+                            ? "Creating..."
+                            : "Updating..."}
                         </>
+                      ) : modalType === "create" ? (
+                        "Create"
                       ) : (
-                        modalType === "create" ? "Create" : "Update"
+                        "Update"
                       )}
                     </button>
                   </div>
@@ -403,5 +492,3 @@ const CertificationsPage = () => {
 };
 
 export default CertificationsPage;
-
-
