@@ -1,5 +1,6 @@
 "use client";
 
+
 import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import {
@@ -18,7 +19,7 @@ import { branchesData, groupCompanies } from "..";
 
 const Footer = () => {
   const [hydrated, setHydrated] = useState(false);
-  const [selectedCompany, setSelectedCompany] = useState(groupCompanies[2]);
+  const [selectedCompany, setSelectedCompany] = useState(groupCompanies[0]);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -69,7 +70,6 @@ const Footer = () => {
         />
       </div>
 
-      {/* Top Border Gradient */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-teal-500 via-teal-400 to-cyan-400"></div>
 
       <div className="relative pt-16 pb-8 px-6 md:px-12 lg:px-20">
@@ -81,7 +81,6 @@ const Footer = () => {
           className="max-w-7xl mx-auto"
         >
           {isHomePage ? (
-            /* ==================== HOMEPAGE LAYOUT ==================== */
             <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-12">
               {/* Left Column: Logo & Quick Links */}
               <div
@@ -106,6 +105,7 @@ const Footer = () => {
                       { name: "About Us", href: "/about-us" },
                       { name: "What's New", href: "/news" },
                       { name: "Privacy Policy", href: "/privacy-policy" },
+                      { name: "Copyright", href: "/copyright" },
                     ].map((link, i) => (
                       <li key={i}>
                         <Link
@@ -121,7 +121,6 @@ const Footer = () => {
                 </div>
               </div>
 
-              {/* Right Column: Interactive Company Selector */}
               <div className="flex-1 flex flex-col md:flex-row gap-10 w-full">
                 {/* Selector List */}
                 <div  className="flex-1">
@@ -159,7 +158,6 @@ const Footer = () => {
                   </div>
                 </div>
 
-                {/* Details Card */}
                 <div
                   variants={itemVariants}
                   className="flex-1 bg-zinc-900/40 p-6 rounded-2xl border border-white/5 h-fit relative overflow-hidden group/card"
@@ -222,7 +220,6 @@ const Footer = () => {
             </div>
           ) : (
             <div className="flex flex-col md:flex-row justify-between items-start gap-20">
-              {/* Left: Company Info (Kept animation as it was working) */}
               <div className="flex-1">
                 <div className="mb-6">
                   <Image
@@ -267,7 +264,6 @@ const Footer = () => {
                 </div>
               </div>
 
-              {/* Middle: Quick Links (ANIMATION REMOVED - Converted motion.div to div) */}
               <div className="w-auto">
                 <h3 className="text-lg font-bold mb-6 relative">
                   Quick Links
@@ -279,6 +275,7 @@ const Footer = () => {
                     { name: "About Us", href: "/about-us" },
                     { name: "What's New", href: "/news" },
                     { name: "Privacy Policy", href: "/privacy-policy" },
+                    { name: "Copyright", href: "/copyright" },
                   ].map((link, i) => (
                     <li key={i}>
                       <Link
@@ -293,7 +290,6 @@ const Footer = () => {
                 </ul>
               </div>
 
-              {/* Right: Map (ANIMATION REMOVED - Converted motion.div to div) */}
               {hydrated && location && (
                 <div className="flex-1 w-full min-w-[300px]">
                   <Map key={`map-${branchId}`} location={location} />
@@ -302,7 +298,6 @@ const Footer = () => {
             </div>
           )}
 
-          {/* --- COMMON BOTTOM BAR --- */}
           <motion.div
             variants={itemVariants}
             className="relative mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between"

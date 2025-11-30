@@ -115,7 +115,7 @@ export const policyData = [
           Personal information that we process for any purpose or purposes shall not be kept for longer than is necessary for that purpose or those purposes.
         </p>
         <p className="mb-4">
-          Notwithstanding the other provisions of this Section, we will retain documents (including electronic documents) containing personal data:
+          Notwithstanding the other provisions of this Section 6, we will retain documents (including electronic documents) containing personal data:
         </p>
         <ul className="list-disc pl-5 space-y-2 mb-4 marker:text-emerald-400">
           <li>To the extent that we are required to do so by law.</li>
@@ -163,6 +163,23 @@ export const policyData = [
         </p>
         <p className="mb-4">
           A cookie is a file containing an identifier (a string of letters and numbers) that is sent by a web server to a web browser and is stored by the browser. The identifier is then sent back to the server each time the browser requests a page from the server.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: 'amendments',
+    title: 'Amendments',
+    content: (
+      <>
+        <p className="mb-4">
+          This Privacy Policy may be amended and updated periodically and without prior notice to you to reflect changes in our online information practices.
+        </p>
+        <p className="mb-4">
+          When changes are made to this Policy it will be posted to the website and the "last updated" date at the top of this policy will be revised.
+        </p>
+        <p className="mb-4">
+          We also encourage users to periodically check this Policy to understand how we protect and use your information.
         </p>
       </>
     ),
