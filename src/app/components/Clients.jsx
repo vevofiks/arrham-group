@@ -55,7 +55,7 @@ const Clients = ({ imageLogos, lColor = "", rColor = "", id = "" }) => {
           results.{" "}
         </p>
 
-        {Array.isArray(imageLogos) && imageLogos.length > 3 ? (
+        {Array.isArray(imageLogos) && imageLogos.length > 4 ? (
           <div className="relative h-[230px] mx-auto overflow-hidden mt-20">
             <LogoLoop
               logos={imageLogos}
