@@ -14,7 +14,7 @@ const Map = ({ location }) => {
         allowFullScreen
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
-        className="w-full h-full rounded-lg fade-in animate-in duration-500 grayscale hover:grayscale-0 transition-all"
+        className="w-full h-full rounded-lg fade-in animate-in duration-500 transition-all"
       />
     </div>
   );

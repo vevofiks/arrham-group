@@ -46,8 +46,8 @@ export const branchesData = {
         hoverText: "hover:text-teal-300",
         shadow: "shadow-teal-900/30",
       },
-      // ✅ Correct Embed URL for Canada
-      map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2871.328325983803!2d-79.4633816844967!3d44.22336397910582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882ad34907955555%3A0x8888888888888888!2s102A%20Church%20St%2C%20Keswick%2C%20ON%20L4P%203E3%2C%20Canada!5e0!3m2!1sen!2sbh!4v1732958933458!5m2!1sen!2sbh",
+
+      map: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1397.4249441231043!2d-79.4617054!3d44.2458664!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882ab5d187847e6f%3A0xb7033e4e1ac36744!2s102A%20Church%20St%2C%20Keswick%2C%20ON%20L4P%200J4%2C%20Canada!5e1!3m2!1sen!2sin!4v1764503371775!5m2!1sen!2sin",
       companyImg: "/companyDummy.png",
       country: "Canada",
       location: "Canada (Head Office)",
@@ -98,8 +98,8 @@ export const branchesData = {
         hoverText: "hover:text-teal-300",
         shadow: "shadow-teal-900/30",
       },
-      // ✅ Correct Embed URL for KSA
-      map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3575.603301049755!2d50.20365737444391!3d26.33912098451125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e49e604724268e9%3A0x10344400e2832814!2sArrham%20Al%20Arabia%20Contracting%20Company!5e0!3m2!1sen!2sbh!4v1732958866160!5m2!1sen!2sbh",
+
+      map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3500.4438391195013!2d50.1867873!3d26.2070345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e49c33596a3d8fd%3A0x5ea2a267152ba24b!2s11%2C%20Al%20Khuzama%2C%20Al%20Khobar%2034719%2C%20Saudi%20Arabia!5e1!3m2!1sen!2sin!4v1764503439772!5m2!1sen!2sin",
       companyIcon: "/arrham-logo.png",
       companyImg: "/companyDummy.png",
       country: "Kingdom of Saudi Arabia",
@@ -282,8 +282,8 @@ export const branchesData = {
         hoverText: "hover:text-teal-300",
         shadow: "shadow-teal-900/30",
       },
-      // ✅ Correct Embed URL for Bahrain Trading
-      map: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14316.326265737525!2d50.6051289!3d26.2265985!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e49af2a4c1737e1%3A0x501b1a0397576566!2sArrham%20Trading%20and%20Contracting%20W.L.L!5e0!3m2!1sen!2sbh!4v1732958742200!5m2!1sen!2sbh",
+
+      map: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3502.5334232355817!2d50.5827767!3d26.1374613!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e49afb630d98309%3A0xdb8632bd0384242f!2s3M%20Authorized%20Auto%20Care%20Center!5e1!3m2!1sen!2sin!4v1764503271556!5m2!1sen!2sin",
       companyIcon: "/arrham-ksa.png",
       companyImg: "/companyDummy.png",
       country: "Kingdom of Bahrain",
@@ -537,7 +537,8 @@ export const branchesData = {
         hoverText: "hover:text-teal-300",
         shadow: "shadow-teal-900/30",
       },
-      map: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14316.326265737525!2d50.6051289!3d26.2265985!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e49af2a4c1737e1%3A0x501b1a0397576566!2sArrham%20Trading%20and%20Contracting%20W.L.L!5e0!3m2!1sen!2sbh!4v1732958742200!5m2!1sen!2sbh",
+
+      map: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3502.5334232355817!2d50.5827767!3d26.1374613!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e49afb630d98309%3A0xdb8632bd0384242f!2s3M%20Authorized%20Auto%20Care%20Center!5e1!3m2!1sen!2sin!4v1764503271556!5m2!1sen!2sin",
       location:
         "1445G, Road 4630, Block 646, Nuwaidrat, Sitrah 644, Kingdom of Bahrain",
       shortDescription:
