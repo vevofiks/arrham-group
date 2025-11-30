@@ -347,7 +347,7 @@ function CompanyDetails({ companyData }) {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.1 }}
               className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 ${montserrat.className} `}
             >
               <span
@@ -372,7 +372,7 @@ function CompanyDetails({ companyData }) {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
             className="max-w-4xl mx-auto"
           >
             <p
