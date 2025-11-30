@@ -21,6 +21,8 @@ const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
 
+  console.log("Current Pathname:", pathname);
+
   const toggleDropdown = (name) => {
     setDropdown((prev) => (prev === name ? null : name));
   };
@@ -144,7 +146,7 @@ const Navbar = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleLinkClick(link.path, link.href)}
-                  className={`${montserrat.className} flex items-center gap-1 cursor-pointer text-white hover:text-lgreen font-medium transition-colors duration-200`}
+                  className={`${montserrat.className} ${pathname === "/about-us/arrham-healthcare-bahrain" ? "text-black/50" : "text-white"} flex items-center gap-1 cursor-pointer hover:text-lgreen font-medium transition-colors duration-200`}
                 >
                   {link.name}
                   {link.subLinks && (

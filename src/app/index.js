@@ -1,4 +1,37 @@
-// /data/branchesData.js
+export const groupCompanies = [
+  {
+    id: "arrham-canada",
+    country: "CANADA - Head Office",
+    name: "ARRHAM GROUP INC.",
+    address: "102A, Church Street, Keswick, Ontario L4P 0J4",
+    phone: "+1 111 100 4444",
+  },
+  {
+    id: "arrham-contracting-ksa",
+    country: "SAUDI ARABIA",
+    name: "ARRHAM AL ARABIA COMPANY",
+    address:
+      "Building No. 2581, Street 11, Al Khobar, Postal Code 34611, Kingdom of Saudi Arabia.",
+    phone: "+966 54 129 0883",
+  },
+  {
+    id: "arrham-trading-bahrain",
+    country: "BAHRAIN",
+    name: "ARRHAM TRADING AND CONTRACTING W.L.L",
+    address:
+      "1445A, Road 4630, Block 646, Nuwaidrat, Sitrah 644, Kingdom of Bahrain",
+    phone: "+973 1747 3535",
+  },
+  {
+    id: "arrham-healthcare-bahrain",
+    country: "BAHRAIN",
+    name: "ARRHAM HEALTHCARE SOLUTIONS",
+    address:
+      "1445G, Road 4630, Block 646, Nuwaidrat, Sitrah 644, Kingdom of Bahrain",
+    phone: "+973 1747 3535",
+  },
+];
+
 export const branchesData = {
   branches: [
     {
@@ -13,17 +46,15 @@ export const branchesData = {
         hoverText: "hover:text-teal-300",
         shadow: "shadow-teal-900/30",
       },
-      map: {
-        lat: "44.24616634099332",
-        lon: "79.46140044740201",
-      },
+      // ✅ Correct Embed URL for Canada
+      map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2871.328325983803!2d-79.4633816844967!3d44.22336397910582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882ad34907955555%3A0x8888888888888888!2s102A%20Church%20St%2C%20Keswick%2C%20ON%20L4P%203E3%2C%20Canada!5e0!3m2!1sen!2sbh!4v1732958933458!5m2!1sen!2sbh",
       companyImg: "/companyDummy.png",
       country: "Canada",
       location: "Canada (Head Office)",
       shortDescription:
         "Head office overseeing group operations, Canada-based construction & warehousing projects.",
       description:
-        "Arrham Group Inc., headquartered in Canada, serves as the central hub for the group's international operations—overseeing global project coordination, investment strategies, and the execution of local initiatives including manufacturing facilities and warehouse developments across North America.",
+        "Arrham Group Inc., headquartered in Canada, serves as the central hub for the group's international operations—overseeing global project coordination, investment strategies, and the execution of local initiatives including manufacturing facilities and warehouse developments across North America.",
       services: [
         "Project oversight and group operations.",
         "Construction & engineering support for Canadian projects.",
@@ -67,10 +98,8 @@ export const branchesData = {
         hoverText: "hover:text-teal-300",
         shadow: "shadow-teal-900/30",
       },
-      map: {
-        lat: "44.24616634099332",
-        lon: "79.46140044740201",
-      },
+      // ✅ Correct Embed URL for KSA
+      map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3575.603301049755!2d50.20365737444391!3d26.33912098451125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e49e604724268e9%3A0x10344400e2832814!2sArrham%20Al%20Arabia%20Contracting%20Company!5e0!3m2!1sen!2sbh!4v1732958866160!5m2!1sen!2sbh",
       companyIcon: "/arrham-logo.png",
       companyImg: "/companyDummy.png",
       country: "Kingdom of Saudi Arabia",
@@ -129,50 +158,50 @@ export const branchesData = {
           id: 1,
           image: "/arhamarabiaworks/work1.jpg",
           category: "Interior Design",
-          height: 250
+          height: 250,
         },
         {
           id: 2,
           image: "/arhamarabiaworks/work2.jpg",
           category: "Branding",
-          height: 320
+          height: 320,
         },
         {
           id: 3,
           image: "/arhamarabiaworks/work3.jpg",
           category: "UI/UX Design",
-          height: 280
+          height: 280,
         },
         {
           id: 4,
           image: "/arhamarabiaworks/work4.jpg",
           category: "Web Design",
-          height: 300
+          height: 300,
         },
         {
           id: 5,
           image: "/arhamarabiaworks/work5.jpg",
           category: "Marketing",
-          height: 260
+          height: 260,
         },
         {
           id: 6,
           image: "/arhamarabiaworks/work6.jpg",
           category: "Photography",
-          height: 290
+          height: 290,
         },
         {
           id: 7,
           image: "/arhamarabiaworks/work7.jpg",
           category: "Architecture",
-          height: 310
+          height: 310,
         },
         {
           id: 8,
           image: "/arhamarabiaworks/work8.jpg",
           category: "Digital Marketing",
-          height: 240
-        }
+          height: 240,
+        },
       ],
       electricalMEP: {
         name: "Electrical & MEP Works",
@@ -230,7 +259,8 @@ export const branchesData = {
       ],
       accreditations: ["ISO 45001:2018", "ISO 9001:2015", "ISO 14001:2015"],
       contact: {
-        address: "Bulding No. 2581, Street 11, Al khobar, Postal Code 34611, Kingdom of Saudi Arabia.",
+        address:
+          "Bulding No. 2581, Street 11, Al khobar, Postal Code 34611, Kingdom of Saudi Arabia.",
         phone: "+966 54 129 0883",
         email: "info@arrhamgroup.com",
         website: "https://www.arrhamgroup.com",
@@ -240,7 +270,6 @@ export const branchesData = {
           "Project Managers, Electrical & Instrumentation Engineers, Supervisors, electricians, heavy equipment.",
       },
     },
-
 
     {
       id: "arrham-trading-bahrain",
@@ -253,10 +282,8 @@ export const branchesData = {
         hoverText: "hover:text-teal-300",
         shadow: "shadow-teal-900/30",
       },
-      map: {
-        lat: "26.13747452109067",
-        lon: "50.58448011989864",
-      },
+      // ✅ Correct Embed URL for Bahrain Trading
+      map: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14316.326265737525!2d50.6051289!3d26.2265985!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e49af2a4c1737e1%3A0x501b1a0397576566!2sArrham%20Trading%20and%20Contracting%20W.L.L!5e0!3m2!1sen!2sbh!4v1732958742200!5m2!1sen!2sbh",
       companyIcon: "/arrham-ksa.png",
       companyImg: "/companyDummy.png",
       country: "Kingdom of Bahrain",
@@ -266,22 +293,17 @@ export const branchesData = {
         "Construction & fit-outs, 3M window films dealer, automotive window films & architectural finishes.",
       description:
         "Multifaceted firm offering commercial/residential/industrial fit-outs, 3M window films, smart glass, automotive films, and architectural finishes. Ideal for retail, offices, and automotive spaces.",
-      // 🔹 Main Trading Services
 
       services: [
         "Concept design, 3D visualization, and space planning.",
         "Selection of themes, colors, and finishes aligned with client requirements.",
-
         "Complete turnkey solutions for residential, commercial, retail, and hospitality spaces.",
         "Execution of partitions, ceilings, flooring, wall finishes, and joinery.",
         "MEP (Mechanical, Electrical, Plumbing) integration within interiors.",
-
         "Bespoke furniture design and fabrication.",
         "Built-in cabinets, wardrobes, reception desks, and feature walls.",
-
         "Wall cladding, 3M DI-NOC finishes, and decorative glass films (Fasara).",
         "Lighting design and smart automation integration.",
-
         "Cost control, procurement, and scheduling.",
         "Quality assurance and on-time delivery.",
       ],
@@ -302,8 +324,6 @@ export const branchesData = {
         "Cost-effective, sustainable, and modern design solutions.",
       ],
 
-      // 🔹 3M Section (Authorized Partner)
-
       threeM: {
         logo: "/threeM.png",
         description:
@@ -315,42 +335,38 @@ export const branchesData = {
               "Protects vehicle paint from scratches, chips, stains, and weather damage.",
               "Available in Gloss & Matte finishes (Pro Series 200).",
               "Self-healing technology for minor scratches.",
-              "Backed by up to 10 years warranty."
-            ]
+              "Backed by up to 10 years warranty.",
+            ],
           },
           {
             title: "3M™ Automotive Window Films",
-
             description: [
               "Heat rejection for cooler cabin comfort.",
               "UV protection (blocks up to 99.9% of harmful rays).",
               "Enhanced safety with anti-shatter properties.",
-              "Options include FX, Color Stable, Ceramic IR, and Crystalline series."
-            ]
+              "Options include FX, Color Stable, Ceramic IR, and Crystalline series.",
+            ],
           },
           {
-            title: "3M™ Fasara™ & Decorative Films (optional for premium clients)",
+            title:
+              "3M™ Fasara™ & Decorative Films (optional for premium clients)",
             description: [
-
-              "Stylish privacy and decorative films for vehicle customization."
-            ]
+              "Stylish privacy and decorative films for vehicle customization.",
+            ],
           },
           {
             title: "3M™ Detailing Solutions",
-            description: [
-              "Ceramic coatings for extended paint protection."
-            ]
+            description: ["Ceramic coatings for extended paint protection."],
           },
-
         ],
         keyAdvantages: [
           "Authorized 3M Applicators in Bahrain.",
           "Professional installation with warranty certificate.",
           "Genuine 3M products only.",
-          "Custom packages to suit individual car owners and fleet clients.",
-        ]
+          "Custom packages to suit individual car owners and fleet clients.",
+        ],
       },
-      // 🔹 Electrical & MEP Works
+
       electricalMEP: {
         name: "Electrical & MEP Works",
         description:
@@ -406,33 +422,46 @@ export const branchesData = {
         },
       ],
       projects: [
-        { id: 1, name: "Nuwaidrat Retail Fit-Out", location: "Sitrah, Bahrain", status: "Completed" },
-        { id: 2, name: "AutoCare Center Setup", location: "Sitrah, Bahrain", status: "Completed" },
+        {
+          id: 1,
+          name: "Nuwaidrat Retail Fit-Out",
+          location: "Sitrah, Bahrain",
+          status: "Completed",
+        },
+        {
+          id: 2,
+          name: "AutoCare Center Setup",
+          location: "Sitrah, Bahrain",
+          status: "Completed",
+        },
       ],
       sampleWorks: [
         {
           id: 1,
           title: "Modern Office Design",
           image: "/works/work1.jpg",
-          description: "Complete office renovation with modern aesthetics and sustainable materials",
+          description:
+            "Complete office renovation with modern aesthetics and sustainable materials",
           category: "Interior Design",
-          height: 250
+          height: 250,
         },
         {
           id: 2,
           title: "Brand Identity Package",
           image: "/works/work2.jpg",
-          description: "Full branding suite for tech startup including logo, guidelines, and collateral",
+          description:
+            "Full branding suite for tech startup including logo, guidelines, and collateral",
           category: "Branding",
-          height: 320
+          height: 320,
         },
         {
           id: 3,
           title: "Mobile App UI/UX",
           image: "/works/work3.jpg",
-          description: "E-commerce mobile application design with seamless user experience",
+          description:
+            "E-commerce mobile application design with seamless user experience",
           category: "UI/UX Design",
-          height: 280
+          height: 280,
         },
         {
           id: 4,
@@ -440,15 +469,16 @@ export const branchesData = {
           image: "/works/work4.jpg",
           description: "Corporate website overhaul with modern tech stack",
           category: "Web Design",
-          height: 300
+          height: 300,
         },
         {
           id: 5,
           title: "Marketing Campaign",
           image: "/works/work5.jpg",
-          description: "Multi-channel marketing strategy execution across digital platforms",
+          description:
+            "Multi-channel marketing strategy execution across digital platforms",
           category: "Marketing",
-          height: 260
+          height: 260,
         },
         {
           id: 6,
@@ -456,28 +486,32 @@ export const branchesData = {
           image: "/works/work6.jpg",
           description: "Professional product shoot for e-commerce platform",
           category: "Photography",
-          height: 290
+          height: 290,
         },
         {
           id: 7,
           title: "Architectural Visualization",
           image: "/works/work7.jpg",
-          description: "3D rendering and architectural planning for commercial space",
+          description:
+            "3D rendering and architectural planning for commercial space",
           category: "Architecture",
-          height: 310
+          height: 310,
         },
         {
           id: 8,
           title: "Social Media Strategy",
-          image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800",
-          description: "Comprehensive social media management and content creation",
+          image:
+            "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800",
+          description:
+            "Comprehensive social media management and content creation",
           category: "Digital Marketing",
-          height: 240
-        }
+          height: 240,
+        },
       ],
       clients: ["Local retail chains", "Independent automotive dealers", "3M"],
       contact: {
-        address: "1445A, Road 4630, Block 646, Nuwaidrat, Sitrah 644, Kingdom of Bahrain",
+        address:
+          "1445A, Road 4630, Block 646, Nuwaidrat, Sitrah 644, Kingdom of Bahrain",
         phone: "+973 1747 3535",
         email: "info@arrhamgroup.com",
         website: "https://www.arrhamgroup.com",
@@ -503,10 +537,7 @@ export const branchesData = {
         hoverText: "hover:text-teal-300",
         shadow: "shadow-teal-900/30",
       },
-      map: {
-        lat: "26.14129995053057",
-        lon: "50.583114618889056",
-      },
+      map: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14316.326265737525!2d50.6051289!3d26.2265985!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e49af2a4c1737e1%3A0x501b1a0397576566!2sArrham%20Trading%20and%20Contracting%20W.L.L!5e0!3m2!1sen!2sbh!4v1732958742200!5m2!1sen!2sbh",
       location:
         "1445G, Road 4630, Block 646, Nuwaidrat, Sitrah 644, Kingdom of Bahrain",
       shortDescription:
