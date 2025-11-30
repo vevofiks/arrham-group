@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Hospital, Wrench, Sprout, ExternalLink } from "lucide-react";
+import { Hospital, Wrench, Sprout } from "lucide-react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { Montserrat as MontserratFont } from "next/font/google";
@@ -9,10 +9,10 @@ import ProjectCard from "../components/ProjectsCard";
 import { branchesData } from "@/app";
 import Modal from "../components/modal";
 import Partners from "../components/Partners";
-import RollingGallery from "@/components/RollingGallery";
 import Certificates from "../components/Certificates";
 import Clients from "@/app/components/Clients";
 import KeyPersonnel from "../components/KeyPersonnel";
+import BrandsSection from "@/app/components/Brands";
 
 const montserrat = MontserratFont({
   subsets: ["latin"],
@@ -133,6 +133,7 @@ function ArrhamHealthcare() {
       fetchClients();
     }
   }, [companyData.id]);
+
   const openModal = (projectDetails) => {
     setIsOpen(true);
     console.log("project", projectDetails);
@@ -338,7 +339,6 @@ function ArrhamHealthcare() {
       </section>
 
       {/* Key Personnel Section */}
-
       {keyPersonnel.length > 0 && (
         <section className="px-6 md:px-12 lg:px-16 py-16  ">
           <div className="max-w-7xl mx-auto">
@@ -378,14 +378,14 @@ function ArrhamHealthcare() {
             >
               <KeyPersonnel
                 personnels={keyPersonnel}
-                colors={["from-emerald-400", "to-blue-400"]}
+                colors={["from-teal-600", "to-blue-600"]}
                 companyId={companyData?.id}
               />
             </motion.div>
           </div>
         </section>
       )}
-      
+
       <section className="px-6 md:px-12 lg:px-16 py-16 bg-gray-100">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -471,75 +471,24 @@ function ArrhamHealthcare() {
             ))}
           </motion.div>
         </div>
-        <Partners
-          partnerships={partnerships}
-          lColor="#0D9488"
 
-          rColor="#155dfc"
-          id="arrham-healthcare-bahrain"
-        />
+        {/* Partners Section */}
+        {partnerships.length > 0 && (
+          <Partners
+            partnerships={partnerships}
+            lColor="#0d9488" // Teal 600
+            rColor="#2563eb" // Blue 600
+            id="arrham-healthcare-bahrain"
+          />
+        )}
 
         {/* Brands Section */}
         {brands.length > 0 && (
-          <div className="max-w-7xl mx-auto">
-            {/* Section Header */}
-            <div className="text-center mb-16">
-
-            <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 ${montserrat.className}`}
-              >
-                <span className="bg-linear-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent uppercase ">
-                  Our Brands
-                </span>
-              </motion.h2>
-
-              <motion.div
-                initial={{ opacity: 0, scaleX: 0 }}
-                whileInView={{ opacity: 1, scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="w-24 h-1 bg-teal-400 mx-auto rounded-full"
-              />
-
-              <p className="text-gray-400 text-lg max-w-2xl mx-auto text-center my-8">
-                Showcasing trusted names that represent our commitment to
-                quality and innovation.
-              </p>
-              
-            </div>
-
-            {/* Brand Grid (replacing carousel) */}
-            <div className="xl:max-w-[1290px] mx-auto flex flex-wrap justify-center gap-16 mb-8">
-              {brands.map((brand) => (
-                <a
-                  key={brand._id}
-                  href={toExternalUrl(brand.url)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block w-[140px]"
-                >
-                  <div className="relative w-full aspect-square rounded-xl bg-white border border-gray-200 p-4 flex items-center justify-center overflow-hidden">
-                    <Image
-                      src={brand.img}
-                      alt={`${brand.name} logo`}
-                      fill
-                      className="object-contain"
-                      sizes="140px"
-                    />
-                  </div>
-                  <div className="mt-3 text-center">
-                    <h3 className="text-gray-900 font-medium text-sm sm:text-base capitalize">
-                      {brand.name}
-                    </h3>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
+          <BrandsSection
+            brands={brands}
+            lColor="#0d9488" // Teal 600
+            rColor="#2563eb" // Blue 600
+          />
         )}
 
         {projects && projects.length > 0 && (
@@ -571,7 +520,13 @@ function ArrhamHealthcare() {
             </div>
 
             <motion.div
-              className={`grid gap-8 justify-items-center ${projects.length === 1 ? 'grid-cols-1' : projects.length === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}
+              className={`grid gap-8 justify-items-center ${
+                projects.length === 1
+                  ? "grid-cols-1"
+                  : projects.length === 2
+                  ? "grid-cols-1 sm:grid-cols-2"
+                  : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+              }`}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
@@ -629,31 +584,6 @@ function ArrhamHealthcare() {
           />
         )}
       </section>
-
-      {/* <section className="px-6 md:px-12 lg:px-16 py-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className={`text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase ${montserrat.className}`}>
-            <span className={`bg-gradient-to-r from-emerald-400 ${companyData.color?.[1] || 'to-blue-600'} bg-clip-text text-transparent`}>
-              Our Works
-            </span>
-          </h2>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <RollingGallery autoplay={true} pauseOnHover={true} companyId={companyData?.id} />
-        </motion.div>
-      </section> */}
 
       <Modal
         isOpen={isOpen}

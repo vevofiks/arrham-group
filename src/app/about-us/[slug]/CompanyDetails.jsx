@@ -10,13 +10,14 @@ import { CircleCheckBig } from "lucide-react";
 import Partners from "../components/Partners";
 import Clients from "@/app/components/Clients";
 import Certificates from "../components/Certificates";
+import BrandsSection from "@/app/components/Brands";
 
 const montserrat = MontserratFont({
   subsets: ["latin"],
   variable: "--font-montserrat",
 });
 
-const SectionHeader = ({ title, description, color = "emerald", secondaryColor = "to-blue-600" }) => (
+const SectionHeader = ({ title, description, }) => (
   <div className="text-center mb-12">
     <motion.h2
       initial={{ opacity: 0, y: 20 }}
@@ -26,7 +27,7 @@ const SectionHeader = ({ title, description, color = "emerald", secondaryColor =
       className={`text-2xl md:text-3xl lg:text-3xl font-extrabold mb-6 ${montserrat.className}`}
     >
       <span
-        className={`bg-linear-to-r from-${color}-400 ${secondaryColor} bg-clip-text text-transparent uppercase`}
+        className={`bg-linear-to-r from-emerald-300 to-emerald-400 bg-clip-text text-transparent uppercase`}
       >
         {title}
       </span>
@@ -37,7 +38,7 @@ const SectionHeader = ({ title, description, color = "emerald", secondaryColor =
       whileInView={{ opacity: 1, scaleX: 1 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.8, delay: 0.2 }}
-      className={`w-24 h-1 bg-${color}-400 mx-auto rounded-full mb-8`}
+      className={`w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-8`}
     />
 
     {description && (
@@ -750,51 +751,16 @@ function CompanyDetails({ companyData }) {
 
       {/* Partners */}
       {partners.length > 0 && (
-        <Partners
-          partnerships={partners}
-          lColor="#2ec9a2"
-          rColor="#2dd4bf"
-          id={companyData.id}
-        />
-      )}
+  <Partners
+    partnerships={partners}
+    lColor="rgb(52, 211, 153)" 
+    rColor="rgb(52, 211, 153)"
+  />
+)}
 
       {/* Brands */}
       {brands.length > 0 && (
-        <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
-          <SectionHeader title="Our Brands" />
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto text-center mb-8">
-            Showcasing trusted names that represent our commitment to quality
-            and innovation.
-          </p>
-
-          {/* Brand Grid (replacing carousel) */}
-          <div className="xl:max-w-[1290px] mx-auto flex flex-wrap justify-center gap-16">
-            {brands.map((brand) => (
-              <a
-                key={brand._id}
-                href={toExternalUrl(brand.url)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group block w-[140px]"
-              >
-                <div className="relative w-full aspect-square rounded-xl bg-white/10 border border-white/10 p-4 flex items-center justify-center overflow-hidden">
-                  <Image
-                    src={brand.img}
-                    alt={`${brand.name} logo`}
-                    fill
-                    className="object-contain"
-                    sizes="140px"
-                  />
-                </div>
-                <div className="mt-3 text-center">
-                  <h3 className="text-white font-medium text-sm sm:text-base capitalize">
-                    {brand.name}
-                  </h3>
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
+        <BrandsSection brands={brands} />
       )}
 
       {/* Projects */}

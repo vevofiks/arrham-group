@@ -108,7 +108,7 @@ const Certificates = ({
               whileHover={{ scale: 1.02, y: -5 }}
               className={`
                 group relative overflow-hidden rounded-xl 
-                w-full max-w-[280px] flex-grow-0 flex flex-col
+                w-full max-w-[280px] grow-0 flex flex-col
                 transition-all duration-300 cursor-pointer
                 ${cardTheme}
               `}

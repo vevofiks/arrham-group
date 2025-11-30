@@ -5,6 +5,7 @@ import { Montserrat as MontserratFont } from "next/font/google";
 import { Handshake, Clock, Mail, Phone } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import {motion} from "motion/react";
+
 const montserrat = MontserratFont({
   subsets: ["latin"],
   variable: "--font-montserrat",
@@ -38,7 +39,7 @@ function SupportPage() {
         </div>
 
         {/* Support Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 items-stretch">
           {supportData.sections.map((section, index) => {
             const phoneNumberRaw = section.contact.phone.replace(/\D/g, "");
             const message = encodeURIComponent(
@@ -53,7 +54,8 @@ function SupportPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.15, duration: 0.6 }}
                 whileHover={{ scale: 1.01 }}
-                className="flex flex-col rounded-xl border border-emerald-400/30 
+                // Added 'h-full' here to ensure the card fills the grid height
+                className="flex flex-col h-full rounded-xl border border-emerald-400/30 
                   bg-linear-to-br from-gray-900/80 via-teal-900/30 to-emerald-800/20 
                   backdrop-blur-md shadow-lg shadow-black/40
                   p-6 hover:shadow-emerald-900/30 hover:border-emerald-400/50
@@ -70,6 +72,7 @@ function SupportPage() {
                 </div>
 
                 {/* Contact Info (Compact) */}
+                {/* 'grow' pushes the button section to the bottom */}
                 <div className={`space-y-3 mb-6 text-sm text-gray-300 grow ${montserrat.className}`}>
                   <div className="flex items-center gap-3">
                     <Clock className="text-emerald-400 shrink-0" size={16} />
@@ -92,6 +95,7 @@ function SupportPage() {
                 </div>
 
                 {/* Action Button */}
+                {/* 'mt-auto' ensures this stays at the bottom of the flex container */}
                 <div className="mt-auto">
                   <a
                     href={whatsappUrl}

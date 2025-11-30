@@ -33,7 +33,7 @@ function Modal({ isOpen, onClose, project, companyName }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm"
+            className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm"
             onClick={onClose}
           >
             {/* Modal box */}
@@ -104,7 +104,7 @@ function Modal({ isOpen, onClose, project, companyName }) {
                             className="flex items-center justify-center"
                           >
                             <Card className="bg-transparent shadow-none border-0 w-full h-full flex items-center justify-center">
-                              <CardContent className="relative w-full aspect-[16/9] flex items-center justify-center p-0">
+                              <CardContent className="relative w-full aspect-video flex items-center justify-center p-0">
                                 <div className="relative w-full h-full">
                                   
                                   {/* Zoom Button - Inside the specific slide item */}

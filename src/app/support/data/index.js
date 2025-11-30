@@ -10,17 +10,17 @@ export const supportData = {
       "contact": {
         "email": "info@arrhamgroup.com",
         "phone": "+973 17473535",
-        "availability": "8am to 8pm (sat - Thursday)",
+        "availability": "8am to 8pm (Saturday - Thursday)",
       }
     },
     {
       "type": "technicalSupport",
       "title": "Technical Support",
-      "description": "Our technical experts provide assistance with installation, troubleshooting, and maintenance of our services and products.",
+      "description": "Our technical experts provide assistance with installation, troubleshooting, maintenance and online support for our products and various services.",
       "contact": {
         "email": "pm@arrhamgroup.com",
         "phone": "+973 35351635",
-        "availability": "8am to 8pm (sat - Thursday)",
+        "availability": "8am to 8pm (Saturday - Thursday)",
       }
     }
   ],
