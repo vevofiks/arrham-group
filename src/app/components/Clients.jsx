@@ -84,12 +84,12 @@ const Clients = ({ imageLogos, lColor = "", rColor = "", id = "" }) => {
         ) : (
           <div className="mt-12 mb-15">
             
-            {imageLogos?.length <= 3 && imageLogos?.length > 0 && (
+            {imageLogos?.length < 4 && imageLogos?.length > 0 && (
               <div className="flex flex-wrap justify-center gap-12">
                 {imageLogos.map((src, i) => (
                   <div key={i} className="w-[140px]">
                     <div className="relative w-full h-20 sm:h-24">
-                      <Image src={src} alt="client logo" fill className="object-contain" />
+                      <Image src={src} alt="client logo" fill className="object-contain" sizes="140px" />
                     </div>
                   </div>
                 ))}

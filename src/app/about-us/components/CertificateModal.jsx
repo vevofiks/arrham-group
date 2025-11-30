@@ -41,7 +41,7 @@ const CertificateModal = ({
           {/* Main Modal Overlay */}
           {/* FIXED: Changed invalid 'z-100' to 'z-[100]' */}
           <motion.div
-            className="fixed inset-0 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm z-[100]"
+            className="fixed inset-0 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm z-100"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -122,7 +122,7 @@ const CertificateModal = ({
           <AnimatePresence>
             {showFullImage && (
               <motion.div
-                className="fixed inset-0 bg-black/95 flex items-center justify-center p-4 z-[110]"
+                className="fixed inset-0 bg-black/95 flex items-center justify-center p-4 z-110"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -130,7 +130,7 @@ const CertificateModal = ({
               >
                 {/* Full Screen Close Button */}
                 <button
-                  className="absolute top-5 right-5 text-white/70 hover:text-white p-2 bg-black/50 rounded-full z-[120] hover:scale-110 transition-all duration-200"
+                  className="absolute top-5 right-5 text-white/70 hover:text-white p-2 bg-black/50 rounded-full z-120 hover:scale-110 transition-all duration-200"
                   onClick={() => setShowFullImage(false)}
                 >
                   <X size={32} />

@@ -1,6 +1,5 @@
 "use client";
 
-
 import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import {
@@ -83,9 +82,7 @@ const Footer = () => {
           {isHomePage ? (
             <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-12">
               {/* Left Column: Logo & Quick Links */}
-              <div
-                className="w-full md:w-1/4 flex flex-col gap-10"
-              >
+              <div className="w-full md:w-1/4 flex flex-col gap-10">
                 <div>
                   <Image
                     src="/logo.png"
@@ -123,7 +120,7 @@ const Footer = () => {
 
               <div className="flex-1 flex flex-col md:flex-row gap-10 w-full">
                 {/* Selector List */}
-                <div  className="flex-1">
+                <div className="flex-1">
                   <h3 className="text-lg font-bold mb-6 text-teal-400">
                     Group Companies
                   </h3>
@@ -308,7 +305,14 @@ const Footer = () => {
               </p>
               <p className="text-white/40 text-xs mt-1">
                 Website developed by{" "}
-                <span className="text-teal-400">Vevofiks</span>
+                <a
+                  target="_blank"
+                  href="https://www.vevofiks.com"
+                  rel="noopener noreferrer"
+                  className="text-teal-400"
+                >
+                  Vevofiks
+                </a>
               </p>
             </div>
             <motion.button

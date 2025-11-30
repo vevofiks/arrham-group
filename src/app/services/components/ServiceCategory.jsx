@@ -27,7 +27,7 @@ const ServiceCategory = ({
         transition={{ duration: 0.8 }}
         className="relative w-full h-96 lg:h-[500px] rounded-3xl overflow-hidden shadow-2xl"
       >
-        <Image src={image} alt={title} fill className="object-cover" />
+        <Image src={image} alt={title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/30" />
       </motion.div>
 

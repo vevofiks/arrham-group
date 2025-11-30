@@ -38,6 +38,7 @@ const SectionHeader = ({ title, lColor, rColor }) => (
       </span>
     </motion.h2>
 
+    {/* The underline bar also follows the primary left color for consistency */}
     <motion.div
       initial={{ opacity: 0, scaleX: 0 }}
       whileInView={{ opacity: 1, scaleX: 1 }}
@@ -54,35 +55,34 @@ const SectionHeader = ({ title, lColor, rColor }) => (
       transition={{ duration: 0.6, delay: 0.3 }}
       className={`text-gray-400 text-lg max-w-2xl mx-auto text-center mb-8 ${montserrat.className}`}
     >
-      Collaborating with leading companies and organizations worldwide to deliver excellence.
+      Showcasing trusted names that represent our commitment to quality and
+      innovation.
     </motion.p>
   </div>
 );
 
-const Partners = ({
-  partnerships, // Using "partnerships" to match your input prop name
+const BrandsSection = ({
+  brands,
   lColor = "#2ec9a2",
   rColor = "#2dd4bf",
 }) => {
-  if (!partnerships || partnerships.length === 0) return null;
+  if (!brands || brands.length === 0) return null;
 
-  // Transform data for LogoLoop
-  const logoLoopItems = partnerships.map((partner) => ({
-    src: partner.img,
-    alt: partner.name,
-    title: partner.name,
-    href: toExternalUrl(partner.url),
+  const logoLoopItems = brands.map((brand) => ({
+    src: brand.img,
+    alt: brand.name,
+    title: brand.name,
+    href: toExternalUrl(brand.url),
   }));
 
-  // Reusable Card Content (Identical styling to Brands)
-  const PartnerCardContent = ({ partner }) => (
+  const BrandCardContent = ({ brand }) => (
     <>
       <div
         className="relative w-full aspect-3/2 rounded-xl p-4 flex items-center justify-center overflow-hidden transition-all duration-300 "
       >
         <Image
-          src={partner.img}
-          alt={`${partner.name} logo`}
+          src={brand.img}
+          alt={`${brand.name} logo`}
           fill
           className="object-contain p-2"
           sizes="(max-width: 768px) 100vw, 200px"
@@ -93,11 +93,10 @@ const Partners = ({
 
   return (
     <section className="px-6 md:px-12 lg:px-16 py-16 max-w-7xl mx-auto">
-      <SectionHeader title="Our Partners" lColor={lColor} rColor={rColor} />
+      <SectionHeader title="Our Brands" lColor={lColor} rColor={rColor} />
 
       {/* CONDITIONAL RENDERING */}
-      {partnerships.length > 4 ? (
-        // --- CASE A: > 4 Items (Show Infinite Loop) ---
+      {brands.length > 4 ? (
         <div className="w-full py-8">
           <LogoLoop
             logos={logoLoopItems}
@@ -108,34 +107,37 @@ const Partners = ({
             pauseOnHover={true}
             scaleOnHover={true}
             fadeOut={true}
+            // Use transparent or the page background color for fadeOut if known
+            // or pass it as a prop. For now, defaulting to standard behavior.
             fadeOutColor="transparent"
-            ariaLabel="Strategic Partners"
+            ariaLabel="Partner Brands"
           />
         </div>
       ) : (
         // --- CASE B: <= 4 Items (Show Static Grid) ---
         <div className="xl:max-w-[1290px] mx-auto flex flex-wrap justify-center gap-8 md:gap-12">
-          {partnerships.map((partner) => {
-            const finalUrl = toExternalUrl(partner.url);
+          {brands.map((brand) => {
+            const finalUrl = toExternalUrl(brand.url);
 
             return finalUrl ? (
               // Render as Link if URL exists
               <a
-                key={partner._id}
+                key={brand._id}
                 href={finalUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                // Increased width to 180px to accommodate wide logos better
                 className="group block w-40 sm:w-[180px]"
               >
-                <PartnerCardContent partner={partner} />
+                <BrandCardContent brand={brand} />
               </a>
             ) : (
               // Render as Div if no URL
               <div
-                key={partner._id}
+                key={brand._id}
                 className="group block w-40 sm:w-[180px]"
               >
-                <PartnerCardContent partner={partner} />
+                <BrandCardContent brand={brand} />
               </div>
             );
           })}
@@ -145,4 +147,4 @@ const Partners = ({
   );
 };
 
-export default Partners;
+export default BrandsSection;

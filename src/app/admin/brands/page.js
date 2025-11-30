@@ -229,6 +229,8 @@ const BrandsPage = () => {
                     <Image
                       src={b.img}
                       alt={b.name}
+                      width={300}
+                      height={200}
                       className="h-full w-auto object-contain"
                     />
                   </div>
@@ -315,7 +317,7 @@ const BrandsPage = () => {
                     <div>
                       <h4 className="text-sm font-medium text-slate-600 mb-3">Logo</h4>
                       <div className="w-full bg-slate-50 rounded-xl p-4 flex items-center justify-center">
-                        <Image src={selectedBrand.img} alt={selectedBrand.name} className="max-h-40 object-contain" />
+                        <Image src={selectedBrand.img} alt={selectedBrand.name} width={300} height={160} className="max-h-40 object-contain" />
                       </div>
                     </div>
                   )}
@@ -365,7 +367,7 @@ const BrandsPage = () => {
                     {imagePreview && (
                       <div className="mt-4">
                         <div className="relative inline-block">
-                          <Image src={imagePreview} alt="Preview" className="h-24 sm:h-32 object-contain rounded-lg bg-slate-50 p-2" />
+                          <Image src={imagePreview} alt="Preview" width={128} height={128} className="h-24 sm:h-32 object-contain rounded-lg bg-slate-50 p-2" />
                           <button
                             type="button"
                             onClick={() => { setImagePreview(""); setFormData(prev => ({ ...prev, img: null })); }}

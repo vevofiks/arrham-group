@@ -317,7 +317,7 @@ const PartnersPage = () => {
                     <div>
                       <h4 className="text-sm font-medium text-slate-600 mb-3">Logo</h4>
                       <div className="w-full bg-slate-50 rounded-xl p-4 flex items-center justify-center relative h-40">
-                        <Image src={selectedPartner.img} alt={selectedPartner.name} fill className="object-contain" />
+                        <Image src={selectedPartner.img} alt={selectedPartner.name} fill className="object-contain" sizes="(max-width: 768px) 90vw, 500px" />
                       </div>
                     </div>
                   )}
@@ -367,7 +367,7 @@ const PartnersPage = () => {
                     {imagePreview && (
                       <div className="mt-4">
                         <div className="relative inline-block">
-                          <Image src={imagePreview} alt="Preview" className="h-24 sm:h-32 object-contain rounded-lg bg-slate-50 p-2" />
+                          <Image src={imagePreview} alt="Preview" width={128} height={128} className="h-24 sm:h-32 object-contain rounded-lg bg-slate-50 p-2" />
                           <button
                             type="button"
                             onClick={() => { setImagePreview(""); setFormData(prev => ({ ...prev, img: null })); }}

@@ -523,7 +523,7 @@ const ProjectPage = () => {
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
                         {imagePreview.map((img, i) => (
                           <div key={i} className="relative group">
-                            <Image src={img} alt={`Preview ${i + 1}`} className="w-full h-20 sm:h-32 object-cover rounded-lg" />
+                            <Image src={img} alt={`Preview ${i + 1}`} width={150} height={128} className="w-full h-20 sm:h-32 object-cover rounded-lg" />
                             <button
                               type="button"
                               onClick={() => removeImage(i)}

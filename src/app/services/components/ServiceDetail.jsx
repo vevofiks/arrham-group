@@ -13,7 +13,7 @@ const ServiceDetail = ({ title, description, features, image }) => {
         transition={{ duration: 0.8 }}
         className="relative w-full h-96 lg:h-[500px] rounded-3xl overflow-hidden shadow-xl"
       >
-        <Image src={image} alt={title} fill className="object-cover" />
+        <Image src={image} alt={title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
       </motion.div>
 
       {/* Text */}
