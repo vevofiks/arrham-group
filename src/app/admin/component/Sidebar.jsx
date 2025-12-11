@@ -5,12 +5,12 @@ import { Newspaper, Briefcase, Tags, Users, Handshake, Award, UserCircle } from 
 
 const navItems = [
   { name: "News", href: "/admin/news", icon: Newspaper },
-  { name: "Projects", href: "/admin/projects", icon: Briefcase },
-  { name: "Brands", href: "/admin/brands", icon: Tags },
-  { name: "Clients", href: "/admin/clients", icon: Users },
-  { name: "Partners", href: "/admin/partners", icon: Handshake },
-  { name: "Certifications", href: "/admin/certifications", icon: Award },
   { name: "Key Personnel", href: "/admin/key-personnel", icon: UserCircle },
+  { name: "Partners", href: "/admin/partners", icon: Handshake },
+  { name: "Brands", href: "/admin/brands", icon: Tags },
+  { name: "Projects", href: "/admin/projects", icon: Briefcase },
+  { name: "Certifications", href: "/admin/certifications", icon: Award },
+  { name: "Clients", href: "/admin/clients", icon: Users },
 ];
 
 export default function Sidebar() {

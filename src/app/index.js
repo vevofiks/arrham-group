@@ -4,7 +4,7 @@ export const groupCompanies = [
     country: "CANADA - Head Office",
     name: "ARRHAM GROUP INC.",
     address: "102A, Church Street, Keswick, Ontario L4P 0J4",
-    phone: "+1 111 100 4444",
+    phone: "+1 (647) 965 6338",
   },
   {
     id: "arrham-contracting-ksa",
@@ -80,7 +80,7 @@ export const branchesData = {
       accreditations: [],
       contact: {
         address: "102A, Church Street Keswick, Ontario L4p 0j4",
-        phone: "+1 111 100 4444",
+        phone: "+1 (647) 965 6338",
         email: "info@arrhamgroup.com",
         website: "https://www.arrhamgroup.com",
       },
