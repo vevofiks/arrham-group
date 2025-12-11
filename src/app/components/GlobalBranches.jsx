@@ -66,7 +66,7 @@ const GlobalBranches = () => {
           </motion.h2>
           <motion.div
             variants={itemVariants}
-            className="w-24 h-1.5 bg-gradient-to-r from-lgreen to-teal-400 mx-auto mt-6 rounded-full"
+            className="w-24 h-1.5 bg-linear-to-r from-lgreen to-teal-400 mx-auto mt-6 rounded-full"
           />
           <motion.p
             variants={itemVariants}

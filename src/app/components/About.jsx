@@ -173,7 +173,7 @@ const About = ({
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-black/60" />
+              <div className="absolute inset-0 bg-linear-to-br from-black/30 via-transparent to-black/60" />
 
               <motion.button
                 initial={{ opacity: 0, scale: 0 }}
@@ -187,7 +187,7 @@ const About = ({
               </motion.button>
             </div>
 
-            <div className="absolute -inset-4 bg-gradient-to-r from-lgreen/20 to-teal-500/20 rounded-3xl -z-10 opacity-50 blur-xl" />
+            <div className="absolute -inset-4 bg-linear-to-r from-lgreen/20 to-teal-500/20 rounded-3xl -z-10 opacity-50 blur-xl" />
           </motion.div>
 
           {/* Company Content */}
@@ -204,15 +204,24 @@ const About = ({
                   Us
                 </span>
               </h2>
-
-
             </motion.div>
             <div className="w-24 h-1 bg-lgreen my-6 mb-12"></div>
 
             {/* Updated Description */}
             <motion.div variants={itemVariants} className="space-y-6">
               <p className="text-lg lg:text-xl text-white leading-relaxed">
-                Founded in Canada in 2019, {companyName} has quickly built a reputation for professionalism, precision, and a relentless drive to exceed. Guided by our core principles of dedication and integrity, we have expanded across the Middle East with a strong presence in Bahrain and Saudi Arabia. In just a few years, we've become a trusted partner in turnkey contracting, delivering impactful projects across multiple sectors. By blending vision with technical expertise, our team transforms ideas into practical, results-driven solutions. At {companyName}, no project is too big or too small. Every stage of execution reflects our commitment to customer satisfaction and our passion for delivering excellence that lasts.
+                Founded in Canada in 2019, {companyName} has quickly built a
+                reputation for professionalism, precision, and a relentless
+                drive to exceed. Guided by our core principles of dedication and
+                integrity, we have expanded across the Middle East with a strong
+                presence in Bahrain and Saudi Arabia. In just a few years, we've
+                become a trusted partner in turnkey contracting, delivering
+                impactful projects across multiple sectors. By blending vision
+                with technical expertise, our team transforms ideas into
+                practical, results-driven solutions. At {companyName}, no
+                project is too big or too small. Every stage of execution
+                reflects our commitment to customer satisfaction and our passion
+                for delivering excellence that lasts.
               </p>
             </motion.div>
 
@@ -230,7 +239,7 @@ const About = ({
                     transition={{ delay: 0.8 + index * 0.1 }}
                     className="flex items-center gap-3 text-white/80 hover:text-white transition-colors duration-300"
                   >
-                    <CheckCircle className="w-5 h-5 text-lgreen flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-lgreen shrink-0" />
                     <span className="text-sm lg:text-base">{feature}</span>
                   </motion.div>
                 ))}
@@ -242,7 +251,7 @@ const About = ({
               <motion.a
                 whileTap={{ scale: 0.98 }}
                 href="/about-us"
-                className="group inline-flex items-center gap-3 bg-gradient-to-r from-lgreen to-teal-500 text-black px-8 py-4 rounded-2xl font-semibold transition-all duration-300 hover:shadow-2xl hover:shadow-lgreen/25 focus:outline-none"
+                className="group inline-flex items-center gap-3 bg-linear-to-r from-lgreen to-teal-500 text-black px-8 py-4 rounded-2xl font-semibold transition-all duration-300 hover:shadow-2xl hover:shadow-lgreen/25 focus:outline-none"
               >
                 <span>Learn More About Us</span>
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
@@ -269,10 +278,11 @@ const About = ({
                   whileHover={{ scale: 1.05, y: -5 }}
                   onHoverStart={() => handleStatHoverStart(index)}
                   onHoverEnd={handleStatHoverEnd}
-                  className={`text-center p-6 rounded-2xl transition-all duration-300 cursor-pointer ${hoveredStat === index
+                  className={`text-center p-6 rounded-2xl transition-all duration-300 cursor-pointer ${
+                    hoveredStat === index
                       ? "bg-lgreen/10 border border-lgreen/30"
                       : "bg-white/5 border border-white/10"
-                    }`}
+                  }`}
                 >
                   <motion.div className="inline-flex items-center justify-center w-12 h-12 bg-lgreen/20 rounded-xl mb-4">
                     <Icon className="w-6 h-6 text-lgreen" />
