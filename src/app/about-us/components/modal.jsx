@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { X, ZoomIn } from "lucide-react";
+import { X, ZoomIn, PlayCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Autoplay from "embla-carousel-autoplay";
 import { Card, CardContent } from "@/components/ui/card";
@@ -15,19 +15,26 @@ import {
 
 function Modal({ isOpen, onClose, project, companyName }) {
   const plugin = React.useRef(
-    Autoplay({ delay: 3000, stopOnInteraction: true })
+    Autoplay({ delay: 4000, stopOnInteraction: true })
   );
-  
-  // State to track which image to show full screen (null = closed, string = image url)
-  const [fullScreenImage, setFullScreenImage] = useState(null);
 
-  console.log("Modal project data:", project);
+  // State to track which media to show full screen (null = closed, string = url)
+  const [fullScreenMedia, setFullScreenMedia] = useState(null);
+
+  // Helper to check if a URL is a video
+  const isVideo = (url) => {
+    if (typeof url !== "string") return false;
+    // Checks for common video extensions or Cloudinary's video path
+    return (
+      url.includes("video/upload") || url.match(/\.(mp4|webm|ogg|mov|mkv)$/i)
+    );
+  };
 
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Main Modal Overlay - z-[100] to beat Navbar */}
+          {/* Main Modal Overlay */}
           <motion.div
             id="modal-scroll"
             initial={{ opacity: 0 }}
@@ -74,10 +81,16 @@ function Modal({ isOpen, onClose, project, companyName }) {
                 {/* Status Badge */}
                 {project?.status && (
                   <div className="flex justify-center mb-6">
-                    <span className={`px-4 py-1 rounded-full text-sm font-semibold
-                      ${project.status === 'Completed' ? 'bg-green-500/20 text-green-300' :
-                        project.status === 'Ongoing' ? 'bg-blue-500/20 text-blue-300' :
-                          'bg-yellow-500/20 text-yellow-300'}`}>
+                    <span
+                      className={`px-4 py-1 rounded-full text-sm font-semibold
+                      ${
+                        project.status === "Completed"
+                          ? "bg-green-500/20 text-green-300"
+                          : project.status === "Ongoing"
+                          ? "bg-blue-500/20 text-blue-300"
+                          : "bg-yellow-500/20 text-yellow-300"
+                      }`}
+                    >
                       {project.status}
                     </span>
                   </div>
@@ -98,33 +111,39 @@ function Modal({ isOpen, onClose, project, companyName }) {
                       onMouseLeave={plugin.current.reset}
                     >
                       <CarouselContent>
-                        {project?.images?.map((image, index) => (
+                        {project?.images?.map((mediaUrl, index) => (
                           <CarouselItem
                             key={index}
                             className="flex items-center justify-center"
                           >
                             <Card className="bg-transparent shadow-none border-0 w-full h-full flex items-center justify-center">
-                              <CardContent className="relative w-full aspect-video flex items-center justify-center p-0">
-                                <div className="relative w-full h-full">
-                                  
-                                  {/* Zoom Button - Inside the specific slide item */}
+                              <CardContent className="relative w-full h-full flex items-center justify-center p-0">
+                                <div className="relative w-full h-full flex items-center justify-center">
+                                  {/* Zoom Button */}
                                   <button
-                                    onClick={() => setFullScreenImage(image || "/arrham3.png")}
+                                    onClick={() => setFullScreenMedia(mediaUrl)}
                                     className="absolute top-4 left-4 z-20 p-2 rounded-full bg-black/60 text-white 
-                                      hover:bg-black/80 transition-all duration-200 backdrop-blur-sm
-                                      hover:scale-110 active:scale-95"
-                                    title="View Full Size"
+          hover:bg-black/80 transition-all duration-200 backdrop-blur-sm"
                                   >
                                     <ZoomIn size={20} />
                                   </button>
 
-                                  <Image
-                                    src={image || "/arrham3.png"}
-                                    alt={`${project.name || "Project"} - Image ${index + 1}`}
-                                    fill
-                                    className="object-contain"
-                                    priority={index === 0}
-                                  />
+                                  {isVideo(mediaUrl) ? (
+                                    <video
+                                      src={mediaUrl}
+                                      controls
+                                      className="w-full h-full max-h-[50vh] object-cover rounded-lg"
+                                      // max-h ensures the controls don't get pushed off-screen
+                                    />
+                                  ) : (
+                                    <Image
+                                      src={mediaUrl || "/arrham3.png"}
+                                      alt="Project Media"
+                                      fill
+                                      className="object-contain"
+                                      priority={index === 0}
+                                    />
+                                  )}
                                 </div>
                               </CardContent>
                             </Card>
@@ -147,48 +166,52 @@ function Modal({ isOpen, onClose, project, companyName }) {
                     </Carousel>
                   </div>
 
-                  {/* Image counter indicator */}
+                  {/* Media counter indicator */}
                   {project?.images?.length > 1 && (
                     <div
                       className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 
-                      px-3 py-1 rounded-full  backdrop-blur-sm 
-                      text-white/80 text-xs font-medium"
+                      px-3 py-1 rounded-full backdrop-blur-sm 
+                      text-white/80 text-xs font-medium bg-black/20"
                     >
-                      {project.images?.length} photos
+                      {project.images?.length} items
                     </div>
                   )}
                 </div>
 
                 {/* Project Details Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                  {/* Location */}
                   {project?.location && (
                     <div className="bg-black/20 rounded-lg p-4 backdrop-blur-sm border border-white/10">
-                      <h4 className="text-emerald-400 font-semibold mb-2">Location</h4>
+                      <h4 className="text-emerald-400 font-semibold mb-2">
+                        Location
+                      </h4>
                       <p className="text-gray-200">{project.location}</p>
                     </div>
                   )}
 
-                  {/* Client */}
                   {project?.clientName && (
                     <div className="bg-black/20 rounded-lg p-4 backdrop-blur-sm border border-white/10">
-                      <h4 className="text-emerald-400 font-semibold mb-2">Client</h4>
+                      <h4 className="text-emerald-400 font-semibold mb-2">
+                        Client
+                      </h4>
                       <p className="text-gray-200">{project.clientName}</p>
                     </div>
                   )}
 
-                  {/* Main Contractor */}
                   {project?.mainContractor && (
                     <div className="bg-black/20 rounded-lg p-4 backdrop-blur-sm border border-white/10">
-                      <h4 className="text-emerald-400 font-semibold mb-2">Main Contractor</h4>
+                      <h4 className="text-emerald-400 font-semibold mb-2">
+                        Main Contractor
+                      </h4>
                       <p className="text-gray-200">{project.mainContractor}</p>
                     </div>
                   )}
 
-                  {/* Branch */}
                   {project?.branchId && (
                     <div className="bg-black/20 rounded-lg p-4 backdrop-blur-sm border border-white/10">
-                      <h4 className="text-emerald-400 font-semibold mb-2">Company</h4>
+                      <h4 className="text-emerald-400 font-semibold mb-2">
+                        Company
+                      </h4>
                       <p className="text-gray-200">{companyName}</p>
                     </div>
                   )}
@@ -210,38 +233,47 @@ function Modal({ isOpen, onClose, project, companyName }) {
             </motion.div>
           </motion.div>
 
-          {/* Full Screen Image Overlay - z-[110] to beat Main Modal and Navbar */}
+          {/* Full Screen Media Overlay */}
           <AnimatePresence>
-            {fullScreenImage && (
+            {fullScreenMedia && (
               <motion.div
                 className="fixed inset-0 bg-black/95 flex items-center justify-center p-4 z-110"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                onClick={() => setFullScreenImage(null)}
+                onClick={() => setFullScreenMedia(null)}
               >
                 {/* Full Screen Close Button */}
                 <button
                   className="absolute top-5 right-5 text-white/70 hover:text-white p-2 bg-black/50 rounded-full z-120"
-                  onClick={() => setFullScreenImage(null)}
+                  onClick={() => setFullScreenMedia(null)}
                 >
                   <X size={32} />
                 </button>
 
                 <motion.div
-                  className="relative w-full h-full max-w-5xl max-h-[90vh]"
+                  className="relative w-full h-full max-w-5xl max-h-[90vh] flex items-center justify-center"
                   initial={{ scale: 0.9 }}
                   animate={{ scale: 1 }}
                   exit={{ scale: 0.9 }}
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <Image
-                    src={fullScreenImage}
-                    alt="Full View"
-                    fill
-                    className="object-contain"
-                    quality={100}
-                  />
+                  {isVideo(fullScreenMedia) ? (
+                    <video
+                      src={fullScreenMedia}
+                      controls
+                      autoPlay
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <Image
+                      src={fullScreenMedia}
+                      alt="Full View"
+                      fill
+                      className="object-contain"
+                      quality={100}
+                    />
+                  )}
                 </motion.div>
               </motion.div>
             )}

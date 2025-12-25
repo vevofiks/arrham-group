@@ -29,6 +29,11 @@ const ProjectPage = () => {
   });
   const [imagePreview, setImagePreview] = useState([]);
 
+  // Helper to check if a URL or Base64 string is a video
+  const isVideo = (url) => {
+    if (typeof url !== "string") return false;
+    return url.includes("video/preview") || url.includes("video") || url.match(/\.(mp4|webm|ogg|mov|mkv)$/i);
+  };
 
   useEffect(() => {
     fetchBranches();
@@ -39,7 +44,7 @@ const ProjectPage = () => {
       fetchProjects();
     }
   }, [selectedBranch]);
-  console.log('selectedBranch', selectedBranch)
+
   const fetchBranches = async () => {
     try {
       const res = await fetch(`/api/branches/`);
@@ -121,19 +126,9 @@ const ProjectPage = () => {
   };
 
   const handleImageChange = (e) => {
-    console.log('e.target.files', e.target.files)
     const files = Array.from(e.target.files);
-    files.forEach(file => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(prev => [...prev, reader.result]);
-      };
-      reader.readAsDataURL(file);
-    });
-    setFormData(prev => ({ ...prev, images: [...prev.images, ...files] }));
-    console.log(formData)
+    processFiles(files);
   };
-
 
   const removeImage = (index) => {
     setImagePreview(prev => prev.filter((_, i) => i !== index));
@@ -142,7 +137,6 @@ const ProjectPage = () => {
       images: prev.images.filter((_, i) => i !== index)
     }));
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -156,20 +150,6 @@ const ProjectPage = () => {
     formDataToSend.append("mainContractor", formData.mainContractor || "");
     formDataToSend.append("clientName", formData.clientName || "");
     formDataToSend.append("description", formData.description || "");
-  
-    console.log("Submitting form data:", {
-      branchId: selectedBranch,
-      name: formData.name,
-      location: formData.location,
-      description: formData.description,
-      status: formData.status,
-      imagesCount: formData.images.length
-    });
-  
-    console.log("FormData contents:");
-    for (let [key, value] of formDataToSend.entries()) {
-      console.log(`${key}:`, value);
-    }
   
     formData.images.forEach((image) => {
       if (typeof image === "string") {
@@ -196,12 +176,11 @@ const ProjectPage = () => {
         closeModal();
       } else {
         const errorData = await res.json();
-        console.error("Server error:", errorData);
-        alert(errorData.error || "Failed to save project. Please try again.");
+        alert(errorData.error || "Failed to save project.");
       }
     } catch (error) {
       console.error("Error saving project:", error);
-      alert("An error occurred while saving. Please try again.");
+      alert("An error occurred while saving.");
     } finally {
       setSubmitLoading(false);
     }
@@ -235,12 +214,8 @@ const ProjectPage = () => {
     p.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  console.log('projects', selectedProject);
-
-
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-100">
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <div className="mb-6 sm:mb-8">
           <div className="flex flex-col gap-4 sm:gap-6">
@@ -277,7 +252,7 @@ const ProjectPage = () => {
               <button
                 onClick={() => openModal("create")}
                 disabled={!selectedBranch}
-                className="px-4 sm:px-6 py-3 rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all disabled:opacity-50 disabled:cursor-not-al</div>lowed text-sm sm:text-base flex items-center justify-center gap-2 whitespace-nowrap"
+                className="px-4 sm:px-6 py-3 rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base flex items-center justify-center gap-2 whitespace-nowrap"
               >
                 <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span className="hidden sm:inline">Create Project</span>
@@ -300,13 +275,17 @@ const ProjectPage = () => {
               >
                 {p.images?.[0] && (
                   <div className="h-40 sm:h-48 bg-slate-100 overflow-hidden relative">
-                    <Image
-                      src={p.images[0]}
-                      alt={p.name}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
+                    {isVideo(p.images[0]) ? (
+                      <video src={p.images[0]} className="w-full h-full object-cover" />
+                    ) : (
+                      <Image
+                        src={p.images[0]}
+                        alt={p.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    )}
                   </div>
                 )}
                 <div className="p-4 sm:p-6">
@@ -407,17 +386,21 @@ const ProjectPage = () => {
                   </div>
                   {selectedProject.images?.length > 0 && (
                     <div>
-                      <h4 className="text-sm font-medium text-slate-600 mb-3">Images</h4>
+                      <h4 className="text-sm font-medium text-slate-600 mb-3">Media (Images & Videos)</h4>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                         {selectedProject.images.map((img, i) => (
                           <div key={i} className="relative group h-32">
-                            <Image
-                              src={img}
-                              alt={`Project ${i + 1}`}
-                              fill
-                              className="object-cover rounded-lg shadow-sm group-hover:shadow-md transition"
-                              sizes="(max-width: 768px) 50vw, 25vw"
-                            />
+                            {isVideo(img) ? (
+                              <video src={img} controls className="w-full h-full object-cover rounded-lg shadow-sm" />
+                            ) : (
+                              <Image
+                                src={img}
+                                alt={`Project ${i + 1}`}
+                                fill
+                                className="object-cover rounded-lg shadow-sm group-hover:shadow-md transition"
+                                sizes="(max-width: 768px) 50vw, 25vw"
+                              />
+                            )}
                           </div>
                         ))}
                       </div>
@@ -499,7 +482,7 @@ const ProjectPage = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">Images</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Media (Images & Videos)</label>
                     <div className={`border-2 border-dashed rounded-xl p-4 sm:p-6 text-center transition-colors ${isDragging ? "border-indigo-400 bg-indigo-50" : "border-slate-200"
                       }`}
                       onDrop={handleDrop}
@@ -509,21 +492,25 @@ const ProjectPage = () => {
                       <input
                         type="file"
                         multiple
-                        accept="image/*"
+                        accept="image/*,video/*"
                         onChange={handleImageChange}
                         className="hidden"
                         id="image-upload"
                       />
                       <label htmlFor="image-upload" className="cursor-pointer block">
                         <Upload className="w-10 h-10 sm:w-12 sm:h-12 text-slate-400 mx-auto mb-2 sm:mb-3" />
-                        <p className="text-sm sm:text-base text-slate-600">Drop images here or click to upload</p>
+                        <p className="text-sm sm:text-base text-slate-600">Drop images/videos here or click to upload</p>
                       </label>
                     </div>
                     {imagePreview.length > 0 && (
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
                         {imagePreview.map((img, i) => (
                           <div key={i} className="relative group">
-                            <Image src={img} alt={`Preview ${i + 1}`} width={150} height={128} className="w-full h-20 sm:h-32 object-cover rounded-lg" />
+                            {isVideo(img) ? (
+                              <video src={img} className="w-full h-20 sm:h-32 object-cover rounded-lg" />
+                            ) : (
+                              <Image src={img} alt={`Preview ${i + 1}`} width={150} height={128} className="w-full h-20 sm:h-32 object-cover rounded-lg" />
+                            )}
                             <button
                               type="button"
                               onClick={() => removeImage(i)}
@@ -559,7 +546,6 @@ const ProjectPage = () => {
                         modalType === "create" ? "Create" : "Update"
                       )}
                     </button>
-
                   </div>
                 </div>
               </div>

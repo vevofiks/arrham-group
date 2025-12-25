@@ -6,17 +6,8 @@ import cloudinary from "@/app/lib/cloudinary";
 export async function PUT(request, { params }) {
     try {
         await connectDB();
-
         const { id } = await params;
-        console.log("Updating project with ID:", id);
-
         const formData = await request.formData();
-
-        console.log("=== FORM DATA RECEIVED ===");
-        for (let [key, value] of formData.entries()) {
-            console.log(`${key}:`, value);
-        }
-        console.log("==========================");
 
         // Extract fields
         const name = formData.get("name");
@@ -26,23 +17,13 @@ export async function PUT(request, { params }) {
         const mainContractor = formData.get("mainContractor") || "";
         const clientName = formData.get("clientName");
 
-        // Validate clientName if it's being updated
         if (clientName !== null && !clientName) {
-          return NextResponse.json(
-            { error: "clientName is required" },
-            { status: 400 }
-          );
+            return NextResponse.json({ error: "clientName is required" }, { status: 400 });
         }
 
-        console.log("Update data:", { name, location, status, description, mainContractor, clientName });
-
         const existingImages = formData.getAll("existingImages") || [];
-        console.log("Existing images:", existingImages);
-
-        // Handle new uploads
-        const newImages = [];
-        const files = formData.getAll("images");
-        console.log("New image files:", files.length);
+        const newMedia = []; // Changed name to be more generic (Media instead of Images)
+        const files = formData.getAll("images"); // Keeping 'images' as key or rename to 'media'
 
         for (const file of files) {
             if (file && file instanceof File) {
@@ -51,19 +32,24 @@ export async function PUT(request, { params }) {
 
                 const uploaded = await new Promise((resolve, reject) => {
                     cloudinary.uploader
-                        .upload_stream({ folder: "projects" }, (error, result) => {
-                            if (error) reject(error);
-                            else resolve(result);
-                        })
+                        .upload_stream(
+                            { 
+                                folder: "projects", 
+                                resource_type: "auto" // CRITICAL: Detects if it's a video or image
+                            }, 
+                            (error, result) => {
+                                if (error) reject(error);
+                                else resolve(result);
+                            }
+                        )
                         .end(buffer);
                 });
 
-                newImages.push(uploaded.secure_url);
+                newMedia.push(uploaded.secure_url);
             }
         }
 
-        const finalImages = [...existingImages, ...newImages];
-        console.log("Final images:", finalImages);
+        const finalMedia = [...existingImages, ...newMedia];
 
         const updateData = {
             name,
@@ -72,25 +58,16 @@ export async function PUT(request, { params }) {
             description,
             mainContractor,
             clientName,
-            images: finalImages
+            images: finalMedia // Storing both image and video URLs in the same array
         };
 
-        // Update project by MongoDB _id
-        const project = await Project.findByIdAndUpdate(
-            id,
-            updateData,
-            { new: true }
-        );
+        const project = await Project.findByIdAndUpdate(id, updateData, { new: true });
 
         if (!project) {
             return NextResponse.json({ error: "Project not found" }, { status: 404 });
         }
 
-        return NextResponse.json({
-            success: true,
-            message: "Project updated successfully",
-            data: project,
-        });
+        return NextResponse.json({ success: true, data: project });
     } catch (err) {
         console.error("PUT error:", err);
         return NextResponse.json({ error: err.message }, { status: 400 });

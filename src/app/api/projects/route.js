@@ -47,26 +47,24 @@ export async function POST(req) {
     const clientName = formData.get("clientName");
 
     if (!clientName) {
-      return NextResponse.json(
-        { error: "clientName is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "clientName is required" }, { status: 400 });
     }
 
-    console.log("Creating project with:", { branchId, name, location, status, description, mainContractor, clientName });
-
-    const files = formData.getAll("images");
+    const files = formData.getAll("images"); // This can now contain both images and videos
     const uploadedUrls = [];
 
     for (const file of files) {
-      const buffer = Buffer.from(await file.arrayBuffer());
-      const base64String = `data:${file.type};base64,${buffer.toString("base64")}`;
+      if (file && file instanceof File) {
+        const buffer = Buffer.from(await file.arrayBuffer());
+        const base64String = `data:${file.type};base64,${buffer.toString("base64")}`;
 
-      const uploadRes = await cloudinary.uploader.upload(base64String, {
-        folder: "projects",
-      });
+        const uploadRes = await cloudinary.uploader.upload(base64String, {
+          folder: "projects",
+          resource_type: "auto", // CRITICAL: Detects if it's a video or image
+        });
 
-      uploadedUrls.push(uploadRes.secure_url);
+        uploadedUrls.push(uploadRes.secure_url);
+      }
     }
 
     const newProject = await Project.create({
@@ -77,15 +75,12 @@ export async function POST(req) {
       status,
       mainContractor,
       clientName,
-      images: uploadedUrls,
+      images: uploadedUrls, // Array contains mixed Image and Video URLs
     });
 
     return NextResponse.json(newProject, { status: 201 });
   } catch (error) {
     console.error("Error creating project:", error);
-    return NextResponse.json(
-      { error: "Failed to create project" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to create project" }, { status: 500 });
   }
 }
