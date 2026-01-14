@@ -88,18 +88,18 @@ const Hero = ({ getToSection }) => {
 
       <div className="relative z-10 pt-12 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h1
-  initial={{ opacity: 0, y: 50 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8, ease: "easeOut" }}
-  className={`text-white font-extrabold leading-tight tracking-wide text-center overflow-visible ${montserrat.className} text-[clamp(1rem,5vw,2.8rem)]`}
->
-  <span className="inline-block whitespace-nowrap md:whitespace-nowrap sm:whitespace-normal">
-    Shaping Tomorrow with{" "}
-  </span>
-  <span className="inline-block bg-linear-to-r from-lgreen to-teal-400 text-transparent bg-clip-text whitespace-nowrap md:whitespace-nowrap sm:whitespace-normal pl-3">
-    Engineered Solutions
-  </span>
-</motion.h1>
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className={`text-white font-extrabold leading-tight tracking-wide text-center overflow-visible ${montserrat.className} text-[clamp(1rem,5vw,2.8rem)]`}
+        >
+          <span className="inline-block whitespace-nowrap md:whitespace-nowrap sm:whitespace-normal">
+            Shaping Tomorrow with{" "}
+          </span>
+          <span className="inline-block bg-linear-to-r from-lgreen to-teal-400 text-transparent bg-clip-text whitespace-nowrap md:whitespace-nowrap sm:whitespace-normal pl-3">
+            Engineered Solutions
+          </span>
+        </motion.h1>
 
 
 
@@ -113,11 +113,11 @@ const Hero = ({ getToSection }) => {
           At Arrham Group, we deliver high-quality, future-ready solutions in
           <span className="font-bold bg-linear-to-r from-lgreen to-teal-400 text-transparent bg-clip-text">
             {" "}
-            Automotive Film, Electrical, Turnkey  Services, 
+            Automotive Film, Electrical, Turnkey  Services,
             <span className="whitespace-nowrap">Fit-Out</span>, Healthcare and Mechanical
             Services,{" "}
           </span>
-         serving both businesses and individuals across Bahrain, Saudi Arabia, Canada and beyond.
+          serving both businesses and individuals across Bahrain, Saudi Arabia, Canada and beyond.
         </motion.p>
       </div>
     </section>

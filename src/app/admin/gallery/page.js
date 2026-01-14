@@ -13,7 +13,9 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import ConfirmModal from "@/app/components/ConfirmModal";
+import { toast } from "sonner";
 
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const GalleryPage = () => {
     const [branches, setBranches] = useState([]);
     const [selectedBranch, setSelectedBranch] = useState("");
@@ -27,8 +29,8 @@ const GalleryPage = () => {
     const [uploading, setUploading] = useState(false);
     const [confirmOpen, setConfirmOpen] = useState(false);
     const [deleteTarget, setDeleteTarget] = useState(null);
-      const [deleteLoading, setDeleteLoading] = useState(false);
-    
+    const [deleteLoading, setDeleteLoading] = useState(false);
+
 
 
     const [uploadStatus, setUploadStatus] = useState({ show: false, message: "", type: "" });
@@ -140,8 +142,17 @@ const GalleryPage = () => {
     const handleDragLeave = () => setIsDragging(false);
 
     const handleImageChange = (e) => {
-        const files = Array.from(e.target.files);
-        processFiles(files);
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        // Check file size
+        if (file.size > MAX_FILE_SIZE) {
+            toast.error(`File size exceeds 10MB. Your file is ${(file.size / 1024 / 1024).toFixed(2)}MB`);
+            e.target.value = '';
+            return;
+        }
+
+        processFiles([file]);
     };
 
     const removeImage = (index) => {
@@ -214,7 +225,7 @@ const GalleryPage = () => {
 
     const handleDelete = async () => {
         if (!deleteTarget) return;
-    setDeleteLoading(true);
+        setDeleteLoading(true);
 
         try {
             const res = await fetch(
@@ -417,7 +428,6 @@ const GalleryPage = () => {
                             >
                                 <input
                                     type="file"
-                                    multiple
                                     accept="image/jpeg,image/jpg,image/png,image/webp"
                                     onChange={handleImageChange}
                                     className="hidden"
@@ -430,7 +440,7 @@ const GalleryPage = () => {
                                 >
                                     <Upload className="w-12 h-12 sm:w-14 sm:h-14 text-slate-400 mx-auto mb-3" />
                                     <p className="text-base sm:text-lg font-medium text-slate-700 mb-1">
-                                        Drop images here or click to browse
+                                        Drop image here or click to browse
                                     </p>
                                     <p className="text-xs sm:text-sm text-slate-500">
                                         Supports: JPG, PNG, WebP (Max 10MB per image)
@@ -449,6 +459,8 @@ const GalleryPage = () => {
                                                 <Image
                                                     src={img}
                                                     alt={`Preview ${i + 1}`}
+                                                    width={200}
+                                                    height={150}
                                                     className="w-full h-24 sm:h-32 object-cover rounded-lg border border-slate-200"
                                                 />
                                                 <button

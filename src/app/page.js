@@ -16,7 +16,7 @@ import SimpleCard from './about-us/components/Companies'
 
 const Page = () => {
   const router = useRouter();
-  const [imageLogosData , setImageLogosData] = useState(null);
+  const [imageLogosData, setImageLogosData] = useState(null);
   useEffect(() => {
     const target = sessionStorage.getItem("scroll-target");
     if (target) {
@@ -76,7 +76,7 @@ const Page = () => {
   };
 
   console.log("Image Logos Data:", imageLogosData);
-  
+
   return (
     <div id="home" className="relative">
       <section className="relative flex flex-col items-center justify-center mt-26 md:mt-12 px-5 sm:px-10 md:px-20 min-h-screen">
@@ -118,13 +118,13 @@ const Page = () => {
           </motion.div>
         </motion.button>
       </section>
-      
+
       {/* Hero Section */}
       <div className="hero">
         <Hero getToSection={getToSection} />
       </div>
 
-      {/* Bottom Blur / Gradient */}
+      {/* Bottom Blur / linear */}
       <div className="absolute bottom-0 left-0 right-0 h-20 backdrop-blur-3xl bg-linear-to-b from-transparent to-black" />
 
       {/* About Section */}
@@ -149,7 +149,7 @@ const Page = () => {
           </motion.h2>
           <motion.div
             variants={itemVariants}
-            className="w-24 h-1.5 bg-gradient-to-r from-lgreen to-teal-400 mx-auto mt-6 rounded-full"
+            className="w-24 h-1.5 bg-linear-to-r from-lgreen to-teal-400 mx-auto mt-6 rounded-full"
           />
           <motion.p
             variants={itemVariants}

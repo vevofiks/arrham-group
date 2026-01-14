@@ -168,9 +168,8 @@ const RollingGallery = ({
               className="group absolute flex h-fit items-center justify-center p-[8%] backface-hidden md:p-[6%]"
               style={{
                 width: `${faceWidth}px`,
-                transform: `rotateY(${
-                  (360 / faceCount) * i
-                }deg) translateZ(${radius}px)`,
+                transform: `rotateY(${(360 / faceCount) * i
+                  }deg) translateZ(${radius}px)`,
               }}
             >
               <Image

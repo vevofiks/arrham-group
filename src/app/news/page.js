@@ -11,7 +11,7 @@ const NewsPage = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative overflow-hidden"
+      className="min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-black text-white relative overflow-hidden"
     >
       <NewsHero />
       <motion.section

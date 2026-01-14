@@ -55,7 +55,7 @@ const Certificates = ({
     ? "bg-white border-gray-100 shadow-sm hover:shadow-lg hover:border-teal-100"
     : "bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-white/20 hover:shadow-xl hover:shadow-emerald-500/10";
 
-  const hasGradient = Boolean(lColor && rColor);
+  const haslinear = Boolean(lColor && rColor);
 
   return (
     // FIXED: Removed 'z-10' to prevent stacking context trap.
@@ -73,7 +73,7 @@ const Certificates = ({
           <h2
             className={`text-2xl md:text-3xl font-extrabold mb-4 uppercase ${montserrat.className}`}
           >
-            {hasGradient ? (
+            {haslinear ? (
               <span
                 className="text-transparent bg-clip-text"
                 style={{
@@ -87,9 +87,8 @@ const Certificates = ({
             )}
           </h2>
           <div
-            className={`w-16 h-1 mx-auto rounded-full ${
-              hasGradient ? "bg-linear-to-r from-teal-400 to-blue-500" : "bg-emerald-400"
-            }`}
+            className={`w-16 h-1 mx-auto rounded-full ${haslinear ? "bg-linear-to-r from-teal-400 to-blue-500" : "bg-emerald-400"
+              }`}
           />
         </motion.div>
 
@@ -128,13 +127,12 @@ const Certificates = ({
 
               <div className="p-4 flex flex-col gap-2">
                 <h3
-                  className={`text-base text-center font-bold line-clamp-1 ${
-                    isHealthcare ? "text-gray-900" : "text-emerald-300"
-                  }`}
+                  className={`text-base text-center font-bold line-clamp-1 ${isHealthcare ? "text-gray-900" : "text-emerald-300"
+                    }`}
                 >
                   {certificate.name}
                 </h3>
-                
+
                 <div className="flex items-center justify-center gap-2 mt-auto">
                   <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full"></div>
                   <span className={`text-[10px] ${isHealthcare ? "text-gray-500" : "text-white/60"} uppercase tracking-wider`}>

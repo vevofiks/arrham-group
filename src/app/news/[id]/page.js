@@ -38,7 +38,7 @@ export default function NewsDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900 flex justify-center items-center">
+      <div className="min-h-screen bg-linear-to-b from-gray-900 via-black to-gray-900 flex justify-center items-center">
         <motion.div
           className="text-center"
           initial={{ opacity: 0 }}
@@ -60,7 +60,7 @@ export default function NewsDetailPage() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900 flex flex-col justify-center items-center text-center px-6"
+        className="min-h-screen bg-linear-to-b from-gray-900 via-black to-gray-900 flex flex-col justify-center items-center text-center px-6"
       >
         <motion.div
           initial={{ scale: 0 }}
@@ -92,7 +92,7 @@ export default function NewsDetailPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900 text-white relative overflow-hidden"
+      className="min-h-screen bg-linear-to-b from-gray-900 via-black to-gray-900 text-white relative overflow-hidden"
     >
 
 
@@ -132,7 +132,7 @@ export default function NewsDetailPage() {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="text-4xl md:text-5xl font-extrabold leading-tight"
               >
-                <span className={`${montserrat.className} bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent`}>
+                <span className={`${montserrat.className} bg-linear-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent`}>
                   {news.title}
                 </span>
               </motion.h1>
@@ -171,7 +171,7 @@ export default function NewsDetailPage() {
                   height={600}
                   className="w-full h-64 md:h-96 object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
               </motion.div>
             )}
 

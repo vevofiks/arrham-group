@@ -65,11 +65,11 @@ const NewsList = () => {
     <div className="space-y-12">
       <div className="text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
             Featured Stories
           </span>
         </h2>
-        <div className="w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto rounded-full" />
+        <div className="w-24 h-1 bg-linear-to-r from-emerald-400 to-teal-400 mx-auto rounded-full" />
       </div>
 
       <motion.div

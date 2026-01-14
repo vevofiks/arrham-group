@@ -18,7 +18,7 @@ const toExternalUrl = (url) => {
   return trimmed.startsWith("http") ? trimmed : `https://${trimmed}`;
 };
 
-// Reusable Section Header with Dynamic Gradient
+// Reusable Section Header with Dynamic linear
 const SectionHeader = ({ title, lColor, rColor }) => (
   <div className="text-center mb-12">
     <motion.h2

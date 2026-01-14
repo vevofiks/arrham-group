@@ -19,22 +19,22 @@ const NewsCard = ({ item, index }) => {
   return (
     <motion.div
       variants={cardVariants}
-      whileHover={{ 
-        scale: 1.05, 
+      whileHover={{
+        scale: 1.05,
         y: -10,
         rotateY: 5
       }}
       whileTap={{ scale: 0.95 }}
-      transition={{ 
-        type: "spring", 
-        stiffness: 300, 
-        damping: 20 
+      transition={{
+        type: "spring",
+        stiffness: 300,
+        damping: 20
       }}
-      className="group relative bg-gradient-to-b from-white/10 to-white/5 border border-white/20 rounded-3xl overflow-hidden shadow-2xl backdrop-blur-xl hover:shadow-emerald-500/25 transition-all duration-500"
+      className="group relative bg-linear-to-b from-white/10 to-white/5 border border-white/20 rounded-3xl overflow-hidden shadow-2xl backdrop-blur-xl hover:shadow-emerald-500/25 transition-all duration-500"
     >
       {/* Glow effect on hover */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 via-transparent to-teal-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        className="absolute inset-0 bg-linear-to-r from-emerald-500/20 via-transparent to-teal-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         initial={false}
       />
 
@@ -48,8 +48,8 @@ const NewsCard = ({ item, index }) => {
             whileHover={{ scale: 1.1 }}
             transition={{ duration: 0.7 }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-          
+          <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
+
           {/* Floating date badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
@@ -57,9 +57,9 @@ const NewsCard = ({ item, index }) => {
             transition={{ delay: 0.3 + index * 0.1 }}
             className="absolute top-4 right-4 bg-emerald-500/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-white"
           >
-            {new Date(item.createdAt).toLocaleDateString('en-US', { 
-              month: 'short', 
-              day: 'numeric' 
+            {new Date(item.createdAt).toLocaleDateString('en-US', {
+              month: 'short',
+              day: 'numeric'
             })}
           </motion.div>
         </div>
@@ -107,8 +107,8 @@ const NewsCard = ({ item, index }) => {
         </motion.div>
       </div>
 
-      {/* Bottom gradient accent */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      {/* Bottom linear accent */}
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-emerald-400 via-teal-400 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
     </motion.div>
   );
 };

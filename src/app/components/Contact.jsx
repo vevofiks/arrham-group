@@ -4,19 +4,44 @@ import React, { useState } from "react";
 import { motion } from "motion/react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { socialIcons } from "../data";
+import * as yup from "yup";
+import { toast } from "sonner";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [errors, setErrors] = useState({ name: "", email: "", message: "" });
+
+  const contactSchema = yup.object().shape({
+    name: yup.string().required("Name is required").min(2, "Name must be at least 2 characters"),
+    email: yup.string().required("Email is required").email("Please enter a valid email"),
+    message: yup.string().required("Message is required").min(10, "Message must be at least 10 characters"),
+  });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    // Clear error for this field
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: "" });
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted: ", form);
-    alert("Message sent successfully!");
-    setForm({ name: "", email: "", message: "" });
+
+    try {
+      await contactSchema.validate(form, { abortEarly: false });
+      setErrors({ name: "", email: "", message: "" });
+      console.log("Form Submitted: ", form);
+      toast.success("Message sent successfully!");
+      setForm({ name: "", email: "", message: "" });
+    } catch (err) {
+      const validationErrors = { name: "", email: "", message: "" };
+      err.inner.forEach(error => {
+        validationErrors[error.path] = error.message;
+      });
+      setErrors(validationErrors);
+      toast.error("Please fix the errors in the form");
+    }
   };
 
   return (
@@ -44,25 +69,6 @@ const Contact = () => {
             team will get back to you as soon as possible.
           </p>
 
-          {/* Contact Info */}
-          {/* <div className="space-y-4">
-            <div className="flex items-center gap-4">
-              <Mail className="w-6 h-6 text-lgreen" />
-              <span>info@arrhamgroup.com</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <Phone className="w-6 h-6 text-lgreen" />
-              <span>+973 1747 3535</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <MapPin className="w-10 h-10 text-lgreen" />
-              <span>
-                ARRHAM TRADING AND CONTRACTING W.L.L Mr. Shabab 1445A & 1445G,
-                Road 4630, Block 646, Nuwaidrat, Sitrah 644 Bahrain
-              </span>
-            </div>
-          </div> */}
-
           <div className="space-y-4">
             <h4 className="text-sm font-semibold text-white/80">
               Follow Us
@@ -71,6 +77,7 @@ const Contact = () => {
               {socialIcons.map((social, index) => (
                 <motion.a
                   key={index}
+                  target="_blank"
                   href={social.href}
                   className={`p-2.5 rounded-xl border border-white/20 backdrop-blur-sm transition-all duration-300 ${social.color} ${social.iconColor}`}
                   whileHover={{ scale: 1.1, y: -2 }}
@@ -102,6 +109,7 @@ const Contact = () => {
               className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-lgreen transition"
               placeholder="Your Name"
             />
+            {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
           </div>
 
           <div>
@@ -115,6 +123,7 @@ const Contact = () => {
               className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-lgreen transition"
               placeholder="your@email.com"
             />
+            {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
           </div>
 
           <div>
@@ -128,13 +137,14 @@ const Contact = () => {
               className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-lgreen transition resize-none"
               placeholder="Write your message..."
             />
+            {errors.message && <p className="text-red-400 text-sm mt-1">{errors.message}</p>}
           </div>
 
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             type="submit"
-            className="w-full flex cursor-pointer items-center justify-center gap-2 bg-gradient-to-r from-lgreen to-teal-500 text-black px-6 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-lgreen/30"
+            className="w-full flex cursor-pointer items-center justify-center gap-2 bg-linear-to-r from-lgreen to-teal-500 text-black px-6 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-lgreen/30"
           >
             Send Message <Send className="w-5 h-5" />
           </motion.button>

@@ -90,55 +90,54 @@ const Navbar = () => {
         variants={navbarVariants}
         animate={isScrolled ? "solid" : "transparent"}
         // ✅ FIXED: Lowered Main Navbar to z-30 (Modal is z-100)
-        className={`fixed top-0 left-0 right-0 z-30 px-10 md:px-24 py-8 transition-all duration-300  ${
-          isScrolled ? "shadow-lg border-b-lgreen" : ""
-        }`}
+        className={`fixed top-0 left-0 right-0 z-30 px-10 md:px-24 py-8 transition-all duration-300  ${isScrolled ? "shadow-lg border-b-lgreen" : ""
+          }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between ">
           <motion.a
-  initial={{ opacity: 0, x: -20 }}
-  animate={{ opacity: 1, x: 0 }}
-  transition={{ duration: 0.5 }}
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
-  className="text-2xl font-bold text-white cursor-pointer relative block"
-  href="/"
->
-  <div className="relative z-10">
-    <Image
-      src="/logo.png"
-      alt="logo"
-      width={50}
-      height={50}
-      className="block"
-    />
-  </div>
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="text-2xl font-bold text-white cursor-pointer relative block"
+            href="/"
+          >
+            <div className="relative z-10">
+              <Image
+                src="/logo.png"
+                alt="logo"
+                width={50}
+                height={50}
+                className="block"
+              />
+            </div>
 
-  <div
-    className="absolute inset-0 z-20 pointer-events-none"
-    style={{
-      maskImage: "url('/logo.png')",
-      WebkitMaskImage: "url('/logo.png')",
-      maskMode: "alpha",
-      WebkitMaskMode: "alpha",
-      maskRepeat: "no-repeat",
-      WebkitMaskRepeat: "no-repeat",
-      maskSize: "contain",
-      WebkitMaskSize: "contain",
-      maskPosition: "center",
-      WebkitMaskPosition: "center",
-    }}
-  >
-    {/* Changes here: 
-       1. Changed 'bg-linear-to-r' to 'bg-linear-to-t' (bottom to top gradient)
+            <div
+              className="absolute inset-0 z-20 pointer-events-none"
+              style={{
+                maskImage: "url('/logo.png')",
+                WebkitMaskImage: "url('/logo.png')",
+                maskMode: "alpha",
+                WebkitMaskMode: "alpha",
+                maskRepeat: "no-repeat",
+                WebkitMaskRepeat: "no-repeat",
+                maskSize: "contain",
+                WebkitMaskSize: "contain",
+                maskPosition: "center",
+                WebkitMaskPosition: "center",
+              }}
+            >
+              {/* Changes here: 
+       1. Changed 'bg-linear-to-r' to 'bg-linear-to-t' (bottom to top linear)
        2. Removed '-skew-x-25' for a cleaner vertical scan
     */}
-    <div
-      className="bg-linear-to-t from-transparent via-white/80 to-transparent 
+              <div
+                className="bg-linear-to-t from-transparent via-white/80 to-transparent 
       animate-sheen-auto"
-    ></div>
-  </div>
-</motion.a>
+              ></div>
+            </div>
+          </motion.a>
 
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link, index) => (
@@ -150,11 +149,10 @@ const Navbar = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleLinkClick(link.path, link.href)}
-                  className={`${montserrat.className} ${
-                    pathname === "/about-us/arrham-healthcare-bahrain"
+                  className={`${montserrat.className} ${pathname === "/about-us/arrham-healthcare-bahrain"
                       ? "text-black/50"
                       : "text-white"
-                  } flex items-center gap-1 cursor-pointer hover:text-lgreen font-medium transition-colors duration-200`}
+                    } flex items-center gap-1 cursor-pointer hover:text-lgreen font-medium transition-colors duration-200`}
                 >
                   {link.name}
                   {link.subLinks && (

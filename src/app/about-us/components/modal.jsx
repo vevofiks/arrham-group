@@ -83,13 +83,12 @@ function Modal({ isOpen, onClose, project, companyName }) {
                   <div className="flex justify-center mb-6">
                     <span
                       className={`px-4 py-1 rounded-full text-sm font-semibold
-                      ${
-                        project.status === "Completed"
+                      ${project.status === "Completed"
                           ? "bg-green-500/20 text-green-300"
                           : project.status === "Ongoing"
-                          ? "bg-blue-500/20 text-blue-300"
-                          : "bg-yellow-500/20 text-yellow-300"
-                      }`}
+                            ? "bg-blue-500/20 text-blue-300"
+                            : "bg-yellow-500/20 text-yellow-300"
+                        }`}
                     >
                       {project.status}
                     </span>
@@ -106,36 +105,35 @@ function Modal({ isOpen, onClose, project, companyName }) {
                     <Carousel
                       opts={{ align: "center", loop: true }}
                       plugins={[plugin.current]}
-                      className="w-full h-auto"
+                      className="w-full h-full [&>div[data-slot=carousel-content]]:h-full"
                       onMouseEnter={plugin.current.stop}
                       onMouseLeave={plugin.current.reset}
                     >
-                      <CarouselContent>
+                      <CarouselContent className="h-full">
                         {project?.images?.map((mediaUrl, index) => (
                           <CarouselItem
                             key={index}
-                            className="flex items-center justify-center"
+                            className="h-full flex items-center justify-center"
                           >
-                            <Card className="bg-transparent shadow-none border-0 w-full h-full flex items-center justify-center">
-                              <CardContent className="relative w-full h-full flex items-center justify-center p-0">
-                                <div className="relative w-full h-full flex items-center justify-center">
-                                  {/* Zoom Button */}
-                                  <button
-                                    onClick={() => setFullScreenMedia(mediaUrl)}
-                                    className="absolute top-4 left-4 z-20 p-2 rounded-full bg-black/60 text-white 
-          hover:bg-black/80 transition-all duration-200 backdrop-blur-sm"
-                                  >
-                                    <ZoomIn size={20} />
-                                  </button>
+                            <Card className="bg-transparent shadow-none border-0 w-full h-full">
+                              <CardContent className="relative w-full h-full p-0 flex items-center justify-center">
+                                {/* Zoom Button */}
+                                <button
+                                  onClick={() => setFullScreenMedia(mediaUrl)}
+                                  className="absolute top-4 left-4 z-20 p-2 rounded-full bg-black/60 text-white 
+        hover:bg-black/80 transition-all duration-200 backdrop-blur-sm"
+                                >
+                                  <ZoomIn size={20} />
+                                </button>
 
-                                  {isVideo(mediaUrl) ? (
-                                    <video
-                                      src={mediaUrl}
-                                      controls
-                                      className="w-full h-full max-h-[50vh] object-cover rounded-lg"
-                                      // max-h ensures the controls don't get pushed off-screen
-                                    />
-                                  ) : (
+                                {isVideo(mediaUrl) ? (
+                                  <video
+                                    src={mediaUrl}
+                                    controls
+                                    className="max-w-full max-h-full object-contain rounded-lg"
+                                  />
+                                ) : (
+                                  <div className="relative w-full h-full">
                                     <Image
                                       src={mediaUrl || "/arrham3.png"}
                                       alt="Project Media"
@@ -143,8 +141,8 @@ function Modal({ isOpen, onClose, project, companyName }) {
                                       className="object-contain"
                                       priority={index === 0}
                                     />
-                                  )}
-                                </div>
+                                  </div>
+                                )}
                               </CardContent>
                             </Card>
                           </CarouselItem>

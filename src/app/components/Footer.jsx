@@ -63,7 +63,7 @@ const Footer = () => {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgb(255,255,255) 1px, transparent 0)`,
+            backgroundImage: `radial-linear(circle at 1px 1px, rgb(255,255,255) 1px, transparent 0)`,
             backgroundSize: "40px 40px",
           }}
         />
@@ -129,11 +129,10 @@ const Footer = () => {
                       <button
                         key={company.id}
                         onClick={() => setSelectedCompany(company)}
-                        className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 border flex items-center justify-between group ${
-                          selectedCompany.id === company.id
+                        className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 border flex items-center justify-between group ${selectedCompany.id === company.id
                             ? "bg-teal-900/30 border-teal-500/50 text-white"
                             : "bg-transparent border-white/10 text-white/60 hover:bg-white/5 hover:text-white"
-                        }`}
+                          }`}
                       >
                         <div>
                           <span className="text-xs uppercase tracking-wider block mb-1 opacity-70">
@@ -144,11 +143,10 @@ const Footer = () => {
                           </span>
                         </div>
                         <ChevronRight
-                          className={`w-4 h-4 transition-transform duration-300 ${
-                            selectedCompany.id === company.id
+                          className={`w-4 h-4 transition-transform duration-300 ${selectedCompany.id === company.id
                               ? "text-teal-400 translate-x-1"
                               : "opacity-0"
-                          }`}
+                            }`}
                         />
                       </button>
                     ))}
@@ -250,9 +248,8 @@ const Footer = () => {
                   <div className="flex items-center gap-3 text-white/70 hover:text-teal-400 transition">
                     <Mail className="w-4 h-4" />
                     <a
-                      href={`mailto:${
-                        companyData?.contact?.email || "info@arrhamgroup.com"
-                      }`}
+                      href={`mailto:${companyData?.contact?.email || "info@arrhamgroup.com"
+                        }`}
                       className="text-sm"
                     >
                       {companyData?.contact?.email || "info@arrhamgroup.com"}

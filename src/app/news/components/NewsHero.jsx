@@ -37,11 +37,11 @@ const NewsHero = () => {
         >
           Latest{" "}
           <motion.span
-            className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent"
-            animate={{ 
+            className="bg-linear-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent"
+            animate={{
               backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
             }}
-            transition={{ 
+            transition={{
               duration: 3,
               repeat: Infinity,
               ease: "easeInOut"
@@ -72,10 +72,10 @@ const NewsHero = () => {
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="inline-block"
           >
-            <svg 
-              className="w-6 h-6 text-emerald-400" 
-              fill="none" 
-              stroke="currentColor" 
+            <svg
+              className="w-6 h-6 text-emerald-400"
+              fill="none"
+              stroke="currentColor"
               viewBox="0 0 24 24"
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
