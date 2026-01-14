@@ -1,14 +1,20 @@
 "use client";
 
 import React, { useState } from "react";
+import emailjs from "@emailjs/browser";
 import { motion } from "motion/react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { socialIcons } from "../data";
 import * as yup from "yup";
 import { toast } from "sonner";
 
+const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+const templateId = process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID;
+const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({ name: "", email: "", message: "" });
 
   const contactSchema = yup.object().shape({
@@ -31,16 +37,38 @@ const Contact = () => {
     try {
       await contactSchema.validate(form, { abortEarly: false });
       setErrors({ name: "", email: "", message: "" });
+
+      setLoading(true);
+
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: form.name,
+          from_email: form.email,
+          message: form.message,
+          to_name: "Arrham Group Team",
+        },
+        publicKey
+      );
+
       console.log("Form Submitted: ", form);
       toast.success("Message sent successfully!");
       setForm({ name: "", email: "", message: "" });
     } catch (err) {
-      const validationErrors = { name: "", email: "", message: "" };
-      err.inner.forEach(error => {
-        validationErrors[error.path] = error.message;
-      });
-      setErrors(validationErrors);
-      toast.error("Please fix the errors in the form");
+      if (err.inner) {
+        const validationErrors = { name: "", email: "", message: "" };
+        err.inner.forEach(error => {
+          validationErrors[error.path] = error.message;
+        });
+        setErrors(validationErrors);
+        toast.error("Please fix the errors in the form");
+      } else {
+        console.error("EmailJS Error:", err);
+        toast.error("Failed to send message. Please try again.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -144,9 +172,10 @@ const Contact = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             type="submit"
-            className="w-full flex cursor-pointer items-center justify-center gap-2 bg-linear-to-r from-lgreen to-teal-500 text-black px-6 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-lgreen/30"
+            disabled={loading}
+            className="w-full flex cursor-pointer items-center justify-center gap-2 bg-linear-to-r from-lgreen to-teal-500 text-black px-6 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-lgreen/30 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Send Message <Send className="w-5 h-5" />
+            {loading ? "Sending..." : "Send Message"} {!loading && <Send className="w-5 h-5" />}
           </motion.button>
         </motion.form>
       </div>
