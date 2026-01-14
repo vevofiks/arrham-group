@@ -279,9 +279,9 @@ float get_color_channel(float c1, float c2, float stripe_p, vec3 w, float extra_
     ch = mix(ch, c2, smoothstep(border - blur, border + blur, stripe_p));
     border = w[0] + w[1];
     ch = mix(ch, c1, smoothstep(border - blur, border + blur, stripe_p));
-    float gradient_t = (stripe_p - w[0] - w[1]) / w[2];
-    float gradient = mix(c1, c2, smoothstep(0., 1., gradient_t));
-    ch = mix(ch, gradient, smoothstep(border - blur, border + blur, stripe_p));
+    float linear_t = (stripe_p - w[0] - w[1]) / w[2];
+    float linear = mix(c1, c2, smoothstep(0., 1., linear_t));
+    ch = mix(ch, linear, smoothstep(border - blur, border + blur, stripe_p));
     return ch;
 }
 float get_img_frame_alpha(vec2 uv, float img_frame_width) {

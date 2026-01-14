@@ -22,17 +22,17 @@ const CertificateModal = ({
   // Light/Dark Theme Logic
   const theme = isHealthcare
     ? {
-        bg: "bg-white",
-        text: "text-gray-900",
-        subtext: "text-gray-600",
-        closeBtn: "bg-gray-100 hover:bg-gray-200 text-gray-600",
-      }
+      bg: "bg-white",
+      text: "text-gray-900",
+      subtext: "text-gray-600",
+      closeBtn: "bg-gray-100 hover:bg-gray-200 text-gray-600",
+    }
     : {
-        bg: "bg-[#18181b] border border-white/10",
-        text: "text-white",
-        subtext: "text-gray-400",
-        closeBtn: "bg-white/10 hover:bg-white/20 text-white",
-      };
+      bg: "bg-[#18181b] border border-white/10",
+      text: "text-white",
+      subtext: "text-gray-400",
+      closeBtn: "bg-white/10 hover:bg-white/20 text-white",
+    };
 
   return (
     <AnimatePresence>
@@ -141,7 +141,7 @@ const CertificateModal = ({
                   initial={{ scale: 0.9 }}
                   animate={{ scale: 1 }}
                   exit={{ scale: 0.9 }}
-                  onClick={(e) => e.stopPropagation()} 
+                  onClick={(e) => e.stopPropagation()}
                 >
                   <Image
                     src={certificate.img}

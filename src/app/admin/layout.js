@@ -41,7 +41,7 @@ export default function Layout({ children }) {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div>
-                  <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent">
+                  <h1 className="text-2xl font-bold bg-linear-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent">
                     Arrham Group
                   </h1>
                   <p className="text-sm text-slate-500">Editorial Dashboard</p>

@@ -172,9 +172,9 @@ const NewsPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+        <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-100">
             {/* Navigation */}
-            
+
 
             <div className="max-w-7xl mx-auto px-6 py-8">
                 {/* Header Section */}
@@ -214,7 +214,7 @@ const NewsPage = () => {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={() => openModal("create")}
-                                    className="px-6 py-3.5 cursor-pointer rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white font-medium shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all"
+                                    className="px-6 py-3.5 cursor-pointer rounded-2xl bg-linear-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white font-medium shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all"
                                 >
                                     <Plus className="inline w-5 h-5 mr-2" />
                                     Create Article
@@ -231,7 +231,7 @@ const NewsPage = () => {
                     transition={{ duration: 0.6, delay: 0.1 }}
                     className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
                 >
-                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-6 border border-blue-100">
+                    <div className="bg-linear-to-br from-blue-50 to-indigo-50 rounded-3xl p-6 border border-blue-100">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-blue-600 font-medium">Total Articles</p>
@@ -243,7 +243,7 @@ const NewsPage = () => {
                         </div>
                     </div>
 
-                    <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-3xl p-6 border border-emerald-100">
+                    <div className="bg-linear-to-br from-emerald-50 to-green-50 rounded-3xl p-6 border border-emerald-100">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-emerald-600 font-medium">Published</p>
@@ -255,7 +255,7 @@ const NewsPage = () => {
                         </div>
                     </div>
 
-                    <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-3xl p-6 border border-purple-100">
+                    <div className="bg-linear-to-br from-purple-50 to-violet-50 rounded-3xl p-6 border border-purple-100">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-purple-600 font-medium">This Month</p>
@@ -478,7 +478,7 @@ const NewsPage = () => {
                                                 whileTap={{ scale: 0.98 }}
                                                 onClick={handleSubmit}
                                                 disabled={submitting}
-                                                className="px-6 py-3 cursor-pointer rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg hover:shadow-indigo-500/25 transition-all disabled:opacity-50"
+                                                className="px-6 py-3 cursor-pointer rounded-2xl bg-linear-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg hover:shadow-indigo-500/25 transition-all disabled:opacity-50"
                                             >
                                                 {submitting ? (
                                                     <>

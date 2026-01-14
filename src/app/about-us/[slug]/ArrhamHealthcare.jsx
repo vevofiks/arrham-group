@@ -281,7 +281,7 @@ function ArrhamHealthcare() {
               description:
                 "Specialized in designing and constructing state-of-the-art medical facilities with global compliance standards.",
               color: "teal",
-              gradient: "from-teal-400 to-blue-500",
+              linear: "from-teal-400 to-blue-500",
               borderColor: "teal-400/20",
               hoverBorder: "teal-400/50",
               textColor: "teal-300",
@@ -292,7 +292,7 @@ function ArrhamHealthcare() {
               description:
                 "Complete project execution from concept to handover, ensuring seamless integration and superior quality.",
               color: "blue",
-              gradient: "from-blue-400 to-teal-500",
+              linear: "from-blue-400 to-teal-500",
               borderColor: "blue-400/20",
               hoverBorder: "blue-400/50",
               textColor: "blue-300",
@@ -303,7 +303,7 @@ function ArrhamHealthcare() {
               description:
                 "Environmental consciousness integrated into every project with energy-efficient and eco-friendly solutions.",
               color: "teal",
-              gradient: "from-teal-500 to-blue-400",
+              linear: "from-teal-500 to-blue-400",
               borderColor: "teal-400/20",
               hoverBorder: "teal-400/50",
               textColor: "teal-300",
@@ -319,7 +319,7 @@ function ArrhamHealthcare() {
               className={`bg-white rounded-2xl p-8 border border-gray-200 hover:border-teal-300 transition-all duration-300 hover:transform hover:scale-105 shadow`}
             >
               <div
-                className={`w-16 h-16 bg-linear-to-br ${service.gradient} rounded-full flex items-center justify-center mb-6 mx-auto`}
+                className={`w-16 h-16 bg-linear-to-br ${service.linear} rounded-full flex items-center justify-center mb-6 mx-auto`}
               >
                 <service.icon size={35} color="#FFFFFF" />
               </div>
@@ -456,11 +456,10 @@ function ArrhamHealthcare() {
                     {item.tags.map((tag, tagIdx) => (
                       <span
                         key={tagIdx}
-                        className={`px-3 py-1 rounded-full text-sm ${
-                          tagIdx % 2 === 0
+                        className={`px-3 py-1 rounded-full text-sm ${tagIdx % 2 === 0
                             ? "bg-teal-100 text-teal-800"
                             : "bg-blue-100 text-blue-800"
-                        } ${montserrat.className}`}
+                          } ${montserrat.className}`}
                       >
                         {tag}
                       </span>
@@ -520,13 +519,12 @@ function ArrhamHealthcare() {
             </div>
 
             <motion.div
-              className={`grid gap-8 justify-items-center ${
-                projects.length === 1
+              className={`grid gap-8 justify-items-center ${projects.length === 1
                   ? "grid-cols-1"
                   : projects.length === 2
-                  ? "grid-cols-1 sm:grid-cols-2"
-                  : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-              }`}
+                    ? "grid-cols-1 sm:grid-cols-2"
+                    : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                }`}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}

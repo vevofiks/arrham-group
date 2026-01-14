@@ -2,7 +2,11 @@
 import React, { useState, useEffect } from "react";
 import { Search, Plus, Edit, Eye, Trash2, Loader2, Building, X, Upload, Link2 } from "lucide-react";
 import ConfirmModal from "@/app/components/ConfirmModal";
+import * as yup from "yup";
 import Image from "next/image";
+import { toast } from "sonner";
+
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
 const BrandsPage = () => {
   const [brands, setBrands] = useState([]);
@@ -86,6 +90,14 @@ const BrandsPage = () => {
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    // Check file size
+    if (file.size > MAX_FILE_SIZE) {
+      toast.error(`File size exceeds 10MB. Your file is ${(file.size / 1024 / 1024).toFixed(2)}MB`);
+      e.target.value = '';
+      return;
+    }
+
     const reader = new FileReader();
     reader.onloadend = () => {
       setImagePreview(reader.result);
@@ -94,8 +106,24 @@ const BrandsPage = () => {
     setFormData(prev => ({ ...prev, img: file }));
   };
 
+  const brandSchema = yup.object().shape({
+    name: yup.string().required("Brand name is required").min(2, "Name must be at least 2 characters"),
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      await brandSchema.validate(formData, { abortEarly: false });
+    } catch (err) {
+      const validationErrors = {};
+      err.inner.forEach(error => {
+        validationErrors[error.path] = error.message;
+      });
+      toast.error(Object.values(validationErrors)[0]);
+      return;
+    }
+
     setSubmitLoading(true);
 
     const formDataToSend = new FormData();

@@ -134,7 +134,7 @@ export async function fetchStatsCounts() {
 const socialIcons = [
   {
     icon: Facebook,
-    href: "#",
+    href: "https://www.facebook.com/profile.php?id=61578711187565#",
     color: "hover:bg-blue-500/20 hover:border-blue-500",
     iconColor: "text-[#1877F2]",
   },
@@ -152,7 +152,7 @@ const socialIcons = [
   },
   {
     icon: Instagram,
-    href: "#",
+    href: "https://www.instagram.com/3m.bahrain?igsh=MTRza2g2d3Z4aHhveQ%3D%3D&utm_source=qr",
     color: "hover:bg-pink-500/20 hover:border-pink-500",
     iconColor: "text-[#E4405F]",
   },

@@ -13,6 +13,10 @@ import {
   Upload,
 } from "lucide-react";
 import ConfirmModal from "@/app/components/ConfirmModal";
+import * as yup from "yup";
+import { toast } from "sonner";
+
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
 const CertificationsPage = () => {
   const [certs, setCerts] = useState([]);
@@ -96,6 +100,14 @@ const CertificationsPage = () => {
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    // Check file size
+    if (file.size > MAX_FILE_SIZE) {
+      toast.error(`File size exceeds 10MB. Your file is ${(file.size / 1024 / 1024).toFixed(2)}MB`);
+      e.target.value = '';
+      return;
+    }
+
     const reader = new FileReader();
     reader.onloadend = () => {
       setImagePreview(reader.result);
@@ -104,8 +116,25 @@ const CertificationsPage = () => {
     setFormData((prev) => ({ ...prev, img: file }));
   };
 
+  const certificationSchema = yup.object().shape({
+    name: yup.string().required("Certification name is required").min(2, "Name must be at least 2 characters"),
+    description: yup.string(),
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      await certificationSchema.validate(formData, { abortEarly: false });
+    } catch (err) {
+      const validationErrors = {};
+      err.inner.forEach(error => {
+        validationErrors[error.path] = error.message;
+      });
+      toast.error(Object.values(validationErrors)[0]);
+      return;
+    }
+
     setSubmitLoading(true);
 
     const formDataToSend = new FormData();
@@ -311,8 +340,8 @@ const CertificationsPage = () => {
                 {modalType === "create"
                   ? "Create Certification"
                   : modalType === "edit"
-                  ? "Edit Certification"
-                  : "Certification Details"}
+                    ? "Edit Certification"
+                    : "Certification Details"}
               </h3>
               <button
                 onClick={closeModal}
@@ -426,8 +455,8 @@ const CertificationsPage = () => {
                           <Image
                             src={imagePreview}
                             alt="Preview"
-                            width={200} 
-                            height={200} 
+                            width={200}
+                            height={200}
                             unoptimized={true}
                             className="h-32 sm:h-40 object-contain rounded-lg bg-slate-50 p-2"
                           />

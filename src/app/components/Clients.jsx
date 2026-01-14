@@ -12,13 +12,13 @@ const montserrat = MontserratFont({
 });
 
 const Clients = ({ imageLogos, lColor = "", rColor = "", id = "" }) => {
-  const hasGradient = Boolean(lColor && rColor);
+  const haslinear = Boolean(lColor && rColor);
 
   return (
     <section>
       <div className="mt-[50px]">
         <h2 className={`text-2xl md:text-3xl lg:text-3xl font-extrabold uppercase text-center mb-7 ${montserrat.className}`}>
-          {hasGradient ? (
+          {haslinear ? (
             <span
               className="bg-clip-text text-transparent"
               style={{ backgroundImage: `linear-gradient(to right, ${lColor}, ${rColor})` }}
@@ -71,14 +71,12 @@ const Clients = ({ imageLogos, lColor = "", rColor = "", id = "" }) => {
             />
 
             <div
-              className={`pointer-events-none absolute left-0 top-0 h-full w-24 bg-linear-to-r ${
-                id === "healthcare" ? "from-transparent" : "from-black"
-              } to-transparent`}
+              className={`pointer-events-none absolute left-0 top-0 h-full w-24 bg-linear-to-r ${id === "healthcare" ? "from-transparent" : "from-black"
+                } to-transparent`}
             />
             <div
-              className={`pointer-events-none absolute right-0 top-0 h-full w-24 bg-linear-to-l ${
-                id === "healthcare" ? "from-transparent" : "from-black"
-              } to-transparent`}
+              className={`pointer-events-none absolute right-0 top-0 h-full w-24 bg-linear-to-l ${id === "healthcare" ? "from-transparent" : "from-black"
+                } to-transparent`}
             />
           </div>
         ) : (
@@ -90,12 +88,12 @@ const Clients = ({ imageLogos, lColor = "", rColor = "", id = "" }) => {
                 {imageLogos.map((src, i) => (
                   <div key={i} className="w-[140px]">
                     <div className="relative w-full h-20 sm:h-24">
-                      <Image 
-                        src={src} 
-                        alt="client logo" 
-                        fill 
-                        className="object-contain" 
-                        sizes="140px" 
+                      <Image
+                        src={src}
+                        alt="client logo"
+                        fill
+                        className="object-contain"
+                        sizes="140px"
                       />
                     </div>
                   </div>

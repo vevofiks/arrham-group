@@ -13,6 +13,10 @@ import {
 } from "lucide-react";
 import ConfirmModal from "@/app/components/ConfirmModal";
 import Image from "next/image";
+import { toast } from "sonner";
+import * as yup from "yup";
+
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes
 
 const KeyPersonnelPage = () => {
   const [keyPersonnel, setKeyPersonnel] = useState([]);
@@ -135,59 +139,49 @@ const KeyPersonnelPage = () => {
     setErrors({});
   };
 
-  const validateForm = () => {
-    const newErrors = {};
+  const personnelSchema = yup.object().shape({
+    name: yup.string().required("Name is required").min(2, "Name must be at least 2 characters"),
+    position: modalType === "create"
+      ? yup.string().required("Position is required")
+      : yup.string(),
+    qualification: modalType === "create"
+      ? yup.string().required("Qualification is required")
+      : yup.string(),
+    description: yup.string()
+      .required("Description is required")
+      .max(75, "Description must not exceed 75 characters"),
+    yearOfExperience: yup.number()
+      .required("Years of experience is required")
+      .min(0, "Years of experience must be a positive number")
+      .max(45, "Years of experience cannot exceed 45"),
+  });
 
-    // Validate required fields
-    if (!formData.name || formData.name.trim() === "") {
-      newErrors.name = "Name is required";
+  const validateForm = async () => {
+    try {
+      await personnelSchema.validate(formData, { abortEarly: false });
+      setErrors({});
+      return true;
+    } catch (err) {
+      const validationErrors = {};
+      err.inner.forEach(error => {
+        validationErrors[error.path] = error.message;
+      });
+      setErrors(validationErrors);
+      return false;
     }
-
-    // Position is required for new records, but optional for edits of existing records without position
-    if (
-      modalType === "create" &&
-      (!formData.position || formData.position.trim() === "")
-    ) {
-      newErrors.position = "Position is required";
-    }
-    if (
-      modalType === "create" &&
-      (!formData.qualification || formData.qualification.trim() === "")
-    ) {
-      newErrors.qualification = "Qualification is required";
-    }
-
-    if (!formData.description || formData.description.trim() === "") {
-      newErrors.description = "Description is required";
-    }
-
-    if (!formData.yearOfExperience || formData.yearOfExperience.trim() === "") {
-      newErrors.yearOfExperience = "Years of experience is required";
-    } else {
-      const years = parseInt(formData.yearOfExperience);
-      if (isNaN(years) || years < 0) {
-        newErrors.yearOfExperience =
-          "Years of experience must be a valid number";
-      }
-      if (years > 45) {
-        newErrors.yearOfExperience = "Years of experience cannot exceed 45";
-      }
-    }
-
-    if (formData.description) {
-      const charCount = formData.description.length;
-      if (charCount > 75) {
-        newErrors.description = `Description must not exceed 75 characters. Current: ${charCount} characters`;
-      }
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    // Check file size
+    if (file.size > MAX_FILE_SIZE) {
+      toast.error(`File size exceeds 10MB. Your file is ${(file.size / 1024 / 1024).toFixed(2)}MB`);
+      e.target.value = ''; // Clear the input
+      return;
+    }
+
     const reader = new FileReader();
     reader.onloadend = () => {
       setImagePreview(reader.result);
@@ -199,7 +193,7 @@ const KeyPersonnelPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
+    if (!(await validateForm())) {
       return;
     }
 
@@ -241,13 +235,13 @@ const KeyPersonnelPage = () => {
       } else {
         const errorData = await res.json();
         console.error("Server error:", errorData);
-        alert(
+        toast.error(
           errorData.error || "Failed to save key personnel. Please try again."
         );
       }
     } catch (error) {
       console.error("Error saving key personnel:", error);
-      alert("An error occurred while saving. Please try again.");
+      toast.error("An error occurred while saving. Please try again.");
     } finally {
       setSubmitLoading(false);
     }
@@ -349,6 +343,8 @@ const KeyPersonnelPage = () => {
                     <Image
                       src={p.profileImage}
                       alt={p.name}
+                      width={400}
+                      height={300}
                       className="h-full w-full object-cover"
                     />
                   </div>
@@ -424,8 +420,8 @@ const KeyPersonnelPage = () => {
                 {modalType === "create"
                   ? "Add Key Personnel"
                   : modalType === "edit"
-                  ? "Edit Key Personnel"
-                  : "Personnel Details"}
+                    ? "Edit Key Personnel"
+                    : "Personnel Details"}
               </h3>
               <button
                 onClick={closeModal}
@@ -447,6 +443,8 @@ const KeyPersonnelPage = () => {
                         <Image
                           src={selectedPersonnel.profileImage}
                           alt={selectedPersonnel.name}
+                          width={600}
+                          height={400}
                           className="max-h-64 rounded-lg object-cover"
                         />
                       </div>
@@ -512,9 +510,8 @@ const KeyPersonnelPage = () => {
                         setFormData({ ...formData, name: e.target.value });
                       }}
                       required
-                      className={`w-full px-4 py-3 rounded-xl border ${
-                        errors.name ? "border-red-300" : "border-slate-200"
-                      } focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all text-sm sm:text-base`}
+                      className={`w-full px-4 py-3 rounded-xl border ${errors.name ? "border-red-300" : "border-slate-200"
+                        } focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all text-sm sm:text-base`}
                       placeholder="Enter full name"
                     />
                     {errors.name && (
@@ -536,9 +533,8 @@ const KeyPersonnelPage = () => {
                         setFormData({ ...formData, position: e.target.value });
                       }}
                       required={modalType === "create"}
-                      className={`w-full px-4 py-3 rounded-xl border ${
-                        errors.position ? "border-red-300" : "border-slate-200"
-                      } focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all text-sm sm:text-base`}
+                      className={`w-full px-4 py-3 rounded-xl border ${errors.position ? "border-red-300" : "border-slate-200"
+                        } focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all text-sm sm:text-base`}
                       placeholder="Enter position"
                     />
                     {errors.position && (
@@ -572,11 +568,10 @@ const KeyPersonnelPage = () => {
                         });
                       }}
                       required={modalType === "create"}
-                      className={`w-full px-4 py-3 rounded-xl border ${
-                        errors.qualification
-                          ? "border-red-300"
-                          : "border-slate-200"
-                      } focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all text-sm sm:text-base`}
+                      className={`w-full px-4 py-3 rounded-xl border ${errors.qualification
+                        ? "border-red-300"
+                        : "border-slate-200"
+                        } focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all text-sm sm:text-base`}
                       placeholder="Enter qualification"
                     />
                     {errors.qualification && (
@@ -626,11 +621,10 @@ const KeyPersonnelPage = () => {
                       required
                       min="0"
                       max="45"
-                      className={`w-full px-4 py-3 rounded-xl border ${
-                        errors.yearOfExperience
-                          ? "border-red-300"
-                          : "border-slate-200"
-                      } focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all text-sm sm:text-base`}
+                      className={`w-full px-4 py-3 rounded-xl border ${errors.yearOfExperience
+                        ? "border-red-300"
+                        : "border-slate-200"
+                        } focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all text-sm sm:text-base`}
                       placeholder="Enter years of experience (max 45)"
                     />
                     {errors.yearOfExperience && (
@@ -673,11 +667,10 @@ const KeyPersonnelPage = () => {
                       }}
                       required
                       rows="4"
-                      className={`w-full px-4 py-3 rounded-xl border ${
-                        errors.description
-                          ? "border-red-300"
-                          : "border-slate-200"
-                      } focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all text-sm sm:text-base`}
+                      className={`w-full px-4 py-3 rounded-xl border ${errors.description
+                        ? "border-red-300"
+                        : "border-slate-200"
+                        } focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all text-sm sm:text-base`}
                       placeholder="Enter description (max 75 characters)"
                     />
                     {errors.description && (
@@ -717,6 +710,8 @@ const KeyPersonnelPage = () => {
                           <Image
                             src={imagePreview}
                             alt="Preview"
+                            width={200}
+                            height={200}
                             className="h-24 sm:h-32 object-cover rounded-lg bg-slate-50 p-2"
                           />
                           <button

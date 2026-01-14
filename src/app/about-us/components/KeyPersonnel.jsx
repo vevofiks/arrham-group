@@ -18,29 +18,29 @@ const KeyPersonnel = ({
   if (!personnels || personnels.length === 0) return null;
 
   const isHealthcare = companyId === "arrham-healthcare-bahrain";
-  
-  const gradientText = `bg-gradient-to-r ${colors[0]} ${colors[1]} bg-clip-text text-transparent`;
-  const gradientBg = `bg-gradient-to-br ${colors[0]} ${colors[1]}`;
+
+  const linearText = `bg-linear-to-r ${colors[0]} ${colors[1]} bg-clip-text text-transparent`;
+  const linearBg = `bg-linear-to-br ${colors[0]} ${colors[1]}`;
 
   const theme = isHealthcare
     ? {
-        card: "bg-white border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)]",
-        textPrimary: "text-gray-900",
-        textSecondary: "text-gray-600",
-        metaIcon: "text-teal-600",
-        badge: "bg-white text-gray-700 border border-gray-100 shadow-sm",
-        imgBorder: "border-4 border-white shadow-md",
-        contactIcon: "text-gray-400 hover:text-teal-600 bg-gray-50 hover:bg-teal-50",
-      }
+      card: "bg-white border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)]",
+      textPrimary: "text-gray-900",
+      textSecondary: "text-gray-600",
+      metaIcon: "text-teal-600",
+      badge: "bg-white text-gray-700 border border-gray-100 shadow-sm",
+      imgBorder: "border-4 border-white shadow-md",
+      contactIcon: "text-gray-400 hover:text-teal-600 bg-gray-50 hover:bg-teal-50",
+    }
     : {
-        card: "bg-gray-900/40 backdrop-blur-sm border-white/10 shadow-xl hover:shadow-2xl hover:border-white/20",
-        textPrimary: "text-white",
-        textSecondary: "text-gray-300",
-        metaIcon: "text-gray-400",
-        badge: "bg-gray-800 text-gray-200 border border-gray-700",
-        imgBorder: "ring-4 ring-white/5 shadow-inner",
-        contactIcon: "text-gray-400 hover:text-white bg-white/5 hover:bg-white/10",
-      };
+      card: "bg-gray-900/40 backdrop-blur-sm border-white/10 shadow-xl hover:shadow-2xl hover:border-white/20",
+      textPrimary: "text-white",
+      textSecondary: "text-gray-300",
+      metaIcon: "text-gray-400",
+      badge: "bg-gray-800 text-gray-200 border border-gray-700",
+      imgBorder: "ring-4 ring-white/5 shadow-inner",
+      contactIcon: "text-gray-400 hover:text-white bg-white/5 hover:bg-white/10",
+    };
 
   return (
     <section className={`py-12 sm:py-16 lg:py-20 ${montserrat.variable}`}>
@@ -94,7 +94,7 @@ const KeyPersonnel = ({
                     ) : (
                       <div
                         className={`
-                        ${gradientBg} w-full h-full rounded-2xl
+                        ${linearBg} w-full h-full rounded-2xl
                         flex items-center justify-center text-white text-3xl font-bold shadow-inner
                       `}
                       >
@@ -118,7 +118,7 @@ const KeyPersonnel = ({
 
                 {/* --- BODY: INFO --- */}
                 <div className="text-center flex flex-col grow">
-                  
+
                   {/* Name */}
                   <div className="min-h-10 flex items-start justify-center mb-1">
                     <h3
@@ -132,7 +132,7 @@ const KeyPersonnel = ({
                   <div className="min-h-16 flex flex-col items-center justify-start gap-1 mb-4">
                     <div className="flex items-center justify-center gap-1.5 w-full">
                       <Briefcase className={`w-3.5 h-3.5 shrink-0 ${theme.metaIcon} opacity-80`} />
-                      <p className={`text-xs font-bold uppercase tracking-wide ${gradientText} font-montserrat`}>
+                      <p className={`text-xs font-bold uppercase tracking-wide ${linearText} font-montserrat`}>
                         {person.position}
                       </p>
                     </div>

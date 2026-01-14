@@ -42,7 +42,7 @@ const ProjectHighlights = () => {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="bg-gradient-to-br from-zinc-900 to-zinc-800 border border-white/10 p-6 rounded-2xl hover:border-lgreen hover:shadow-lg hover:shadow-lgreen/20 transition-all duration-300"
+            className="bg-linear-to-br from-zinc-900 to-zinc-800 border border-white/10 p-6 rounded-2xl hover:border-lgreen hover:shadow-lg hover:shadow-lgreen/20 transition-all duration-300"
           >
             <h3 className="text-xl font-bold text-white mb-2">{project.name}</h3>
             <p className="text-white/70">{project.description}</p>

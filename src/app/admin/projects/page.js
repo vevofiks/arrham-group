@@ -3,6 +3,10 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Search, Plus, Edit, Eye, Trash2, Loader2, Building, X, Upload } from "lucide-react";
 import ConfirmModal from "@/app/components/ConfirmModal";
+import { toast } from "sonner";
+import * as yup from "yup";
+
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
 const ProjectPage = () => {
   const [projects, setProjects] = useState([]);
@@ -126,7 +130,18 @@ const ProjectPage = () => {
   };
 
   const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+
+    // Check file sizes
+    const oversizedFiles = files.filter(file => file.size > MAX_FILE_SIZE);
+    if (oversizedFiles.length > 0) {
+      const fileInfo = oversizedFiles.map(f => `${f.name} (${(f.size / 1024 / 1024).toFixed(2)}MB)`).join(', ');
+      toast.error(`File(s) exceed 10MB: ${fileInfo}`);
+      e.target.value = '';
+      return;
+    }
+
     processFiles(files);
   };
 
@@ -138,10 +153,27 @@ const ProjectPage = () => {
     }));
   };
 
+  const projectSchema = yup.object().shape({
+    name: yup.string().required("Project name is required").min(2, "Name must be at least 2 characters"),
+    description: yup.string().required("Description is required"),
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      await projectSchema.validate(formData, { abortEarly: false });
+    } catch (err) {
+      const validationErrors = {};
+      err.inner.forEach(error => {
+        validationErrors[error.path] = error.message;
+      });
+      toast.error(Object.values(validationErrors)[0]);
+      return;
+    }
+
     setSubmitLoading(true);
-  
+
     const formDataToSend = new FormData();
     formDataToSend.append("branchId", selectedBranch);
     formDataToSend.append("name", formData.name);
@@ -150,7 +182,7 @@ const ProjectPage = () => {
     formDataToSend.append("mainContractor", formData.mainContractor || "");
     formDataToSend.append("clientName", formData.clientName || "");
     formDataToSend.append("description", formData.description || "");
-  
+
     formData.images.forEach((image) => {
       if (typeof image === "string") {
         formDataToSend.append("existingImages", image);
@@ -158,29 +190,29 @@ const ProjectPage = () => {
         formDataToSend.append("images", image);
       }
     });
-  
+
     try {
       const url = modalType === "create"
         ? `/api/projects/`
         : `/api/projects/${selectedProject._id}/`;
-  
+
       const method = modalType === "create" ? "POST" : "PUT";
-  
+
       const res = await fetch(url, {
         method,
         body: formDataToSend,
       });
-  
+
       if (res.ok) {
         fetchProjects();
         closeModal();
       } else {
         const errorData = await res.json();
-        alert(errorData.error || "Failed to save project.");
+        toast.error(errorData.error || "Failed to save project.");
       }
     } catch (error) {
       console.error("Error saving project:", error);
-      alert("An error occurred while saving.");
+      toast.error("An error occurred while saving.");
     } finally {
       setSubmitLoading(false);
     }
@@ -491,7 +523,6 @@ const ProjectPage = () => {
                     >
                       <input
                         type="file"
-                        multiple
                         accept="image/*,video/*"
                         onChange={handleImageChange}
                         className="hidden"
@@ -499,7 +530,7 @@ const ProjectPage = () => {
                       />
                       <label htmlFor="image-upload" className="cursor-pointer block">
                         <Upload className="w-10 h-10 sm:w-12 sm:h-12 text-slate-400 mx-auto mb-2 sm:mb-3" />
-                        <p className="text-sm sm:text-base text-slate-600">Drop images/videos here or click to upload</p>
+                        <p className="text-sm sm:text-base text-slate-600">Drop image/video here or click to upload</p>
                       </label>
                     </div>
                     {imagePreview.length > 0 && (

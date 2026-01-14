@@ -3,6 +3,10 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Search, Plus, Edit, Eye, Trash2, Loader2, Building, X, Upload } from "lucide-react";
 import ConfirmModal from "@/app/components/ConfirmModal";
+import * as yup from "yup";
+import { toast } from "sonner";
+
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
 const ClientsPage = () => {
   const [clients, setClients] = useState([]);
@@ -110,7 +114,18 @@ const ClientsPage = () => {
   };
 
   const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+
+    // Check file sizes
+    const oversizedFiles = files.filter(file => file.size > MAX_FILE_SIZE);
+    if (oversizedFiles.length > 0) {
+      const fileInfo = oversizedFiles.map(f => `${f.name} (${(f.size / 1024 / 1024).toFixed(2)}MB)`).join(', ');
+      toast.error(`File(s) exceed 10MB: ${fileInfo}`);
+      e.target.value = '';
+      return;
+    }
+
     files.forEach(file => {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -129,8 +144,24 @@ const ClientsPage = () => {
     }));
   };
 
+  const clientSchema = yup.object().shape({
+    companyName: yup.string().required("Company name is required").min(2, "Company name must be at least 2 characters"),
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      await clientSchema.validate(formData, { abortEarly: false });
+    } catch (err) {
+      const validationErrors = {};
+      err.inner.forEach(error => {
+        validationErrors[error.path] = error.message;
+      });
+      toast.error(Object.values(validationErrors)[0]);
+      return;
+    }
+
     setSubmitLoading(true);
 
     const formDataToSend = new FormData();
@@ -381,7 +412,6 @@ const ClientsPage = () => {
                     >
                       <input
                         type="file"
-                        multiple
                         accept="image/*"
                         onChange={handleImageChange}
                         className="hidden"
@@ -389,7 +419,7 @@ const ClientsPage = () => {
                       />
                       <label htmlFor="client-image-upload" className="cursor-pointer block">
                         <Upload className="w-10 h-10 sm:w-12 sm:h-12 text-slate-400 mx-auto mb-2 sm:mb-3" />
-                        <p className="text-sm sm:text-base text-slate-600">Drop images here or click to upload</p>
+                        <p className="text-sm sm:text-base text-slate-600">Drop image here or click to upload</p>
                       </label>
                     </div>
                     {imagePreview.length > 0 && (
