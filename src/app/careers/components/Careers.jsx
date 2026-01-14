@@ -24,13 +24,7 @@ function Careers() {
   const [loading, setLoading] = useState(false);
   const form = useRef();
 
-  const toBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result.split(",")[1]);
-      reader.onerror = (error) => reject(error);
-    });
+
 
   const careersSchema = yup.object().shape({
     full_name: yup.string().required("Full name is required").min(2, "Name must be at least 2 characters"),
@@ -60,8 +54,8 @@ function Careers() {
     const file = form.current.resume.files[0];
 
     // Check file size
-    if (file && file.size > 10 * 1024 * 1024) {
-      toast.error(`Resume file exceeds 10MB. Your file is ${(file.size / 1024 / 1024).toFixed(2)}MB`, {
+    if (file && file.size > 50 * 1024) {
+      toast.error(`Resume file exceeds 50KB. Your file is ${(file.size / 1024).toFixed(2)}KB`, {
         icon: <ShieldAlert className="text-red-500" />,
       });
       return;
@@ -76,16 +70,10 @@ function Careers() {
 
     setLoading(true);
     try {
-      const base64Resume = file ? await toBase64(file) : "";
-      await emailjs.send(
+      await emailjs.sendForm(
         serviceId,
         templateId,
-        {
-          full_name: form.current.full_name.value,
-          email: form.current.email.value,
-          phone: form.current.phone.value,
-          resume: base64Resume,
-        },
+        form.current,
         publicKey
       );
       toast.success("Application submitted successfully!", {
