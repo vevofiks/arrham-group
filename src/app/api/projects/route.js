@@ -106,6 +106,23 @@ export async function POST(req) {
     return NextResponse.json(newProject, { status: 201 });
   } catch (error) {
     console.error("Error creating project:", error);
-    return NextResponse.json({ error: "Failed to create project" }, { status: 500 });
+    
+    // Log additional details for debugging
+    if (error.message) {
+      console.error("Error message:", error.message);
+    }
+    
+    // Handle specific error types
+    if (error.name === 'PayloadTooLargeError' || error.code === 'LIMIT_FILE_SIZE') {
+      return NextResponse.json(
+        { error: "Upload size exceeds limit. Please reduce the number or size of images." },
+        { status: 413 }
+      );
+    }
+    
+    return NextResponse.json(
+      { error: "Failed to create project. Please try again with fewer or smaller images." },
+      { status: 500 }
+    );
   }
 }

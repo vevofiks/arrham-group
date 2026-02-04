@@ -104,7 +104,24 @@ export async function PUT(request, { params }) {
         return NextResponse.json({ success: true, data: project });
     } catch (err) {
         console.error("PUT error:", err);
-        return NextResponse.json({ error: err.message }, { status: 400 });
+        
+        // Log additional details for debugging
+        if (err.message) {
+            console.error("Error message:", err.message);
+        }
+        
+        // Handle specific error types
+        if (err.name === 'PayloadTooLargeError' || err.code === 'LIMIT_FILE_SIZE') {
+            return NextResponse.json(
+                { error: "Upload size exceeds limit. Please reduce the number or size of images." },
+                { status: 413 }
+            );
+        }
+        
+        return NextResponse.json(
+            { error: err.message || "Failed to update project" },
+            { status: 400 }
+        );
     }
 }
 
