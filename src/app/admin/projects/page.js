@@ -7,6 +7,8 @@ import { toast } from "sonner";
 import * as yup from "yup";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const MAX_IMAGES_PER_UPLOAD = 10; // Maximum images per upload
+const MAX_TOTAL_IMAGES = 20; // Maximum total images per project
 
 const ProjectPage = () => {
   const [projects, setProjects] = useState([]);
@@ -117,6 +119,32 @@ const ProjectPage = () => {
     e.preventDefault();
     setIsDragging(false);
     const files = Array.from(e.dataTransfer.files);
+    
+    if (files.length === 0) return;
+
+    // Check file count for new uploads
+    if (files.length > MAX_IMAGES_PER_UPLOAD) {
+      toast.error(`You can upload a maximum of ${MAX_IMAGES_PER_UPLOAD} images at once`);
+      return;
+    }
+
+    // Check total image count (for edit mode)
+    if (modalType === "edit") {
+      const totalCount = imagePreview.length + files.length;
+      if (totalCount > MAX_TOTAL_IMAGES) {
+        toast.error(`Total images cannot exceed ${MAX_TOTAL_IMAGES}. You have ${imagePreview.length} existing images.`);
+        return;
+      }
+    }
+
+    // Check file sizes
+    const oversizedFiles = files.filter(file => file.size > MAX_FILE_SIZE);
+    if (oversizedFiles.length > 0) {
+      const fileInfo = oversizedFiles.map(f => `${f.name} (${(f.size / 1024 / 1024).toFixed(2)}MB)`).join(', ');
+      toast.error(`File(s) exceed 10MB: ${fileInfo}`);
+      return;
+    }
+
     processFiles(files);
   };
 
@@ -132,6 +160,23 @@ const ProjectPage = () => {
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
+
+    // Check file count for new uploads
+    if (files.length > MAX_IMAGES_PER_UPLOAD) {
+      toast.error(`You can upload a maximum of ${MAX_IMAGES_PER_UPLOAD} images at once`);
+      e.target.value = '';
+      return;
+    }
+
+    // Check total image count (for edit mode)
+    if (modalType === "edit") {
+      const totalCount = imagePreview.length + files.length;
+      if (totalCount > MAX_TOTAL_IMAGES) {
+        toast.error(`Total images cannot exceed ${MAX_TOTAL_IMAGES}. You have ${imagePreview.length} existing images.`);
+        e.target.value = '';
+        return;
+      }
+    }
 
     // Check file sizes
     const oversizedFiles = files.filter(file => file.size > MAX_FILE_SIZE);
@@ -515,6 +560,16 @@ const ProjectPage = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-2">Media (Images & Videos)</label>
+                    <div className="mb-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                      <p className="text-xs sm:text-sm text-blue-800">
+                        <span className="font-semibold">Upload Limits:</span> Maximum {MAX_IMAGES_PER_UPLOAD} images per upload | Max 10MB per file
+                        {modalType === "edit" && (
+                          <span className="block mt-1">
+                            Current: {imagePreview.length}/{MAX_TOTAL_IMAGES} total images
+                          </span>
+                        )}
+                      </p>
+                    </div>
                     <div className={`border-2 border-dashed rounded-xl p-4 sm:p-6 text-center transition-colors ${isDragging ? "border-indigo-400 bg-indigo-50" : "border-slate-200"
                       }`}
                       onDrop={handleDrop}
@@ -527,6 +582,7 @@ const ProjectPage = () => {
                         onChange={handleImageChange}
                         className="hidden"
                         id="image-upload"
+                        multiple
                       />
                       <label htmlFor="image-upload" className="cursor-pointer block">
                         <Upload className="w-10 h-10 sm:w-12 sm:h-12 text-slate-400 mx-auto mb-2 sm:mb-3" />

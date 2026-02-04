@@ -35,7 +35,7 @@ export default function SimpleCard({ branch }) {
         </div>
 
         {/* Title & Subtitle */}
-        <div className="text-left">
+        <div className="text-left h-20 flex flex-col justify-start">
           <h3
             className={`text-xl font-extrabold tracking-tight text-white ${montserrat.className}`}
           >
