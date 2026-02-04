@@ -594,7 +594,7 @@ const ProjectPage = () => {
                         )}
                       </p>
                       <p className="text-xs text-blue-600 mt-1">
-                        💡 Tip: For best results, upload smaller batches of images to avoid upload errors.
+                        💡 Tip: For best results, try to upload smaller batches of images.
                       </p>
                     </div>
                     <div className={`border-2 border-dashed rounded-xl p-4 sm:p-6 text-center transition-colors ${isDragging ? "border-indigo-400 bg-indigo-50" : "border-slate-200"
