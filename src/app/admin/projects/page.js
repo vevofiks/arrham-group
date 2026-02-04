@@ -6,9 +6,10 @@ import ConfirmModal from "@/app/components/ConfirmModal";
 import { toast } from "sonner";
 import * as yup from "yup";
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB per file
 const MAX_IMAGES_PER_UPLOAD = 10; // Maximum images per upload
 const MAX_TOTAL_IMAGES = 20; // Maximum total images per project
+const MAX_TOTAL_PAYLOAD_SIZE = 3 * 1024 * 1024; // 3MB total payload (Vercel limit is 4.5MB, accounting for base64 encoding overhead)
 
 const ProjectPage = () => {
   const [projects, setProjects] = useState([]);
@@ -137,11 +138,19 @@ const ProjectPage = () => {
       }
     }
 
-    // Check file sizes
+    // Check individual file sizes
     const oversizedFiles = files.filter(file => file.size > MAX_FILE_SIZE);
     if (oversizedFiles.length > 0) {
       const fileInfo = oversizedFiles.map(f => `${f.name} (${(f.size / 1024 / 1024).toFixed(2)}MB)`).join(', ');
       toast.error(`File(s) exceed 10MB: ${fileInfo}`);
+      return;
+    }
+
+    // Check total payload size (for production deployment on Vercel)
+    const totalSize = files.reduce((sum, file) => sum + file.size, 0);
+    if (totalSize > MAX_TOTAL_PAYLOAD_SIZE) {
+      const totalSizeMB = (totalSize / 1024 / 1024).toFixed(2);
+      toast.error(`Total upload size (${totalSizeMB}MB) exceeds the 3MB limit. Please upload fewer or smaller images.`);
       return;
     }
 
@@ -178,11 +187,20 @@ const ProjectPage = () => {
       }
     }
 
-    // Check file sizes
+    // Check individual file sizes
     const oversizedFiles = files.filter(file => file.size > MAX_FILE_SIZE);
     if (oversizedFiles.length > 0) {
       const fileInfo = oversizedFiles.map(f => `${f.name} (${(f.size / 1024 / 1024).toFixed(2)}MB)`).join(', ');
       toast.error(`File(s) exceed 10MB: ${fileInfo}`);
+      e.target.value = '';
+      return;
+    }
+
+    // Check total payload size (for production deployment on Vercel)
+    const totalSize = files.reduce((sum, file) => sum + file.size, 0);
+    if (totalSize > MAX_TOTAL_PAYLOAD_SIZE) {
+      const totalSizeMB = (totalSize / 1024 / 1024).toFixed(2);
+      toast.error(`Total upload size (${totalSizeMB}MB) exceeds the 3MB limit. Please upload fewer or smaller images.`);
       e.target.value = '';
       return;
     }
@@ -251,9 +269,15 @@ const ProjectPage = () => {
       if (res.ok) {
         fetchProjects();
         closeModal();
+        toast.success(modalType === "create" ? "Project created successfully!" : "Project updated successfully!");
       } else {
         const errorData = await res.json();
-        toast.error(errorData.error || "Failed to save project.");
+        // Handle 413 error specifically
+        if (res.status === 413) {
+          toast.error("Upload too large! Please reduce the number or size of images and try again.");
+        } else {
+          toast.error(errorData.error || "Failed to save project.");
+        }
       }
     } catch (error) {
       console.error("Error saving project:", error);
@@ -562,12 +586,15 @@ const ProjectPage = () => {
                     <label className="block text-sm font-medium text-slate-700 mb-2">Media (Images & Videos)</label>
                     <div className="mb-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                       <p className="text-xs sm:text-sm text-blue-800">
-                        <span className="font-semibold">Upload Limits:</span> Maximum {MAX_IMAGES_PER_UPLOAD} images per upload | Max 10MB per file
+                        <span className="font-semibold">Upload Limits:</span> Max {MAX_IMAGES_PER_UPLOAD} images per upload | Max 10MB per file | Max 3MB total
                         {modalType === "edit" && (
                           <span className="block mt-1">
                             Current: {imagePreview.length}/{MAX_TOTAL_IMAGES} total images
                           </span>
                         )}
+                      </p>
+                      <p className="text-xs text-blue-600 mt-1">
+                        💡 Tip: For best results, upload smaller batches of images to avoid upload errors.
                       </p>
                     </div>
                     <div className={`border-2 border-dashed rounded-xl p-4 sm:p-6 text-center transition-colors ${isDragging ? "border-indigo-400 bg-indigo-50" : "border-slate-200"
