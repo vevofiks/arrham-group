@@ -6,10 +6,9 @@ import ConfirmModal from "@/app/components/ConfirmModal";
 import { toast } from "sonner";
 import * as yup from "yup";
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB per file
-const MAX_IMAGES_PER_UPLOAD = 10; // Maximum images per upload
-const MAX_TOTAL_IMAGES = 20; // Maximum total images per project
-const MAX_TOTAL_PAYLOAD_SIZE = 3 * 1024 * 1024; // 3MB total payload (Vercel limit is 4.5MB, accounting for base64 encoding overhead)
+const MAX_FILE_SIZE = 100 * 1024 * 1024; // Increased to 100MB as we bypass Vercel limits
+const MAX_IMAGES_PER_UPLOAD = 20; // Increased limit
+const MAX_TOTAL_IMAGES = 50; // Increased limit
 
 const ProjectPage = () => {
   const [projects, setProjects] = useState([]);
@@ -35,6 +34,7 @@ const ProjectPage = () => {
     images: [],
   });
   const [imagePreview, setImagePreview] = useState([]);
+  const [uploadProgress, setUploadProgress] = useState(null); // { current, total }
 
   // Helper to check if a URL or Base64 string is a video
   const isVideo = (url) => {
@@ -146,14 +146,6 @@ const ProjectPage = () => {
       return;
     }
 
-    // Check total payload size (for production deployment on Vercel)
-    const totalSize = files.reduce((sum, file) => sum + file.size, 0);
-    if (totalSize > MAX_TOTAL_PAYLOAD_SIZE) {
-      const totalSizeMB = (totalSize / 1024 / 1024).toFixed(2);
-      toast.error(`Total upload size (${totalSizeMB}MB) exceeds the 3MB limit. Please upload fewer or smaller images.`);
-      return;
-    }
-
     processFiles(files);
   };
 
@@ -196,7 +188,8 @@ const ProjectPage = () => {
       return;
     }
 
-    // Check total payload size (for production deployment on Vercel)
+    // Check total payload size - REMOVED since we bypass Vercel
+    /* 
     const totalSize = files.reduce((sum, file) => sum + file.size, 0);
     if (totalSize > MAX_TOTAL_PAYLOAD_SIZE) {
       const totalSizeMB = (totalSize / 1024 / 1024).toFixed(2);
@@ -204,6 +197,7 @@ const ProjectPage = () => {
       e.target.value = '';
       return;
     }
+    */
 
     processFiles(files);
   };
@@ -221,6 +215,45 @@ const ProjectPage = () => {
     description: yup.string().required("Description is required"),
   });
 
+  const uploadToCloudinary = async (file) => {
+    try {
+      const timestamp = Math.round(new Date().getTime() / 1000);
+      const folder = "projects";
+
+      // 1. Get signature from our API
+      const signRes = await fetch("/api/upload/sign", {
+        method: "POST",
+        body: JSON.stringify({ folder, timestamp }),
+      });
+      const { signature, api_key, cloud_name } = await signRes.json();
+
+      // 2. Upload directly to Cloudinary
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("api_key", api_key);
+      formData.append("timestamp", timestamp);
+      formData.append("signature", signature);
+      formData.append("folder", folder);
+
+      const uploadRes = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloud_name}/auto/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const result = await uploadRes.json();
+      if (result.secure_url) {
+        return result.secure_url;
+      }
+      throw new Error(result.error?.message || "Cloudinary upload failed");
+    } catch (error) {
+      console.error("Upload error:", error);
+      throw error;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -237,24 +270,40 @@ const ProjectPage = () => {
 
     setSubmitLoading(true);
 
-    const formDataToSend = new FormData();
-    formDataToSend.append("branchId", selectedBranch);
-    formDataToSend.append("name", formData.name);
-    formDataToSend.append("location", formData.location);
-    formDataToSend.append("status", formData.status);
-    formDataToSend.append("mainContractor", formData.mainContractor || "");
-    formDataToSend.append("clientName", formData.clientName || "");
-    formDataToSend.append("description", formData.description || "");
-
-    formData.images.forEach((image) => {
-      if (typeof image === "string") {
-        formDataToSend.append("existingImages", image);
-      } else if (image instanceof File) {
-        formDataToSend.append("images", image);
-      }
-    });
-
     try {
+      // 1. Upload new files directly to Cloudinary
+      const newMediaUrls = [];
+      const newFiles = formData.images.filter(img => img instanceof File);
+      
+      if (newFiles.length > 0) {
+        setUploadProgress({ current: 0, total: newFiles.length });
+        for (let i = 0; i < newFiles.length; i++) {
+          setUploadProgress({ current: i + 1, total: newFiles.length });
+          const url = await uploadToCloudinary(newFiles[i]);
+          newMediaUrls.push(url);
+        }
+      }
+
+      // 2. Prepare final form data (only URLs)
+      const formDataToSend = new FormData();
+      formDataToSend.append("branchId", selectedBranch);
+      formDataToSend.append("name", formData.name);
+      formDataToSend.append("location", formData.location);
+      formDataToSend.append("status", formData.status);
+      formDataToSend.append("mainContractor", formData.mainContractor || "");
+      formDataToSend.append("clientName", formData.clientName || "");
+      formDataToSend.append("description", formData.description || "");
+
+      // Send all URLs (existing + newly uploaded)
+      formData.images.forEach((image) => {
+        if (typeof image === "string") {
+          formDataToSend.append("existingImages", image);
+        }
+      });
+      newMediaUrls.forEach(url => {
+        formDataToSend.append("images", url);
+      });
+
       const url = modalType === "create"
         ? `/api/projects/`
         : `/api/projects/${selectedProject._id}/`;
@@ -272,18 +321,14 @@ const ProjectPage = () => {
         toast.success(modalType === "create" ? "Project created successfully!" : "Project updated successfully!");
       } else {
         const errorData = await res.json();
-        // Handle 413 error specifically
-        if (res.status === 413) {
-          toast.error("Upload too large! Please reduce the number or size of images and try again.");
-        } else {
-          toast.error(errorData.error || "Failed to save project.");
-        }
+        toast.error(errorData.error || "Failed to save project.");
       }
     } catch (error) {
       console.error("Error saving project:", error);
-      toast.error("An error occurred while saving.");
+      toast.error(error.message || "An error occurred while saving.");
     } finally {
       setSubmitLoading(false);
+      setUploadProgress(null);
     }
   };
 
@@ -586,17 +631,29 @@ const ProjectPage = () => {
                     <label className="block text-sm font-medium text-slate-700 mb-2">Media (Images & Videos)</label>
                     <div className="mb-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                       <p className="text-xs sm:text-sm text-blue-800">
-                        <span className="font-semibold">Upload Limits:</span> Max {MAX_IMAGES_PER_UPLOAD} images per upload | Max 10MB per file | Max 3MB total
+                        <span className="font-semibold">Upload Limits:</span> Max {MAX_IMAGES_PER_UPLOAD} images per upload | Max {MAX_FILE_SIZE / (1024*1024)}MB per file
                         {modalType === "edit" && (
                           <span className="block mt-1">
                             Current: {imagePreview.length}/{MAX_TOTAL_IMAGES} total images
                           </span>
                         )}
                       </p>
-                      <p className="text-xs text-blue-600 mt-1">
-                        💡 Tip: For best results, try to upload smaller batches of images.
-                      </p>
                     </div>
+                    
+                    {uploadProgress && (
+                      <div className="mb-4 p-3 bg-indigo-50 border border-indigo-200 rounded-lg animate-pulse">
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-xs font-semibold text-indigo-700">Uploading Media...</span>
+                          <span className="text-xs font-medium text-indigo-600">{uploadProgress.current}/{uploadProgress.total}</span>
+                        </div>
+                        <div className="w-full bg-indigo-200 rounded-full h-1.5">
+                          <div 
+                            className="bg-indigo-600 h-1.5 rounded-full transition-all duration-300" 
+                            style={{ width: `${(uploadProgress.current / uploadProgress.total) * 100}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    )}
                     <div className={`border-2 border-dashed rounded-xl p-4 sm:p-6 text-center transition-colors ${isDragging ? "border-indigo-400 bg-indigo-50" : "border-slate-200"
                       }`}
                       onDrop={handleDrop}
