@@ -3,6 +3,10 @@ import connectDB from "@/app/lib/mongodb";
 import Project from "@/app/models/Projects";
 import cloudinary from "@/app/lib/cloudinary";
 
+const MAX_IMAGES_PER_UPLOAD = 10;
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB per file
+const MAX_TOTAL_IMAGES = 20; // Maximum total images per project
+
 export async function PUT(request, { params }) {
     try {
         await connectDB();
@@ -24,6 +28,36 @@ export async function PUT(request, { params }) {
         const existingImages = formData.getAll("existingImages") || [];
         const newMedia = []; // Changed name to be more generic (Media instead of Images)
         const files = formData.getAll("images"); // Keeping 'images' as key or rename to 'media'
+
+        // Validate new file count
+        if (files.length > MAX_IMAGES_PER_UPLOAD) {
+            return NextResponse.json(
+                { error: `You can upload a maximum of ${MAX_IMAGES_PER_UPLOAD} images at once` },
+                { status: 400 }
+            );
+        }
+
+        // Validate total image count (existing + new)
+        const totalImageCount = existingImages.length + files.length;
+        if (totalImageCount > MAX_TOTAL_IMAGES) {
+            return NextResponse.json(
+                { error: `Total images cannot exceed ${MAX_TOTAL_IMAGES}. You have ${existingImages.length} existing images and are trying to add ${files.length} more.` },
+                { status: 400 }
+            );
+        }
+
+        // Validate file sizes
+        for (const file of files) {
+            if (file && file instanceof File) {
+                if (file.size > MAX_FILE_SIZE) {
+                    const fileSizeMB = (file.size / 1024 / 1024).toFixed(2);
+                    return NextResponse.json(
+                        { error: `File "${file.name}" exceeds the maximum size of 10MB (${fileSizeMB}MB)` },
+                        { status: 400 }
+                    );
+                }
+            }
+        }
 
         for (const file of files) {
             if (file && file instanceof File) {

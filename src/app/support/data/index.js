@@ -9,7 +9,7 @@ export const supportData = {
       "description": "Get help with product inquiries, pricing, and order placement. Our sales team is committed to ensuring a seamless purchasing experience.",
       "contact": {
         "email": "info@arrhamgroup.com",
-        "phone": "+973 17473535",
+        "phone": "+973 35351635",
         "availability": "8am to 8pm (Saturday - Thursday)",
       }
     },
@@ -19,7 +19,7 @@ export const supportData = {
       "description": "Our technical experts provide assistance with installation, troubleshooting, maintenance and online support for our products and various services.",
       "contact": {
         "email": "pm@arrhamgroup.com",
-        "phone": "+973 35351635",
+        "phone": "+973 17473535",
         "availability": "8am to 8pm (Saturday - Thursday)",
       }
     }

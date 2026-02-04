@@ -4,6 +4,9 @@ import Project from "@/app/models/Projects";
 import cloudinary from "@/app/lib/cloudinary";
 import Branch from "@/app/models/Branch";
 
+const MAX_IMAGES_PER_UPLOAD = 10;
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB per file
+
 export async function GET(request) {
   try {
     await connectDB();
@@ -51,6 +54,28 @@ export async function POST(req) {
     }
 
     const files = formData.getAll("images"); // This can now contain both images and videos
+    
+    // Validate file count
+    if (files.length > MAX_IMAGES_PER_UPLOAD) {
+      return NextResponse.json(
+        { error: `You can upload a maximum of ${MAX_IMAGES_PER_UPLOAD} images at once` },
+        { status: 400 }
+      );
+    }
+
+    // Validate file sizes
+    for (const file of files) {
+      if (file && file instanceof File) {
+        if (file.size > MAX_FILE_SIZE) {
+          const fileSizeMB = (file.size / 1024 / 1024).toFixed(2);
+          return NextResponse.json(
+            { error: `File "${file.name}" exceeds the maximum size of 10MB (${fileSizeMB}MB)` },
+            { status: 400 }
+          );
+        }
+      }
+    }
+
     const uploadedUrls = [];
 
     for (const file of files) {
