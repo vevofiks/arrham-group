@@ -53,44 +53,7 @@ export async function POST(req) {
       return NextResponse.json({ error: "clientName is required" }, { status: 400 });
     }
 
-    const files = formData.getAll("images"); // This can now contain both images and videos
-    
-    // Validate file count
-    if (files.length > MAX_IMAGES_PER_UPLOAD) {
-      return NextResponse.json(
-        { error: `You can upload a maximum of ${MAX_IMAGES_PER_UPLOAD} images at once` },
-        { status: 400 }
-      );
-    }
-
-    // Validate file sizes
-    for (const file of files) {
-      if (file && file instanceof File) {
-        if (file.size > MAX_FILE_SIZE) {
-          const fileSizeMB = (file.size / 1024 / 1024).toFixed(2);
-          return NextResponse.json(
-            { error: `File "${file.name}" exceeds the maximum size of 10MB (${fileSizeMB}MB)` },
-            { status: 400 }
-          );
-        }
-      }
-    }
-
-    const uploadedUrls = [];
-
-    for (const file of files) {
-      if (file && file instanceof File) {
-        const buffer = Buffer.from(await file.arrayBuffer());
-        const base64String = `data:${file.type};base64,${buffer.toString("base64")}`;
-
-        const uploadRes = await cloudinary.uploader.upload(base64String, {
-          folder: "projects",
-          resource_type: "auto", // CRITICAL: Detects if it's a video or image
-        });
-
-        uploadedUrls.push(uploadRes.secure_url);
-      }
-    }
+    const imageUrls = formData.getAll("images"); // Expecting strings (URLs) now
 
     const newProject = await Project.create({
       branchId,
@@ -100,28 +63,14 @@ export async function POST(req) {
       status,
       mainContractor,
       clientName,
-      images: uploadedUrls, // Array contains mixed Image and Video URLs
+      images: imageUrls, // Array contains mixed Image and Video URLs
     });
 
     return NextResponse.json(newProject, { status: 201 });
   } catch (error) {
     console.error("Error creating project:", error);
-    
-    // Log additional details for debugging
-    if (error.message) {
-      console.error("Error message:", error.message);
-    }
-    
-    // Handle specific error types
-    if (error.name === 'PayloadTooLargeError' || error.code === 'LIMIT_FILE_SIZE') {
-      return NextResponse.json(
-        { error: "Upload size exceeds limit. Please reduce the number or size of images." },
-        { status: 413 }
-      );
-    }
-    
     return NextResponse.json(
-      { error: "Failed to create project. Please try again with fewer or smaller images." },
+      { error: "Failed to create project." },
       { status: 500 }
     );
   }

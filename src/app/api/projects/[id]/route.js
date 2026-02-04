@@ -26,64 +26,9 @@ export async function PUT(request, { params }) {
         }
 
         const existingImages = formData.getAll("existingImages") || [];
-        const newMedia = []; // Changed name to be more generic (Media instead of Images)
-        const files = formData.getAll("images"); // Keeping 'images' as key or rename to 'media'
+        const newImages = formData.getAll("images") || []; // Expecting URLs now
 
-        // Validate new file count
-        if (files.length > MAX_IMAGES_PER_UPLOAD) {
-            return NextResponse.json(
-                { error: `You can upload a maximum of ${MAX_IMAGES_PER_UPLOAD} images at once` },
-                { status: 400 }
-            );
-        }
-
-        // Validate total image count (existing + new)
-        const totalImageCount = existingImages.length + files.length;
-        if (totalImageCount > MAX_TOTAL_IMAGES) {
-            return NextResponse.json(
-                { error: `Total images cannot exceed ${MAX_TOTAL_IMAGES}. You have ${existingImages.length} existing images and are trying to add ${files.length} more.` },
-                { status: 400 }
-            );
-        }
-
-        // Validate file sizes
-        for (const file of files) {
-            if (file && file instanceof File) {
-                if (file.size > MAX_FILE_SIZE) {
-                    const fileSizeMB = (file.size / 1024 / 1024).toFixed(2);
-                    return NextResponse.json(
-                        { error: `File "${file.name}" exceeds the maximum size of 10MB (${fileSizeMB}MB)` },
-                        { status: 400 }
-                    );
-                }
-            }
-        }
-
-        for (const file of files) {
-            if (file && file instanceof File) {
-                const arrayBuffer = await file.arrayBuffer();
-                const buffer = Buffer.from(arrayBuffer);
-
-                const uploaded = await new Promise((resolve, reject) => {
-                    cloudinary.uploader
-                        .upload_stream(
-                            { 
-                                folder: "projects", 
-                                resource_type: "auto" // CRITICAL: Detects if it's a video or image
-                            }, 
-                            (error, result) => {
-                                if (error) reject(error);
-                                else resolve(result);
-                            }
-                        )
-                        .end(buffer);
-                });
-
-                newMedia.push(uploaded.secure_url);
-            }
-        }
-
-        const finalMedia = [...existingImages, ...newMedia];
+        const finalMedia = [...existingImages, ...newImages];
 
         const updateData = {
             name,
@@ -104,20 +49,6 @@ export async function PUT(request, { params }) {
         return NextResponse.json({ success: true, data: project });
     } catch (err) {
         console.error("PUT error:", err);
-        
-        // Log additional details for debugging
-        if (err.message) {
-            console.error("Error message:", err.message);
-        }
-        
-        // Handle specific error types
-        if (err.name === 'PayloadTooLargeError' || err.code === 'LIMIT_FILE_SIZE') {
-            return NextResponse.json(
-                { error: "Upload size exceeds limit. Please reduce the number or size of images." },
-                { status: 413 }
-            );
-        }
-        
         return NextResponse.json(
             { error: err.message || "Failed to update project" },
             { status: 400 }
